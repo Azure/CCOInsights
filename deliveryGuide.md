@@ -28,6 +28,7 @@ Below you can find the list of providers and the actions that the customer will 
 ## APIs in use
 <div style="text-align: justify">
 The Continuous Optimization Power BI Dashboard pulls the information from several APIs. You can read the public documentation if you need further information about the calls and methods available:
+
 </div>
 
 | API Name| Dashboard API Version | Azure last API version | Using last version|
@@ -49,9 +50,10 @@ The Continuous Optimization Power BI Dashboard pulls the information from severa
 
 ## Resource Providers requirements
 <div style="text-align: justify">
-Although some of the Resource Providers should be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** are registered across all the customer subscriptions if you want to provide optimizations recommendations and resources availability information.
+Although some of the Resource Providers should be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** are registered across all the customer subscriptions if you want to provide optimizations recommendations and resources availability information.<br><br>
 
 Registering these 3 Resource Providers has no cost or performance penalty on the customer subscription:
+
 1. Click on **Subscriptions**.
 1. Click on the Subscription name you want to configure.
 1. Click on **Resource Providers**.
@@ -59,7 +61,7 @@ Registering these 3 Resource Providers has no cost or performance penalty on the
 1. Click on **Microsoft.Resourcehealth** and **Register**.
 1. Click on **Microsoft.Security** and **Register**.
 
-![alt text](/Images/resourceproviders.png)
+![resource providers](/images/resourceproviders.png)
 
 ## Azure Advisor Recommendations
 The Continuous Optimization Power BI Dashboard will directly pull data from Azure Advisor REST APIs to aggregate all the information across the customer subscriptions. This requires generating the recommendations before the first time we load the template. Otherwise the Dashboard will be empty or will fail because it was unable to download any data.

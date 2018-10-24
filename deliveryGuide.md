@@ -1,5 +1,5 @@
 # Continuous Cloud Optimization
-
+<div style="text-align: justify">
 This directory will serve as reference for repeatable items in the project such as PowerBI templates or README.md files.
 
 Every time that we need to create any new item of this kind, we will copy the latest version of the template found in the master branch and start coding.
@@ -18,17 +18,20 @@ The Continuous Optimization Power BI Dashboard is a report that uses information
 - An Azure account on the customer tenant space with permissions on the subscriptions to read Azure Advisor Recommendations and Security Center Recommendations information.
 
 Below you can find the list of providers and the actions that the customer will need to allow to run the CCO Power BI Dashboard:
+</div>
 
 | Resource Provider Name| Permissions |
 | --- | --- |
 |Azure Advisor| Microsoft.Advisor/generateRecommendations/action <br> Microsoft.Advisor/Recommendations/Read|
 |Azure Security|Microsoft.Security/tasks/read<br> Microsoft.Security/Alerts/Read<br>Microsoft.Security/Policies/Read<br>Microsoft.Security/locations/alerts/read|
 
-
 ## APIs in use
+<div style="text-align: justify">
 The Continuous Optimization Power BI Dashboard pulls the information from several APIs. You can read the public documentation if you need further information about the calls and methods available:
+</div>
+
 | API Name| Dashboard API Version | Azure last API version | Using last version|
-| --- | --- | --- |--- |
+| --- | :---: | :---: |:---: |
 | [Azure Advisor](https://docs.microsoft.com/en-us/rest/api/advisor/) | 2017-03-31|2017-04-19|:x:|
 | [Azure Security Center](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2015-06-01-preview |2015-06-01-preview|:heavy_check_mark:|
 | [Azure Kubernetes Service](https://docs.microsoft.com/en-us/rest/api/aks) | 2018-03-31|2018-03-31|:heavy_check_mark:|
@@ -45,14 +48,18 @@ The Continuous Optimization Power BI Dashboard pulls the information from severa
 | [Azure Active Directory Graph API](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-graph-api) | 1.6|1.6 |:heavy_check_mark:|
 
 ## Resource Providers requirements
+<div style="text-align: justify">
 Although some of the Resource Providers should be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** are registered across all the customer subscriptions if you want to provide optimizations recommendations and resources availability information.
 
-Registering these 2 Resource Providers has no cost or performance penalty on the customer subscription:
-- Click on **Subscriptions**.
-- Click on the Subscription name you want to configure.
-- Click on **Resource Providers**.
-- Click on **Microsoft.Resourcehealth** and **Register**.
-- Click on **Microsoft.Security** and **Register**.
+Registering these 3 Resource Providers has no cost or performance penalty on the customer subscription:
+1. Click on **Subscriptions**.
+1. Click on the Subscription name you want to configure.
+1. Click on **Resource Providers**.
+1. Click on **Microsoft.Advisor** and **Register**.
+1. Click on **Microsoft.Resourcehealth** and **Register**.
+1. Click on **Microsoft.Security** and **Register**.
+
+![alt text](/Images/resourceproviders.png)
 
 ## Azure Advisor Recommendations
 The Continuous Optimization Power BI Dashboard will directly pull data from Azure Advisor REST APIs to aggregate all the information across the customer subscriptions. This requires generating the recommendations before the first time we load the template. Otherwise the Dashboard will be empty or will fail because it was unable to download any data.
@@ -86,17 +93,17 @@ If the permissions and Credentials are properly flushed it should ask you for cr
 
 - Click on **Refresh**
 
-### Credentials for management.azure.com REST API request:
+### Credentials for <span>management.azure.com</span> REST API request:
 - Click on **Organizational Account**
 - Click on **Sign in**
 - Click on **Connect**
 
-### Credentials for graph.windows.net API
+### Credentials for <span>graph.windows.net</span> API
 - Click on **Organizational Account**
 - Click on **Sign in**
 - Click on **Connect**
 
-### Credentials for api.loganalytics.io API
+### Credentials for <span>api.loganalytics.io</span> API
 - Click on **Organizational Account**
 - Click on **Sign in**
 - Click on **Connect**
@@ -183,9 +190,10 @@ You can filter the information by:
 - Subscription.
 - AKS Cluster.
 - Namespace.
-- CLuster Node.
+- Cluster Node.
 
 **IMPORTANT**: to receive all the information related to the Pods, Containers and Container Images a log analytics workspace configured and running is required.
+</div>
 
 # Scripts
 

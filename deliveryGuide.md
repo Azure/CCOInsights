@@ -1,6 +1,5 @@
 # Continuous Cloud Optimization
 <div style="text-align: justify">
-<p align="justify">
 This directory will serve as reference for repeatable items in the project such as PowerBI templates or README.md files.
 
 Every time that we need to create any new item of this kind, we will copy the latest version of the template found in the master branch and start coding.
@@ -20,7 +19,6 @@ The Continuous Optimization Power BI Dashboard is a report that uses information
 - An Azure account on the customer tenant space with permissions on the subscriptions to read Azure Advisor Recommendations and Security Center Recommendations information.
 
 Below you can find the list of providers and the actions that the customer will need to allow to run the CCO Power BI Dashboard:
-</p>
 </div>
 
 | Resource Provider Name| Permissions |
@@ -67,9 +65,12 @@ Registering these 3 Resource Providers has no cost or performance penalty on the
 ![resource providers](/images/resourceproviders.png)
 
 ## Azure Advisor Recommendations
+Azure Advisor is a personalized cloud consultant that helps you follow best practices to optimize your Azure deployments. It analyzes your resource configuration and usage telemetry. It then recommends solutions to help improve the performance, security, and high availability of your resources while looking for opportunities to reduce your overall Azure spend.
+
 The Continuous Optimization Power BI Dashboard will directly pull data from Azure Advisor REST APIs to aggregate all the information across the customer subscriptions. This requires generating the recommendations before the first time we load the template. Otherwise the Dashboard will be empty or will fail because it was unable to download any data.
 
-Azure Advisor is a personalized cloud consultant that helps you follow best practices to optimize your Azure deployments. It analyzes your resource configuration and usage telemetry. It then recommends solutions to help improve the performance, security, and high availability of your resources while looking for opportunities to reduce your overall Azure spend.
+To do so, you need to generate the recommendations for the first time manually from the Azure Portal, or you the script [GenerateAllSubscriptionsAdvisorRecommendations.ps1](/scripts/GenerateAllSubsAdvisorRecommendations)
+
 
 ## Azure Security Center Recommendations
 Azure Security Center provides unified security management and advanced threat protection for workloads running in Azure, on-premises, and in other clouds. It delivers visibility and control over hybrid cloud workloads, active defenses that reduce your exposure to threats, and intelligent detection to help you keep pace with rapidly evolving cyber-attacks.

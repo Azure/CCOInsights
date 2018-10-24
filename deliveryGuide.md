@@ -1,11 +1,7 @@
 # Continuous Cloud Optimization Power BI Dashboard
 <div style="text-align: justify">
-This directory will serve as reference for repeatable items in the project such as PowerBI templates or README.md files.
 
-Every time that we need to create any new item of this kind, we will copy the latest version of the template found in the master branch and start coding.
-
-
-## Power BI Dashboard 
+## Intro
 The Continuous Optimization Power BI Dashboard is a report that uses information directly from different external Azure APIs to display aggregated recommendations for **high-availability**, **security**, **performance** and **cost** for all the subscriptions that the Azure's customer account has access.
 
 ### Requirements

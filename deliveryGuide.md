@@ -1,4 +1,4 @@
-# Continuous Cloud Optimization
+# Continuous Cloud Optimization Power BI Dashboard
 <div style="text-align: justify">
 This directory will serve as reference for repeatable items in the project such as PowerBI templates or README.md files.
 
@@ -69,7 +69,7 @@ Azure Advisor is a personalized cloud consultant that helps you follow best prac
 
 The Continuous Optimization Power BI Dashboard will directly pull data from Azure Advisor REST APIs to aggregate all the information across the customer subscriptions. This requires generating the recommendations before the first time we load the template. Otherwise the Dashboard will be empty or will fail because it was unable to download any data.
 
-To do so, you need to generate the recommendations for the first time manually from the Azure Portal, or you the script [GenerateAllSubscriptionsAdvisorRecommendations.ps1](/scripts/GenerateAllSubsAdvisorRecommendations)
+To do so, you need to generate the recommendations for the first time manually from the Azure Portal, or you the script [GenerateAllSubscriptionsAdvisorRecommendations.ps1](/scripts/GenerateAllSubsAdvisorRecommendations.ps1)
 
 
 ## Azure Security Center Recommendations

@@ -4,7 +4,7 @@
 This directory will serve as reference for repeatable items in the project such as PowerBI templates or README.md files.
 
 Every time that we need to create any new item of this kind, we will copy the latest version of the template found in the master branch and start coding.
-</p>
+
 
 ## Power BI Dashboard 
 The Continuous Optimization Power BI Dashboard is a report that uses information directly from different external Azure APIs to display aggregated recommendations for **high-availability**, **security**, **performance** and **cost** for all the subscriptions that the Azure's customer account has access.
@@ -20,6 +20,7 @@ The Continuous Optimization Power BI Dashboard is a report that uses information
 - An Azure account on the customer tenant space with permissions on the subscriptions to read Azure Advisor Recommendations and Security Center Recommendations information.
 
 Below you can find the list of providers and the actions that the customer will need to allow to run the CCO Power BI Dashboard:
+</p>
 </div>
 
 | Resource Provider Name| Permissions |

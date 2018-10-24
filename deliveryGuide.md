@@ -1,0 +1,304 @@
+# Continuous Cloud Optimization
+
+This directory will serve as reference for repeatable items in the project such as PowerBI templates or README.md files.
+
+Every time that we need to create any new item of this kind, we will copy the latest version of the template found in the master branch and start coding.
+
+## Power BI Dashboard 
+The Continuous Optimization Power BI Dashboard is a report that uses information directly from different external Azure APIs to display aggregated recommendations for **high-availability**, **security**, **performance** and **cost** for all the subscriptions that the Azure's customer account has access.
+
+### Requirements
+
+- The Continuous Optimization Power BI Dashboard is a Power BI Template that requires to download and install the Microsoft Power BI Desktop Edition. 
+    -	Windows 10, Windows 7, Windows 8, Windows 8.1, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2
+    -	Microsoft Power BI Desktop requires Internet Explorer 9 or greater. 
+    -	Microsoft Power BI Desktop is available for 32-bit (x86) and 64-bit (x64) platforms.
+    -	Microsoft Power BI Desktop Edition [Download Location.](https://www.microsoft.com/en-us/download/details.aspx?id=45331)
+- Internet access from the computer running Microsoft Power BI desktop
+- An Azure account on the customer tenant space with permissions on the subscriptions to read Azure Advisor Recommendations and Security Center Recommendations information.
+
+Below you can find the list of providers and the actions that the customer will need to allow to run the CCO Power BI Dashboard:
+
+| Resource Provider Name| Permissions |
+| --- | --- |
+|Azure Advisor| Microsoft.Advisor/generateRecommendations/action <br> Microsoft.Advisor/Recommendations/Read|
+|Azure Security|Microsoft.Security/tasks/read<br> Microsoft.Security/Alerts/Read<br>Microsoft.Security/Policies/Read<br>Microsoft.Security/locations/alerts/read|
+
+
+## APIs in use
+The Continuous Optimization Power BI Dashboard pulls the information from several APIs. You can read the public documentation if you need further information about the calls and methods available:
+| API Name| Dashboard API Version | Azure last API version | Using last version|
+| --- | --- | --- |--- |
+| [Azure Advisor](https://docs.microsoft.com/en-us/rest/api/advisor/) | 2017-03-31|2017-04-19|:x:|
+| [Azure Security Center](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2015-06-01-preview |2015-06-01-preview|:heavy_check_mark:|
+| [Azure Kubernetes Service](https://docs.microsoft.com/en-us/rest/api/aks) | 2018-03-31|2018-03-31|:heavy_check_mark:|
+| [Azure Compute](https://docs.microsoft.com/en-us/rest/api/compute) | 2017-12-01|2018-10-01|:x:|
+| [Azure Virtual Networks]( https://docs.microsoft.com/en-us/rest/api/virtual-network) | 2017-09-01|2018-08-01|:x:|
+| [Azure Network Interfaces](https://docs.microsoft.com/en-us/rest/api/virtualnetwork/networkinterfaces) |2017-10-01 |2018-08-01|:x:|
+| [Resource Groups](https://docs.microsoft.com/en-us/rest/api/resources/resourcegroups)  |2017-05-10 |2018-08-01|:x:|
+| [Azure Resources](https://docs.microsoft.com/en-us/rest/api/resources/resources)  |2017-05-10 |2018-08-01|:x:|
+| [Azure Subscriptions](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions)  |2016-06-01 |2018-08-01|:x:|
+| [Azure Locations](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2016-06-01 |2018-08-01|:x:|
+| [Azure Role Assignments](https://docs.microsoft.com/en-us/rest/api/authorization/roleassignments) |2015-07-01 |2018-09-01-preview|:x:|
+| [Azure Container Registry](https://docs.microsoft.com/en-us/rest/api/containerregistry/)  | 2017-10-01|2017-10-01|:heavy_check_mark:|
+| <span style="color:#0088cc">Log Analytics Rest API </span> ([1](https://docs.microsoft.com/en-us/rest/api/loganalytics/), [2](https://dev.loganalytics.io/))  |v1 |v1|:heavy_check_mark:|
+| [Azure Active Directory Graph API](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-graph-api) | 1.6|1.6 |:heavy_check_mark:|
+
+## Resource Providers requirements
+Although some of the Resource Providers should be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** are registered across all the customer subscriptions if you want to provide optimizations recommendations and resources availability information.
+
+Registering these 2 Resource Providers has no cost or performance penalty on the customer subscription:
+- Click on **Subscriptions**.
+- Click on the Subscription name you want to configure.
+- Click on **Resource Providers**.
+- Click on **Microsoft.Resourcehealth** and **Register**.
+- Click on **Microsoft.Security** and **Register**.
+
+## Azure Advisor Recommendations
+The Continuous Optimization Power BI Dashboard will directly pull data from Azure Advisor REST APIs to aggregate all the information across the customer subscriptions. This requires generating the recommendations before the first time we load the template. Otherwise the Dashboard will be empty or will fail because it was unable to download any data.
+
+Azure Advisor is a personalized cloud consultant that helps you follow best practices to optimize your Azure deployments. It analyzes your resource configuration and usage telemetry. It then recommends solutions to help improve the performance, security, and high availability of your resources while looking for opportunities to reduce your overall Azure spend.
+
+## Azure Security Center Recommendations
+Azure Security Center provides unified security management and advanced threat protection for workloads running in Azure, on-premises, and in other clouds. It delivers visibility and control over hybrid cloud workloads, active defenses that reduce your exposure to threats, and intelligent detection to help you keep pace with rapidly evolving cyber-attacks.
+
+You can find more information at the official Azure Security Center site [here](https://docs.microsoft.com/en-us/azure/security-center/security-center-intro).
+
+Azure Security Center is offered in two tiers:
+- Free
+- Standard
+  
+The Standard tier is offered [free for the first 60 days](https://azure.microsoft.com/en-us/pricing/details/security-center/).
+
+# Get Started with the Continuous Optimization Power BI Dashboard
+## Credentials
+By default, the template doesn’t have the customer Azure Account credentials loaded. Hence, the first step to start showing customer subscriptions data is to sign-In with the right user credentials.
+
+### Clean Credentials on the Data Source
+In some cases, old credentials are cached by default by previous logins inside the data source settings and the dashboard shows errors or blank fields.
+
+- Click on Data sources in **Current file/Global permissions**
+- Click on **Clear Permissions**
+- Click on **Clear All Permissions**
+
+### Refresh the dashboard
+If the permissions and Credentials are properly flushed it should ask you for credentials for each REST API and you will have to set the Privacy Levels for each of them.
+
+- Click on **Refresh**
+
+### Credentials for management.azure.com REST API request:
+- Click on **Organizational Account**
+- Click on **Sign in**
+- Click on **Connect**
+
+### Credentials for graph.windows.net API
+- Click on **Organizational Account**
+- Click on **Sign in**
+- Click on **Connect**
+
+### Credentials for api.loganalytics.io API
+- Click on **Organizational Account**
+- Click on **Sign in**
+- Click on **Connect**
+
+### Privacy Levels Configuration for All APIs
+- On **Privacy levels…**
+- Select **Organizational**
+- Click on **Save**
+
+### Enter Access Web content credentials
+
+- Make sure that you select **Organization account** type
+- Click on **Sign in**
+
+# Tabs
+## CCO Dashboard overview tab
+In this tab, you will be able to identify the top 5 of recommendations that Azure Advisor and Azure Security Center has identified. You can also locate all the deployed resources in a map.
+It’s important to mention that this tab it’s just only to make a quick view. All the recommendations will be available with more details in the following tabs
+
+## Azure Advisor Recommendations Dashboard tab
+In second report tab, you will be able to identify the total amount of recommendations that Azure Advisor has identified, to what resources apply each recommendation and to what subscription is applicable.
+
+You can filter the information by:
+- Subscription.
+- Resource Group.
+- Resource type.
+- Recommendation type.
+
+It will also give a high-level overview of what subscriptions require more attention and has more recommendations to snooze or implement.
+
+If you press on an impacted resource you will see a quick description, the solution and in some cases a link to a website where you can find all the steps to solve the problem.
+
+## Azure Security Center Recommendations Dashboard tab
+In this tab, you will be able to identify the total amount of recommendations that Azure Security Center has detected, to what resources apply each recommendation and to what subscription is impacting.
+
+You can filter the information by:
+- Subscription.
+- Resource Group.
+- Task State.
+- Resource Type.
+  
+It will also give a high-level overview of what subscriptions require more attention and has more recommendations to snooze or implement.
+
+## Azure Security Center Alerts Dashboard tab
+The fourth tab is used to show the Azure Security Center Advanced Threat Analytics Alerts from all the subscriptions a given Azure account has access to. Is important to remark that subscriptions will need to use the Standard plan if the customer wants to detect and see the alerts in the Power BI Dashboard.
+
+You can filter the information by:
+- Data range.
+- Subscription.
+- Attack type.
+
+## Azure VNETs and Subnets Recommendations Dashboard tab
+In this tab, you will be able to identify VNETs with only one subnet, if there are any VNET peering and if some of the subnets is exhausting its IP Pool. 
+
+You can filter the information by:
+- Subscription.
+- Resource Group.
+- VNET.
+- Subnet.
+- Networking Interface.
+
+**IMPORTANT**: It is important to mention that although a VNET with only one subnet it might not be an issue, it might be a good argument to start the conversation with the customer about the existing architecture and how they can potentially improve their security by segmenting their VNETs based on different application tiers or isolation purposes.
+
+## Azure Compute Dashboard tab
+In this tab, you will be able to identify the number of VMs, the Operating System, the SKU, the Availability Set name, the location, the VM Size, the VNET and subnet each VM is connected, the private IP address and if the VM has any extension installed.
+
+You can filter the information by:
+- Subscription.
+- Resource Group.
+- If the VM contains containers or no.
+- Vm extension.
+
+## Role Based Access Control Dashboard tab
+This tab is used to show the Azure RBAC permissions from all the subscriptions a given Azure account has access to. You will be able to identify the roles applied to all Azure resources and if the subscriptions have custom roles.
+
+You can filter the information by:
+- Subscription.
+- Resource type.
+
+## Azure Kubernetes Service Dashboard tab
+In this page, you will be able to identify the number of AKS Clusters, Nodes, Pods, Containers and Container images. All the information related to these resources will be shown (IPs, pods in use, status, network, image repositories, …).
+
+You can filter the information by:
+- Subscription.
+- AKS Cluster.
+- Namespace.
+- CLuster Node.
+
+**IMPORTANT**: to receive all the information related to the Pods, Containers and Container Images a log analytics workspace configured and running is required.
+
+# Scripts
+
+## Generate All Subscriptions Advisor Recommendations
+```
+Login-AzureRmAccount
+
+if (-not (Get-Module AzureRm.Profile))
+{
+Import-Module AzureRm.Profile
+}
+
+$azureRmProfileModuleVersion = (Get-Module AzureRm.Profile).Version
+# refactoring performed in AzureRm.Profile v3.0 or later
+if ($azureRmProfileModuleVersion.Major -ge 3)
+{
+$azureRmProfile = [Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureRmProfileProvider]::Instance.Profile
+if (-not $azureRmProfile.Accounts.Count)
+{
+Write-Error "Please run Login-AzureRmAccount before calling this function."
+       Break
+}
+}
+else
+{
+# AzureRm.Profile < v3.0
+$azureRmProfile = [Microsoft.WindowsAzure.Commands.Common.AzureRmProfileProvider]::Instance.Profile
+If (-not $azureRmProfile.Context.Account.Count)
+{
+Write-Error "Please run Login-AzureRmAccount before calling this function."
+       break
+}
+}
+$Timeout = 60
+$currentAzureContext = Get-AzureRmContext
+$profileClient = New-Object Microsoft.Azure.Commands.ResourceManager.Common.RMProfileClient($azureRmProfile)
+Write-Debug ("Getting access token for tenant" + $currentAzureContext.Subscription.TenantId)
+$token = $profileClient.AcquireAccessToken($currentAzureContext.Subscription.TenantId)
+$headers = @{"Authorization"="Bearer " + $token.AccessToken}
+Write-Debug $token.AccessToken
+$SubsList = Get-AzureRmSubscription | where {$_.state -eq "Enabled"}
+foreach ($sub in $SubsList)
+{
+$uri = ("https://management.azure.com/subscriptions/$sub/providers/Microsoft.Advisor/generateRecommendations?api-version=2017-03-31")
+Write-Debug ("POST {0}" -f $uri)
+$response = Invoke-WebRequest -Uri $uri -Method Post -Headers $headers
+$statusUri = $response.Headers.Location
+Write-Debug ("GET {0}" -f $statusUri)
+
+$secondsElapsed = 0
+while ($secondsElapsed -lt $Timeout)
+{
+$response = Invoke-WebRequest -Uri $statusUri -Method Get -Headers $headers
+if ($response.StatusCode -eq 204) {break}
+Write-Verbose ("Waiting for generation to complete for subscription {0}..." -f $sub)
+Start-Sleep -Seconds 1
+$secondsElapsed++
+}
+$result = New-Object PSObject -Property @{"SubscriptionId" = $sub; "Status" = "Success"; "SecondsElapsed" = $secondsElapsed}
+if ($secondsElapsed -ge $Timeout)
+{
+$result.Status = "Timed out"
+}
+Write-Output $result
+}
+```
+
+## PowerBI Dashboard Read Permissions Role
+```
+Login-AzureRmAccount
+$RoleName = "Continuous Optimization Power BI Dashboard Reader"
+Get-AzureRmRoleDefinition $RoleName | Remove-AzureRmRoleDefinition
+$SubsList = Get-AzureRmSubscription
+$role = Get-AzureRmRoleDefinition "Contributor"
+$role.Id = $null
+$role.Name = $RoleName
+$role.Description = $RoleName
+$role.Actions.Clear()
+
+#Azure Advisor Resource Provider Permissions
+$role.Actions.Add("Microsoft.Advisor/generateRecommendations/action")
+$role.Actions.Add("Microsoft.Advisor/Recommendations/Read")
+
+#Azure Security Resource Provider Permissions
+$role.Actions.Add("Microsoft.Security/tasks/read")
+$role.Actions.Add("Microsoft.Security/Alerts/Read")
+$role.Actions.Add("Microsoft.Security/Policies/Read")
+$role.Actions.Add("Microsoft.Security/locations/alerts/read")
+
+#Azure ResourceHealth Resource Provider Permissions
+$role.Actions.Add("Microsoft.Resourcehealth/AvailabilityStatuses/read")
+$role.Actions.Add("Microsoft.Resourcehealth/AvailabilityStatuses/current/read")
+$role.AssignableScopes.Clear()
+
+foreach($Sub in $SubsList)
+{
+$temp = $Sub.SubscriptionID
+$role.AssignableScopes.Add("/subscriptions/$temp")
+}
+
+New-AzureRmRoleDefinition -Role $role
+```
+## Check last Azure API version
+```
+Login-AzureRmAccount
+#Get-AzureRmSubscription | Out-GridView -PassThru
+$providers = Get-AzureRmResourceProvider 
+$providers | %{    "******************************************************************"
+    "### Provider:          "+$_.ProviderNamespace
+    $resourcetypes = (Get-AzureRmResourceProvider -ProviderNamespace $_.ProviderNamespace).ResourceTypes
+    "### Resource Types:    " + ((Get-AzureRmResourceProvider -ProviderNamespace $_.ProviderNamespace).ResourceTypes).count
+    ""
+    $resourcetypes | %{"- Resource Type Name:  " + $_.ResourceTypeName 
+    "- API last version:    " + ($_.ApiVersions | Select-Object -First 1)
+    ""}}
+```

@@ -77,7 +77,7 @@ Azure Security Center is offered in two tiers:
   
 The Standard tier is offered [free for the first 60 days](https://azure.microsoft.com/en-us/pricing/details/security-center/).
 
-# Get Started with the Continuous Optimization Power BI Dashboard
+# Setting up the Continuous Optimization Power BI Dashboard
 ## Credentials
 By default, the template doesn’t have the customer Azure Account credentials loaded. Hence, the first step to start showing customer subscriptions data is to sign-In with the right user credentials.
 

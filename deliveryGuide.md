@@ -79,10 +79,10 @@ The Standard tier is offered [free for the first 60 days](https://azure.microsof
 
 # Setting up the Continuous Optimization Power BI Dashboard
 ## Credentials
-By default, the template doesn’t have the customer Azure Account credentials loaded. Hence, the first step to start showing customer subscriptions data is to sign-In with the right user credentials.
+By default, the template doesn’t have any Azure Account credentials preloaded. Hence, the first step to start showing subscriptions data is to sign-in with the right user credentials.
 
 ### Clean Credentials on the Data Source
-In some cases, old credentials are cached by default by previous logins inside the data source settings and the dashboard shows errors or blank fields.
+In some cases, old credentials are cached by previous logins using Power BI Desktop and the dashboard might show errors or blank fields.
 
 - Click on Data sources in **Current file/Global permissions**
 - Click on **Clear Permissions**

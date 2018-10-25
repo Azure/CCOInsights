@@ -45,7 +45,7 @@ The Continuous Optimization Power BI Dashboard pulls the information from severa
 
 ## Resource Providers requirements
 <div style="text-align: justify">
-Although some of the Resource Providers should be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** are registered across all the customer subscriptions if you want to provide optimizations recommendations and resources availability information.<br><br>
+Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** resource providers are registered across all the  subscriptions that you plan analyze using the Dashboard. Otherwise, the Azure Advisor and the Azure Security Center.<br><br>
 
 Registering these 3 Resource Providers has no cost or performance penalty on the customer subscription:
 

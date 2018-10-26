@@ -43,8 +43,10 @@ The Continuous Optimization Power BI Dashboard pulls the information from severa
 | <span style="color:#0088cc">Log Analytics Rest API </span> ([1](https://docs.microsoft.com/en-us/rest/api/loganalytics/), [2](https://dev.loganalytics.io/))  |v1 |v1|:heavy_check_mark:|
 | [Azure Active Directory Graph API](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-graph-api) | 1.6|1.6 |:heavy_check_mark:|
 
-## Resource Providers requirements
 <div style="text-align: justify">
+
+## Resource Providers requirements
+
 Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** resource providers are registered across all the  subscriptions that you plan analyze using the Dashboard. Otherwise, the Azure Advisor and the Azure Security Center.<br><br>
 
 Registering these 3 Resource Providers has no cost or performance penalty on the customer subscription:

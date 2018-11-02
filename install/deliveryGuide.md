@@ -58,7 +58,7 @@ Registering these 3 Resource Providers has no cost or performance penalty on the
 5. Click on **Microsoft.Resourcehealth** and **Register**.
 1. Click on **Microsoft.Security** and **Register**.
 
-![resource providers](/images/resourceproviders.png)
+![resource providers](/install/images/resourceproviders.png)
 
 ## Azure Advisor Recommendations
 Azure Advisor is a personalized cloud consultant that helps you follow best practices to optimize your Azure deployments. It analyzes your resource configuration and usage telemetry. It then recommends solutions to help improve the performance, security, and high availability of your resources while looking for opportunities to reduce your overall Azure spend.

@@ -3,8 +3,8 @@
 
 ## Content
 
-- [Overview] (README.md#overview)
-- [Current Dashboard Pages] (README.md#Current-Dashboard-Pages)
+- [Overview](README.md#overview)
+- [Current Dashboard Pages](README.md#Current-Dashboard-Pages)
 -------------------------------
 
 

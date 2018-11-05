@@ -8,7 +8,7 @@ The Continuous Cloud Optimization Power BI Dashboard is a report that aims to ag
 ### Requirements
 
 - The Continuous Optimization Power BI Dashboard is a Power BI Template that requires to download and install the Microsoft Power BI Desktop Edition from the Microsoft Store. Below you can find the minimum requirements to run the Dashboard
-    -	Windows 10 version 14393.0 or higher
+    -	Windows 10 version **14393.0** or **higher**
     -	Internet access from the computer running Microsoft Power BI desktop
 - An Azure account on the customer tenant space with permissions on the subscriptions to read from the Azure Services described above
 
@@ -43,8 +43,10 @@ The Continuous Optimization Power BI Dashboard pulls the information from severa
 | <span style="color:#0088cc">Log Analytics Rest API </span> ([1](https://docs.microsoft.com/en-us/rest/api/loganalytics/), [2](https://dev.loganalytics.io/))  |v1 |v1|:heavy_check_mark:|
 | [Azure Active Directory Graph API](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-graph-api) | 1.6|1.6 |:heavy_check_mark:|
 
-## Resource Providers requirements
 <div style="text-align: justify">
+
+## Resource Providers requirements
+
 Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** resource providers are registered across all the  subscriptions that you plan analyze using the Dashboard. Otherwise, the Azure Advisor and the Azure Security Center.<br><br>
 
 Registering these 3 Resource Providers has no cost or performance penalty on the customer subscription:
@@ -56,7 +58,7 @@ Registering these 3 Resource Providers has no cost or performance penalty on the
 5. Click on **Microsoft.Resourcehealth** and **Register**.
 1. Click on **Microsoft.Security** and **Register**.
 
-![resource providers](/images/resourceproviders.png)
+![resource providers](/install/images/resourceproviders.png)
 
 ## Azure Advisor Recommendations
 Azure Advisor is a personalized cloud consultant that helps you follow best practices to optimize your Azure deployments. It analyzes your resource configuration and usage telemetry. It then recommends solutions to help improve the performance, security, and high availability of your resources while looking for opportunities to reduce your overall Azure spend.

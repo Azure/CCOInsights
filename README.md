@@ -1,5 +1,15 @@
 
-# Contributing
+# Continuous Cloud Optimization Power BI Dashboard
+
+## Content
+
+- [Overview] (README.md#overview)
+- [Current Dashboard Pages] (README.md#Current-Dashboard-Pages)
+-------------------------------
+
+
+## Overview
+The Continuous Cloud Optimziation Power BI Dashboard (referred as CCO Dashboard moving forward) is a Power BI Dashboard developed using Power Query M queries that pulls information directly from diferent Azure REST APIs. I presents the information in a simpliflied format to track potential recommendations from Azure Advisor or Azure Security Center allowing you to filter by subscriptions, resources groups, tags or particular resources.
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us

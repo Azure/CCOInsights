@@ -107,28 +107,28 @@ In some cases, old credentials are cached by previous logins using Power BI Desk
 - Click on **Clear Permissions**.
 - Click on **Clear All Permissions**.
 
-![credentials1](/install/images/credentials1.png) ![credentials2](/install/images/credentials2.png)
+![credentials1](/install/images/Credentials1.png) ![credentials2](/install/images/Credentials2.png)
 
 ### Refresh the dashboard
 If the permissions and Credentials are properly flushed it should ask you for credentials for each REST API and you will have to set the Privacy Levels for each of them.
 
 - Click on **Refresh**.
   
-![credentials3](/install/images/credentials3.png)
+![credentials3](/install/images/Credentials3.png)
 
 ### Credentials for <span>management.azure.com</span> REST API request:
 - Click on **Organizational Account**.
 - Click on **Sign in**.
 - Click on **Connect**.
   
-![credentials4](/install/images/credentials4.png)
+![credentials4](/install/images/Credentials4.png)
 
 ### Credentials for <span>graph.windows.net</span> API
 - Click on **Organizational Account**.
 - Click on **Sign in**.
 - Click on **Connect**.
 
-![credentials5](/install/images/credentials5.png)
+![credentials5](/install/images/Credentials5.png)
 
 ### Credentials for <span>api.loganalytics.io</span> API
 - Click on **Organizational Account**.
@@ -142,21 +142,21 @@ If the permissions and Credentials are properly flushed it should ask you for cr
 - Select **Organizational**.
 - Click on **Save**.
 
-![credentials6](/install/images/credentials6.png)
+![credentials6](/install/images/Credentials6.png)
 
 ### Enter Access Web content credentials
 
 - Make sure that you select **Organization account** type.
 - Click on **Sign in**.
   
-![credentials7](/install/images/credentials7.png)
+![credentials7](/install/images/Credentials7.png)
 
 # Tabs
 ## CCO Dashboard overview tab
 In this tab, you will be able to identify the top 5 of recommendations that Azure Advisor and Azure Security Center has identified. You can also locate all the deployed resources in a map.
 It’s important to mention that this tab it’s just only to make a quick view. All the recommendations will be available with more details in the following tabs
 
-![overview](/install/images/overview.png)
+![overview](/install/images/Overview.png)
 
 ## Azure Advisor Recommendations Dashboard tab
 In second report tab, you will be able to identify the total amount of recommendations that Azure Advisor has identified, to what resources apply each recommendation and to what subscription is applicable.
@@ -171,7 +171,7 @@ It will also give a high-level overview of what subscriptions require more atten
 
 If you press on an impacted resource you will see a quick description, the solution and in some cases a link to a website where you can find all the steps to solve the problem.
 
-![advisor](/install/images/advisor.png)
+![advisor](/install/images/Advisor.png)
 
 ## Azure Security Center Recommendations Dashboard tab
 In this tab, you will be able to identify the total amount of recommendations that Azure Security Center has detected, to what resources apply each recommendation and to what subscription is impacting.
@@ -206,7 +206,7 @@ You can filter the information by:
 - Subnet
 - Networking Interface
   
-![azure networking](/install/images/azurenetworking.png)
+![azure networking](/install/images/AzureNetworking.png)
 
 **IMPORTANT**: It is important to mention that although a VNET with only one subnet it might not be an issue, it might be a good argument to start the conversation with the customer about the existing architecture and how they can potentially improve their security by segmenting their VNETs based on different application tiers or isolation purposes.
 
@@ -219,7 +219,7 @@ You can filter the information by:
 - If the VM contains containers or no
 - Vm extension
 
-![azure compute](/install/images/azurecompute.png)
+![azurecompute](/install/images/AzureCompute.png)
 
 ## Role Based Access Control Dashboard tab
 This tab is used to show the Azure RBAC permissions from all the subscriptions a given Azure account has access to. You will be able to identify the roles applied to all Azure resources and if the subscriptions have custom roles.
@@ -239,9 +239,9 @@ You can filter the information by:
 - Namespace
 - Cluster Node
 
-![AKS](/install/images/aks.png)
+![aks](/install/images/aks.PNG)
 
-**IMPORTANT**: to receive all the information related to the Pods, Containers and Container Images a log analytics workspace configured and running is required.
+**IMPORTANT**: to receive all the information related to the Pods, Containers and Container Images a log analytics workspace configured and running **is required**.
 </div>
 
 # Scripts

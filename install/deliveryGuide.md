@@ -135,7 +135,7 @@ If the permissions and Credentials are properly flushed it should ask you for cr
 - Click on **Sign in**.
 - Click on **Connect**.
 
-![loganalytics](/install/images/loganalyticsAPI.png)
+![loganalytics](/install/images/loganalyticsAPI.PNG)
 
 ### Privacy Levels Configuration for All APIs
 - On **Privacy levels…**.

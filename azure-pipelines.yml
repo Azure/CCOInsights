@@ -1,0 +1,29 @@
+# CCO Dashboard Builds
+
+phases:
+
+- phase: build_CCOD
+  displayName: Build CCO Dashboard
+  queue:
+    name: Hosted VS2017
+
+  steps:
+
+  - task: CopyFiles@2
+    inputs:
+      Contents: |
+            docs\**
+            install\**
+            queries\**
+            README.md
+            LICENSE
+            !.github\**
+            !.git\**\*
+      TargetFolder: '$(Build.artifactstagingdirectory)'
+      CleanTargetFolder: 'false'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(build.artifactstagingdirectory)'
+      ArtifactName: 'ccodashboard'
+      ArtifactType: 'Container'

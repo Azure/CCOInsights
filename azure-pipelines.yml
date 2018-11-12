@@ -12,9 +12,9 @@ phases:
   - task: CopyFiles@2
     inputs:
       Contents: |
-            docs\*
-            install\*
-            queries\*
+            docs\**
+            install\**
+            queries\**
             README.md
             LICENSE
             !.github\**

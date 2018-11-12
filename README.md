@@ -5,13 +5,16 @@
 
 - [Overview](README.md#overview)
 - [List of resources](README.md#List-of-resources)
-- [Current Dashboard Pages](README.md#Current-Dashboard-Pages)
+- [CCO Dashboard report pages](README.md#CCO-Dashboard-report-Pages)
+- [CCO Dashboard AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on)
 - [Call for Contribution](README.md#Call-for-Contribution)
 -------------------------------
 
 
 ## Overview
 The Continuous Cloud Optimziation Power BI Dashboard (referred as CCO Dashboard moving forward) is a Power BI Dashboard developed using Power Query M queries that pulls information directly from diferent Azure and Graph REST APIs. It presents the information in a simpliflied format to track potential recommendations from Azure Advisor or Azure Security Center allowing you to filter by subscriptions, resources groups, tags or particular resources.
+
+[!OverviewImage.png](/install/images/OverviewImage.png)
 
 ## List of resources
 This project includes the following resources:
@@ -22,6 +25,20 @@ This project includes the following resources:
 4. **dashboards folder**: This parent folder contains sub folders with different versions of the CCO Dashboard depending on the workloads you want to get report from. We expect to see more versions in the future from community contributions.
     - ***CCODashboard folder*** has the more generic version of the Dashboard that includes information from Azure Advisor, Azure Security Center, Azure Networking REST APIs, Azure Compute REST APIs and Graph
     - ***CCODashboard folder*** has the add-on report to monitor Azure Kubernetes Services
+
+## CCO Dashboard report pages
+The version 4.0 of the CCO Power BI Dashboard includes 7 report pages. You will be able to navigate, filter and report the following information:
+- Page 1: Overview
+- Page 2: Azure Advisor Recommendations
+- Page 3: Azure Security Center Task recommendations
+- Page 4: Azure Security Center Alerts
+- Page 5: Azure Networking information
+- Page 6: Azure Compute information
+- Page 7: Azure RBAC permissions
+  
+You can find more details about each page information on the [Deployment Guide](/install/DeploymentGuide.md) file
+
+## CCO Dashboard AKS add-on report pages
 
 
 ## Call for contribution

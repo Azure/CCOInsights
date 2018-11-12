@@ -40,6 +40,12 @@ You can find more details about each page information on the [Deployment Guide](
 
 ## CCO Dashboard AKS add-on report pages
 
+The version 4.0 of the CCO Power BI Dashboard AKS add-on includes the following information
+
+- Azure Kubernetes Clusters
+- Azure Container Images running on AKS Clusters
+- Azure Container Registries
+- Nodes, Pods, Containers status from Azure Log Analytics
 
 ## Call for contribution
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a

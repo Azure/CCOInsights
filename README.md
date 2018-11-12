@@ -16,7 +16,7 @@ The Continuous Cloud Optimziation Power BI Dashboard (referred as CCO Dashboard 
 This project includes the following resources:
 
 1. **`install folder`**: This folder includes all the files required to successfully deploy the Dashboard in your environment. The deliveryGuide.md file contains a detailed guidance to install and setup your dashboard including the requirements, what REST APIs are in use, what resource providers needs to be enabled or what tabs are included as part of the default Dashboard
-2. **`queries folder`**:
+2. **`queries folder`**: Test
 3. **`docs/assets/pictures`**:
 4. **`Secure the subscription`**:
 

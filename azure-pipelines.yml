@@ -2,49 +2,29 @@
 
 phases:
 
-- phase: build_documentation
-  displayName: Build Documentation
+- phase: build_CCOD
+  displayName: Build CCO Dashboard
   queue:
     name: Hosted VS2017
 
   steps:
 
-  # DocFX Build task - add to your Azure DevOps account from the marketplace https://marketplace.visualstudio.com/items?itemName=chrismason.vsts-docfxtasks
-
-  - task: DocFxTask@0
-    inputs:
-      solution: '$(build.sourcesdirectory)/docs/docfx.json'
-      useTemplate: false
-      #templatePath:
-      #docfxOptions:
-
-  # Archive Files
-  # Archive files using compression formats such as .7z, .rar, .tar.gz, and .zip.
-  - task: ArchiveFiles@2
-    inputs:
-      rootFolderOrFile: '$(build.sourcesdirectory)/docs/_site'
-      includeRootFolder: false
-      archiveType: 'zip' # Options: zip, 7z, tar, wim
-      #tarCompression: 'gz' # Optional. Options: gz, bz2, xz, none
-      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-      replaceExistingArchive: true
-
   - task: CopyFiles@2
     inputs:
       Contents: |
             azuretemplates\*
+            docs\*
+            install\*
+            queries\*
+            README.md
+            LICENSE
+            !.github\**
             !.git\**\*
       TargetFolder: '$(Build.artifactstagingdirectory)'
       CleanTargetFolder: 'false'
 
-  #- task: PublishBuildArtifacts@1
-  #  inputs:
-  #    PathtoPublish: '$(build.artifactstagingdirectory)'
-  #    ArtifactName: 'AzSK'
-  #    ArtifactType: 'Container'
-
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: '$(build.artifactstagingdirectory)'
-      ArtifactName: 'docfxSite'
+      ArtifactName: 'ccodashboard'
       ArtifactType: 'Container'

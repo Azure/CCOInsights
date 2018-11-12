@@ -65,8 +65,17 @@ Azure Advisor is a personalized cloud consultant that helps you follow best prac
 
 The Continuous Optimization Power BI Dashboard will directly pull data from Azure Advisor REST APIs to aggregate all the information across the Azure account subscriptions. This requires generating the recommendations before the first time we load the template. Otherwise the Dashboard will be empty or will fail because it was unable to download any data.
 
-To do so, you need to generate the recommendations for the first time manually from the Azure Portal, or you the script [GenerateAllSubscriptionsAdvisorRecommendations.ps1](/scripts/GenerateAllSubsAdvisorRecommendations.ps1)
+To do so, you need to generate the recommendations for the first time manually from the Azure Portal, or programmatically using the script [GenerateAllSubscriptionsAdvisorRecommendations.ps1](/scripts/GenerateAllSubsAdvisorRecommendations.ps1)
 
+### Generating Azure Advisor recommendations manually
+Open the Azure Portal with your Azure Account http://portal.azure.com  
+1. Click on **Advisor**.
+2.	Expand the subscriptions drop-down menu.
+3.	Select the subscription you want to update or generate the recommendations for the first time.
+4.	Wait until the recommendations for the selected subscriptions has been loaded.
+5.	Repeat these steps for each subscription you want to generate Azure Advisor recommendations.
+
+![AdvisorRecommendations](/install/images/AdvisorRecommendations.png)
 
 ## Azure Security Center Recommendations
 Azure Security Center provides unified security management and advanced threat protection for workloads running in Azure, on-premises, and in other clouds. It delivers visibility and control over hybrid cloud workloads, active defenses that reduce your exposure to threats, and intelligent detection to help you keep pace with rapidly evolving cyber-attacks.
@@ -79,6 +88,14 @@ Azure Security Center is offered in two tiers:
   
 The Standard tier is offered [free for the first 60 days](https://azure.microsoft.com/en-us/pricing/details/security-center/).
 
+The following picture shows the steps to configure Azure Security Center plan for Azure Subscriptions
+1.	Click on **Security Center**.
+2.	Click on **Click on top to learn more**.
+3.	Click on **Select the subscription you want to configure**.
+4.	Click on **Free** or **Standard** plan and the click **Save**.
+
+![SecurityCenterStandardRecommendations](/install/images/EnableSecurityCenterStandard.png)
+
 # Setting up the Continuous Optimization Power BI Dashboard
 ## Credentials
 By default, the template doesn’t have any Azure Account credentials preloaded. Hence, the first step to start showing subscriptions data is to sign-in with the right user credentials.
@@ -86,86 +103,110 @@ By default, the template doesn’t have any Azure Account credentials preloaded.
 ### Clean Credentials on the Data Source
 In some cases, old credentials are cached by previous logins using Power BI Desktop and the dashboard might show errors or blank fields.
 
-- Click on Data sources in **Current file/Global permissions**
-- Click on **Clear Permissions**
-- Click on **Clear All Permissions**
+- Click on Data sources in **Current file/Global permissions**.
+- Click on **Clear Permissions**.
+- Click on **Clear All Permissions**.
+
+![credentials1](/install/images/Credentials1.png) ![credentials2](/install/images/Credentials2.png)
 
 ### Refresh the dashboard
 If the permissions and Credentials are properly flushed it should ask you for credentials for each REST API and you will have to set the Privacy Levels for each of them.
 
-- Click on **Refresh**
+- Click on **Refresh**.
+  
+![credentials3](/install/images/Credentials3.png)
 
 ### Credentials for <span>management.azure.com</span> REST API request:
-- Click on **Organizational Account**
-- Click on **Sign in**
-- Click on **Connect**
+- Click on **Organizational Account**.
+- Click on **Sign in**.
+- Click on **Connect**.
+  
+![credentials4](/install/images/Credentials4.png)
 
 ### Credentials for <span>graph.windows.net</span> API
-- Click on **Organizational Account**
-- Click on **Sign in**
-- Click on **Connect**
+- Click on **Organizational Account**.
+- Click on **Sign in**.
+- Click on **Connect**.
+
+![credentials5](/install/images/Credentials5.png)
 
 ### Credentials for <span>api.loganalytics.io</span> API
-- Click on **Organizational Account**
-- Click on **Sign in**
-- Click on **Connect**
+- Click on **Organizational Account**.
+- Click on **Sign in**.
+- Click on **Connect**.
+
+![loganalytics](/install/images/loganalyticsAPI.PNG)
 
 ### Privacy Levels Configuration for All APIs
-- On **Privacy levels…**
-- Select **Organizational**
-- Click on **Save**
+- On **Privacy levels…**.
+- Select **Organizational**.
+- Click on **Save**.
+
+![credentials6](/install/images/Credentials6.png)
 
 ### Enter Access Web content credentials
 
-- Make sure that you select **Organization account** type
-- Click on **Sign in**
+- Make sure that you select **Organization account** type.
+- Click on **Sign in**.
+  
+![credentials7](/install/images/Credentials7.png)
 
 # Tabs
 ## CCO Dashboard overview tab
 In this tab, you will be able to identify the top 5 of recommendations that Azure Advisor and Azure Security Center has identified. You can also locate all the deployed resources in a map.
 It’s important to mention that this tab it’s just only to make a quick view. All the recommendations will be available with more details in the following tabs
 
+![overview](/install/images/Overview.png)
+
 ## Azure Advisor Recommendations Dashboard tab
 In second report tab, you will be able to identify the total amount of recommendations that Azure Advisor has identified, to what resources apply each recommendation and to what subscription is applicable.
 
 You can filter the information by:
-- Subscription.
-- Resource Group.
-- Resource type.
-- Recommendation type.
+- Subscription
+- Resource Group
+- Resource type
+- Recommendation type
 
 It will also give a high-level overview of what subscriptions require more attention and has more recommendations to snooze or implement.
 
 If you press on an impacted resource you will see a quick description, the solution and in some cases a link to a website where you can find all the steps to solve the problem.
 
+![advisor](/install/images/Advisor.png)
+
 ## Azure Security Center Recommendations Dashboard tab
 In this tab, you will be able to identify the total amount of recommendations that Azure Security Center has detected, to what resources apply each recommendation and to what subscription is impacting.
 
 You can filter the information by:
-- Subscription.
-- Resource Group.
-- Task State.
-- Resource Type.
+- Subscription
+- Resource Group
+- Task State
+- Resource Type
   
 It will also give a high-level overview of what subscriptions require more attention and has more recommendations to snooze or implement.
+
+![SecurityCenterRecommendations](/install/images/SecurityCenterRecommendations.png)
 
 ## Azure Security Center Alerts Dashboard tab
 The fourth tab is used to show the Azure Security Center Advanced Threat Analytics Alerts from all the subscriptions a given Azure account has access to. Is important to remark that subscriptions will need to use the Standard plan if the customer wants to detect and see the alerts in the Power BI Dashboard.
 
 You can filter the information by:
-- Data range.
-- Subscription.
-- Attack type.
+- Data range
+- Subscription
+- Attack type
+  
+![security Center alerts](/install/images/SecurityCenterAlerts.png)
 
 ## Azure VNETs and Subnets Recommendations Dashboard tab
 In this tab, you will be able to identify VNETs with only one subnet, if there are any VNET peering and if some of the subnets is exhausting its IP Pool. 
 
 You can filter the information by:
-- Subscription.
-- Resource Group.
-- VNET.
-- Subnet.
-- Networking Interface.
+- Subscription
+- Resource Group
+- VNET
+- Subnet
+- Networking Interface
+  
+![azure networking](/install/images/AzureNetworking.png)
 
 **IMPORTANT**: It is important to mention that although a VNET with only one subnet it might not be an issue, it might be a good argument to start the conversation with the customer about the existing architecture and how they can potentially improve their security by segmenting their VNETs based on different application tiers or isolation purposes.
 
@@ -173,28 +214,34 @@ You can filter the information by:
 In this tab, you will be able to identify the number of VMs, the Operating System, the SKU, the Availability Set name, the location, the VM Size, the VNET and subnet each VM is connected, the private IP address and if the VM has any extension installed.
 
 You can filter the information by:
-- Subscription.
-- Resource Group.
-- If the VM contains containers or no.
-- Vm extension.
+- Subscription
+- Resource Group
+- If the VM contains containers or no
+- Vm extension
+
+![azurecompute](/install/images/AzureCompute.png)
 
 ## Role Based Access Control Dashboard tab
 This tab is used to show the Azure RBAC permissions from all the subscriptions a given Azure account has access to. You will be able to identify the roles applied to all Azure resources and if the subscriptions have custom roles.
 
 You can filter the information by:
-- Subscription.
-- Resource type.
+- Subscription
+- Resource type
+
+![azure rbac](/install/images/RBAC.png)
 
 ## Azure Kubernetes Service Dashboard tab
 In this page, you will be able to identify the number of AKS Clusters, Nodes, Pods, Containers and Container images. All the information related to these resources will be shown (IPs, pods in use, status, network, image repositories, …).
 
 You can filter the information by:
-- Subscription.
-- AKS Cluster.
-- Namespace.
-- Cluster Node.
+- Subscription
+- AKS Cluster
+- Namespace
+- Cluster Node
 
-**IMPORTANT**: to receive all the information related to the Pods, Containers and Container Images a log analytics workspace configured and running is required.
+![aks](/install/images/aks.PNG)
+
+**IMPORTANT**: to receive all the information related to the Pods, Containers and Container Images a log analytics workspace configured and running **is required**.
 </div>
 
 # Scripts

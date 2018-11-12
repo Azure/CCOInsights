@@ -12,7 +12,6 @@ phases:
   - task: CopyFiles@2
     inputs:
       Contents: |
-            azuretemplates\*
             docs\*
             install\*
             queries\*

@@ -29,16 +29,18 @@ The Continuous Optimization Power BI Dashboard pulls the information from severa
 | API Name| Dashboard API Version | Last API version | Using latest version|
 | --- | :---: | :---: |:---: |
 | [Azure Advisor](https://docs.microsoft.com/en-us/rest/api/advisor/) | 2017-03-31|2017-04-19|:x:|
-| [Azure Security Center](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2015-06-01-preview |2015-06-01-preview|:heavy_check_mark:|
+| [Azure Security Center Alerts](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2015-06-01-preview |2015-06-01-preview|:heavy_check_mark:|
+| [Azure Security Center Tasks](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2015-06-01-preview |2015-06-01-preview|:heavy_check_mark:|
 | [Azure Kubernetes Service](https://docs.microsoft.com/en-us/rest/api/aks) | 2018-03-31|2018-03-31|:heavy_check_mark:|
 | [Azure Compute](https://docs.microsoft.com/en-us/rest/api/compute) | 2017-12-01|2018-10-01|:x:|
 | [Azure Virtual Networks]( https://docs.microsoft.com/en-us/rest/api/virtual-network) | 2017-09-01|2018-08-01|:x:|
 | [Azure Network Interfaces](https://docs.microsoft.com/en-us/rest/api/virtualnetwork/networkinterfaces) |2017-10-01 |2018-08-01|:x:|
-| [Resource Groups](https://docs.microsoft.com/en-us/rest/api/resources/resourcegroups)  |2017-05-10 |2018-08-01|:x:|
-| [Azure Resources](https://docs.microsoft.com/en-us/rest/api/resources/resources)  |2017-05-10 |2018-08-01|:x:|
+| [Resource Groups](https://docs.microsoft.com/en-us/rest/api/resources/resourcegroups)  |2017-05-10 |2018-09-01|:x:|
+| [Azure Resources](https://docs.microsoft.com/en-us/rest/api/resources/resources)  |2017-05-10 |2018-09-01|:x:|
 | [Azure Subscriptions](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions)  |2016-06-01 |2018-08-01|:x:|
-| [Azure Locations](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2016-06-01 |2018-08-01|:x:|
+| [Azure Locations](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2016-06-01 |2018-09-01|:x:|
 | [Azure Role Assignments](https://docs.microsoft.com/en-us/rest/api/authorization/roleassignments) |2015-07-01 |2018-09-01-preview|:x:|
+| [Azure Role Definitions](https://docs.microsoft.com/en-us/rest/api/authorization/roleassignments) |2018-01-01-preview |2018-01-01-preview|:heavy_check_mark:|
 | [Azure Container Registry](https://docs.microsoft.com/en-us/rest/api/containerregistry/)  | 2017-10-01|2017-10-01|:heavy_check_mark:|
 | <span style="color:#0088cc">Log Analytics Rest API </span> ([1](https://docs.microsoft.com/en-us/rest/api/loganalytics/), [2](https://dev.loganalytics.io/))  |v1 |v1|:heavy_check_mark:|
 | [Azure Active Directory Graph API](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-graph-api) | 1.6|1.6 |:heavy_check_mark:|

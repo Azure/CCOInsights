@@ -5,18 +5,18 @@
 The Continuous Cloud Optimization Power BI Dashboard development started more than 1 year ago. During all this time the project team and some Microsoft Services folks have been piloting and testing different versions of the Dashboards until the latest version published in here (v4.0). We have been able to identify and fix several bugs or product limitations and we would like to encourage you to read this document before running the Dashboard.
 
 - ## List of known issues or limitations
-    - [Which Power BI Desktop version I should use?](TroubleshootingGuide.md#Which-Power-BI-Desktop-version-I-should-use)  (Microsoft Store or  Web Download)
-    - [Power BI Regional Settings](TroubleshootingGuide.md#Power-BI-Regional-Settings)
+    - [Which Power BI Desktop version I should use?](TroubleshootingGuide.md#which-power-bi-desktop-version-i-should-use-microsoft-store-or-web-download)  (Microsoft Store or  Web Download)
+    - [Power BI Regional Settings](TroubleshootingGuide.md#power-bi-regional-settings-maps-visualizations-incorrectly-locate-resources-or-vnet-peerings)
     (Maps Visualizations incorrectly locate resources or VNET peerings)
-    - [Graph REST API credentials error](TroubleshootingGuide.md#Graph-REST-API-credentials-error)
+    - [Graph REST API credentials error](TroubleshootingGuide.md#graph-rest-api-credentials-error)
 
-    - [Privacy Levels across Data Sources not configured properly](TroubleshootingGuide.md#Privacy-Level-across-Data-Sources-not-configured-properly)
+    - [Privacy Levels across Data Sources not configured properly](TroubleshootingGuide.md#privacy-levels-across-data-sources-not-configured-properly)
 
-    - [RBAC information is empty or blank](TroubleshootingGuide.md#RBAC-information-is-empty-or-blank)
+    - [RBAC information is empty or blank](TroubleshootingGuide.md#rbac-information-is-empty-or-blank)
 
-    - [Log Analytics REST API timeout (CCO Dashboard AKS add on only)](TroubleshootingGuide.md#Log-Analytics-REST-API-timeout)
+    - [Log Analytics REST API timeout (CCO Dashboard AKS add on only)](TroubleshootingGuide.md#log-analytics-rest-api-timeout-cco-dashboard-aks-add-on-only)
 
-    - [Data Model Relationships missing](TroubleshootingGuide.md#Data-Model-Relationships-missing)
+    - [Data Model Relationships missing](TroubleshootingGuide.md#data-model-relationships-missing)
 
 We will keep updating this list of known issues as soon as we get more feedback from the community....
    

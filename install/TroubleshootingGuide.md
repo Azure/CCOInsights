@@ -5,7 +5,7 @@
 The Continuous Cloud Optimization Power BI Dashboard development started more than 1 year ago. During all this time the project team and some Microsoft Services folks have been piloting and testing different versions of the Dashboards until the latest version published in here (v4.0). We have been able to identify and fix several bugs or product limitations and we would like to encourage you to read this document before running the Dashboard.
 
 - ## List of known issues or limitations
-    - [Which Power BI Desktop version I should use?](TroubleshootingGuide.md#Which-Power-BI-Desktop-version-I-should-use?)  (Microsoft Store or  Web Download)
+    - [Which Power BI Desktop version I should use?](TroubleshootingGuide.md#Which-Power-BI-Desktop-version-I-should-use)  (Microsoft Store or  Web Download)
     - [Power BI Regional Settings](TroubleshootingGuide.md#Power-BI-Regional-Settings)
     (Maps Visualizations incorrectly locate resources or VNET peerings)
     - [Graph REST API credentials error](TroubleshootingGuide.md#Graph-REST-API-credentials-error)
@@ -16,7 +16,7 @@ The Continuous Cloud Optimization Power BI Dashboard development started more th
 
     - [Log Analytics REST API timeout (CCO Dashboard AKS add on only)](TroubleshootingGuide.md#Log-Analytics-REST-API-timeout)
 
-    - [Relationship model across tables is broken]()
+    - [Data Model Relationships missing](TroubleshootingGuide.md#Data-Model-Relationships-missing)
 
 We will keep updating this list of known issues as soon as we get more feedback from the community....
    
@@ -51,9 +51,6 @@ To do this you must follow this steps:
 
     ![creds sync](/install/images/Credentials5.png)
 
-
-
-
 #### Privacy Levels across Data Sources not configured properly
 
 Another credentials issue we identified during our pilots is that in some cases the end user didn't setup the Privacy levels correctly getting the following error
@@ -70,13 +67,13 @@ Everytime you run the Dashboard from the .pbit template you will be asked to ent
 
 ![Wrong Tenant Name](/install/images/RBACwrongTenantName.PNG)
 
-#### Log analytics API timeout
+#### Log Analytics REST API timeout (CCO Dashboard AKS add on only)
 
 Depending on the number of records we have in log analytics, we can obtain a timeout during the refresh.
 
 The solution is to wait a few minutes and launch a new refresh.
 
-#### Relationships Model
+#### Data Model Relationships missing
 
 In some ocasions when having both Power BI Desktop versions installed on the computer we have seen the Data Relationship model to dissapear. If that happens you can use the following reference to manually reconfigure the relationship between tables. It should also help you to understand how we defined the Data Model in case you want to expand the default content
 

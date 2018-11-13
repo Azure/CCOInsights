@@ -36,6 +36,8 @@ It might happen then when you run the Dashboard using different regional setting
 
 During the first run of the CCO Dashboard template you should be prompted to enter the credentials for both the Azure Management REST API and the GRAPH REST API. You might get the error message from below if you incorrectly enter your credentials. Also, in some cases, during the first execuction Power BI will not ask for credentials because they are already cached by some other Power BI Dashboard execution accessing the same APIs. If that happens you will need to manually set the proper credentials for the GRAPH REST API Data Source.
 
+![graph apil](/install/images/problem_graph_api.png)
+
 To do this you must follow this steps:
 
 - Go to **File**.
@@ -44,12 +46,17 @@ To do this you must follow this steps:
 - In in **Current file/Global permissions** select https://graph.windows.net and click on **Edit permissions**.
 - Click on **Edit** and enter your credentials.
 
-![graph apil](/install/images/problem_graph_api.png)
+    ![creds sync](/install/images/Credentials5.png)
 
 
 
 
 #### Privacy Levels across Data Sources not configured properly
+
+![creds sync](/install/images/WrongPrivacyLevelError.png)
+
+
+![creds sync](/install/images/WrongPrivacyLevelConfig.png)
 
 #### RBAC information is empty or blank
 

@@ -36,6 +36,8 @@ It might happen then when you run the Dashboard using different regional setting
 
 During the first run of the CCO Dashboard template you should be prompted to enter the credentials for both the Azure Management REST API and the GRAPH REST API. You might get the error message from below if you incorrectly enter your credentials. Also, in some cases, during the first execuction Power BI will not ask for credentials because they are already cached by some other Power BI Dashboard execution accessing the same APIs. If that happens you will need to manually set the proper credentials for the GRAPH REST API Data Source.
 
+![graph apil](/install/images/WrongTenantNameError.png)
+
 ![graph apil](/install/images/problem_graph_api.png)
 
 To do this you must follow this steps:
@@ -65,7 +67,7 @@ This is an example of a wrong Privacy Levels configuration across Data Sources. 
 
 Everytime you run the Dashboard from the .pbit template you will be asked to enter the Tenant parameter. This parameter is critical to properly get your RBAC information. If this parameter is entered incorrectly but the tenant exists it will load the Dashboard information with blank information on the RBAC page or the Subscriptions Owners visualization on the Overview page
 
-![Wrong Tenant Name](install/images/WrongTenantNameError.png)
+![Wrong Tenant Name](/install/images/RBACwrongTenantName.PNG)
 
 #### Log analytics API timeout
 

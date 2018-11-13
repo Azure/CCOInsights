@@ -1,5 +1,13 @@
 # CCO Dashboard Builds
 
+pr:
+  branches:
+    include:
+    - master
+  paths:
+    exclude:
+    - .github/*
+
 phases:
 
 - phase: build_CCOD
@@ -12,6 +20,7 @@ phases:
   - task: CopyFiles@2
     inputs:
       Contents: |
+            dashboards\**
             docs\**
             install\**
             queries\**
@@ -20,10 +29,22 @@ phases:
             !.github\**
             !.git\**\*
       TargetFolder: '$(Build.artifactstagingdirectory)'
-      CleanTargetFolder: 'false'
+      CleanTargetFolder: 'true'
 
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: '$(build.artifactstagingdirectory)'
       ArtifactName: 'ccodashboard'
+      ArtifactType: 'Container'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(build.artifactstagingdirectory/dashboards/CCODashboard-AKS)'
+      ArtifactName: 'ccodashboard-release-AKS'
+      ArtifactType: 'Container'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(build.artifactstagingdirectory/dashboards/CCODashboard)'
+      ArtifactName: 'ccodashboard-release'
       ArtifactType: 'Container'

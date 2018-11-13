@@ -34,7 +34,7 @@ It might happen then when you run the Dashboard using different regional setting
 
 #### Graph REST API credentials error
 
-![graph apil](/install/images/problem_graph_api.png)
+During the first run of the CCO Dashboard template you should be prompted to enter the credentials for both the Azure Management REST API and the GRAPH REST API. You might get the error message from below if you incorrectly enter your credentials. Also, in some cases, during the first execuction Power BI will not ask for credentials because they are already cached by some other Power BI Dashboard execution accessing the same APIs. If that happens you will need to manually set the proper credentials for the GRAPH REST API Data Source.
 
 To do this you must follow this steps:
 
@@ -44,12 +44,16 @@ To do this you must follow this steps:
 - In in **Current file/Global permissions** select https://graph.windows.net and click on **Edit permissions**.
 - Click on **Edit** and enter your credentials.
 
+![graph apil](/install/images/problem_graph_api.png)
+
+
+
 
 #### Privacy Levels across Data Sources not configured properly
 
 #### RBAC information is empty or blank
 
-Everytime you run the Dashboard from the .pbit template you will be asked to enter the Tenant parameter. This parameter is critical to properly get your RBAC information. If this parameter is entered incorrectly it will run the Dashboard with empty or blank information on the RBAC page or the Subscriptions Owners visualization on the Overview page
+Everytime you run the Dashboard from the .pbit template you will be asked to enter the Tenant parameter. This parameter is critical to properly get your RBAC information. If this parameter is entered incorrectly or you leave it empty it will load the Dashboard information with blank information on the RBAC page or the Subscriptions Owners visualization on the Overview page
 
 
 

@@ -15,20 +15,26 @@ The Continuous Cloud Optimization Power BI Dashboard development started more th
     - [RBAC information is empty or blank](TroubleshootingGuide.md#RBAC-information-is-empty-or-blank)
 
     - [Log Analytics REST API timeout (CCO Dashboard AKS add on only)](TroubleshootingGuide.md#Log-Analytics-REST-API-timeout)
-   
 
-## Which Power BI Desktop version I should use? (Microsoft Store or Web Download)
+    - [Relationship model across tables is broken]()
+
+We will keep updating this list of known issues as soon as we get more feedback from the community....
+   
+----------------------------------
+#### Which Power BI Desktop version I should use? (Microsoft Store or Web Download)
 
 Based on our experience we highly recommend to use the Power BI Desktop version from the Microsoft Store to get automatic updates. The following article explains the main difference between both options. https://docs.microsoft.com/en-us/power-bi/desktop-get-the-desktop <br>
 Make sure that you don't have both versions installed on the computer where you plan to run the CCO Dashboard.
 
-## Power BI Regional Settings (Maps Visualizations incorrectly locate resources or VNET peerings)
+#### Power BI Regional Settings (Maps Visualizations incorrectly locate resources or VNET peerings)
 
 It might happen then when you run the Dashboard using different regional settings some coordinates are not calculated properly. The CCO Dashboard development has been based on English US regional settings. Make sure that you set the Regional Settings to use English (United States) on the application Language on both Global and Current File options. If the current file has a different configuration you will need to change to English US, export the file as template again, and then open it from your computer
 
 ![localel](/install/images/locale_options_powerBI.PNG)
 
-## Graph REST API credentials error
+#### Graph REST API credentials error
+
+During the first run of the CCO Dashboard template you should be prompted to enter the credentials for both the Azure Management REST API and the GRAPH REST API. You might get the error message from below if you incorrectly enter your credentials. Also, in some cases, during the first execuction Power BI will not ask for credentials because they are already cached by some other Power BI Dashboard execution accessing the same APIs. If that happens you will need to manually set the proper credentials for the GRAPH REST API Data Source.
 
 ![graph apil](/install/images/problem_graph_api.png)
 
@@ -40,22 +46,31 @@ To do this you must follow this steps:
 - In in **Current file/Global permissions** select https://graph.windows.net and click on **Edit permissions**.
 - Click on **Edit** and enter your credentials.
 
-
-## Privacy Levels
-
-## RBAC information is empty or blank
-
-Everytime you run the Dashboard from the .pbit template you will be asked to enter the Tenant parameter. This parameter is critical to properly get your RBAC information. If this parameter is entered incorrectly it will run the Dashboard with empty or blank information on the RBAC page or the Subscriptions Owners visualization on the Overview page
+    ![creds sync](/install/images/Credentials5.png)
 
 
 
-## Log analytics API timeout
+
+#### Privacy Levels across Data Sources not configured properly
+
+![creds sync](/install/images/WrongPrivacyLevelError.png)
+
+
+![creds sync](/install/images/WrongPrivacyLevelConfig.png)
+
+#### RBAC information is empty or blank
+
+Everytime you run the Dashboard from the .pbit template you will be asked to enter the Tenant parameter. This parameter is critical to properly get your RBAC information. If this parameter is entered incorrectly or you leave it empty it will load the Dashboard information with blank information on the RBAC page or the Subscriptions Owners visualization on the Overview page
+
+
+
+#### Log analytics API timeout
 
 Depending on the number of records we have in log analytics, we can obtain a timeout during the refresh.
 
 The solution is to wait a few minutes and launch a new refresh.
 
-## Relationships Model
+#### Relationships Model
 
 If something happens and all the relationships between tables are broken, the following picture shows the actual relationship model inside the CCO Power BI dashboard.
 

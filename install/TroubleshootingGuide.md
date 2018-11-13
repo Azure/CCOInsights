@@ -2,18 +2,33 @@
 <div style="text-align: justify">
 
 ## Introduction
-This document provides the information needed to troubleshoot the CCO Dashboard. Suggest ways CCO Dashboard documentation can be improved and better serve your needs.
+The Continuous Cloud Optimization Power BI Dashboard development started more than 1 year ago. During all this time the project team and some Microsoft Services folks have been piloting and testing different versions of the Dashboards until the latest version published in here (v4.0). We have been able to identify and fix several bugs or product limitations and we would like to encourage you to read this document before running the Dashboard.
 
-## Locale Options
+- ## List of known issues or limitations
+    - [Which Power BI Desktop version I should use?](TroubleshootingGuide.md#Which-Power-BI-Desktop-version-I-should-use?)  (Microsoft Store or  Web Download)
+    - [Power BI Regional Settings](TroubleshootingGuide.md#Power-BI-Regional-Settings)
+    (Maps Visualizations incorrectly locate resources or VNET peerings)
+    - [Graph REST API credentials error](TroubleshootingGuide.md#Graph-REST-API-credentials-error)
 
-If in some of the maps that are in the dashboard the locations are not correct, you should check the regional configuration of the Power BI. It must be configured as English (United States)
+    - [Privacy Levels across Data Sources not configured properly](TroubleshootingGuide.md#Privacy-Level-across-Data-Sources-not-configured-properly)
+
+    - [RBAC information is empty or blank](TroubleshootingGuide.md#RBAC-information-is-empty-or-blank)
+
+    - [Log Analytics REST API timeout (CCO Dashboard AKS add on only)](TroubleshootingGuide.md#Log-Analytics-REST-API-timeout)
+   
+
+## Which Power BI Desktop version I should use? (Microsoft Store or Web Download)
+
+Based on our experience we highly recommend to use the Power BI Desktop version from the Microsoft Store to get automatic updates. The following article explains the main difference between both options. https://docs.microsoft.com/en-us/power-bi/desktop-get-the-desktop <br>
+Make sure that you don't have both versions installed on the computer where you plan to run the CCO Dashboard.
+
+## Power BI Regional Settings (Maps Visualizations incorrectly locate resources or VNET peerings)
+
+It might happen then when you run the Dashboard using different regional settings some coordinates are not calculated properly. The CCO Dashboard development has been based on English US regional settings. Make sure that you set the Regional Settings to use English (United States) on the application Language on both Global and Current File options. If the current file has a different configuration you will need to change to English US, export the file as template again, and then open it from your computer
 
 ![localel](/install/images/locale_options_powerBI.PNG)
 
-
-## Graph API credentials permission error
-
-If the RBAC data is not appearing into the RBAC page, the credentials must be entered again. 
+## Graph REST API credentials error
 
 ![graph apil](/install/images/problem_graph_api.png)
 
@@ -24,6 +39,15 @@ To do this you must follow this steps:
 - Click on **Data source settings**.
 - In in **Current file/Global permissions** select https://graph.windows.net and click on **Edit permissions**.
 - Click on **Edit** and enter your credentials.
+
+
+## Privacy Levels
+
+## RBAC information is empty or blank
+
+Everytime you run the Dashboard from the .pbit template you will be asked to enter the Tenant parameter. This parameter is critical to properly get your RBAC information. If this parameter is entered incorrectly it will run the Dashboard with empty or blank information on the RBAC page or the Subscriptions Owners visualization on the Overview page
+
+
 
 ## Log analytics API timeout
 

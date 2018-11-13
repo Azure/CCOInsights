@@ -53,16 +53,19 @@ To do this you must follow this steps:
 
 #### Privacy Levels across Data Sources not configured properly
 
-![creds sync](/install/images/WrongPrivacyLevelError.png)
+Another credentials issue we identified during our pilots is that in some cases the end user didn't setup the Privacy levels correctly getting the following error
 
+![Privacy Levels Error](/install/images/WrongPrivacyLevelError.png)
 
-![creds sync](/install/images/WrongPrivacyLevelConfig.png)
+This is an example of a wrong Privacy Levels configuration across Data Sources. Makes sure that you set both Data Sources to Organizational
+
+![Wrong Privacy Levels config](/install/images/WrongPrivacyLevelConfig.png)
 
 #### RBAC information is empty or blank
 
-Everytime you run the Dashboard from the .pbit template you will be asked to enter the Tenant parameter. This parameter is critical to properly get your RBAC information. If this parameter is entered incorrectly or you leave it empty it will load the Dashboard information with blank information on the RBAC page or the Subscriptions Owners visualization on the Overview page
+Everytime you run the Dashboard from the .pbit template you will be asked to enter the Tenant parameter. This parameter is critical to properly get your RBAC information. If this parameter is entered incorrectly but the tenant exists it will load the Dashboard information with blank information on the RBAC page or the Subscriptions Owners visualization on the Overview page
 
-
+![Wrong Tenant Name](/install/images/RBACwrongtenantname.png)
 
 #### Log analytics API timeout
 

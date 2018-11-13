@@ -34,12 +34,13 @@ It might happen then when you run the Dashboard using different regional setting
 
 #### Graph REST API credentials error
 
-During the first run of the CCO Dashboard template you should be prompted to enter the credentials for both the Azure Management REST API and the GRAPH REST API. You might get the error message from below if you incorrectly enter your credentials. Also, in some cases, during the first execuction Power BI will not ask for credentials because they are already cached by some other Power BI Dashboard execution accessing the same APIs. If that happens you will need to manually set the proper credentials for the GRAPH REST API Data Source.
+During the first run of the CCO Dashboard template you should be prompted to enter the credentials for both the Azure Management REST API and the GRAPH REST API. You might get the error message from below if you incorrectly enter your credentials. Also, in some cases, during the first execuction Power BI will not ask for credentials because they are already cached by some other Power BI Dashboard execution accessing the same APIs. 
 
 ![graph apil](/install/images/WrongTenantNameError.png)
 
 ![graph apil](/install/images/problem_graph_api.png)
 
+If that happens you will need to manually set the proper credentials for the GRAPH REST API Data Source.
 To do this you must follow this steps:
 
 - Go to **File**.

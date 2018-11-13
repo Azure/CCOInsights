@@ -65,7 +65,7 @@ This is an example of a wrong Privacy Levels configuration across Data Sources. 
 
 Everytime you run the Dashboard from the .pbit template you will be asked to enter the Tenant parameter. This parameter is critical to properly get your RBAC information. If this parameter is entered incorrectly but the tenant exists it will load the Dashboard information with blank information on the RBAC page or the Subscriptions Owners visualization on the Overview page
 
-![Wrong Tenant Name](/install/images/RBACwrongtenantname.png)
+![Wrong Tenant Name](install/images/WrongTenantNameError.png)
 
 #### Log analytics API timeout
 

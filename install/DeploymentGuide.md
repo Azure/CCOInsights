@@ -26,24 +26,27 @@ The Continuous Optimization Power BI Dashboard pulls the information from severa
 <br><br>
 </div>
 
-| API Name| Dashboard API Version | Azure last API version | Using last version|
+| API Name| Dashboard API Version | Last API version | Using latest version|
 | --- | :---: | :---: |:---: |
 | [Azure Advisor](https://docs.microsoft.com/en-us/rest/api/advisor/) | 2017-03-31|2017-04-19|:x:|
-| [Azure Security Center](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2015-06-01-preview |2015-06-01-preview|:heavy_check_mark:|
+| [Azure Security Center Alerts](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2015-06-01-preview |2015-06-01-preview|:heavy_check_mark:|
+| [Azure Security Center Tasks](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2015-06-01-preview |2015-06-01-preview|:heavy_check_mark:|
 | [Azure Kubernetes Service](https://docs.microsoft.com/en-us/rest/api/aks) | 2018-03-31|2018-03-31|:heavy_check_mark:|
 | [Azure Compute](https://docs.microsoft.com/en-us/rest/api/compute) | 2017-12-01|2018-10-01|:x:|
 | [Azure Virtual Networks]( https://docs.microsoft.com/en-us/rest/api/virtual-network) | 2017-09-01|2018-08-01|:x:|
 | [Azure Network Interfaces](https://docs.microsoft.com/en-us/rest/api/virtualnetwork/networkinterfaces) |2017-10-01 |2018-08-01|:x:|
-| [Resource Groups](https://docs.microsoft.com/en-us/rest/api/resources/resourcegroups)  |2017-05-10 |2018-08-01|:x:|
-| [Azure Resources](https://docs.microsoft.com/en-us/rest/api/resources/resources)  |2017-05-10 |2018-08-01|:x:|
+| [Resource Groups](https://docs.microsoft.com/en-us/rest/api/resources/resourcegroups)  |2017-05-10 |2018-09-01|:x:|
+| [Azure Resources](https://docs.microsoft.com/en-us/rest/api/resources/resources)  |2017-05-10 |2018-09-01|:x:|
 | [Azure Subscriptions](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions)  |2016-06-01 |2018-08-01|:x:|
-| [Azure Locations](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2016-06-01 |2018-08-01|:x:|
+| [Azure Locations](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2016-06-01 |2018-09-01|:x:|
 | [Azure Role Assignments](https://docs.microsoft.com/en-us/rest/api/authorization/roleassignments) |2015-07-01 |2018-09-01-preview|:x:|
+| [Azure Role Definitions](https://docs.microsoft.com/en-us/rest/api/authorization/roleassignments) |2018-01-01-preview |2018-01-01-preview|:heavy_check_mark:|
 | [Azure Container Registry](https://docs.microsoft.com/en-us/rest/api/containerregistry/)  | 2017-10-01|2017-10-01|:heavy_check_mark:|
 | <span style="color:#0088cc">Log Analytics Rest API </span> ([1](https://docs.microsoft.com/en-us/rest/api/loganalytics/), [2](https://dev.loganalytics.io/))  |v1 |v1|:heavy_check_mark:|
 | [Azure Active Directory Graph API](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-graph-api) | 1.6|1.6 |:heavy_check_mark:|
 
 <div style="text-align: justify">
+
 
 ## Resource Providers requirements
 
@@ -151,21 +154,22 @@ If the permissions and Credentials are properly flushed it should ask you for cr
   
 ![credentials7](/install/images/Credentials7.png)
 
-# Tabs
-## CCO Dashboard overview tab
-In this tab, you will be able to identify the top 5 of recommendations that Azure Advisor and Azure Security Center has identified. You can also locate all the deployed resources in a map.
+# Report Pages
+## CCO Dashboard overview page
+In this page, you will be able to identify the top 5 of recommendations that Azure Advisor and Azure Security Center has identified. You can also locate all the deployed resources in a map.
 It’s important to mention that this tab it’s just only to make a quick view. All the recommendations will be available with more details in the following tabs
 
 ![overview](/install/images/Overview.png)
 
-## Azure Advisor Recommendations Dashboard tab
-In second report tab, you will be able to identify the total amount of recommendations that Azure Advisor has identified, to what resources apply each recommendation and to what subscription is applicable.
+## Azure Advisor Recommendations Dashboard page
+In second report page, you will be able to identify the total amount of recommendations that Azure Advisor has identified, to what resources apply each recommendation and to what subscription is applicable.
 
 You can filter the information by:
 - Subscription
 - Resource Group
 - Resource type
 - Recommendation type
+- Tags
 
 It will also give a high-level overview of what subscriptions require more attention and has more recommendations to snooze or implement.
 
@@ -173,14 +177,15 @@ If you press on an impacted resource you will see a quick description, the solut
 
 ![advisor](/install/images/Advisor.png)
 
-## Azure Security Center Recommendations Dashboard tab
-In this tab, you will be able to identify the total amount of recommendations that Azure Security Center has detected, to what resources apply each recommendation and to what subscription is impacting.
+## Azure Security Center Recommendations Dashboard page
+In this page, you will be able to identify the total amount of recommendations that Azure Security Center has detected, to what resources apply each recommendation and to what subscription is impacting.
 
 You can filter the information by:
 - Subscription
 - Resource Group
 - Task State
 - Resource Type
+- Tags
   
 It will also give a high-level overview of what subscriptions require more attention and has more recommendations to snooze or implement.
 
@@ -193,7 +198,8 @@ You can filter the information by:
 - Data range
 - Subscription
 - Attack type
-  
+- Tags
+    
 ![security Center alerts](/install/images/SecurityCenterAlerts.png)
 
 ## Azure VNETs and Subnets Recommendations Dashboard tab

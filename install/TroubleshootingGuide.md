@@ -78,7 +78,7 @@ The solution is to wait a few minutes and launch a new refresh.
 
 #### Relationships Model
 
-If something happens and all the relationships between tables are broken, the following picture shows the actual relationship model inside the CCO Power BI dashboard.
+In some ocasions when having both Power BI Desktop versions installed on the computer we have seen the Data Relationship model to dissapear. If that happens you can use the following reference to manually reconfigure the relationship between tables. It should also help you to understand how we defined the Data Model in case you want to expand the default content
 
 ![relationship model](/install/images/RelationshipsModel.PNG)
 

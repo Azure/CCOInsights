@@ -30,7 +30,9 @@ Make sure that you don't have both versions installed on the computer where you 
 
 It might happen then when you run the Dashboard using different regional settings some coordinates are not calculated properly. The CCO Dashboard development has been based on English US regional settings. Make sure that you set the Regional Settings to use English (United States) on the application Language on both Global and Current File options. If the current file has a different configuration you will need to change to English US, export the file as template again, and then open it from your computer
 
-![localel](/install/images/locale_options_powerBI.PNG)
+<p align="center">
+  <img src="/install/images/locale_options_powerBI.PNG">
+</p>
 
 #### Graph REST API credentials error
 
@@ -49,17 +51,25 @@ To do this you must follow this steps:
 - In in **Current file/Global permissions** select https://graph.windows.net and click on **Edit permissions**.
 - Click on **Edit** and enter your credentials.
 
-    ![creds sync](/install/images/Credentials5.png)
+<p align="center">
+  <img src="/install/images/Credentials5.png">
+</p>
 
 #### Privacy Levels across Data Sources not configured properly
 
 Another credentials issue we identified during our pilots is that in some cases the end user didn't setup the Privacy levels correctly getting the following error
 
-![Privacy Levels Error](/install/images/WrongPrivacyLevelError.png)
+<p align="center">
+  <img src="/install/images/WrongPrivacyLevelError.png">
+</p>
+
 
 This is an example of a wrong Privacy Levels configuration across Data Sources. Makes sure that you set both Data Sources to Organizational
 
-![Wrong Privacy Levels config](/install/images/WrongPrivacyLevelConfig.png)
+<p align="center">
+  <img src="/install/images/WrongPrivacyLevelConfig.png">
+</p>
+
 
 #### RBAC information is empty or blank
 

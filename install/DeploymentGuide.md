@@ -50,7 +50,7 @@ The Continuous Optimization Power BI Dashboard pulls the information from severa
 
 ## Resource Providers requirements
 
-Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** resource providers are registered across all the  subscriptions that you plan analyze using the Dashboard. Otherwise, the Azure Advisor and the Azure Security Center.<br><br>
+Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** resource providers are registered across all the  subscriptions that you plan analyze using the Dashboard. 
 
 Registering these 3 Resource Providers has no cost or performance penalty on the customer subscription:
 
@@ -66,7 +66,7 @@ Registering these 3 Resource Providers has no cost or performance penalty on the
 ## Azure Advisor Recommendations
 Azure Advisor is a personalized cloud consultant that helps you follow best practices to optimize your Azure deployments. It analyzes your resource configuration and usage telemetry. It then recommends solutions to help improve the performance, security, and high availability of your resources while looking for opportunities to reduce your overall Azure spend.
 
-The Continuous Optimization Power BI Dashboard will directly pull data from Azure Advisor REST APIs to aggregate all the information across the Azure account subscriptions. This requires generating the recommendations before the first time we load the template. Otherwise the Dashboard will be empty or will fail because it was unable to download any data.
+The Continuous Optimization Power BI Dashboard will directly pull data from Azure Advisor REST APIs to aggregate all the information across the Azure account subscriptions. This requires generating the recommendations before the first time we load the template else the Dashboard will be empty or will fail because it was unable to download any data.
 
 To do so, you need to generate the recommendations for the first time manually from the Azure Portal, or programmatically using the script [GenerateAllSubscriptionsAdvisorRecommendations.ps1](/scripts/GenerateAllSubsAdvisorRecommendations.ps1)
 
@@ -81,7 +81,7 @@ Open the Azure Portal with your Azure Account http://portal.azure.com
 ![AdvisorRecommendations](/install/images/AdvisorRecommendations.png)
 
 ## Azure Security Center Recommendations
-Azure Security Center provides unified security management and advanced threat protection for workloads running in Azure, on-premises, and in other clouds. It delivers visibility and control over hybrid cloud workloads, active defenses that reduce your exposure to threats, and intelligent detection to help you keep pace with rapidly evolving cyber-attacks.
+Azure Security Center provides unified security management and advanced threat protection for workloads running in Azure, on-premises, and in other clouds. It delivers visibility and control over hybrid cloud workloads, active defence that reduces your exposure to threats, and intelligent detection to help you keep pace with rapidly evolving cyber-attacks.
 
 You can find more information at the official Azure Security Center site [here](https://docs.microsoft.com/en-us/azure/security-center/security-center-intro).
 
@@ -113,7 +113,7 @@ In some cases, old credentials are cached by previous logins using Power BI Desk
 ![credentials1](/install/images/Credentials1.png) ![credentials2](/install/images/Credentials2.png)
 
 ### Refresh the dashboard
-If the permissions and Credentials are properly flushed it should ask you for credentials for each REST API and you will have to set the Privacy Levels for each of them.
+If the permissions and credentials are properly flushed it should ask you for credentials for each REST API and you will have to set the Privacy Levels for each of them.
 
 - Click on **Refresh**.
   
@@ -157,12 +157,12 @@ If the permissions and Credentials are properly flushed it should ask you for cr
 # Report Pages
 ## CCO Dashboard overview page
 In this page, you will be able to identify the top 5 of recommendations that Azure Advisor and Azure Security Center has identified. You can also locate all the deployed resources in a map.
-It’s important to mention that this tab it’s just only to make a quick view. All the recommendations will be available with more details in the following tabs
+It’s important to mention that this tab just gives you a quick view. All the recommendations will be available with more details in the following tabs
 
 ![overview](/install/images/Overview.png)
 
 ## Azure Advisor Recommendations Dashboard page
-In second report page, you will be able to identify the total amount of recommendations that Azure Advisor has identified, to what resources apply each recommendation and to what subscription is applicable.
+In the second page of the report, you will be able to identify the total amount of recommendations that Azure Advisor has identified, to what resources each recommendations apply and to what subscription as well.
 
 You can filter the information by:
 - Subscription
@@ -173,7 +173,7 @@ You can filter the information by:
 
 It will also give a high-level overview of what subscriptions require more attention and has more recommendations to snooze or implement.
 
-If you press on an impacted resource you will see a quick description, the solution and in some cases a link to a website where you can find all the steps to solve the problem.
+If you navigate to a impacted resource you will see a quick description, potential solution and in some cases a link to a website where you can find all the steps to solve the problem.
 
 ![advisor](/install/images/Advisor.png)
 
@@ -214,7 +214,7 @@ You can filter the information by:
   
 ![azure networking](/install/images/AzureNetworking.png)
 
-**IMPORTANT**: It is important to mention that although a VNET with only one subnet it might not be an issue, it might be a good argument to start the conversation with the customer about the existing architecture and how they can potentially improve their security by segmenting their VNETs based on different application tiers or isolation purposes.
+**IMPORTANT**: It is important to mention that although a VNET with only one subnet might not be an issue, it might be a good argument to start the conversation with the customer about the existing architecture and how they can potentially improve their security by segmenting their VNETs based on different application tiers or isolation purposes.
 
 ## Azure Compute Dashboard tab
 In this tab, you will be able to identify the number of VMs, the Operating System, the SKU, the Availability Set name, the location, the VM Size, the VNET and subnet each VM is connected, the private IP address and if the VM has any extension installed.

@@ -2,7 +2,7 @@
 <div style="text-align: justify">
 
 ## Introduction
-The Continuous Cloud Optimization Power BI Dashboard development started more than 1 year ago. During all this time the project team and some Microsoft Services folks have been piloting and testing different versions of the Dashboards until the latest version published in here (v4.0). We have been able to identify and fix several bugs or product limitations and we would like to encourage you to read this document before running the Dashboard.
+The Continuous Cloud Optimization Power BI Dashboard development started about a year ago. During all this time the project team and some Microsoft Services folks have been piloting and testing different versions of the Dashboards until the latest version was published in here (v4.0). We have been able to identify and fix several bugs or product limitations and we would like to encourage you to read this document before running the Dashboard.
 
 - ## List of known issues or limitations
     - [Which Power BI Desktop version I should use?](TroubleshootingGuide.md#which-power-bi-desktop-version-i-should-use-microsoft-store-or-web-download)  (Microsoft Store or  Web Download)
@@ -28,7 +28,7 @@ Make sure that you don't have both versions installed on the computer where you 
 
 #### Power BI Regional Settings (Maps Visualizations incorrectly locate resources or VNET peerings)
 
-It might happen then when you run the Dashboard using different regional settings some coordinates are not calculated properly. The CCO Dashboard development has been based on English US regional settings. Make sure that you set the Regional Settings to use English (United States) on the application Language on both Global and Current File options. If the current file has a different configuration you will need to change to English US, export the file as template again, and then open it from your computer
+It might happen then when you run the Dashboard using different regional settings some coordinates are not calculated properly. The CCO Dashboard development has been based on English US regional settings. Make sure that you set the Regional Settings to use English (United States) on the application language on both Global and Current File options. If the current file has a different configuration you will need to change to English US, export the file as template again, and then open it from your computer
 
 <p align="center">
   <img src="/install/images/locale_options_powerBI.PNG">

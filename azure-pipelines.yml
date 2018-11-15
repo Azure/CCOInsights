@@ -1,13 +1,5 @@
 # CCO Dashboard Builds
 
-pr:
-  branches:
-    include:
-    - master
-  paths:
-    exclude:
-    - .github/*
-
 phases:
 
 - phase: build_CCOD

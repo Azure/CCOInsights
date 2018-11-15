@@ -10,9 +10,9 @@ The Continuous Cloud Optimization Power BI Dashboard is a report that aims to ag
 - The Continuous Optimization Power BI Dashboard is a Power BI Template that requires to download and install the Microsoft Power BI Desktop Edition from the Microsoft Store. Below you can find the minimum requirements to run the Dashboard
     -	Windows 10 version **14393.0** or **higher**
     -	Internet access from the computer running Microsoft Power BI desktop
-- An Azure account on the customer tenant space with permissions on the subscriptions to read from the Azure Services described above
+- An Azure account on the desired tenant space with permissions on the subscriptions to read from the Azure Services described above
 
-Below you can find the list of providers and the actions that the customer will need to allow to run the CCO Power BI Dashboard:
+Below you can find the list of providers and the actions that you will need to permit to allow to run the CCO Power BI Dashboard:
 </div>
 
 | Resource Provider Name| Permissions |
@@ -52,7 +52,7 @@ The Continuous Optimization Power BI Dashboard pulls the information from severa
 
 Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** resource providers are registered across all the  subscriptions that you plan analyze using the Dashboard. 
 
-Registering these 3 Resource Providers has no cost or performance penalty on the customer subscription:
+Registering these 3 Resource Providers has no cost or performance penalty on the subscription:
 
 1. Click on **Subscriptions**.
 2. Click on the Subscription name you want to configure.
@@ -192,7 +192,7 @@ It will also give a high-level overview of what subscriptions require more atten
 ![SecurityCenterRecommendations](/install/images/SecurityCenterRecommendations.png)
 
 ## Azure Security Center Alerts Dashboard tab
-The fourth tab is used to show the Azure Security Center Advanced Threat Analytics Alerts from all the subscriptions a given Azure account has access to. Is important to remark that subscriptions will need to use the Standard plan if the customer wants to detect and see the alerts in the Power BI Dashboard.
+The fourth tab is used to show the Azure Security Center Advanced Threat Analytics Alerts from all the subscriptions a given Azure account has access to. Is important to remark that subscriptions will need to use the Standard plan if you want to detect and see the alerts in the Power BI Dashboard.
 
 You can filter the information by:
 - Data range
@@ -214,7 +214,7 @@ You can filter the information by:
   
 ![azure networking](/install/images/AzureNetworking.png)
 
-**IMPORTANT**: It is important to mention that although a VNET with only one subnet might not be an issue, it might be a good argument to start the conversation with the customer about the existing architecture and how they can potentially improve their security by segmenting their VNETs based on different application tiers or isolation purposes.
+**IMPORTANT**: It is important to mention that although a VNET with only one subnet might not be an issue, it might be a good lead to investigate if that is the best network segmentation for the applications running on it.
 
 ## Azure Compute Dashboard tab
 In this tab, you will be able to identify the number of VMs, the Operating System, the SKU, the Availability Set name, the location, the VM Size, the VNET and subnet each VM is connected, the private IP address and if the VM has any extension installed.

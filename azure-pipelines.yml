@@ -36,15 +36,3 @@ phases:
       PathtoPublish: '$(build.artifactstagingdirectory)'
       ArtifactName: 'ccodashboard'
       ArtifactType: 'Container'
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(build.artifactstagingdirectory/dashboards/CCODashboard-AKS)'
-      ArtifactName: 'ccodashboard-release-AKS'
-      ArtifactType: 'Container'
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(build.artifactstagingdirectory/dashboards/CCODashboard)'
-      ArtifactName: 'ccodashboard-release'
-      ArtifactType: 'Container'

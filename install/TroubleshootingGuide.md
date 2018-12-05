@@ -14,8 +14,8 @@ The Continuous Cloud Optimization Power BI Dashboard development started about a
 
     - [RBAC information is empty or blank](TroubleshootingGuide.md#rbac-information-is-empty-or-blank)
 
-    - [Management Groups access forbidden workaround](TroubleshootingGuide.md#Management-Group-access-forbidden-workaround)
-
+    - [Management Groups - Access to the resource is forbidden error](TroubleshootingGuide.md#Management-Groups-Access-to-the-resource-is-forbidden-error) 
+- 
     - [Log Analytics REST API timeout (CCO Dashboard AKS add on only)](TroubleshootingGuide.md#log-analytics-rest-api-timeout-cco-dashboard-aks-add-on-only)
 
     - [Data Model Relationships missing](TroubleshootingGuide.md#data-model-relationships-missing)
@@ -79,7 +79,7 @@ Everytime you run the Dashboard from the .pbit template you will be asked to ent
 
 ![Wrong Tenant Name](/install/images/RBACwrongTenantName.PNG)
 
-#### Management Groups - Access to the resource is forbidden error
+#### Management Groups Access to the resource is forbidden error
 
 Management Groups in Azure is a relatively new capability and some users reported the following error when loading the Dashboard for the first time. The reason behind that error can be the lack of permissions but also because there is no Management Groups definition.
 

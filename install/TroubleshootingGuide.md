@@ -77,6 +77,16 @@ Everytime you run the Dashboard from the .pbit template you will be asked to ent
 
 ![Wrong Tenant Name](/install/images/RBACwrongTenantName.PNG)
 
+#### Management Groups - Access to the resource is forbidden error
+
+Management Groups in Azure is a relatively new capability and some users reported the following error when loading the Dashboard for the first time. The reason behind that error can be the lack of permissions but also because there is no Management Groups definition.
+
+![Management Groups access forbidden](/install/images/MGForbiddenAccessError.png)
+
+If that is the case and you are still not using Management Groups in your environment you can simply open the Query Editor, browse to the Management Groups query on the left side panel and disable the query. You will need to refresh all the data once this change is applied.
+
+![Management Groups access forbidden workaround](/install/images/MGQueryDisabled.png)
+
 #### Log Analytics REST API timeout (CCO Dashboard AKS add on only)
 
 Depending on the number of records we have in log analytics, we can obtain a timeout during the refresh.

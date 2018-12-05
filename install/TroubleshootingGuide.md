@@ -14,6 +14,8 @@ The Continuous Cloud Optimization Power BI Dashboard development started about a
 
     - [RBAC information is empty or blank](TroubleshootingGuide.md#rbac-information-is-empty-or-blank)
 
+    - [Management Groups access forbidden workaround](TroubleshootingGuide.md#Management-Group-access-forbidden-workaround)
+
     - [Log Analytics REST API timeout (CCO Dashboard AKS add on only)](TroubleshootingGuide.md#log-analytics-rest-api-timeout-cco-dashboard-aks-add-on-only)
 
     - [Data Model Relationships missing](TroubleshootingGuide.md#data-model-relationships-missing)

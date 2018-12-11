@@ -10,7 +10,7 @@ The Continuous Cloud Optimization Power BI Dashboard is a report that aims to ag
 - The Continuous Optimization Power BI Dashboard is a Power BI Template that requires to download and install the Microsoft Power BI Desktop Edition from the Microsoft Store. Below you can find the minimum requirements to run the Dashboard
     -	Windows 10 version **14393.0** or **higher**.
     -	Internet access from the computer running Microsoft Power BI desktop.
-    - An Azure account on the customer tenant space with permissions on the subscriptions to read from the Azure Services described above.
+    - An Azure account on the desired tenant space with permissions on the subscriptions to read from the Azure Services described above.
 
 Below you can find the list of providers and the actions that you will need to permit to allow to run the CCO Power BI Dashboard:
 </div>

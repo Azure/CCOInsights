@@ -15,17 +15,16 @@
 
 	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
 		<title>Page-1</title>
-		<v:pageProperties v:drawingScale="1" v:pageScale="1" v:drawingUnits="19" v:shadowOffsetX="8.99996"
-				v:shadowOffsetY="-8.99996"/>
-		<g id="shape55-1" v:mID="55" v:groupContext="shape" transform="translate(25.2897,-25.1673)">
+		<v:pageProperties v:drawingScale="1" v:pageScale="1" v:drawingUnits="19" v:shadowOffsetX="8.99995"
+				v:shadowOffsetY="-8.99995"/>
+		<g id="shape1-1" v:mID="1" v:groupContext="shape" transform="translate(23.3675,-23.1823)">
 			<title>No Symbol.520</title>
 			<v:userDefs>
 				<v:ud v:nameU="MaxThicknessPercent" v:prompt="" v:val="VT0(0.6000600060006):26"/>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 			</v:userDefs>
-			<path d="M10.17 56.49 A5.08673 5.08673 -180 1 0 -0 56.49 A5.08673 5.08673 -180 1 0 10.17 56.49 ZM2.41 55.39 A2.82884
-						 2.82884 -180 0 0 6.18 59.17 L2.41 55.39 ZM7.77 57.58 A2.82884 2.82884 -180 0 0 3.99 53.8 L7.77 57.58 Z"
-					class="st1"/>
+			<path d="M14.02 54.5 A7.00989 7.00989 -180 1 0 0 54.5 A7.00989 7.00989 -180 1 0 14.02 54.5 ZM3.32 52.99 A3.89835 3.89835
+						 -180 0 0 8.52 58.2 L3.32 52.99 ZM10.71 56 A3.89835 3.89835 -180 0 0 5.5 50.8 L10.71 56 Z" class="st1"/>
 		</g>
 	</g>
 </svg>

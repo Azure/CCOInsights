@@ -3,6 +3,7 @@
 
 ## Content
 
+- [Version 5.0 new features and updates](README.md#Version-5.0:-New-features-and-updates)
 - [Overview](README.md#overview)
 - [List of resources](README.md#List-of-resources)
 - [CCO Dashboard report pages](README.md#CCO-Dashboard-report-Pages)

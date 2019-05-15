@@ -1,0 +1,20 @@
+{
+    "name": "string",
+    "type": "Microsoft.Authorization/roleDefinitions",
+    "apiVersion": "2017-09-01",
+    "properties": {
+      "Name":  "Continous Optimization Dashboard Reader",
+      "Id":  null,
+      "IsCustom":  true,
+      "Description":  "Can read Resources, Azure Security Center and Advisor Information",
+      "Actions":  [
+                      "Microsoft.Advisor/generateRecommendations/action", 
+                      "*/Read"
+                  ],
+      "NotActions":  [],
+          
+      "AssignableScopes":  [                          
+                               "/subscriptions/XXXXXXXXXXXXXXXXXXXXX"                             
+                           ]
+      }
+  }

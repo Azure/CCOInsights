@@ -161,8 +161,13 @@ It’s important to mention that this tab just gives you a quick view. All the r
 
 ![overview](/install/images/OverviewImage.png)
 
+## Resource Tags overview page
+In this page you will be able to sort and filter all your Resources and Resource groups based on Tags. It will help you identify any missing Tag and if your naming standards and Tags classifications adheres to your organization guidelines or policies.
+
+![Tagsoverview](/install/images/TagsOverview.png)
+
 ## Azure Advisor Recommendations Dashboard page
-In the second page of the report, you will be able to identify the total amount of recommendations that Azure Advisor has identified, to what resources each recommendations apply and to what subscription as well.
+In this page of the report, you will be able to identify the total amount of recommendations that Azure Advisor has identified, to what resources each recommendations apply and to what subscription as well.
 
 You can filter the information by:
 - Subscription

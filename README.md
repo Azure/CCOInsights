@@ -10,6 +10,51 @@
 - [Call for Contribution](README.md#Call-for-Contribution)
 -------------------------------
 
+## **Version 5.0:** New features and updates
+
+**Overview Page**
+- New Resource Groups tags counter
+- New Subscriptions, RG and Tags Search option
+  
+**Tags Overview** ***<span style="color:green"><sup>NEW</sup></span>***
+- Filter Resource Groups and Resources with Tags
+- Filter Resource Groups and Resources without Tags
+- Number of tagged resources by resource type
+- Number of untagged resources by resource type
+- Search option for Resource Group and Resources tags
+
+**Azure Advisor**
+- Performance improvements and bugs fixes
+- Simplified recommendations images
+- Security recommendations
+
+**Azure Security Center**
+- Performance improvements and bugs fixes
+- Simplified recommendations images
+- Enhanced recommendation types filtering
+
+**Security Alerts**
+- Performance improvements and bugs fixes
+- Simplified recommendations images
+
+**Compute**
+- Performance improvements and bugs fixes
+
+**Networking**
+- Performance improvements and bugs fixes
+
+**NSGs** ***<span style="color:green"><sup>NEW</sup></span>***
+- NSG rules overview across subscriptions (VMs and Subnets)
+- Filter NSGs by subscription, Resource Group, NSG name, Tags, Direction and Ports
+
+**RBAC**
+- Performance improvements and bugs fixes
+- Filtering RBAC permissions by object type (Users or Groups)
+- Search option for Resource Group and users
+
+**RBAC Service Principals** ***<span style="color:green"><sup>NEW</sup></span>***
+- Filtering RBAC permissions by Service Principal Type
+- Search option for Users and Resource Groups
 
 ## Overview
 The Continuous Cloud Optimization Power BI Dashboard (referred as CCO Dashboard here after) is a Power BI Dashboard developed using Power Query M language that pulls information directly from different Azure and Graph REST APIs. It presents the information in a simplified format to track potential recommendations from Azure Advisor or Azure Security Center allowing you to filter by subscriptions, resources groups, tags or particular resources.

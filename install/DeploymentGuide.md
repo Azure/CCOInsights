@@ -159,7 +159,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 In this page, you will be able to identify the top 5 of recommendations that Azure Advisor and Azure Security Center has identified. You can also locate all the deployed resources in a map.
 It’s important to mention that this tab just gives you a quick view. All the recommendations will be available with more details in the following tabs
 
-![overview](/install/images/Overview.png)
+![overview](/install/images/OverviewImage.png)
 
 ## Azure Advisor Recommendations Dashboard page
 In the second page of the report, you will be able to identify the total amount of recommendations that Azure Advisor has identified, to what resources each recommendations apply and to what subscription as well.

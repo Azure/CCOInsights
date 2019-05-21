@@ -42,17 +42,24 @@ $role.Id = $null
 $role.Name = $RoleName
 $role.Description = $RoleName
 $role.Actions.Clear()
+
+#Global reader permissions
+$role.Actions.Add("*/read")
+
 #Azure Advisor Resource Provider Permissions
 $role.Actions.Add("Microsoft.Advisor/generateRecommendations/action")
-$role.Actions.Add("Microsoft.Advisor/Recommendations/Read")
+#$role.Actions.Add("Microsoft.Advisor/Recommendations/Read")
+
 #Azure Security Resource Provider Permissions
-$role.Actions.Add("Microsoft.Security/tasks/read")
-$role.Actions.Add("Microsoft.Security/Alerts/Read")
-$role.Actions.Add("Microsoft.Security/Policies/Read")
-$role.Actions.Add("Microsoft.Security/locations/alerts/read")
+#$role.Actions.Add("Microsoft.Security/tasks/read")
+#$role.Actions.Add("Microsoft.Security/Alerts/Read")
+#$role.Actions.Add("Microsoft.Security/Policies/Read")
+#$role.Actions.Add("Microsoft.Security/locations/alerts/read")
+
 #Azure ResourceHealth Resource Provider Permissions
-$role.Actions.Add("Microsoft.Resourcehealth/AvailabilityStatuses/read")
-$role.Actions.Add("Microsoft.Resourcehealth/AvailabilityStatuses/current/read")
+#$role.Actions.Add("Microsoft.Resourcehealth/AvailabilityStatuses/read")
+#$role.Actions.Add("Microsoft.Resourcehealth/AvailabilityStatuses/current/read")
+
 
 $role.AssignableScopes.Clear()
 

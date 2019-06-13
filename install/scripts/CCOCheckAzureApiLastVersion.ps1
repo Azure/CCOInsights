@@ -2,7 +2,7 @@
 Get-AzureRmSubscription | Out-GridView -PassThru
 
 #Resource Types
-$ref = @('^recommendations$', '^tasks$', '^alerts$','^managedClusters$','^virtualMachines$','^virtualNetworks$','^networkInterfaces$','^networkInterfaces$','^resourceGroups$','^subscriptions$','^roleAssignments$','^roleDefinitions$','^networkSecurityGroups$')    
+$ref = @('^recommendations$', '^tasks$', '^alerts$','^managedClusters$','^virtualMachines$','^virtualNetworks$','^networkInterfaces$','^networkInterfaces$','^resourceGroups$','^subscriptions$','^resources$','^roleAssignments$','^roleDefinitions$','^networkSecurityGroups$')    
 $refRegex = [string]::Join('|', $ref) 
 #Resource Providers
 $ref2 = @('Microsoft.Resources','Microsoft.Network','Microsoft.Advisor','Microsoft.Compute','Microsoft.ContainerService','Microsoft.Security','Microsoft.Authorization')

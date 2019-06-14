@@ -241,6 +241,15 @@ You can filter the information by:
 
 ![azure rbac](/install/images/RBAC.png)
 
+## Service Principal Role Based Access Control Dashboard tab
+This tab is used to show Azure Services Principals  RBAC permissions from all the subscriptions a given Azure account has access to. You will be able to identify the roles applied to all Azure resources and if the subscriptions have custom roles.
+
+You can filter the information by:
+- Subscription
+- Resource type
+
+![azure rbac](/install/images/RBACServicePrincipals.png)
+
 ## Azure Kubernetes Service Dashboard tab
 In this page, you will be able to identify the number of AKS Clusters, Nodes, Pods, Containers and Container images. All the information related to these resources will be shown (IPs, pods in use, status, network, image repositories, …).
 
@@ -324,28 +333,22 @@ Write-Output $result
 ## PowerBI Dashboard Read Permissions Role
 ```
 Login-AzureRmAccount
+
 $RoleName = "Continuous Optimization Power BI Dashboard Reader"
 Get-AzureRmRoleDefinition $RoleName | Remove-AzureRmRoleDefinition
+
+
 $SubsList = Get-AzureRmSubscription
+
 $role = Get-AzureRmRoleDefinition "Contributor"
 $role.Id = $null
 $role.Name = $RoleName
 $role.Description = $RoleName
 $role.Actions.Clear()
 
-#Azure Advisor Resource Provider Permissions
-$role.Actions.Add("Microsoft.Advisor/generateRecommendations/action")
-$role.Actions.Add("Microsoft.Advisor/Recommendations/Read")
+#Global reader permissions
+$role.Actions.Add("*/read")
 
-#Azure Security Resource Provider Permissions
-$role.Actions.Add("Microsoft.Security/tasks/read")
-$role.Actions.Add("Microsoft.Security/Alerts/Read")
-$role.Actions.Add("Microsoft.Security/Policies/Read")
-$role.Actions.Add("Microsoft.Security/locations/alerts/read")
-
-#Azure ResourceHealth Resource Provider Permissions
-$role.Actions.Add("Microsoft.Resourcehealth/AvailabilityStatuses/read")
-$role.Actions.Add("Microsoft.Resourcehealth/AvailabilityStatuses/current/read")
 $role.AssignableScopes.Clear()
 
 foreach($Sub in $SubsList)
@@ -359,14 +362,70 @@ New-AzureRmRoleDefinition -Role $role
 ## Check last Azure API version
 ```
 Login-AzureRmAccount
-#Get-AzureRmSubscription | Out-GridView -PassThru
+Get-AzureRmSubscription | Out-GridView -PassThru
+
+#Resource Types
+$ref = @('^recommendations$', '^tasks$', '^alerts$','^managedClusters$','^virtualMachines$','^virtualNetworks$','^networkInterfaces$','^networkInterfaces$','^resourceGroups$','^subscriptions$','^resources$','^roleAssignments$','^roleDefinitions$','^networkSecurityGroups$')    
+$refRegex = [string]::Join('|', $ref) 
+#Resource Providers
+$ref2 = @('Microsoft.Resources','Microsoft.Network','Microsoft.Advisor','Microsoft.Compute','Microsoft.ContainerService','Microsoft.Security','Microsoft.Authorization')
+$ref2Regex = [string]::Join('|', $ref2)
+
+#Resource Types (location only for resources)
+$ref3 = @('^resourceGroups$','^subscriptions$','^locations$')    
+$ref3Regex = [string]::Join('|', $ref3) 
+
 $providers = Get-AzureRmResourceProvider 
-$providers | %{    "******************************************************************"
-    "### Provider:          "+$_.ProviderNamespace
-    $resourcetypes = (Get-AzureRmResourceProvider -ProviderNamespace $_.ProviderNamespace).ResourceTypes
-    "### Resource Types:    " + ((Get-AzureRmResourceProvider -ProviderNamespace $_.ProviderNamespace).ResourceTypes).count
-    ""
-    $resourcetypes | %{"- Resource Type Name:  " + $_.ResourceTypeName 
-    "- API last version:    " + ($_.ApiVersions | Select-Object -First 1)
-    ""}}
+$providers | %{
+    if ($_.ProviderNamespace -match $ref2Regex){
+        "******************************************************************"
+        "### Provider:          "+$_.ProviderNamespace
+        $resourcetypes = (Get-AzureRmResourceProvider -ProviderNamespace $_.ProviderNamespace).ResourceTypes
+        #"### Resource Types:    " + ((Get-AzureRmResourceProvider -ProviderNamespace $_.ProviderNamespace).ResourceTypes).count
+        ""
+        #We only want to show location resource API version if the provider is Microsoft.Resources
+        if ($_.ProviderNamespace -eq 'Microsoft.Resources'){ 
+                $resourcetypes | %{
+                    If ($_.ResourceTypeName -match $ref3Regex){
+                        "- Resource Type Name:  " + $_.ResourceTypeName 
+                        "- API last version:    " + ($_.ApiVersions | Select-Object -First 1)
+                        ""
+                    }
+                }
+        }
+        else{
+            $resourcetypes | %{
+                    If ($_.ResourceTypeName -match $refRegex){
+                        "- Resource Type Name:  " + $_.ResourceTypeName 
+                        "- API last version:    " + ($_.ApiVersions | Select-Object -First 1)
+                        ""
+                    }
+            }
+        }
+    }
+}
+```
+## PowerBI Dashboard Read Permissions Role (JSON)
+
+```
+{
+    "name": "string",
+    "type": "Microsoft.Authorization/roleDefinitions",
+    "apiVersion": "2017-09-01",
+    "properties": {
+      "Name":  "Continous Optimization Dashboard Reader",
+      "Id":  null,
+      "IsCustom":  true,
+      "Description":  "Can read Resources, Azure Security Center and Advisor Information",
+      "Actions":  [
+                      "Microsoft.Advisor/generateRecommendations/action", 
+                      "*/Read"
+                  ],
+      "NotActions":  [],
+          
+      "AssignableScopes":  [                          
+                               "/subscriptions/XXXXXXXXXXXXXXXXXXXXX"                             
+                           ]
+      }
+  }
 ```

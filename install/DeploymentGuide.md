@@ -153,7 +153,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 - Select **Organizational**.
 - Click on **Save**.
 
-![credentials6](/install/images/Credentials6.png)
+![credentials6](/install/images/PrivacyLevelsWithDocs.png)
 
 ### Enter Access Web content credentials
 

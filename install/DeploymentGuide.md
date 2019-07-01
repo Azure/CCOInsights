@@ -17,8 +17,8 @@ Below you can find the list of providers and the actions that you will need to p
 
 | Resource Provider Name| Permissions |
 | --- | --- |
-|Azure Advisor| Microsoft.Advisor/generateRecommendations/action <br> Microsoft.Advisor/Recommendations/Read|
-|Azure Security|Microsoft.Security/tasks/read<br> Microsoft.Security/Alerts/Read<br>Microsoft.Security/Policies/Read<br>Microsoft.Security/locations/alerts/read|
+|Azure Advisor| Microsoft.Advisor/generateRecommendations/action <br> 
+|*|*/Read|
 
 ## APIs in use
 <div style="text-align: justify">
@@ -28,19 +28,19 @@ The Continuous Optimization Power BI Dashboard pulls the information from severa
 
 | API Name| Dashboard API Version | Last API version | Using latest version|
 | --- | :---: | :---: |:---: |
-| [Azure Advisor](https://docs.microsoft.com/en-us/rest/api/advisor/) | 2017-03-31|2017-04-19|:x:|
-| [Azure Security Center Alerts](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2015-06-01-preview |2015-06-01-preview|:heavy_check_mark:|
+| [Azure Advisor](https://docs.microsoft.com/en-us/rest/api/advisor/) | 2017-04-19|2017-04-19|:heavy_check_mark:|
+| [Azure Security Center Alerts](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2019-01-01 |2019-01-01|:heavy_check_mark:|
 | [Azure Security Center Tasks](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2015-06-01-preview |2015-06-01-preview|:heavy_check_mark:|
-| [Azure Kubernetes Service](https://docs.microsoft.com/en-us/rest/api/aks) | 2018-03-31|2018-03-31|:heavy_check_mark:|
-| [Azure Compute](https://docs.microsoft.com/en-us/rest/api/compute) | 2017-12-01|2018-10-01|:x:|
-| [Azure Virtual Networks]( https://docs.microsoft.com/en-us/rest/api/virtual-network) | 2017-09-01|2018-08-01|:x:|
-| [Azure Network Interfaces](https://docs.microsoft.com/en-us/rest/api/virtualnetwork/networkinterfaces) |2017-10-01 |2018-08-01|:x:|
-| [Resource Groups](https://docs.microsoft.com/en-us/rest/api/resources/resourcegroups)  |2017-05-10 |2018-09-01|:x:|
-| [Azure Resources](https://docs.microsoft.com/en-us/rest/api/resources/resources)  |2017-05-10 |2018-09-01|:x:|
-| [Azure Subscriptions](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions)  |2016-06-01 |2018-08-01|:x:|
-| [Azure Locations](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2016-06-01 |2018-09-01|:x:|
-| [Azure Role Assignments](https://docs.microsoft.com/en-us/rest/api/authorization/roleassignments) |2015-07-01 |2018-09-01-preview|:x:|
-| [Azure Role Definitions](https://docs.microsoft.com/en-us/rest/api/authorization/roleassignments) |2018-01-01-preview |2018-01-01-preview|:heavy_check_mark:|
+| [Azure Kubernetes Service](https://docs.microsoft.com/en-us/rest/api/aks) | 2018-03-31|2019-06-01|:x:|
+| [Azure Compute](https://docs.microsoft.com/en-us/rest/api/compute) | 2019-03-01|2019-03-01|:heavy_check_mark:|
+| [Azure Virtual Networks]( https://docs.microsoft.com/en-us/rest/api/virtual-network) | 2019-04-01|2019-04-01|:heavy_check_mark:|
+| [Azure Network Interfaces](https://docs.microsoft.com/en-us/rest/api/virtualnetwork/networkinterfaces) |2019-04-01 |2019-04-01|:heavy_check_mark:|
+| [Resource Groups](https://docs.microsoft.com/en-us/rest/api/resources/resourcegroups)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
+| [Azure Resources](https://docs.microsoft.com/en-us/rest/api/resources/resources)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
+| [Azure Subscriptions](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
+| [Azure Locations](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
+| [Azure Role Assignments](https://docs.microsoft.com/en-us/rest/api/authorization/roleassignments) |2015-07-01 |2015-07-01|:heavy_check_mark:|
+| [Azure Role Definitions](https://docs.microsoft.com/en-us/rest/api/authorization/roledefinitions) |2015-07-01 |2015-07-01|:heavy_check_mark:|
 | [Azure Container Registry](https://docs.microsoft.com/en-us/rest/api/containerregistry/)  | 2017-10-01|2017-10-01|:heavy_check_mark:|
 | <span style="color:#0088cc">Log Analytics Rest API </span> ([1](https://docs.microsoft.com/en-us/rest/api/loganalytics/), [2](https://dev.loganalytics.io/))  |v1 |v1|:heavy_check_mark:|
 | [Azure Active Directory Graph API](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-graph-api) | 1.6|1.6 |:heavy_check_mark:|
@@ -59,7 +59,7 @@ Registering these 3 Resource Providers has no cost or performance penalty on the
 3. Click on **Resource Providers**.
 4. Click on **Microsoft.Advisor** and **Register**.
 5. Click on **Microsoft.Resourcehealth** and **Register**.
-1. Click on **Microsoft.Security** and **Register**.
+6. Click on **Microsoft.Security** and **Register**.
 
 ![resource providers](/install/images/resourceproviders.png)
 
@@ -123,8 +123,16 @@ If the permissions and credentials are properly flushed it should ask you for cr
 - Click on **Organizational Account**.
 - Click on **Sign in**.
 - Click on **Connect**.
-  
+
+
 ![credentials4](/install/images/Credentials4.png)
+
+### Credentials for <span>docs.microsoft.com</span> Web
+- Click on **Anonymous**.
+- Click on **Sign in**.
+- Click on **Connect**.
+
+![DocsCredentials](/install/images/DocsCredentials.png)
 
 ### Credentials for <span>graph.windows.net</span> API
 - Click on **Organizational Account**.
@@ -145,7 +153,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 - Select **Organizational**.
 - Click on **Save**.
 
-![credentials6](/install/images/Credentials6.png)
+![credentials6](/install/images/PrivacyLevelsWithDocs.png)
 
 ### Enter Access Web content credentials
 
@@ -241,6 +249,15 @@ You can filter the information by:
 
 ![azure rbac](/install/images/RBAC.png)
 
+## Service Principal Role Based Access Control Dashboard tab
+This tab is used to show Azure Services Principals  RBAC permissions from all the subscriptions a given Azure account has access to. You will be able to identify the roles applied to all Azure resources and if the subscriptions have custom roles.
+
+You can filter the information by:
+- Subscription
+- Resource type
+
+![azure rbac](/install/images/RBACServicePrincipals.png)
+
 ## Azure Kubernetes Service Dashboard tab
 In this page, you will be able to identify the number of AKS Clusters, Nodes, Pods, Containers and Container images. All the information related to these resources will be shown (IPs, pods in use, status, network, image repositories, …).
 
@@ -324,28 +341,22 @@ Write-Output $result
 ## PowerBI Dashboard Read Permissions Role
 ```
 Login-AzureRmAccount
+
 $RoleName = "Continuous Optimization Power BI Dashboard Reader"
 Get-AzureRmRoleDefinition $RoleName | Remove-AzureRmRoleDefinition
+
+
 $SubsList = Get-AzureRmSubscription
+
 $role = Get-AzureRmRoleDefinition "Contributor"
 $role.Id = $null
 $role.Name = $RoleName
 $role.Description = $RoleName
 $role.Actions.Clear()
 
-#Azure Advisor Resource Provider Permissions
-$role.Actions.Add("Microsoft.Advisor/generateRecommendations/action")
-$role.Actions.Add("Microsoft.Advisor/Recommendations/Read")
+#Global reader permissions
+$role.Actions.Add("*/read")
 
-#Azure Security Resource Provider Permissions
-$role.Actions.Add("Microsoft.Security/tasks/read")
-$role.Actions.Add("Microsoft.Security/Alerts/Read")
-$role.Actions.Add("Microsoft.Security/Policies/Read")
-$role.Actions.Add("Microsoft.Security/locations/alerts/read")
-
-#Azure ResourceHealth Resource Provider Permissions
-$role.Actions.Add("Microsoft.Resourcehealth/AvailabilityStatuses/read")
-$role.Actions.Add("Microsoft.Resourcehealth/AvailabilityStatuses/current/read")
 $role.AssignableScopes.Clear()
 
 foreach($Sub in $SubsList)
@@ -359,14 +370,70 @@ New-AzureRmRoleDefinition -Role $role
 ## Check last Azure API version
 ```
 Login-AzureRmAccount
-#Get-AzureRmSubscription | Out-GridView -PassThru
+Get-AzureRmSubscription | Out-GridView -PassThru
+
+#Resource Types
+$ref = @('^recommendations$', '^tasks$', '^alerts$','^managedClusters$','^virtualMachines$','^virtualNetworks$','^networkInterfaces$','^networkInterfaces$','^resourceGroups$','^subscriptions$','^resources$','^roleAssignments$','^roleDefinitions$','^networkSecurityGroups$')    
+$refRegex = [string]::Join('|', $ref) 
+#Resource Providers
+$ref2 = @('Microsoft.Resources','Microsoft.Network','Microsoft.Advisor','Microsoft.Compute','Microsoft.ContainerService','Microsoft.Security','Microsoft.Authorization')
+$ref2Regex = [string]::Join('|', $ref2)
+
+#Resource Types (location only for resources)
+$ref3 = @('^resourceGroups$','^subscriptions$','^locations$')    
+$ref3Regex = [string]::Join('|', $ref3) 
+
 $providers = Get-AzureRmResourceProvider 
-$providers | %{    "******************************************************************"
-    "### Provider:          "+$_.ProviderNamespace
-    $resourcetypes = (Get-AzureRmResourceProvider -ProviderNamespace $_.ProviderNamespace).ResourceTypes
-    "### Resource Types:    " + ((Get-AzureRmResourceProvider -ProviderNamespace $_.ProviderNamespace).ResourceTypes).count
-    ""
-    $resourcetypes | %{"- Resource Type Name:  " + $_.ResourceTypeName 
-    "- API last version:    " + ($_.ApiVersions | Select-Object -First 1)
-    ""}}
+$providers | %{
+    if ($_.ProviderNamespace -match $ref2Regex){
+        "******************************************************************"
+        "### Provider:          "+$_.ProviderNamespace
+        $resourcetypes = (Get-AzureRmResourceProvider -ProviderNamespace $_.ProviderNamespace).ResourceTypes
+        #"### Resource Types:    " + ((Get-AzureRmResourceProvider -ProviderNamespace $_.ProviderNamespace).ResourceTypes).count
+        ""
+        #We only want to show location resource API version if the provider is Microsoft.Resources
+        if ($_.ProviderNamespace -eq 'Microsoft.Resources'){ 
+                $resourcetypes | %{
+                    If ($_.ResourceTypeName -match $ref3Regex){
+                        "- Resource Type Name:  " + $_.ResourceTypeName 
+                        "- API last version:    " + ($_.ApiVersions | Select-Object -First 1)
+                        ""
+                    }
+                }
+        }
+        else{
+            $resourcetypes | %{
+                    If ($_.ResourceTypeName -match $refRegex){
+                        "- Resource Type Name:  " + $_.ResourceTypeName 
+                        "- API last version:    " + ($_.ApiVersions | Select-Object -First 1)
+                        ""
+                    }
+            }
+        }
+    }
+}
+```
+## PowerBI Dashboard Read Permissions Role (JSON)
+
+```
+{
+    "name": "string",
+    "type": "Microsoft.Authorization/roleDefinitions",
+    "apiVersion": "2017-09-01",
+    "properties": {
+      "Name":  "Continous Optimization Dashboard Reader",
+      "Id":  null,
+      "IsCustom":  true,
+      "Description":  "Can read Resources, Azure Security Center and Advisor Information",
+      "Actions":  [
+                      "Microsoft.Advisor/generateRecommendations/action", 
+                      "*/Read"
+                  ],
+      "NotActions":  [],
+          
+      "AssignableScopes":  [                          
+                               "/subscriptions/XXXXXXXXXXXXXXXXXXXXX"                             
+                           ]
+      }
+  }
 ```

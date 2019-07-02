@@ -3,7 +3,7 @@
 
 ## Content
 
-- [Version 5.0 new features and updates](README.md#version-50-new-features-and-updates)
+- [Version 5.2 new features and updates](README.md#version-52-new-features-and-updates)
 - [Overview](README.md#overview)
 - [List of resources](README.md#List-of-resources)
 - [CCO Dashboard report pages](README.md#CCO-Dashboard-report-Pages)
@@ -11,7 +11,7 @@
 - [Call for Contribution](README.md#Call-for-Contribution)
 -------------------------------
 
-## **Version 5.0:** New features and updates
+## **Version 5.2:** New features and updates
 
 **Overview Page**
 - New Resource Groups tags counter

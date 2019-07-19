@@ -3,6 +3,7 @@
 
 ## Content
 
+- [Version 5.3 updates](README.md#version-53-updates)
 - [Version 5.2 new features and updates](README.md#version-52-new-features-and-updates)
 - [Overview](README.md#overview)
 - [List of resources](README.md#List-of-resources)

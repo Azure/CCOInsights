@@ -3,6 +3,7 @@
 
 ## Content
 
+- [Version 5.3 updates](README.md#version-53-updates)
 - [Version 5.2 new features and updates](README.md#version-52-new-features-and-updates)
 - [Overview](README.md#overview)
 - [List of resources](README.md#List-of-resources)
@@ -10,6 +11,10 @@
 - [CCO Dashboard AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on)
 - [Call for Contribution](README.md#Call-for-Contribution)
 -------------------------------
+
+## **Version 5.3** Updates 
+- Bug fixing issues with ASC Network Recommendations table load from docs.microsoft.com
+- Incorporating icons new feature from PowerBI Desktop
 
 ## **Version 5.2:** New features and updates
 

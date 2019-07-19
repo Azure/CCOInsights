@@ -11,6 +11,10 @@
 - [Call for Contribution](README.md#Call-for-Contribution)
 -------------------------------
 
+## **Version 5.3** Updates 
+- Bug fixing issues with ASC Network Recommendations table load from docs.microsoft.com
+- Incorporating icons new feature from PowerBI Desktop
+
 ## **Version 5.2:** New features and updates
 
 **Overview Page**

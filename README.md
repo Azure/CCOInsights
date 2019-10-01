@@ -14,7 +14,6 @@
 -------------------------------
 
 ## **Version 5.4** Updates
-
 - NSGs bug fixing when NSGs configuration are empty
 - Bug fixing number of VNETs per subscription
 - Bug Fixing duplicated VNET Peerings count

@@ -12,6 +12,12 @@
 - [Call for Contribution](README.md#Call-for-Contribution)
 -------------------------------
 
+## **Version 5.4** Updates
+
+- NSGs bug fixing when NSGs configuration are empty
+- Bug fixing number of VNETs per subscription
+- Bug Fixing duplicated VNET Peerings count
+
 ## **Version 5.3** Updates 
 - Bug fixing issues with ASC Network Recommendations table load from docs.microsoft.com
 - Incorporating icons new feature from PowerBI Desktop

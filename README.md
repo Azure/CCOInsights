@@ -3,6 +3,7 @@
 
 ## Content
 
+- [Version 5.4 updates](README.md#version-54-updates)
 - [Version 5.3 updates](README.md#version-53-updates)
 - [Version 5.2 new features and updates](README.md#version-52-new-features-and-updates)
 - [Overview](README.md#overview)
@@ -11,6 +12,11 @@
 - [CCO Dashboard AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on)
 - [Call for Contribution](README.md#Call-for-Contribution)
 -------------------------------
+
+## **Version 5.4** Updates
+- NSGs bug fixing when NSGs configuration are empty
+- Bug fixing number of VNETs per subscription
+- Bug Fixing duplicated VNET Peerings count
 
 ## **Version 5.3** Updates 
 - Bug fixing issues with ASC Network Recommendations table load from docs.microsoft.com

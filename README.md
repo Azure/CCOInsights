@@ -18,7 +18,7 @@
 **Azure Resources Usage and Limits Page** ***<span style="color:green"><sup>NEW</sup></span>***
 - List Compute, Networking and Storage Azure Resources Usage and limits per subscription and region
 
-**Azure Idle Resources identification** ***<span style="color:green"><sup>NEW</sup></span>***
+**Azure Idle Resources identification Page** ***<span style="color:green"><sup>NEW</sup></span>***
 - List Idle Public IPs, Network Interfaces and Disks per Subscription
 
 ## **Version 5.4** Updates

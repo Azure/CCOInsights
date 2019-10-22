@@ -3,6 +3,7 @@
 
 ## Content
 
+- [Version 6.0 updates](README.md#version-60-updates)
 - [Version 5.4 updates](README.md#version-54-updates)
 - [Version 5.3 updates](README.md#version-53-updates)
 - [Version 5.2 new features and updates](README.md#version-52-new-features-and-updates)
@@ -12,6 +13,13 @@
 - [CCO Dashboard AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on)
 - [Call for Contribution](README.md#Call-for-Contribution)
 -------------------------------
+
+## **Version 6.0** Updates
+**Azure Resources Usage and Limits Page** ***<span style="color:green"><sup>NEW</sup></span>***
+- List Compute, Networking and Storage Azure Resources Usage and limits per subscription and region
+
+**Azure Idle Resources identification** ***<span style="color:green"><sup>NEW</sup></span>***
+- List Idle Public IPs, Network Interfaces and Disks per Subscription
 
 ## **Version 5.4** Updates
 - NSGs bug fixing when NSGs configuration are empty

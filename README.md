@@ -92,7 +92,7 @@ This project includes the following resources:
     - ***CCODashboard-AKS folder*** has the add-on report to monitor Azure Kubernetes Services.
 
 ## CCO Dashboard report pages
-The version 5.0 of the CCO Power BI Dashboard includes 10 report pages. You will be able to navigate, filter and report the following information:
+The version 6.0 of the CCO Power BI Dashboard includes 12 report pages. You will be able to navigate, filter and report the following information:
 - Page 1: Overview
 - Page 2: Tags Overview
 - Page 3: Azure Advisor Recommendations
@@ -103,6 +103,8 @@ The version 5.0 of the CCO Power BI Dashboard includes 10 report pages. You will
 - Page 8: Network Security Groups
 - Page 9: Azure RBAC permissions
 - Page 10: Azure Service Principals RBAC permissions
+- Page 11: IaaS Usage and Limits
+- Page 12: IaaS Idle Resources
   
 You can find more details about each page on the [Deployment Guide](/install/DeploymentGuide.md) file
 

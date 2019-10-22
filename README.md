@@ -2,7 +2,6 @@
 # Continuous Cloud Optimization Power BI Dashboard
 
 ## Content
-
 - [Version 6.0 updates](README.md#version-60-updates)
 - [Version 5.4 updates](README.md#version-54-updates)
 - [Version 5.3 updates](README.md#version-53-updates)
@@ -20,7 +19,6 @@
 
 **Azure Idle Resources identification Page** ***<span style="color:green"><sup>NEW</sup></span>***
 - List Idle Public IPs, Network Interfaces and Disks per Subscription
-
 ## **Version 5.4** Updates
 - NSGs bug fixing when NSGs configuration are empty
 - Bug fixing number of VNETs per subscription

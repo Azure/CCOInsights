@@ -33,7 +33,8 @@ The Continuous Optimization Power BI Dashboard pulls the information from severa
 | [Azure Security Center Tasks](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2015-06-01-preview |2015-06-01-preview|:heavy_check_mark:|
 | [Azure Kubernetes Service](https://docs.microsoft.com/en-us/rest/api/aks) | 2018-03-31|2019-06-01|:x:|
 | [Azure Compute](https://docs.microsoft.com/en-us/rest/api/compute) | 2019-03-01|2019-03-01|:heavy_check_mark:|
-| [Azure Virtual Networks]( https://docs.microsoft.com/en-us/rest/api/virtual-network) | 2019-04-01|2019-04-01|:heavy_check_mark:|
+| [Azure Disks](https://docs.microsoft.com/en-us/rest/api/compute/disks/list) | 2019-03-01|2019-03-01|:heavy_check_mark:|
+| [Azure Virtual Networks](https://docs.microsoft.com/en-us/rest/api/virtual-network) | 2019-04-01|2019-04-01|:heavy_check_mark:|
 | [Azure Network Interfaces](https://docs.microsoft.com/en-us/rest/api/virtualnetwork/networkinterfaces) |2019-04-01 |2019-04-01|:heavy_check_mark:|
 | [Resource Groups](https://docs.microsoft.com/en-us/rest/api/resources/resourcegroups)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
 | [Azure Resources](https://docs.microsoft.com/en-us/rest/api/resources/resources)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
@@ -256,7 +257,25 @@ You can filter the information by:
 - Subscription
 - Resource type
 
-![azure rbac](/install/images/RBACServicePrincipals.png)
+![azure rbacSP](/install/images/RBACServicePrincipals.png)
+
+## IaaS Usage and Limits Dashboard tab
+This tab allows to identify the usage of any Compute, Storage and Networking Azure resource and validate the limits for each region and subscription 
+
+You can filter the information by:
+- Subscription
+- Azure Region
+
+![azure Idle](/install/images/UsageAndLimits.png)
+
+## IaaS Idle Resources Dashboard tab
+This tab is lists all the Public IPs, Network Interfaces and Disks that are disconnected, idle or unattached.
+
+You can filter the information by:
+- Subscription
+
+
+![azure Idle](/install/images/IdleResources.png)
 
 ## Azure Kubernetes Service Dashboard tab
 In this page, you will be able to identify the number of AKS Clusters, Nodes, Pods, Containers and Container images. All the information related to these resources will be shown (IPs, pods in use, status, network, image repositories, …).

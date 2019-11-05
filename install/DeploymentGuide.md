@@ -285,7 +285,7 @@ You can filter the information by:
 - AKS Cluster
 
 
-![aks](/install/images/aks.png)
+![aks](/install/images/aks.PNG)
 
 **IMPORTANT**: to receive all the information related to the Pods, Containers and Container Images a log analytics workspace configured **is required**.
 </div>

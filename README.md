@@ -111,9 +111,9 @@ You can find more details about each page on the [Deployment Guide](/install/Dep
 The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following information
 
 - Azure Kubernetes Clusters information
-- Azure Container Images and source repository running on AKS Clusters ***<span style="color:green"><sup>NEW</sup></span>***
 - Nodes, Pods, Containers status from Azure Log Analytics
-- Security recommendations to apply from ASC ***<span style="color:green"><sup>NEW</sup></span>***
+- Azure Container Images (and source repositories) running on AKS Clusters ***<span style="color:green"><sup>NEW</sup></span>***
+- Security recommendations to apply from Azure Security Center ***<span style="color:green"><sup>NEW</sup></span>***
 - Service principals (showing assigned RBAC Roles) with cluster permissions ***<span style="color:green"><sup>NEW</sup></span>***
 - Azure Container Intances information ***<span style="color:green"><sup>NEW</sup></span>***
 - Improved API Rest calls ***<span style="color:green"><sup>NEW</sup></span>***

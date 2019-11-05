@@ -2,7 +2,7 @@
 # Continuous Cloud Optimization Power BI Dashboard
 
 ## Content
-
+- [Version 6.0 updates](README.md#version-60-updates)
 - [Version 5.4 updates](README.md#version-54-updates)
 - [Version 5.3 updates](README.md#version-53-updates)
 - [Version 5.2 new features and updates](README.md#version-52-new-features-and-updates)
@@ -13,6 +13,12 @@
 - [Call for Contribution](README.md#Call-for-Contribution)
 -------------------------------
 
+## **Version 6.0** Updates
+**Azure Resources Usage and Limits Page** ***<span style="color:green"><sup>NEW</sup></span>***
+- List Compute, Networking and Storage Azure Resources Usage and limits per subscription and region
+
+**Azure Idle Resources identification Page** ***<span style="color:green"><sup>NEW</sup></span>***
+- List Idle Public IPs, Network Interfaces and Disks per Subscription
 ## **Version 5.4** Updates
 - NSGs bug fixing when NSGs configuration are empty
 - Bug fixing number of VNETs per subscription
@@ -84,7 +90,7 @@ This project includes the following resources:
     - ***CCODashboard-AKS folder*** has the add-on report to monitor Azure Kubernetes Services.
 
 ## CCO Dashboard report pages
-The version 5.0 of the CCO Power BI Dashboard includes 10 report pages. You will be able to navigate, filter and report the following information:
+The version 6.0 of the CCO Power BI Dashboard includes 12 report pages. You will be able to navigate, filter and report the following information:
 - Page 1: Overview
 - Page 2: Tags Overview
 - Page 3: Azure Advisor Recommendations
@@ -95,6 +101,8 @@ The version 5.0 of the CCO Power BI Dashboard includes 10 report pages. You will
 - Page 8: Network Security Groups
 - Page 9: Azure RBAC permissions
 - Page 10: Azure Service Principals RBAC permissions
+- Page 11: IaaS Usage and Limits
+- Page 12: IaaS Idle Resources
   
 You can find more details about each page on the [Deployment Guide](/install/DeploymentGuide.md) file
 

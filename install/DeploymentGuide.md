@@ -31,7 +31,7 @@ The Continuous Optimization Power BI Dashboard pulls the information from severa
 | [Azure Advisor](https://docs.microsoft.com/en-us/rest/api/advisor/) | 2017-04-19|2017-04-19|:heavy_check_mark:|
 | [Azure Security Center Alerts](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2019-01-01 |2019-01-01|:heavy_check_mark:|
 | [Azure Security Center Tasks](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2015-06-01-preview |2015-06-01-preview|:heavy_check_mark:|
-| [Azure Kubernetes Service](https://docs.microsoft.com/en-us/rest/api/aks) | 2018-03-31|2019-06-01|:x:|
+| [Azure Kubernetes Service](https://docs.microsoft.com/en-us/rest/api/aks) | 2019-08-01|2019-08-01|:heavy_check_mark:|
 | [Azure Compute](https://docs.microsoft.com/en-us/rest/api/compute) | 2019-03-01|2019-03-01|:heavy_check_mark:|
 | [Azure Disks](https://docs.microsoft.com/en-us/rest/api/compute/disks/list) | 2019-03-01|2019-03-01|:heavy_check_mark:|
 | [Azure Virtual Networks](https://docs.microsoft.com/en-us/rest/api/virtual-network) | 2019-04-01|2019-04-01|:heavy_check_mark:|
@@ -277,8 +277,21 @@ You can filter the information by:
 
 ![azure Idle](/install/images/IdleResources.png)
 
-## Azure Kubernetes Service Dashboard tab
-In this page, you will be able to identify the number of AKS Clusters, Nodes, Pods, Containers and Container images. All the information related to these resources will be shown (IPs, pods in use, status, network, image repositories, …).
+## Azure Kubernetes Service Dashboard Overview tab
+In this page, you will be able to identify the number of AKS Clusters, Nodes, Pods, Containers, Service Principals and Azure Security Center recommedations. It’s important to mention that this tab just gives you a quick view. All the detailed information will be available in the following tab.
+
+You can filter the information by:
+- Subscription
+- AKS Cluster
+
+
+![aks](/install/images/aks.PNG)
+
+**IMPORTANT**: to receive all the information related to the Pods, Containers and Container Images a log analytics workspace configured **is required**.
+</div>
+
+## Azure Kubernetes Service Dashboard  tab
+In this page, you will be able to identify the number of AKS Clusters, Nodes, Pods, Containers, Container images, Service principals and Azure Container Instances . All the information related to these resources will be shown (IPs, pods in use, status, network, image repositories, RBAC roles …).
 
 You can filter the information by:
 - Subscription
@@ -286,10 +299,10 @@ You can filter the information by:
 - Namespace
 - Cluster Node
 
-![aks](/install/images/aks.PNG)
-
-**IMPORTANT**: to receive all the information related to the Pods, Containers and Container Images a log analytics workspace configured and running **is required**.
+**IMPORTANT**: to receive all the information related to the Pods, Containers and Container Images a log analytics workspace configured **is required**.
 </div>
+
+![aks](/install/images/aks2.png)
 
 # Scripts
 

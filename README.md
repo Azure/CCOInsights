@@ -2,6 +2,7 @@
 # Continuous Cloud Optimization Power BI Dashboard
 
 ## Content
+- [Version 6.1 updates](README.md#version-61-updates)
 - [Version 6.0 updates](README.md#version-60-updates)
 - [Version 5.4 updates](README.md#version-54-updates)
 - [Version 5.3 updates](README.md#version-53-updates)
@@ -12,6 +13,10 @@
 - [CCO Dashboard AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on)
 - [Call for Contribution](README.md#Call-for-Contribution)
 -------------------------------
+
+## **Version 6.1** Updates
+- Bug fixing ASC recommendation URLs updated.
+- Bug fixing IaaS Idle Resources data number color changed from black to white.
 
 ## **Version 6.0** Updates
 **Azure Resources Usage and Limits Page** ***<span style="color:green"><sup>NEW</sup></span>***

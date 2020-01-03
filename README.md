@@ -2,6 +2,7 @@
 # Continuous Cloud Optimization Power BI Dashboard
 
 ## Content
+- [Version 6.2 updates](README.md#version-62-updates)
 - [Version 6.1 updates](README.md#version-61-updates)
 - [Version 6.0 updates](README.md#version-60-updates)
 - [Version 5.4 updates](README.md#version-54-updates)
@@ -13,6 +14,9 @@
 - [CCO Dashboard AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on)
 - [Call for Contribution](README.md#Call-for-Contribution)
 -------------------------------
+
+## **Version 6.2** Updates
+- Bug fixing ASC recommendation URLs updated.
 
 ## **Version 6.1** Updates
 - Bug fixing ASC recommendation URLs updated.

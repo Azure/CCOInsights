@@ -1,4 +1,5 @@
 
+
 |Recommendation|Description|Severity|Quick fix enabled?|Resource type|Recommendation type|
 |----|----|----|----|----|----|
 |**Just-in-time network access control should be applied on virtual machines**|Apply just-in-time (JIT) virtual machine (VM) access control to permanently lock down access to selected ports, and enable authorized users to open them, via JIT, for a limited amount of time only.<br>(Related policy: Just-In-Time network access control should be applied on virtual machines)|High|N|Virtual machine| Network|

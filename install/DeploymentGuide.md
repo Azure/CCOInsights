@@ -2,33 +2,42 @@
 <div style="text-align: justify">
 
 - [Continuous Cloud Optimization Power BI Dashboard](#continuous-cloud-optimization-power-bi-dashboard)
-  * [Overview](#overview)
-    + [Requirements](#requirements)
-  * [APIs in use](#apis-in-use)
-  * [Resource Providers requirements](#resource-providers-requirements)
-  * [Azure Advisor Recommendations](#azure-advisor-recommendations)
-    + [Generating Azure Advisor recommendations manually](#generating-azure-advisor-recommendations-manually)
-  * [Azure Security Center Recommendations](#azure-security-center-recommendations)
+  - [Overview](#overview)
+    - [Requirements](#requirements)
+  - [APIs in use](#apis-in-use)
+  - [Resource Providers requirements](#resource-providers-requirements)
+  - [Azure Advisor Recommendations](#azure-advisor-recommendations)
+    - [Generating Azure Advisor recommendations manually](#generating-azure-advisor-recommendations-manually)
+  - [Azure Security Center Recommendations](#azure-security-center-recommendations)
 - [Setting up the Continuous Optimization Power BI Dashboard](#setting-up-the-continuous-optimization-power-bi-dashboard)
-  * [Credentials](#credentials)
+  - [Credentials](#credentials)
+    - [Clean Credentials on the Data Source](#clean-credentials-on-the-data-source)
+    - [Refresh the dashboard](#refresh-the-dashboard)
+    - [Credentials for <span>management.azure.com</span> REST API request:](#credentials-for-managementazurecom-rest-api-request)
+    - [Credentials for <span>github.com</span> Web](#credentials-for-githubcom-web)
+    - [Credentials for <span>graph.windows.net</span> API](#credentials-for-graphwindowsnet-api)
+    - [Credentials for <span>api.loganalytics.io</span> API](#credentials-for-apiloganalyticsio-api)
+    - [Enter Access Web content credentials](#enter-access-web-content-credentials)
+    - [Modify Privacy settings](#modify-privacy-settings)
 - [Report Pages](#report-pages)
-  * [CCO Dashboard overview page](#cco-dashboard-overview-page)
-  * [Resource Tags overview page](#resource-tags-overview-page)
-  * [Azure Advisor Recommendations Dashboard page](#azure-advisor-recommendations-dashboard-page)
-  * [Azure Security Center Recommendations Dashboard page](#azure-security-center-recommendations-dashboard-page)
-  * [Azure Security Center Alerts Dashboard tab](#azure-security-center-alerts-dashboard-tab)
-  * [Azure VNETs and Subnets Recommendations Dashboard tab](#azure-vnets-and-subnets-recommendations-dashboard-tab)
-  * [Azure Compute Dashboard tab](#azure-compute-dashboard-tab)
-  * [Role Based Access Control Dashboard tab](#role-based-access-control-dashboard-tab)
-  * [Service Principal Role Based Access Control Dashboard tab](#service-principal-role-based-access-control-dashboard-tab)
-  * [IaaS Usage and Limits Dashboard tab](#iaas-usage-and-limits-dashboard-tab)
-  * [IaaS Idle Resources Dashboard tab](#iaas-idle-resources-dashboard-tab)
-  * [Azure Kubernetes Service Dashboard Overview tab](#azure-kubernetes-service-dashboard-overview-tab)
-  * [Azure Kubernetes Service Dashboard  tab](#azure-kubernetes-service-dashboard--tab)
+  - [CCO Dashboard overview page](#cco-dashboard-overview-page)
+  - [Resource Tags overview page](#resource-tags-overview-page)
+  - [Azure Advisor Recommendations Dashboard page](#azure-advisor-recommendations-dashboard-page)
+  - [Azure Security Center Recommendations Dashboard page](#azure-security-center-recommendations-dashboard-page)
+  - [Azure Security Center Alerts Dashboard tab](#azure-security-center-alerts-dashboard-tab)
+  - [Azure VNETs and Subnets Recommendations Dashboard tab](#azure-vnets-and-subnets-recommendations-dashboard-tab)
+  - [Azure Compute Dashboard tab](#azure-compute-dashboard-tab)
+  - [Role Based Access Control Dashboard tab](#role-based-access-control-dashboard-tab)
+  - [Service Principal Role Based Access Control Dashboard tab](#service-principal-role-based-access-control-dashboard-tab)
+  - [IaaS Usage and Limits Dashboard tab](#iaas-usage-and-limits-dashboard-tab)
+  - [IaaS Idle Resources Dashboard tab](#iaas-idle-resources-dashboard-tab)
+  - [Azure Kubernetes Service Dashboard Overview tab](#azure-kubernetes-service-dashboard-overview-tab)
+  - [Azure Kubernetes Service Dashboard  tab](#azure-kubernetes-service-dashboard-tab)
 - [Scripts](#scripts)
-  * [Generate All Subscriptions Advisor Recommendations](#generate-all-subscriptions-advisor-recommendations)
-  * [PowerBI Dashboard Read Permissions Role](#powerbi-dashboard-read-permissions-role)
-  * [Check last Azure API version](#check-last-azure-api-version)
+  - [Generate All Subscriptions Advisor Recommendations](#generate-all-subscriptions-advisor-recommendations)
+  - [PowerBI Dashboard Read Permissions Role](#powerbi-dashboard-read-permissions-role)
+  - [Check last Azure API version](#check-last-azure-api-version)
+  - [PowerBI Dashboard Read Permissions Role (JSON)](#powerbi-dashboard-read-permissions-role-json)
 
 ## Overview
 The Continuous Cloud Optimization Power BI Dashboard is a report that aims to aggregate and consolidate the information generated by several Azure services to gain quick insights on your subscriptions to enable data driven business and technical optimization decisions. The main data sources for the Dashboard are the **Azure Advisor REST API**, **Azure Security Center REST API**, **Azure Graph REST API**, **Log Analytics API** and several **Azure IaaS REST APIs**.
@@ -157,7 +166,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 
 ![credentials4](/install/images/Credentials4.png)
 
-### Credentials for <span>docs.microsoft.com</span> Web
+### Credentials for <span>github.com</span> Web
 - Click on **Anonymous**.
 - Click on **Sign in**.
 - Click on **Connect**.
@@ -178,19 +187,18 @@ If the permissions and credentials are properly flushed it should ask you for cr
 
 ![loganalytics](/install/images/loganalyticsAPI.PNG)
 
-### Privacy Levels Configuration for All APIs
-- On **Privacy levels…**.
-- Select **Organizational**.
-- Click on **Save**.
-
-![credentials6](/install/images/PrivacyLevelsWithDocs.png)
-
 ### Enter Access Web content credentials
 
 - Make sure that you select **Organization account** type.
 - Click on **Sign in**.
   
 ![credentials7](/install/images/Credentials7.png)
+
+### Modify Privacy settings
+
+ - Go to File -> Options -> Privacy and set to Always ignore privacy level settings.
+
+![Privacy](https://user-images.githubusercontent.com/39730064/60920947-3e6d2580-a24e-11e9-9042-f799c9f6fc53.png)
 
 # Report Pages
 ## CCO Dashboard overview page

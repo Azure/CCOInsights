@@ -82,4 +82,3 @@
 |**There should be more than one owner assigned to your subscription**|Designate more than one subscription owner in order to have administrator access redundancy.<br>(Related policy: There should be more than one owner assigned to your subscription)|High|N|Subscription|IdentityAndAccess|
 |**A maximum of 3 owners should be designated for your subscription**|Designate fewer than three subscription owners in order to reduce the potential for breach by a compromised owner.<br>(Related policy: A maximum of 3 owners should be designated for your subscription)|High|N|Subscription|IdentityAndAccess|
 |**Diagnostic logs in Key Vault should be enabled**|Enable logs and retain them up to a year. This enables you to recreate activity trails for investigation purposes when a security incident occurs or your network is compromised.<br>(Related policy: Diagnostic logs in Key Vault should be enabled)|Low|**Y**|Key Vault|IdentityAndAccess|
-||||||

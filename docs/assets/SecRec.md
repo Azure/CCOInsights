@@ -1,5 +1,5 @@
 
-|Recommendation|Description & related policy|Severity|Quick fix enabled?|Resource type|Recommendation type|
+|Recommendation|Description|Severity|Quick fix enabled?|Resource type|Recommendation type|
 |----|----|----|----|----|----|
 |**Just-in-time network access control should be applied on virtual machines**|Apply just-in-time (JIT) virtual machine (VM) access control to permanently lock down access to selected ports, and enable authorized users to open them, via JIT, for a limited amount of time only.<br>(Related policy: Just-In-Time network access control should be applied on virtual machines)|High|N|Virtual machine| Network|
 |**Network security groups on the subnet level should be enabled**|Enable network security groups to control network access of resources deployed in your subnets.<br>(Related policy: Subnets should be associated with a Network Security Group)|High/ Medium|N|Subnet|Network|

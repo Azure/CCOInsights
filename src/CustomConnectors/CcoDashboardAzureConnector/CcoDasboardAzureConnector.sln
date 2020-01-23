@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{4DF76451-A46A-4C0B-BE03-459FAAFA07E6}") = "CcoDashboardAzureConnector", "CcoDashboardAzureConnector.mproj", "{36DC029C-3497-44BE-8222-786DDE6C76E4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36DC029C-3497-44BE-8222-786DDE6C76E4}.Debug|x86.ActiveCfg = Debug|x86
+		{36DC029C-3497-44BE-8222-786DDE6C76E4}.Debug|x86.Build.0 = Debug|x86
+		{36DC029C-3497-44BE-8222-786DDE6C76E4}.Release|x86.ActiveCfg = Release|x86
+		{36DC029C-3497-44BE-8222-786DDE6C76E4}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B3C3EAC5-26AB-459A-8DF2-E65744D55E33}
+	EndGlobalSection
+EndGlobal

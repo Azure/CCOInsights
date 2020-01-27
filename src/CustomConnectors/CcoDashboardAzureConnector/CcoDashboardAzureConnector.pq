@@ -22,17 +22,18 @@ shared CcoDashboardAzureConnector.Contents = () =>
         #"ConvertSubscriptionListToTable" = Table.FromList(value, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
         #"ExpandIdColumns" = Table.ExpandRecordColumn(#"ConvertSubscriptionListToTable", "Column1", {"subscriptionId", "displayName"}, {"subscriptionId", "displayName"}),    
         // loop the subscription list to retrieve data
-        #"Policies" = Table.AddColumn(#"ExpandIdColumns", "Policies", each Policies([subscriptionId], token))
+        #"Policies" = Table.AddColumn(#"ExpandIdColumns", "Policies", each try Policies([subscriptionId], token))
    in        
         #"Policies";
-//     #"ExpandIdColumns" ;   
 
 Policies = (subscriptionId, token) =>
         let
-//         credential = Extension.CurrentCredential(),
-//         token = if (credential[AuthenticationKind] = "Key") then credential[Key] else credential[access_token],        
         headers = [ Authorization = "Bearer " & token ],
-        policies = Json.Document(Web.Contents("https://management.azure.com/subscriptions/"&subscriptionId&"/providers/Microsoft.PolicyInsights/policyStates/latest/summarize?api-version=2019-10-01", [ Headers = headers, ManualCredentials = true, Content=Text.ToBinary("") ])),
+        policies = try Json.Document(Web.Contents("https://management.azure.com/subscriptions/"&subscriptionId&"/providers/Microsoft.PolicyInsights/policyStates/latest/summarize?api-version=2019-10-01", 
+            [ Headers = headers, 
+              ManualCredentials = true, 
+              ManualStatusHandling={403},
+              Content=Text.ToBinary("") ])) otherwise "Cannot retrieve",
         value=policies[value],
         #"ConvertSubscriptionListToTable" = Table.FromList(value, Splitter.SplitByNothing(), null, null, ExtraValues.Error)
 

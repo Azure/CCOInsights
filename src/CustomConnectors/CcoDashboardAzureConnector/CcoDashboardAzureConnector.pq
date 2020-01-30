@@ -22,9 +22,12 @@ shared CcoDashboardAzureConnector.Contents = () =>
         #"ConvertSubscriptionListToTable" = Table.FromList(value, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
         #"ExpandIdColumns" = Table.ExpandRecordColumn(#"ConvertSubscriptionListToTable", "Column1", {"subscriptionId", "displayName"}, {"subscriptionId", "displayName"}),    
         // loop the subscription list to retrieve data
-        #"Policies" = Table.AddColumn(#"ExpandIdColumns", "Policies", each try Policies([subscriptionId], token))
+        #"Policies" = Table.AddColumn(#"ExpandIdColumns", "Policies", each try Policies([subscriptionId], token)),
+        #"ExpandedPolicies" = Table.ExpandRecordColumn(#"Policies", "Policies", {"HasError", "Value", "Error"}, {"HasError", "Value", "Error"}),
+        #"PoliciesOk" = Table.SelectRows(#"ExpandedPolicies", each ([HasError] = false)),
+        #"PoliciesNoErrorColumn" = Table.RemoveColumns(#"PoliciesOk",{"HasError", "Error"})
    in        
-        #"Policies";
+        #"PoliciesNoErrorColumn";
 
 Policies = (subscriptionId, token) =>
         let

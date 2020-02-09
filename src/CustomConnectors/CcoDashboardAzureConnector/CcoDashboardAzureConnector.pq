@@ -32,7 +32,7 @@ shared CcoDashboardAzureConnector.Contents = () =>
 Policies = (subscriptionId, token) =>
         let
         headers = [ Authorization = "Bearer " & token ],
-        policies = try Json.Document(Web.Contents("https://management.azure.com/subscriptions/"&subscriptionId&"/providers/Microsoft.PolicyInsights/policyStates/latest/summarize?api-version=2019-10-01", 
+        policies = try Json.Document(Web.Contents("https://management.azure.com/subscriptions/"&subscriptionId&"/providers/Microsoft.PolicyInsights/policyStates/default/queryResults?api-version=2019-10-01", 
             [ Headers = headers, 
               ManualCredentials = true, 
               ManualStatusHandling={403},

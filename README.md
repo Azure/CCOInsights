@@ -18,7 +18,9 @@
 -------------------------------
 ## **Version 6.4** Updates
 **Multi tenant feature** ***<span style="color:green"><sup>NEW</sup></span>***
-- Multi tenant support after delegating permissions. Follow this [procedure](https://docs.microsoft.com/en-us/azure/lighthouse/how-to/onboard-customer) to delegate resource management.
+
+Follow this [procedure](https://docs.microsoft.com/en-us/azure/lighthouse/how-to/onboard-customer) to delegate resource management.
+- Multi tenant support after delegating permissions. 
 - Tenant filtering in all pages.
 - Added subscription filtering in IaaS Usage and Limits and IaaS Idle Resources pages.
 

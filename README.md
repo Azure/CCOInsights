@@ -20,7 +20,7 @@
 **Multi tenant feature** ***<span style="color:green"><sup>NEW</sup></span>***
 
 Follow this [procedure](https://docs.microsoft.com/en-us/azure/lighthouse/how-to/onboard-customer) to delegate resource management.
-- Multi tenant support after delegating permissions. 
+- Multi tenant support after delegating resource management. 
 - Tenant filtering in all pages.
 - Added subscription filtering in IaaS Usage and Limits and IaaS Idle Resources pages.
 

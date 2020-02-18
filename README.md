@@ -2,6 +2,7 @@
 # Continuous Cloud Optimization Power BI Dashboard
 
 ## Content
+
 - [Version 6.4 updates](README.md#version-64-updates)
 - [Version 6.3 updates](README.md#version-63-updates)
 - [Version 6.2 updates](README.md#version-62-updates)
@@ -16,6 +17,7 @@
 - [CCO Dashboard AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on)
 - [Call for Contribution](README.md#Call-for-Contribution)
 -------------------------------
+
 ## **Version 6.4** Updates
 **Multi tenant feature** ***<span style="color:green"><sup>NEW</sup></span>***
 
@@ -23,7 +25,6 @@ Follow this [procedure](https://docs.microsoft.com/en-us/azure/lighthouse/how-to
 - Multi tenant support after delegating resource management. 
 - Tenant filtering in all pages.
 - Added subscription filtering in IaaS Usage and Limits and IaaS Idle Resources pages.
-
 
 ## **Version 6.3** Updates
 - Bug fixing ASC recommendation: Now all the Security Center Recommendations are defined in this [file](/docs/assets/SecRec.md). This file contains all the recommendations from docs.microsoft.com but will be updated by us for consolidating the model and avoid the issues when the official URL is updated.

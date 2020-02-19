@@ -2,8 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>
-    </ProjectGuid>
+    <ProjectGuid>{50016b5a-7b07-4238-8576-7e8135fba5d4}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>MyRootNamespace</RootNamespace>
     <AssemblyName>MyAssemblyName</AssemblyName>
@@ -44,9 +43,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="client_id">
-      <SubType>Content</SubType>
-    </Compile>
-    <Compile Include="client_secret">
       <SubType>Content</SubType>
     </Compile>
     <Content Include="CcoDashboardAzureConnector.query.pq">

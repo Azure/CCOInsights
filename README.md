@@ -2,7 +2,7 @@
 # Continuous Cloud Optimization Power BI Dashboard
 
 ## Content
-- [Version 6.4 updates](README.md#version-64-updates)
+- [Version 6.4 updates](README.md#version-70-updates)
 - [Version 6.3 updates](README.md#version-63-updates)
 - [Version 6.2 updates](README.md#version-62-updates)
 - [Version 6.1 updates](README.md#version-61-updates)
@@ -16,13 +16,12 @@
 - [CCO Dashboard AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on)
 - [Call for Contribution](README.md#Call-for-Contribution)
 -------------------------------
-## **Version 6.4** Updates
-**Multi tenant feature** ***<span style="color:green"><sup>NEW</sup></span>***
-
-Follow this [procedure](https://docs.microsoft.com/en-us/azure/lighthouse/how-to/onboard-customer) to delegate resource management.
-- Multi tenant support after delegating resource management. 
-- Tenant filtering in all pages.
+## **Version 7.0** Updates
+- **Multi tenant feature** ***<span style="color:green"><sup>NEW</sup></span>***  
+  - Tenant filtering in all pages.
 - Added subscription filtering in IaaS Usage and Limits and IaaS Idle Resources pages.
+
+**IMPORTANT**: You must follow this [procedure](https://docs.microsoft.com/en-us/azure/lighthouse/how-to/onboard-customer) to delegate resource management.
 
 
 ## **Version 6.3** Updates

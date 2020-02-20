@@ -18,7 +18,7 @@
 -------------------------------
 
 ## **Version 7.0** Updates
-- **Multi tenant feature** ***<span style="color:green"><sup>NEW</sup></span>***  
+- **Multi tenant feature** ***<span style="color:green"><sup>NEW</sup></span>*** (requires delegate resource management). 
   - Tenant filtering in all pages.
 - Added subscription filtering in IaaS Usage and Limits and IaaS Idle Resources pages.
 

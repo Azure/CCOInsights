@@ -34,7 +34,7 @@ Follow this [procedure](https://docs.microsoft.com/en-us/azure/lighthouse/how-to
 - Tenant filtering in all pages.
 - Added subscription filtering in IaaS Usage and Limits and IaaS Idle Resources pages.
 
->>>>>>> cc4830566c75546db6613ecd1c5fa81dc7c3da48
+
 ## **Version 6.3** Updates
 - Bug fixing ASC recommendation: Now all the Security Center Recommendations are defined in this [file](/docs/assets/SecRec.md). This file contains all the recommendations from docs.microsoft.com but will be updated by us for consolidating the model and avoid the issues when the official URL is updated.
 
@@ -109,7 +109,7 @@ Follow this [procedure](https://docs.microsoft.com/en-us/azure/lighthouse/how-to
 ## Overview
 The Continuous Cloud Optimization Power BI Dashboard (referred as CCO Dashboard here after) is a Power BI Dashboard developed using Power Query M language that pulls information directly from different Azure and Graph REST APIs. It presents the information in a simplified format to track potential recommendations from Azure Advisor or Azure Security Center allowing you to filter by subscriptions, resources groups, tags or particular resources.
 
-![OverviewImage](/install/images/OverviewImage.png)
+![OverviewImage](install\images\OverviewImage.png)
 
 ## List of resources
 This project includes the following resources:

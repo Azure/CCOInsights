@@ -109,7 +109,7 @@ Follow this [procedure](https://docs.microsoft.com/en-us/azure/lighthouse/how-to
 ## Overview
 The Continuous Cloud Optimization Power BI Dashboard (referred as CCO Dashboard here after) is a Power BI Dashboard developed using Power Query M language that pulls information directly from different Azure and Graph REST APIs. It presents the information in a simplified format to track potential recommendations from Azure Advisor or Azure Security Center allowing you to filter by subscriptions, resources groups, tags or particular resources.
 
-![OverviewImage](\install\images\OverviewImage.png)
+![OverviewImage](/install/images/OverviewImage.png)
 
 ## List of resources
 This project includes the following resources:

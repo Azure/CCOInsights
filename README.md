@@ -2,21 +2,26 @@
 # Continuous Cloud Optimization Power BI Dashboard
 
 ## Content
-- [Version 7.0 updates](README.md#version-70-updates)
-- [Version 6.3 updates](README.md#version-63-updates)
-- [Version 6.2 updates](README.md#version-62-updates)
-- [Version 6.1 updates](README.md#version-61-updates)
-- [Version 6.0 updates](README.md#version-60-updates)
-- [Version 5.4 updates](README.md#version-54-updates)
-- [Version 5.3 updates](README.md#version-53-updates)
-- [Version 5.2 new features and updates](README.md#version-52-new-features-and-updates)
 - [Overview](README.md#overview)
+- [Version 7.1 updates](README.md#version-71-updates)
+- [Version 7.0 updates](README.md#version-70-updates)
 - [List of resources](README.md#List-of-resources)
 - [CCO Dashboard report pages](README.md#CCO-Dashboard-report-Pages)
 - [CCO Dashboard AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on)
 - [Call for Contribution](README.md#Call-for-Contribution)
 -------------------------------
 
+## Overview
+The Continuous Cloud Optimization Power BI Dashboard (referred as CCO Dashboard here after) is a Power BI Dashboard developed using Power Query M language that pulls information directly from different Azure and Graph REST APIs. It presents the information in a simplified format to track potential recommendations from Azure Advisor or Azure Security Center allowing you to filter by subscriptions, resources groups, tags or particular resources.
+
+![OverviewImage](/install/images/OverviewImage.png)
+
+
+## **Version 7.1** Updates
+- Bug fix [Issue #72](https://github.com/Azure/ccodashboard/issues/72): 
+  - Subscription IDs in **All Subscriptions** table must be uniques.
+  - One tenant can be managed by one or more tenants (this data now is hidden but it will be used in future releases). 
+  
 ## **Version 7.0** Updates
 - **Multi tenant feature** ***<span style="color:green"><sup>NEW</sup></span>*** (requires Azure delegated resource management). 
   - Tenant filtering in all pages.
@@ -95,10 +100,6 @@
 - Filtering RBAC permissions by Service Principal Type
 - Search option for Users and Resource Groups
 
-## Overview
-The Continuous Cloud Optimization Power BI Dashboard (referred as CCO Dashboard here after) is a Power BI Dashboard developed using Power Query M language that pulls information directly from different Azure and Graph REST APIs. It presents the information in a simplified format to track potential recommendations from Azure Advisor or Azure Security Center allowing you to filter by subscriptions, resources groups, tags or particular resources.
-
-![OverviewImage](/install/images/OverviewImage.png)
 
 ## List of resources
 This project includes the following resources:

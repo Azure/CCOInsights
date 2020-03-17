@@ -195,36 +195,6 @@ Policies = (subscriptionId, token) =>
     in        
         #"PoliciesTable";
 
-
-// GetAllDescendants=() as table =>
-//     let 
-//         token = GetAccessToken(),
-//         headers = [ Authorization = "Bearer " & token ],
-//         Source = try Json.Document(Web.Contents("https://management.azure.com/providers/Microsoft.Management/managementGroups?api-version=2019-11-01", 
-//             [Headers=headers, 
-//             ManualCredentials = true,
-//             ManualStatusHandling={403}])) otherwise "Seems you don't have permissions to get management groups",
-//         value = Source[value],
-//         #"Converted to Table" = Table.FromList(value, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
-//         #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"id", "type", "name", "properties"}, {"id", "type", "name", "properties"}),
-//         #"Expanded properties" = Table.ExpandRecordColumn(#"Expanded Column1", "properties", {"tenantId", "displayName"}, {"tenantId", "displayName"}),
-//         #"Invoked Custom Function" = Table.AddColumn(#"Expanded properties", "Descendants", each GetDescendants([name], token))
-//         in 
-//             #"Invoked Custom Function";
-// 
-// GetDescendants=(MgId as text, token as text)=>
-//  let
-//      headers = [ Authorization = "Bearer " & token ],
-//      
-//     Source = try Json.Document(Web.Contents("https://management.azure.com/providers/Microsoft.Management/managementGroups/"&MgId&"/descendants?api-version=2019-11-01",
-//         [Headers=headers, 
-//         ManualCredentials = true, 
-//         ManualStatusHandling={403}])) otherwise "Seems you don't have permissions to get management group "&MgId,
-//     value = Source[value]
-// in
-//     value;
-
-
 // HELPER FUNCTIONS
 
 // Get subscriptions for a given user

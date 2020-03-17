@@ -1,16 +1,17 @@
 ﻿// This file contains your Data Connector logic
 section CcoDashboardAzureConnector;
 
-// TODO: add your client id and secret to the embedded files
 client_id = Text.FromBinary(Extension.Contents("client_id"));
 
+// valid return url from azure portal
 redirect_uri = "https://de-users-preview.sqlazurelabs.com/account/reply/";
 windowWidth = 800;
 windowHeight = 800;
 
-// BaseUrl = "https://api.data.world/v0";
 OAuthBaseUrl = "https://login.windows.net/common/oauth2";
 
+
+// main entry point to custom connector
 [DataSource.Kind="CcoDashboardAzureConnector", Publish="CcoDashboardAzureConnector.Publish"]
 shared CcoDashboardAzureConnector.Management = () as table =>
     let
@@ -20,20 +21,18 @@ shared CcoDashboardAzureConnector.Management = () as table =>
             {"Get entities Management Groups",   "alldescendantstrick",      GetAllDescendantsPortalWay(),  "Table",    "Table",    true},   
             {"All Resources", "allresources", GetAllResources(), "Table", "Table", true},
             {"Blueprints", "blueprints", GetAllBlueprints(), "Table", "Table", true},
-            {"Blueprint Artifacts", "blueprintartifact", CcoDashboardAzureConnector.GetBlueprintArtifacts(), "Table", "Table", true},
-            {"Published Blueprints", "blueprintspublished", GetPublisedBlueprints(), "Table", "Table", true},
-            {"Policy definitions", "policydefinitions", GetPolicyDefinitions(), "Table", "Table", true},
-            {"Batch test", "batchpolicies", BatchPolicies(), "Table", "Table", true},
-            {"Batch json", "batchjson", BatchJson(), "Function", "Function", true}
+            {"Blueprint Artifacts", "blueprintartifact", GetBlueprintArtifacts(), "Table", "Table", true},
+            {"Published Blueprints", "blueprintspublished", GetPublishedBlueprints(), "Table", "Table", true},
+            {"Policy definitions", "policydefinitions", GetPolicyDefinitions(), "Table", "Table", true}            
         }),
         NavTable = Table.ToNavigationTable(objects, {"Key"}, "Name", "Data", "ItemKind", "ItemName", "IsLeaf")
     in
         NavTable;
 
+// Get all descendants using the same api than portal.azure.com
 shared GetAllDescendantsPortalWay=() as table =>
     let
-        credential = Extension.CurrentCredential(),
-        token = if (credential[AuthenticationKind] = "Key") then credential[Key] else credential[access_token],        
+        token = GetAccessToken(),        
         headers = [ Authorization = "Bearer " & token ],
         tenantList = Json.Document(Web.Contents("https://management.azure.com/tenants?api-version=2019-11-01", 
             [Headers=headers, 
@@ -41,10 +40,22 @@ shared GetAllDescendantsPortalWay=() as table =>
         value=tenantList[value],
         #"Converted to Table" = Table.FromList(value, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
         #"ExpandedColumns" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"id", "tenantId", "countryCode", "displayName", "domains", "tenantCategory"}, {"id", "tenantId", "countryCode", "displayName", "domains", "tenantCategory"}),
+        // loop all tenants to get its management groups
         #"RetrieveTenantManagementGroups"= Table.AddColumn(#"ExpandedColumns", "ManagementGroups", each GetTenantManagementGroups([tenantId], token))
     in
         #"RetrieveTenantManagementGroups";
+// Retrieve the management groups in a tenant. it uses the same api than azure portal
+GetTenantManagementGroups=(tenanId, token)=>
+    let
+        headers = [Authorization="Bearer " & token],
+        Source = try Json.Document(Web.Contents("https://management.azure.com/providers/Microsoft.Management/getEntities?api-version=2018-03-01-preview&%24filter=name%20eq%20%27" & tenanId & "%27", 
+            [ Headers = headers, 
+              ManualStatusHandling={403},
+              ManualCredentials = true, 
+              Content=Text.ToBinary("")])) otherwise "Error retrieving data"
+    in Source;
 
+// Get policy definitions
 shared GetPolicyDefinitions = () as table =>
     let
         token = GetAccessToken(),        
@@ -57,15 +68,18 @@ shared GetPolicyDefinitions = () as table =>
    in        
         #"PoliciesNoErrorColumn";
 
+// Get the subscriptions of each policy
 SubscriptionPolicyDefinitions=(subscriptionId as text, token as text)=>
     let
         url = "https://management.azure.com/subscriptions/" & subscriptionId & "/providers/Microsoft.Authorization/policyDefinitions?api-version=2019-09-01",
         definitions = ListAllGet(url)
     in definitions;
 
-shared GetPublisedBlueprints=() as table =>
+// Get published blueprints
+shared GetPublishedBlueprints=() as table =>
     let
         blueprintsSanitized = GetAllBlueprintsSanitized(),
+        // loop subscription list to get blueprints
         blueprintArtifacts = Table.AddColumn(blueprintsSanitized, "Artifacts", each try GetSubscriptionPublishedBlueprints([subscriptionId], [name])),
         #"Expanded Artifacts" = Table.ExpandRecordColumn(blueprintArtifacts, "Artifacts", {"HasError", "Error", "Value"}, {"HasError", "Error", "Value"}),
         #"Filtered Rows" = Table.SelectRows(#"Expanded Artifacts", each ([HasError] = false)),
@@ -75,6 +89,7 @@ shared GetPublisedBlueprints=() as table =>
         publishedBlueprints = Table.ExpandRecordColumn(#"Expanded Value.1", "properties.1", {"blueprintName", "changeNotes", "parameters", "resourceGroups", "targetScope", "status", "displayName", "description"}, {"blueprintName", "changeNotes", "parameters", "resourceGroups", "targetScope", "status", "displayName.1", "description"})
     in publishedBlueprints;
 
+// get published blueprints per susbscription
 GetSubscriptionPublishedBlueprints=(subscriptionId as text, blueprintName as text)=>
     let
         Source = Json.Document(Web.Contents("https://management.azure.com/subscriptions/"&subscriptionId&"/providers/Microsoft.Blueprint/blueprints/"&blueprintName&"/versions?api-version=2018-11-01-preview")),
@@ -84,20 +99,14 @@ GetSubscriptionPublishedBlueprints=(subscriptionId as text, blueprintName as tex
     in #"Expanded Value";
 
 
-
-
-shared GetAllBlueprints=() as table =>
+// Gets the artifacts for all blueprints
+shared GetBlueprintArtifacts=() as table =>
     let
-        token= GetAccessToken(),
-        subscriptions = GetSubscriptionsTable(token),
-        blueprints = Table.AddColumn(subscriptions, "Blueprints", each GetSubscriptionBlueprints([subscriptionId], token))
-    in 
-        blueprints;
-
-shared CcoDashboardAzureConnector.GetBlueprintArtifacts=() as table =>
-    let
+        // gets all blueprints for which the user has permissions
         blueprintsSanitized = GetAllBlueprintsSanitized(),
+        // loops the blueprints to retrieve the artifacts
         blueprintArtifacts = Table.AddColumn(blueprintsSanitized, "Artifacts", each try GetArtifactsByBlueprint([subscriptionId], [name])),
+        // filter errors rows
         #"Expanded Artifacts" = Table.ExpandRecordColumn(blueprintArtifacts, "Artifacts", {"HasError", "Error", "Value"}, {"HasError", "Error", "Value"}),
         #"Filtered Rows" = Table.SelectRows(#"Expanded Artifacts", each ([HasError] = false)),
         #"Removed Columns" = Table.RemoveColumns(#"Filtered Rows",{"HasError", "Error"}),
@@ -106,6 +115,29 @@ shared CcoDashboardAzureConnector.GetBlueprintArtifacts=() as table =>
         #"Expanded value.2" = Table.ExpandRecordColumn(#"Expanded value.1", "value.1", {"properties", "kind", "id", "type", "name"}, {"properties.1", "kind", "id.1", "type.1", "name.1"})
     in #"Expanded value.2";
 
+// gets the artifacts for a blueprint. a blueprint is identified by its subscription and the blueprint name
+GetArtifactsByBlueprint=(subscriptionId as text, blueprintName as text)=>
+    let
+        url ="https://management.azure.com/subscriptions/"&subscriptionId&"/providers/Microsoft.Blueprint/blueprints/"&blueprintName&"/artifacts?api-version=2018-11-01-preview",
+        Source = Json.Document(Web.Contents(url))
+    in Source;
+
+// try to get all blueprints, including the ones for which the user has no permissions
+shared GetAllBlueprints=() as table =>
+    let
+        token= GetAccessToken(),
+        subscriptions = GetSubscriptionsTable(token),
+        blueprints = Table.AddColumn(subscriptions, "Blueprints", each GetSubscriptionBlueprints([subscriptionId], token))
+    in 
+        blueprints;
+// gets the blueprints for a subscription
+GetSubscriptionBlueprints= (subscriptionId as text, token as text) =>
+    let
+        url = "https://management.azure.com/subscriptions/" & subscriptionId & "/providers/Microsoft.Blueprint/blueprints?api-version=2018-11-01-preview",
+        Source =  ListAllGet(url)
+    in
+        Source;
+// get all blueprints filtering the rows with errors, for instance the ones not authorized
 GetAllBlueprintsSanitized= () as table=>
     let
         blueprints = GetAllBlueprints(),
@@ -115,46 +147,13 @@ GetAllBlueprintsSanitized= () as table=>
         sanitizedBluebrints = Table.ExpandRecordColumn(ExpandedColumn1, "Column1", {"properties", "id", "type", "name"}, {"properties", "id", "type", "name"})
     in sanitizedBluebrints;
 
-GetArtifactsByBlueprint=(subscriptionId as text, blueprintName as text)=>
-    let
-        url ="https://management.azure.com/subscriptions/"&subscriptionId&"/providers/Microsoft.Blueprint/blueprints/"&blueprintName&"/artifacts?api-version=2018-11-01-preview",
-        Source = Json.Document(Web.Contents(url))
-    in Source;
-
-GetSubscriptionBlueprints= (subscriptionId as text, token as text) =>
-    let
-        url = "https://management.azure.com/subscriptions/" & subscriptionId & "/providers/Microsoft.Blueprint/blueprints?api-version=2018-11-01-preview",
-        Source =  ListAllGet(url)
-    in
-        Source;
-
-// GetAllResourcePolicies = () as table =>
-//     let
-//         allresources = GetAllResources(),
-//         token = GetAccessToken(),
-//         ExpandedResourceId = Table.ExpandRecordColumn(allresources, "ExpandedResourcesColumn", {"id"}, {"id"}),
-//         resourcePolicies = Table.AddColumn(ExpandedResourceId, "Policies", each try GetResourcePolicies([id], token)),
-//         ExpandedPolicies = Table.ExpandRecordColumn(resourcePolicies, "Policies", {"HasError", "Value", "Error"}, {"HasError", "Value", "Error"}),
-//         FilteredErrors = Table.SelectRows(ExpandedPolicies, each ([HasError] = false)),
-//         RemovedErrorColumns = Table.RemoveColumns(FilteredErrors,{"HasError", "Error"})
-//     in RemovedErrorColumns;
-// 
-//  GetResourcePolicies=(resourceId as text, token as text)=>
-//     let
-//         url = "https://management.azure.com" & resourceId & "/providers/Microsoft.PolicyInsights/policyEvents/default/queryResults?api-version=2018-04-04",
-//         header = GetAuthorizationHeader(token),
-//         resourcePolicies = try Json.Document(Web.Contents(url, 
-//                                                [ Headers=header, 
-//                                                  ManualCredentials=true, 
-//                                                  ManualStatusHandling={403},
-//                                                  Content=Text.ToBinary("")])) otherwise "Cannot retrieve resource policies"
-//         
-//     in resourcePolicies;
-
-GetAllResources=() as table=>
+// get all resources for all subscription for which the user has permissions
+shared GetAllResources=() as table=>
     let
         token = GetAccessToken(),        
+        // get all subscriptios
         #"ExpandIdColumns" = GetSubscriptionsTable(token),
+        // loop the subscription to retrieve all resources
         #"allResources"=Table.AddColumn(#"ExpandIdColumns", "Resources", each try GetAllSubscriptionResources([subscriptionId], token)),
         #"ExpandedResources" = Table.ExpandRecordColumn(#"allResources", "Resources", {"HasError", "Value"}, {"HasError", "Value"}),
         #"ResourcesOk" = Table.SelectRows(#"ExpandedResources", each ([HasError] = false)),
@@ -164,6 +163,7 @@ GetAllResources=() as table=>
      in
          #"TableWithResources";
 
+// get the resources of a subscription, following pages if necessary
 GetAllSubscriptionResources=(subscriptionId, token)=>
     let
         url = "https://management.azure.com/subscriptions/"&subscriptionId&"/resources?api-version=2019-05-01",        
@@ -171,44 +171,63 @@ GetAllSubscriptionResources=(subscriptionId, token)=>
     in 
         allSubscriptionResources;
 
-GetTenantManagementGroups=(tenanId, token)=>
+// Retrieves all policies for all subscriptions where the user has permissions
+shared GetPoliciesTable = () as table =>
     let
-        headers = [Authorization="Bearer " & token],
-        Source = try Json.Document(Web.Contents("https://management.azure.com/providers/Microsoft.Management/getEntities?api-version=2018-03-01-preview&%24filter=name%20eq%20%27" & tenanId & "%27", 
-            [ Headers = headers, 
-              ManualStatusHandling={403},
-              ManualCredentials = true, 
-              Content=Text.ToBinary("")])) otherwise "Error retrieving data"
-    in Source;
+        token = GetAccessToken(),        
+        // get all user subscriptions
+        #"ExpandIdColumns" = GetSubscriptionsTable(token),
+        // loop all subscriptions to retrieve their policies
+        #"Policies" = Table.AddColumn(#"ExpandIdColumns", "Policies", each try Policies([subscriptionId], token)),
+        // Filter errors
+        #"ExpandedPolicies" = Table.ExpandRecordColumn(#"Policies", "Policies", {"HasError", "Value", "Error"}, {"HasError", "Value", "Error"}),
+        #"PoliciesOk" = Table.SelectRows(#"ExpandedPolicies", each ([HasError] = false)),
+        #"PoliciesNoErrorColumn" = Table.RemoveColumns(#"PoliciesOk",{"HasError", "Error"})
+   in        
+        #"PoliciesNoErrorColumn";
 
-GetAllDescendants=() as table =>
-    let 
-        token = GetAccessToken(),
-        headers = [ Authorization = "Bearer " & token ],
-        Source = try Json.Document(Web.Contents("https://management.azure.com/providers/Microsoft.Management/managementGroups?api-version=2019-11-01", 
-            [Headers=headers, 
-            ManualCredentials = true,
-            ManualStatusHandling={403}])) otherwise "Seems you don't have permissions to get management groups",
-        value = Source[value],
-        #"Converted to Table" = Table.FromList(value, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
-        #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"id", "type", "name", "properties"}, {"id", "type", "name", "properties"}),
-        #"Expanded properties" = Table.ExpandRecordColumn(#"Expanded Column1", "properties", {"tenantId", "displayName"}, {"tenantId", "displayName"}),
-        #"Invoked Custom Function" = Table.AddColumn(#"Expanded properties", "Descendants", each GetDescendants([name], token))
-        in 
-            #"Invoked Custom Function";
+// Retrieve all policies for a subscription
+Policies = (subscriptionId, token) =>
+    let
+        url = "https://management.azure.com/subscriptions/"&subscriptionId&"/providers/Microsoft.PolicyInsights/policyStates/default/queryResults?api-version=2019-10-01",
+        // retrieve all policies, following continuation pages if needed
+        #"PoliciesTable"= ListAllPost(url, token)
+    in        
+        #"PoliciesTable";
 
-GetDescendants=(MgId as text, token as text)=>
- let
-     headers = [ Authorization = "Bearer " & token ],
-     
-    Source = try Json.Document(Web.Contents("https://management.azure.com/providers/Microsoft.Management/managementGroups/"&MgId&"/descendants?api-version=2019-11-01",
-        [Headers=headers, 
-        ManualCredentials = true, 
-        ManualStatusHandling={403}])) otherwise "Seems you don't have permissions to get management group "&MgId,
-    value = Source[value]
-in
-    value;
 
+// GetAllDescendants=() as table =>
+//     let 
+//         token = GetAccessToken(),
+//         headers = [ Authorization = "Bearer " & token ],
+//         Source = try Json.Document(Web.Contents("https://management.azure.com/providers/Microsoft.Management/managementGroups?api-version=2019-11-01", 
+//             [Headers=headers, 
+//             ManualCredentials = true,
+//             ManualStatusHandling={403}])) otherwise "Seems you don't have permissions to get management groups",
+//         value = Source[value],
+//         #"Converted to Table" = Table.FromList(value, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+//         #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"id", "type", "name", "properties"}, {"id", "type", "name", "properties"}),
+//         #"Expanded properties" = Table.ExpandRecordColumn(#"Expanded Column1", "properties", {"tenantId", "displayName"}, {"tenantId", "displayName"}),
+//         #"Invoked Custom Function" = Table.AddColumn(#"Expanded properties", "Descendants", each GetDescendants([name], token))
+//         in 
+//             #"Invoked Custom Function";
+// 
+// GetDescendants=(MgId as text, token as text)=>
+//  let
+//      headers = [ Authorization = "Bearer " & token ],
+//      
+//     Source = try Json.Document(Web.Contents("https://management.azure.com/providers/Microsoft.Management/managementGroups/"&MgId&"/descendants?api-version=2019-11-01",
+//         [Headers=headers, 
+//         ManualCredentials = true, 
+//         ManualStatusHandling={403}])) otherwise "Seems you don't have permissions to get management group "&MgId,
+//     value = Source[value]
+// in
+//     value;
+
+
+// HELPER FUNCTIONS
+
+// Get subscriptions for a given user
 shared GetSubscriptions=(token as text)=>
     let
         headers = [ Authorization = "Bearer " & token ],
@@ -217,8 +236,8 @@ shared GetSubscriptions=(token as text)=>
         value = subscriptionList[value]
     in
         value;
-
-shared GetSubscriptionsTable=(token as text)=>
+// get subscriptios for a given user in table format
+shared GetSubscriptionsTable=(token as text) as table=>
     let
         subscriptions =GetSubscriptions(token),
         st = Table.FromList(subscriptions, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
@@ -226,76 +245,10 @@ shared GetSubscriptionsTable=(token as text)=>
     in
         ExpandIdColumns;
 
-shared BatchJson=()=>
-    let
-        token = GetAccessToken(),        
-        #"ExpandIdColumns" = GetSubscriptionsTable(token),
-        // loop the subscription list to retrieve data
-        l = Table.ToList(Table.SelectColumns(#"ExpandIdColumns", {"subscriptionId"})),
-        r = List.Transform(l, each PrepareSubscriptionRequest(_)),
-        subscriptions = Text.FromBinary(Json.FromValue([requests= r]))
-    in subscriptions;
-
-shared BatchPolicies = () as table =>
-    let
-        token = GetAccessToken(),        
-        #"ExpandIdColumns" = GetSubscriptionsTable(token),
-        // loop the subscription list to retrieve data
-        l = Table.ToList(Table.SelectColumns(#"ExpandIdColumns", {"subscriptionId"})),
-        r = List.Transform(l, each PrepareSubscriptionRequest(_)),
-        subscriptionsRequest = Json.FromValue([requests= r]),
-        batchResult = SendBatchRequest(subscriptionsRequest, token),
-        batchTable = Table.FromValue(batchResult)
-    in batchTable;
- 
-shared GetPoliciesTable = () as table =>
-    let
-        token = GetAccessToken(),        
-        #"ExpandIdColumns" = GetSubscriptionsTable(token),
-        // loop the subscription list to retrieve data
-        subscriptions = Json.FromValue([requests= Table.ToList(#"ExpandIdColumns",  each PrepareSubscriptionRequest([subscriptionId]))]),
-        batchResult = SendBatchRequest(subscriptions),
-        #"Policies" = Table.AddColumn(#"ExpandIdColumns", "Policies", each try Policies([subscriptionId], token)),
-        #"ExpandedPolicies" = Table.ExpandRecordColumn(#"Policies", "Policies", {"HasError", "Value", "Error"}, {"HasError", "Value", "Error"}),
-        #"PoliciesOk" = Table.SelectRows(#"ExpandedPolicies", each ([HasError] = false)),
-        #"PoliciesNoErrorColumn" = Table.RemoveColumns(#"PoliciesOk",{"HasError", "Error"})
-   in        
-        #"PoliciesNoErrorColumn";
-
-SendBatchRequest=(content, token as text)=>
-    let
-        url = "https://management.azure.com/batch?api-version=2015-11-01",
-        headers = [ Authorization = "Bearer " & token, 
-                    #"Content-Type"="application/json; charset=utf-8" ],
-        result = try Json.Document(Web.Contents(url, 
-                    [ Headers = headers, 
-                      ManualCredentials = true, 
-                      ManualStatusHandling={403}, 
-                      Content=content])) otherwise "cannot retrieve data"
-    in
-        result;
-
-PrepareSubscriptionRequest=(subscriptionId as text)=>
-    let
-        request = 
-            [ content= null, 
-              httpMethod="POST", 
-              name=subscriptionId, 
-              requestHeaderDetails=
-                [commandName="SubscriptionRequest"], 
-              url = "https://management.azure.com/subscriptions/"&subscriptionId&"/providers/Microsoft.PolicyInsights/policyStates/default/queryResults?api-version=2019-10-01"]
-    in
-        request;
 
 
-Policies = (subscriptionId, token) =>
-    let
-        url = "https://management.azure.com/subscriptions/"&subscriptionId&"/providers/Microsoft.PolicyInsights/policyStates/default/queryResults?api-version=2019-10-01",
-        #"PoliciesTable"= ListAllPost(url, token)
-    in        
-        #"PoliciesTable";
 
-// Helper methods
+// Connector methods needed for proper PowerBI integration
 
 // Data Source Kind description
 CcoDashboardAzureConnector = [
@@ -321,7 +274,6 @@ CcoDashboardAzureConnector.Publish = [
 //
 // OAuth2 flow definition
 //
-
 StartLogin = (resourceUrl, state, display) =>
     let
         AuthorizeUrl = OAuthBaseUrl & "/authorize?" & Uri.BuildQueryString([
@@ -331,7 +283,7 @@ StartLogin = (resourceUrl, state, display) =>
             response_mode= "query",
             prompt="login",
             state = state,
-            nonce= "pepe", // make it random
+            nonce= "nonce", // make it random
             redirect_uri = redirect_uri])
     in
         [
@@ -372,14 +324,11 @@ let
      in
          token;
 
-shared GetAuthorizationHeader = (token as text) =>
-    let
-        headers=[Authorization= "Bearer " & token]
-    in 
-        headers;
-
+// helper method that implements paging continuation implemented in azure management APIs with GET web method
+// when there are more result it returns nextLink, this methods invokes the management api when nextLink is informed
 ListAllGet = (url as text) =>
 let
+    // child method that returns a page and is invoke while there are results by its parent method (ListAllGet)
     FuncGetOnePage = (url) as record =>
     let 
        Source = Json.Document(Web.Contents(url)),
@@ -388,16 +337,20 @@ let
        res = [Data=data, Next=next]
     in
         res,
-        GeneratedListOfPages = List.Generate(()=>[res = FuncGetOnePage(url)],
-        each [res][Data]<>null,
-        each [res = FuncGetOnePage([res][Next])],
-        each [res][Data]),
-
+    // loop while there are results
+    GeneratedListOfPages = List.Generate(()=>[res = FuncGetOnePage(url)], //initializer
+        each [res][Data]<>null, // continuation condition, while there is data
+        each [res = FuncGetOnePage([res][Next])], // next
+        each [res][Data]), // selector
+    // generates the table with all pages
     #"Converted to Table" = Table.FromList(GeneratedListOfPages, Splitter.SplitByNothing(), null, null, ExtraValues.Error)
     in #"Converted to Table";
 
+// helper method that implements paging continuation implemented in azure management APIs with POST web method
+// when there are more result it returns nextLink, this methods invokes the management api when nextLink is informed
 ListAllPost = (url as text, token as text) =>
 let
+    // child method that returns a page, using post method
     FuncPostOnePage = (url, token) as record =>
     let 
        headers = [ Authorization = "Bearer " & token ],
@@ -411,7 +364,8 @@ let
        res = [Data=data, Next=next]
     in
         res,
-        GeneratedListOfPages = List.Generate(()=>[res = FuncPostOnePage(url, token)],
+    // loop while there are more pages
+    GeneratedListOfPages = List.Generate(()=>[res = FuncPostOnePage(url, token)],
         each [res][Data]<>null,
         each [res = FuncPostOnePage([res][Next], token)],
         each [res][Data]),
@@ -420,6 +374,7 @@ let
     in #"Converted to Table";
 
 
+// method to prepare a navigation table
 Table.ToNavigationTable = (
     table as table,
     keyColumns as list,

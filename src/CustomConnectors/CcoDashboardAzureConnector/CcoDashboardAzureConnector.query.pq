@@ -1,6 +1,6 @@
 ﻿// Use this file to write queries to test your data connector
 let
-    result = CcoDashboardAzureConnector.Management(){[Key="blueprintartifact"]}[Data]
+    result = CcoDashboardAzureConnector.Management(){[Key="batchjson"]}[Data]
 in
     result
 

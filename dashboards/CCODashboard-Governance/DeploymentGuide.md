@@ -74,7 +74,11 @@ To install the custom connector you must copy the file [CCoDashboardAzureConnect
 
 The path should be **C:\Users\%YOUR_USER%\Documents\Power BI Desktop\Custom Connectors**
 
+![cc](/install/images/customconnectorfolder.PNG)
+
 Then go to Power BI Options and under Global category in the Security section, select **(Not Recommended) Allow any extension to load without validation or warning** and click **OK**. 
+
+![cc](/install/images/customconnectorsecurity.PNG)
 
 # Setting up the CCO Azure Governance Dashboard Governance
 ## Credentials
@@ -108,7 +112,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 - Click on **Sign in**.
 - Click on **Connect**.
 
-![credentials4](/install/images/customconnector.PNG)
+![cc](/install/images/customconnector.PNG)
 
 
 ### Modify Privacy settings
@@ -122,12 +126,12 @@ If the permissions and credentials are properly flushed it should ask you for cr
 In this page, you will be able to identify easily the hierarchy within your environment with the view of the Management Groups and Subscriptions.
 It's important to mention that this page just gives you a quick view. 
 
-![overview](/install/images/OverviewImage.png)
+![overview](/install/images/GovernanceOverview.png)
 
 ## Tags and naming standards page
 In this page you will be able to sort and filter all your Resources and Resource groups based on Tags. It will help you identify any missing Tag and if your naming standards and Tags classifications adheres to your organization guidelines or policies.
 
-![Tagsoverview](/install/images/TagsOverview.png)
+![Tagsoverview](/install/images/GovernanceTags.png)
 
 ## Azure Policies page
 In this page of the report, you will be able to identify the total amount of policies that are you applying in your environment. It will also give a high-level overview of which policies has less compliance level and which resources require more attention.
@@ -140,7 +144,7 @@ You can filter the information by:
 
 If you navigate to a impacted resource you will see a quick description of the applied policies.
 
-![advisor](/install/images/Advisor.png)
+![policies](/install/images/governancePolicies.png)
 
 ## Azure Subscription Blueprints page
 In this page of the report, you will be able to identify the total amount of blueprints that are you applying in your environment. It will also show which are the artifacts within the blueprints.

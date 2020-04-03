@@ -1,21 +1,28 @@
 
-# Continuous Cloud Optimization Power BI Dashboard
+# Continuous Cloud Optimization Power BI Dashboards
 
 ## Content
 
 - [Overview](README.md#overview)
-- [Version 7.1 updates](README.md#version-71-updates)
+- [CCO Azure Governance Dashboard Governance Version 1.0](README.md#CCO-Dashboard-Governance-Report-Pages) ***<span style="color:green"><sup>NEW</sup></span>***
+- [CCO Azure Infrastructure Dashboard Version 7.1 updates](README.md#version-71-updates)
 - [Version 7.0 updates](README.md#version-70-updates)
 - [List of resources](README.md#List-of-resources)
 - [CCO Dashboard report pages](README.md#CCO-Dashboard-report-Pages)
 - [CCO Dashboard AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on-Report-Pages)
-- [CCO Dashboard Governance](README.md#CCO-Dashboard-Governance-Report-Pages) ***<span style="color:green"><sup>NEW</sup></span>***
 - [Call for Contribution](README.md#Call-for-Contribution)
+
 -------------------------------
 
 
 ## Overview
-The Continuous Cloud Optimization Power BI Dashboard (referred as CCO Dashboard here after) is a Power BI Dashboard developed using Power Query M language that pulls information directly from different Azure and Graph REST APIs. It presents the information in a simplified format to track potential recommendations from Azure Advisor or Azure Security Center allowing you to filter by subscriptions, resources groups, tags or particular resources.
+The Continuous Cloud Optimization Power BI Dashboards project is a set of Power BI Dashboards developed using Power Query M language and DAX, that pulls information directly from different Azure and Graph REST APIs and enables monitoring, operation and infrastructure teams to quickly gain insights about the existing Azure Platform footprint and resources. 
+The current set of CCO Dashboards includes 3 different Dashboards to discover information about different Azure critcal design areas:
+
+  - CCO Azure Infrastructure Dashboard: Get insights about Azure Identity and RBAC, Security of your resoruces, Networking, Compute, Idle resources and Subcriptions Quotas and Limits
+  - CCO Azure Governance Dashboard: Get insights Azure Governance aspects like Management Groups and Subscriptions hierarchy, Azure Policies, Azure Blueprints and Azure resources Regulatory Standards Compliance
+  - CCO Azure Infrastrucutre Dashboard with AKS: Get all the insights from the infrastruture Dashboard plus AKS information
+
 
 ![OverviewImage](/install/images/OverviewImage.png)
 

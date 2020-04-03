@@ -158,7 +158,7 @@ You can filter the information by:
 - Blueprint Assignment
   
 
-![SecurityCenterRecommendations](/install/images/SecurityCenterRecommendations.png)
+![governanceSubsBlueprints](/install/images/governanceSubsBlueprints.png)
 
 ## Azure Regulatory Compliance Overview tab
 The fifth tab is used to show the Azure Regulatory Compliance controls level of the environment. It shows the status of the 4 built-in regulatory compliance controls that Azure applies by default to all the environments (SOC TSP, PCI-DSS-3.2, ISO 27001 and Azure CIS 1.1.0).
@@ -169,7 +169,7 @@ You can filter the information by:
 - Subscription
 - Resource Groups
     
-![security Center alerts](/install/images/SecurityCenterAlerts.png)
+![regulatorycompliance](/install/images/regulatorycompliance.png)
 
 ## Azure Resources Regulatory Compliance tab
 In this tab, you will be able to identify which resources are compliant with all the additional regulatory compliance controls. Also it shows how your environment complies with controls and requirements designated by specific regulatory standards and industry benchmarks and provides prescriptive recommendations for how to address these requirements.
@@ -182,4 +182,4 @@ You can filter the information by:
 - Resource Groups
 - Regulatory Standard Name
   
-![azure networking](/install/images/AzureNetworking.png)
+![regulatorycomplianceresources](/install/images/regulatorycomplianceresources.png)

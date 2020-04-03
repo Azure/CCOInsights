@@ -9,7 +9,7 @@
 - [List of resources](README.md#List-of-resources)
 - [CCO Dashboard report pages](README.md#CCO-Dashboard-report-Pages)
 - [CCO Dashboard AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on-Report-Pages)
-- [CCO Dashboard Governance](README.md#CCO-Dashboard-Governance-Report-Pages)
+- [CCO Dashboard Governance](README.md#CCO-Dashboard-Governance-Report-Pages) ***<span style="color:green"><sup>NEW</sup></span>***
 - [Call for Contribution](README.md#Call-for-Contribution)
 -------------------------------
 

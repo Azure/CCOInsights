@@ -6,11 +6,13 @@
     - [Requirements](#requirements)
   - [APIs in use](#apis-in-use)
   - [Resource Providers requirements](#resource-providers-requirements)
+- [Installing the custom connector](#installing-the-custom-connector)
 - [Setting up the CCO Azure Governance Dashboard Governance](#setting-up-the-cco-azure-governance-dashboard-governance)
   - [Credentials](#credentials)
     - [Clean Credentials on the Data Source](#clean-credentials-on-the-data-source)
     - [Refresh the dashboard](#refresh-the-dashboard)
     - [Credentials for <span>management.azure.com</span> REST API request:](#credentials-for-managementazurecom-rest-api-request)
+    - [Credentials for <span>CCO Dashboard Custom Connector</span>:](#credentials-for-cco-dashboard-custom-connector)
     - [Modify Privacy settings](#modify-privacy-settings)
 - [Report Pages](#report-pages)
   - [Management Groups and Subscriptions Hierarchy Overview page](#management-groups-and-subscriptions-hierarchy-overview-page)
@@ -40,11 +42,14 @@ The CCO Azure Governance Dashboard Governance pulls the information from several
 
 | API Name| Dashboard API Version | Last API version | Using latest version|
 | --- | :---: | :---: |:---: |
-| [Azure Advisor](https://docs.microsoft.com/en-us/rest/api/advisor/) | 2017-04-19|2017-04-19|:heavy_check_mark:|
-| [Azure Security Center Alerts](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2019-01-01 |2019-01-01|:heavy_check_mark:|
-| [Azure Security Center Tasks](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2015-06-01-preview |2015-06-01-preview|:heavy_check_mark:|
-| [Azure Kubernetes Service](https://docs.microsoft.com/en-us/rest/api/aks) | 2019-08-01|2019-08-01|:heavy_check_mark:|
-| [Azure Compute](https://docs.microsoft.com/en-us/rest/api/compute) | 2019-03-01|2019-03-01|:heavy_check_mark:|
+| [Resource Groups](https://docs.microsoft.com/en-us/rest/api/resources/resourcegroups)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
+| [Azure Resources](https://docs.microsoft.com/en-us/rest/api/resources/resources)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
+| [Azure Subscriptions](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
+| [Azure Locations](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
+| [Azure Blueprints](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2018-11-01-preview |2018-11-01-preview|:heavy_check_mark:|
+| [Azure Policies](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2019-09-01 |2019-09-01|:heavy_check_mark:|
+| [Azure Regulatory Compliances](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2016-06-01 |2016-06-01|:heavy_check_mark:|
+
 
 
 <div style="text-align: justify">
@@ -61,6 +66,15 @@ Registering this Resource Provider has no cost or performance penalty on the sub
 3. Click on **Resource Providers**.
 4. Click on **Microsoft.Security** and **Register**.
 
+# Installing the custom connector
+
+We need to install a custom connector because we're using some queries with POST method. Also If we don't have the correct access a forbidden error message is thrown and the error handling from the product don't know how to process that type of message. To avoid these conflicts, we're managing the error handling and the POST method queries using the custom connector.  
+
+To install the custom connector you must copy the file [CCoDashboardAzureConnector.mez](https://github.com/josunefon/ccodashboard/blob/master/dashboards/CCODashboard-Governance/CcoDashboardAzureConnector.mez) from the **ccodashboard/dashboards/CCODashboard-Governance/** folder to the folder that Power BI creates by default in the Documents folder in your PC. If this folder doesn't exist, you can create a new one with this name. 
+
+The path should be **C:\Users\%YOUR_USER%\Documents\Power BI Desktop\Custom Connectors**
+
+Then go to Power BI Options and under Global category in the Security section, select **(Not Recommended) Allow any extension to load without validation or warning** and click **OK**. 
 
 # Setting up the CCO Azure Governance Dashboard Governance
 ## Credentials
@@ -86,9 +100,15 @@ If the permissions and credentials are properly flushed it should ask you for cr
 - Click on **Organizational Account**.
 - Click on **Sign in**.
 - Click on **Connect**.
-
-
+- 
 ![credentials4](/install/images/Credentials4.png)
+
+### Credentials for <span>CCO Dashboard Custom Connector</span>:
+- Click on **Organizational Account**.
+- Click on **Sign in**.
+- Click on **Connect**.
+
+![credentials4](/install/images/customconnector.PNG)
 
 
 ### Modify Privacy settings

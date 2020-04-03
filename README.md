@@ -8,7 +8,8 @@
 - [Version 7.0 updates](README.md#version-70-updates)
 - [List of resources](README.md#List-of-resources)
 - [CCO Dashboard report pages](README.md#CCO-Dashboard-report-Pages)
-- [CCO Dashboard AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on)
+- [CCO Dashboard AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on-Report-Pages)
+- [CCO Dashboard Governance](README.md#CCO-Dashboard-Governance-Report-Pages)
 - [Call for Contribution](README.md#Call-for-Contribution)
 -------------------------------
 
@@ -132,7 +133,7 @@ You can find more details about each page on the [Deployment Guide](/install/Dep
 
 ## CCO Dashboard AKS add-on report pages
 
-The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following information
+The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following information:
 
 - Azure Kubernetes Clusters information
 - Nodes, Pods, Containers status from Azure Log Analytics
@@ -141,6 +142,18 @@ The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following 
 - Service principals (showing assigned RBAC Roles) with cluster permissions ***<span style="color:green"><sup>NEW</sup></span>***
 - Azure Container Intances information ***<span style="color:green"><sup>NEW</sup></span>***
 - Improved API Rest calls ***<span style="color:green"><sup>NEW</sup></span>***
+
+## CCO Dashboard Governance report pages
+
+The version 1.0 of the CCO Power BI Dashboard Governance includes the following information:
+
+- Azure Management Groups and Subcriptions hierarchy ***<span style="color:green"><sup>NEW</sup></span>***
+- Resource Groups and Resources Tagging information
+- Azure Policies ***<span style="color:green"><sup>NEW</sup></span>***
+- Azure Subscriptions Blueprints ***<span style="color:green"><sup>NEW</sup></span>***
+- Regulatory Standards Compliance Overview ***<span style="color:green"><sup>NEW</sup></span>***
+- Azure Resource Regulatory Standards Compliance ***<span style="color:green"><sup>NEW</sup></span>***
+
 
 ## Call for contribution
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a

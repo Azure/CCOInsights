@@ -9,7 +9,7 @@
 - [CCO Azure Infrastructure Dashboard Version 7.0 updates](README.md#cco-azure-infrastructure-dashboard-version-70-updates)
 - [List of resources](README.md#List-of-resources)
 - [CCO Azure Infrastructure Dashboard report pages](README.md#cco-azure-infrastructure-dashboard-report-pages)
-- [CCO Azure Infrastructure Dashboard with AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on-Report-Pages)
+- [CCO Azure Infrastructure Dashboard with AKS add-on report pages]README.md#cco-azure-infrastructure-dashboard-with-aks-add-on-report-pages)
 - [Call for Contribution](README.md#Call-for-Contribution)
 
 -------------------------------

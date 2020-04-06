@@ -4,11 +4,11 @@
 ## Content
 
 - [Overview](README.md#overview)
-- [CCO Azure Governance Dashboard Governance Version 1.0](README.md#CCO-Dashboard-Governance-Report-Pages) ***<span style="color:green"><sup>NEW</sup></span>***
+- [CCO Azure Governance Dashboard Governance Version 1.0](README.md#CCO-Azure-Dashboard-Governance-Report-Pages) ***<span style="color:green"><sup>NEW</sup></span>***
 - [CCO Azure Infrastructure Dashboard Version 7.1 updates](README.md#version-71-updates)
 - [CCO Azure Infrastructure Dashboard Version 7.0 updates](README.md#version-70-updates)
 - [List of resources](README.md#List-of-resources)
-- [CCO Azure Infrastructure Dashboard report pages](README.md#CCO-Dashboard-report-Pages)
+- [CCO Azure Infrastructure Dashboard report pages](README.md#CCO-Azure-Infrastructure-Dashboard-report-Pages)
 - [CCO Azure Infrastructure Dashboard with AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on-Report-Pages)
 - [Call for Contribution](README.md#Call-for-Contribution)
 

@@ -97,7 +97,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 
 - Click on **Refresh**.
   
-![refreshgovernance](/install/images/refreshgovernance.png)
+![refreshgovernance](/install/images/refreshgovernance1.png)
 
 ### Credentials for <span>management.azure.com</span> REST API request:
 - Click on **Organizational Account**.

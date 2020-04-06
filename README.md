@@ -1,62 +1,70 @@
 
-# Continuous Cloud Optimization Power BI Dashboard
+# Continuous Cloud Optimization Power BI Dashboards
 
 ## Content
 
 - [Overview](README.md#overview)
-- [Version 7.1 updates](README.md#version-71-updates)
-- [Version 7.0 updates](README.md#version-70-updates)
+- [CCO Azure Governance Dashboard Governance Version 1.0](README.md#CCO-Dashboard-Governance-Report-Pages) ***<span style="color:green"><sup>NEW</sup></span>***
+- [CCO Azure Infrastructure Dashboard Version 7.1 updates](README.md#version-71-updates)
+- [CCO Azure Infrastructure Dashboard Version 7.0 updates](README.md#version-70-updates)
 - [List of resources](README.md#List-of-resources)
-- [CCO Dashboard report pages](README.md#CCO-Dashboard-report-Pages)
-- [CCO Dashboard AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on)
+- [CCO Azure Infrastructure Dashboard report pages](README.md#CCO-Dashboard-report-Pages)
+- [CCO Azure Infrastructure Dashboard with AKS add-on report pages](README.md#CCO-Dashboard-AKS-add-on-Report-Pages)
 - [Call for Contribution](README.md#Call-for-Contribution)
+
 -------------------------------
 
 
 ## Overview
-The Continuous Cloud Optimization Power BI Dashboard (referred as CCO Dashboard here after) is a Power BI Dashboard developed using Power Query M language that pulls information directly from different Azure and Graph REST APIs. It presents the information in a simplified format to track potential recommendations from Azure Advisor or Azure Security Center allowing you to filter by subscriptions, resources groups, tags or particular resources.
+The Continuous Cloud Optimization Power BI Dashboards project is a set of Power BI Dashboards developed using Power Query M language and DAX, that pulls information directly from different Azure and Graph REST APIs and enables monitoring, operation and infrastructure teams to quickly gain insights about the existing Azure Platform footprint and resources. 
+The current set of CCO Dashboards includes 3 different Dashboards to discover information about different Azure critcal design areas:
+
+  - CCO Azure Infrastructure Dashboard: Get insights about Azure Identity and RBAC, Security of your resoruces, Networking, Compute, Idle resources and Subcriptions Quotas and Limits
+  - CCO Azure Governance Dashboard: Get insights Azure Governance aspects like Management Groups and Subscriptions hierarchy, Azure Policies, Azure Blueprints and Azure resources Regulatory Standards Compliance
+  - CCO Azure Infrastrucutre Dashboard with AKS: Get all the insights from the infrastruture Dashboard plus AKS information
+
 
 ![OverviewImage](/install/images/OverviewImage.png)
 
 
-## **Version 7.1** Updates
+## **CCO Azure Infrastructure Dashboard Version 7.1** Updates
 - Bug fix [Issue #72](https://github.com/Azure/ccodashboard/issues/72): 
   - Subscription IDs in **All Subscriptions** table must be uniques.
   - One tenant can be managed by one or more tenants (this data now is hidden but it will be used in future releases). 
   
-## **Version 7.0** Updates
+## **CCO Azure Infrastructure Dashboard Version 7.0** Updates
 - **Multi tenant feature** ***<span style="color:green"><sup>NEW</sup></span>*** (requires Azure delegated resource management). 
   - Tenant filtering in all pages.
 - Added subscription filtering in IaaS Usage and Limits and IaaS Idle Resources pages.
 
 **IMPORTANT**: You must follow this [procedure](https://docs.microsoft.com/en-us/azure/lighthouse/how-to/onboard-customer) to implementent Azure delegated resource management.
 
-## **Version 6.3** Updates
+## **CCO Azure Infrastructure Dashboard Version 6.3** Updates
 - Bug fixing ASC recommendation: Now all the Security Center Recommendations are defined in this [file](/docs/assets/SecRec.md). This file contains all the recommendations from docs.microsoft.com but will be updated by us for consolidating the model and avoid the issues when the official URL is updated.
 
-## **Version 6.2** Updates
+## **CCO Azure Infrastructure Dashboard Version 6.2** Updates
 - Bug fixing ASC recommendation URLs updated.
 
-## **Version 6.1** Updates
+## **CCO Azure Infrastructure Dashboard Version 6.1** Updates
 - Bug fixing ASC recommendation URLs updated.
 - Bug fixing IaaS Idle Resources data number color changed from black to white.
 
-## **Version 6.0** Updates
+## **CCO Azure Infrastructure Dashboard Version 6.0** Updates
 **Azure Resources Usage and Limits Page** ***<span style="color:green"><sup>NEW</sup></span>***
 - List Compute, Networking and Storage Azure Resources Usage and limits per subscription and region
 
 **Azure Idle Resources identification Page** ***<span style="color:green"><sup>NEW</sup></span>***
 - List Idle Public IPs, Network Interfaces and Disks per Subscription
-## **Version 5.4** Updates
+## **CCO Azure Infrastructure Dashboard Version 5.4** Updates
 - NSGs bug fixing when NSGs configuration are empty
 - Bug fixing number of VNETs per subscription
 - Bug Fixing duplicated VNET Peerings count
 
-## **Version 5.3** Updates 
+## **CCO Azure Infrastructure Dashboard Version 5.3** Updates 
 - Bug fixing issues with ASC Network Recommendations table load from docs.microsoft.com
 - Incorporating icons new feature from PowerBI Desktop
 
-## **Version 5.2:** New features and updates
+## **CCO Azure Infrastructure Dashboard Version 5.2:** New features and updates
 
 **Overview Page**
 - New Resource Groups tags counter
@@ -113,8 +121,9 @@ This project includes the following resources:
     - ***CCODashboard folder*** has a more generic version of the Dashboard that includes information from Azure Advisor, Azure Security Center, Azure Networking REST APIs, Azure Compute REST APIs and Graph
     - ***CCODashboard-AKS folder*** has the add-on report to monitor Azure Kubernetes Services.
 
-## CCO Dashboard report pages
-The version 6.0 of the CCO Power BI Dashboard includes 12 report pages. You will be able to navigate, filter and report the following information:
+## CCO Azure Infrastructure Dashboard report pages
+The version 7.1 of the CCO Power BI Dashboard includes 12 report pages. You will be able to navigate, filter and report the following information:
+
 - Page 1: Overview
 - Page 2: Tags Overview
 - Page 3: Azure Advisor Recommendations
@@ -130,9 +139,9 @@ The version 6.0 of the CCO Power BI Dashboard includes 12 report pages. You will
   
 You can find more details about each page on the [Deployment Guide](/install/DeploymentGuide.md) file
 
-## CCO Dashboard AKS add-on report pages
+## CCO Azure Infrastructure Dashboard with AKS add-on report pages
 
-The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following information
+The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following information:
 
 - Azure Kubernetes Clusters information
 - Nodes, Pods, Containers status from Azure Log Analytics
@@ -141,6 +150,18 @@ The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following 
 - Service principals (showing assigned RBAC Roles) with cluster permissions ***<span style="color:green"><sup>NEW</sup></span>***
 - Azure Container Intances information ***<span style="color:green"><sup>NEW</sup></span>***
 - Improved API Rest calls ***<span style="color:green"><sup>NEW</sup></span>***
+
+## CCO Azure Governance Dashboard report pages
+
+The version 1.0 of the CCO Power BI Dashboard Governance includes the following information:
+
+- Azure Management Groups and Subcriptions hierarchy ***<span style="color:green"><sup>NEW</sup></span>***
+- Resource Groups and Resources Tagging information
+- Azure Policies ***<span style="color:green"><sup>NEW</sup></span>***
+- Azure Subscriptions Blueprints ***<span style="color:green"><sup>NEW</sup></span>***
+- Regulatory Standards Compliance Overview ***<span style="color:green"><sup>NEW</sup></span>***
+- Azure Resource Regulatory Standards Compliance ***<span style="color:green"><sup>NEW</sup></span>***
+
 
 ## Call for contribution
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a

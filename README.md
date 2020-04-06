@@ -19,9 +19,9 @@
 The Continuous Cloud Optimization Power BI Dashboards project is a set of Power BI Dashboards developed using Power Query M language and DAX, that pulls information directly from different Azure and Graph REST APIs and enables monitoring, operation and infrastructure teams to quickly gain insights about the existing Azure Platform footprint and resources. 
 The current set of CCO Dashboards includes 3 different Dashboards to discover information about different Azure critcal design areas:
 
-  - **CCO Azure Infrastructure Dashboard**: Get insights about Azure Identity and RBAC, Security of your resoruces, Networking, Compute, Idle resources and Subcriptions Quotas and Limits
-  - **CCO Azure Governance Dashboard**: Get insights Azure Governance aspects like Management Groups and Subscriptions hierarchy, Azure Policies, Azure Blueprints and Azure resources Regulatory Standards Compliance
-  - **CCO Azure Infrastrucutre Dashboard with AKS**: Get all the insights from the infrastruture Dashboard plus AKS information
+  - [**CCO Azure Infrastructure Dashboard**](/install/DeploymentGuide.md): Get insights about Azure Identity and RBAC, Security of your resoruces, Networking, Compute, Idle resources and Subcriptions Quotas and Limits
+  - [**CCO Azure Governance Dashboard**](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md): Get insights Azure Governance aspects like Management Groups and Subscriptions hierarchy, Azure Policies, Azure Blueprints and Azure resources Regulatory Standards Compliance
+  - [**CCO Azure Infrastrucutre Dashboard with AKS**](/install/DeploymentGuide.md): Get all the insights from the infrastruture Dashboard plus AKS information
 
 
 ![OverviewImage](/install/images/OverviewImage.png)
@@ -162,6 +162,7 @@ The version 1.0 of the CCO Power BI Dashboard Governance includes the following 
 - Regulatory Standards Compliance Overview ***<span style="color:green"><sup>NEW</sup></span>***
 - Azure Resource Regulatory Standards Compliance ***<span style="color:green"><sup>NEW</sup></span>***
 
+You can find more details about each page on the [Deployment Guide](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md) file
 
 ## Call for contribution
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a

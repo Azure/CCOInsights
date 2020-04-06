@@ -23,8 +23,7 @@
   - [Azure Resources Regulatory Compliance tab](#azure-resources-regulatory-compliance-tab)
 
 ## Overview
-The CCO Azure Governance Dashboard is aligned with the Microsoft Cloud Adoption Framework governance principles and will allow to get quick insights around Management Groups, Subscriptions, Blueprints, Polices, Naming Standards, Tagging and Regulatory Standards compliance. The information captured on this Power BI Dashboard can help Cloud Teams, Operations Teams or business decision makers to have a snapshot of the current configuration in just few minutes.
-
+The CCO Azure Governance Dashboard is aligned with the Microsoft Cloud Adoption Framework governance principles and will allow to get quick insights around Management Groups, Subscriptions, Blueprints, Polices, Naming Standards, Tagging and Regulatory Standards compliance. The information captured on this Power BI Dashboard can help Cloud Teams, Operations Teams or business decision makers to have a snapshot of the current Azure configuration in just few minutes.
 
 ### Requirements
 
@@ -68,11 +67,11 @@ Registering this Resource Provider has no cost or performance penalty on the sub
 
 # Installing the custom connector
 
-For this new Azure Governance Dashboard we have developed a Power BI Custom Connector that must be download and copied into the computer running Power BI Desktop. This new Custom Connector allows us to leverage new information out of the Azure Management REST API required to put all the information together.
+The new CCO Azure Governance Dashboard requires to install the Power BI Custom Connector that you will find in the same folder as the CCO Governance Dashboard ([CCoDashboardAzureConnector.mez]). This new Custom Connector allows us to leverage new information from Azure Management REST APIs required to put all the information together.
 
 To install the custom connector you must copy the file [CCoDashboardAzureConnector.mez](https://github.com/josunefon/ccodashboard/blob/master/dashboards/CCODashboard-Governance/CcoDashboardAzureConnector.mez) from the **ccodashboard/dashboards/CCODashboard-Governance/** folder to the folder that Power BI creates by default in the Documents folder in your PC. If this folder doesn't exist, you can create a new one with this name.
 
-The path should be **C:\Users%YOUR_USER%\Documents\Power BI Desktop\Custom Connectors**
+The path should be **C:\Users\%username%\Documents\Power BI Desktop\Custom Connectors**
 
 ![cc](/install/images/customconnectorfolder.PNG)
 

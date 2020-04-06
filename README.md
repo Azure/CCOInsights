@@ -151,7 +151,7 @@ The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following 
 - Azure Container Intances information ***<span style="color:green"><sup>NEW</sup></span>***
 - Improved API Rest calls ***<span style="color:green"><sup>NEW</sup></span>***
 
-## CCO Azure Governance Dashboard report pages
+## CCO Azure Governance Dashboard Report Pages
 
 The version 1.0 of the CCO Power BI Dashboard Governance includes the following information:
 

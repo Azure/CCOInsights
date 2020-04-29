@@ -5,16 +5,41 @@ client_id = Text.FromBinary(Extension.Contents("client_id"));
 
 // valid return url from azure portal
 redirect_uri = "https://de-users-preview.sqlazurelabs.com/account/reply/";
+shared OAuthBaseUrl = "https://login.windows.net/common/oauth2";
+shared managementUrl = "https://management.azure.com";
+
 windowWidth = 800;
 windowHeight = 800;
 
-OAuthBaseUrl = "https://login.windows.net/common/oauth2";
+
 
 
 // main entry point to custom connector
 [DataSource.Kind="CcoDashboardAzureConnector", Publish="CcoDashboardAzureConnector.Publish"]
-shared CcoDashboardAzureConnector.Management = () as table =>
+shared CcoDashboardAzureConnector.Management = Value.ReplaceType(ManagementImpl, ManagementMeta);
+
+ManagementMeta = type function(
+    azureKind as (type text meta [
+        Documentation.FieldCaption = "Azure kind",
+        Documentation.FieldDescription = "Kind of azure: global or government",
+        Documentation.AllowedValues = { "global", "us-government", "germany-government", "china" }
+    ]))
+    as table meta [
+        Documentation.Name = "CCO Dashboard Custom Connector",
+        Documentation.LongDescription = "Cloud Cost Optimization Dashboard Custom Connector"        
+    ];
+
+shared ManagementImpl = (gov as text) as table =>
     let
+        managementUrl = (gov as text)=>
+            let result = if gov="us-government" then "https://management.usgovcloudapi.net"
+                    else if gov="germany-government" then""
+                    else if gov = "china" then ""
+                    else "https://management.azure.com"
+                in result,
+        OAuthBaseUrl = (gov as text)=>
+            let result = if gov="us-government" then "https://login.microsoftonline.us/common/auth2" else "https://login.windows.net/common/oauth2"
+            in result,
         objects = #table(
             {"Name",       "Key",        "Data",                           "ItemKind", "ItemName", "IsLeaf"},{
             {"Policies",   "policies",      GetPoliciesTable(),  "Table",    "Table",    true},                        
@@ -29,12 +54,17 @@ shared CcoDashboardAzureConnector.Management = () as table =>
     in
         NavTable;
 
+GetManagementUri=(requestPath as text)=>
+    let
+        result = managementUrl & "/" & requestPath
+    in result;
+
 // Get all descendants using the same api than portal.azure.com
 shared GetAllDescendantsPortalWay=() as table =>
     let
         token = GetAccessToken(),        
         headers = [ Authorization = "Bearer " & token ],
-        tenantList = Json.Document(Web.Contents("https://management.azure.com/tenants?api-version=2019-11-01", 
+        tenantList = Json.Document(Web.Contents(GetManagementUri("tenants?api-version=2019-11-01"), 
             [Headers=headers, 
             ManualCredentials=true])),
         value=tenantList[value],
@@ -48,7 +78,7 @@ shared GetAllDescendantsPortalWay=() as table =>
 GetTenantManagementGroups=(tenanId, token)=>
     let
         headers = [Authorization="Bearer " & token],
-        Source = try Json.Document(Web.Contents("https://management.azure.com/providers/Microsoft.Management/getEntities?api-version=2018-03-01-preview&%24filter=name%20eq%20%27" & tenanId & "%27", 
+        Source = try Json.Document(Web.Contents(GetManagementUri("providers/Microsoft.Management/getEntities?api-version=2018-03-01-preview&%24filter=name%20eq%20%27" & tenanId & "%27"), 
             [ Headers = headers, 
               ManualStatusHandling={403},
               ManualCredentials = true, 
@@ -71,7 +101,7 @@ shared GetPolicyDefinitions = () as table =>
 // Get the subscriptions of each policy
 SubscriptionPolicyDefinitions=(subscriptionId as text, token as text)=>
     let
-        url = "https://management.azure.com/subscriptions/" & subscriptionId & "/providers/Microsoft.Authorization/policyDefinitions?api-version=2019-09-01",
+        url = GetManagementUri("subscriptions/" & subscriptionId & "/providers/Microsoft.Authorization/policyDefinitions?api-version=2019-09-01"),
         definitions = ListAllGet(url)
     in definitions;
 
@@ -92,7 +122,7 @@ shared GetPublishedBlueprints=() as table =>
 // get published blueprints per susbscription
 GetSubscriptionPublishedBlueprints=(subscriptionId as text, blueprintName as text)=>
     let
-        Source = Json.Document(Web.Contents("https://management.azure.com/subscriptions/"&subscriptionId&"/providers/Microsoft.Blueprint/blueprints/"&blueprintName&"/versions?api-version=2018-11-01-preview")),
+        Source = Json.Document(Web.Contents(GetManagementUri("subscriptions/"&subscriptionId&"/providers/Microsoft.Blueprint/blueprints/"&blueprintName&"/versions?api-version=2018-11-01-preview"))),
         value = Source[value],
         #"Converted to Table" = Record.ToTable(Source),
         #"Expanded Value" = Table.ExpandListColumn(#"Converted to Table", "Value")
@@ -118,7 +148,7 @@ shared GetBlueprintArtifacts=() as table =>
 // gets the artifacts for a blueprint. a blueprint is identified by its subscription and the blueprint name
 GetArtifactsByBlueprint=(subscriptionId as text, blueprintName as text)=>
     let
-        url ="https://management.azure.com/subscriptions/"&subscriptionId&"/providers/Microsoft.Blueprint/blueprints/"&blueprintName&"/artifacts?api-version=2018-11-01-preview",
+        url =GetManagementUri("subscriptions/"&subscriptionId&"/providers/Microsoft.Blueprint/blueprints/"&blueprintName&"/artifacts?api-version=2018-11-01-preview"),
         Source = Json.Document(Web.Contents(url))
     in Source;
 
@@ -133,8 +163,8 @@ shared GetAllBlueprints=() as table =>
 // gets the blueprints for a subscription
 GetSubscriptionBlueprints= (subscriptionId as text, token as text) =>
     let
-        url = "https://management.azure.com/subscriptions/" & subscriptionId & "/providers/Microsoft.Blueprint/blueprints?api-version=2018-11-01-preview",
-        Source =  ListAllGet(url)
+        url = GetManagementUri("subscriptions/" & subscriptionId & "/providers/Microsoft.Blueprint/blueprints?api-version=2018-11-01-preview"),
+        Source = ListAllGet(url)
     in
         Source;
 // get all blueprints filtering the rows with errors, for instance the ones not authorized
@@ -166,7 +196,7 @@ shared GetAllResources=() as table=>
 // get the resources of a subscription, following pages if necessary
 GetAllSubscriptionResources=(subscriptionId, token)=>
     let
-        url = "https://management.azure.com/subscriptions/"&subscriptionId&"/resources?api-version=2019-05-01",        
+        url = GetManagementUri("subscriptions/"&subscriptionId&"/resources?api-version=2019-05-01"),        
         allSubscriptionResources=ListAllGet(url)
     in 
         allSubscriptionResources;
@@ -189,7 +219,7 @@ shared GetPoliciesTable = () as table =>
 // Retrieve all policies for a subscription
 Policies = (subscriptionId, token) =>
     let
-        url = "https://management.azure.com/subscriptions/"&subscriptionId&"/providers/Microsoft.PolicyInsights/policyStates/default/queryResults?api-version=2019-10-01",
+        url = GetManagementUri("subscriptions/"&subscriptionId&"/providers/Microsoft.PolicyInsights/policyStates/default/queryResults?api-version=2019-10-01"),
         // retrieve all policies, following continuation pages if needed
         #"PoliciesTable"= ListAllPost(url, token)
     in        
@@ -201,7 +231,7 @@ Policies = (subscriptionId, token) =>
 shared GetSubscriptions=(token as text)=>
     let
         headers = [ Authorization = "Bearer " & token ],
-        subscriptionList = Json.Document(Web.Contents("https://management.azure.com/subscriptions?api-version=2019-11-01", 
+        subscriptionList = Json.Document(Web.Contents(GetManagementUri("subscriptions?api-version=2019-11-01"), 
             [ Headers = headers, ManualCredentials = true])),
         value = subscriptionList[value]
     in
@@ -222,7 +252,7 @@ shared GetSubscriptionsTable=(token as text) as table=>
 
 // Data Source Kind description
 CcoDashboardAzureConnector = [
-    // enable both OAuth and Key based auth
+    // enable OAuth auth
     Authentication = [
         OAuth = [
             StartLogin = StartLogin,
@@ -248,7 +278,7 @@ StartLogin = (resourceUrl, state, display) =>
     let
         AuthorizeUrl = OAuthBaseUrl & "/authorize?" & Uri.BuildQueryString([
             client_id = client_id,
-            resource= "https://management.azure.com",
+            resource= managementUrl,
             response_type = "code",
             response_mode= "query",
             prompt="login",

@@ -1,12 +1,13 @@
 ﻿// This file contains your Data Connector logic
 section CcoDashboardAzureConnector;
 
-client_id = Text.FromBinary(Extension.Contents("client_id"));
+// Oauth info from azure portal
+client_id_global = Text.FromBinary(Extension.Contents("client_id_global"));
+redirect_uri_global = "https://de-users-preview.sqlazurelabs.com/account/reply/";
+// Oauth info from azure portal government
+client_id_gov = Text.FromBinary(Extension.Contents("client_id_govus"));
+redirect_uri_gov = "https://de-users-preview.sqlazurelabs.com/account/reply/";
 
-// valid return url from azure portal
-redirect_uri = "https://de-users-preview.sqlazurelabs.com/account/reply/";
-shared OAuthBaseUrl = "https://login.windows.net/common/oauth2";
-shared managementUrl = "https://management.azure.com";
 
 windowWidth = 800;
 windowHeight = 800;
@@ -31,54 +32,58 @@ ManagementMeta = type function(
 
 shared ManagementImpl = (gov as text) as table =>
     let
-        managementUrl = (gov as text)=>
-            let result = if gov="us-government" then "https://management.usgovcloudapi.net"
-                    else if gov="germany-government" then""
-                    else if gov = "china" then ""
-                    else "https://management.azure.com"
-                in result,
-        OAuthBaseUrl = (gov as text)=>
-            let result = if gov="us-government" then "https://login.microsoftonline.us/common/auth2" else "https://login.windows.net/common/oauth2"
-            in result,
+//         managementUrl = (gov as text)=>
+//             let result = if gov="us-government" then "https://management.usgovcloudapi.net"
+//                     else if gov="germany-government" then""
+//                     else if gov = "china" then ""
+//                     else "https://management.azure.com"
+//                 in result,
+//         OAuthBaseUrl = (gov as text)=>
+//             let result = if gov="us-government" then "https://login.microsoftonline.us/common/auth2" else "https://login.windows.net/common/oauth2"
+//             in result,
         objects = #table(
             {"Name",       "Key",        "Data",                           "ItemKind", "ItemName", "IsLeaf"},{
-            {"Policies",   "policies",      GetPoliciesTable(),  "Table",    "Table",    true},                        
-            {"Get entities Management Groups",   "alldescendantstrick",      GetAllDescendantsPortalWay(),  "Table",    "Table",    true},   
-            {"All Resources", "allresources", GetAllResources(), "Table", "Table", true},
-            {"Blueprints", "blueprints", GetAllBlueprints(), "Table", "Table", true},
-            {"Blueprint Artifacts", "blueprintartifact", GetBlueprintArtifacts(), "Table", "Table", true},
-            {"Published Blueprints", "blueprintspublished", GetPublishedBlueprints(), "Table", "Table", true},
-            {"Policy definitions", "policydefinitions", GetPolicyDefinitions(), "Table", "Table", true}            
+            {"Policies",   "policies",      GetPoliciesTable(gov),  "Table",    "Table",    true},                        
+            {"Get entities Management Groups",   "alldescendantstrick",      GetAllDescendantsPortalWay(gov),  "Table",    "Table",    true},   
+            {"All Resources", "allresources", GetAllResources(gov), "Table", "Table", true},
+            {"Blueprints", "blueprints", GetAllBlueprints(gov), "Table", "Table", true},
+            {"Blueprint Artifacts", "blueprintartifact", GetBlueprintArtifacts(gov), "Table", "Table", true},
+            {"Published Blueprints", "blueprintspublished", GetPublishedBlueprints(gov), "Table", "Table", true},
+            {"Policy definitions", "policydefinitions", GetPolicyDefinitions(gov), "Table", "Table", true}            
         }),
         NavTable = Table.ToNavigationTable(objects, {"Key"}, "Name", "Data", "ItemKind", "ItemName", "IsLeaf")
     in
         NavTable;
 
-GetManagementUri=(requestPath as text)=>
+GetManagementUri=(govKind as text, requestPath as text)=>
     let
+        managementUrl = if govKind ="us-government" then "https://management.usgovcloudapi.net"
+                    else if govKind="germany-government" then""
+                    else if govKind = "china" then ""
+                    else "https://management.azure.com",
         result = managementUrl & "/" & requestPath
     in result;
 
 // Get all descendants using the same api than portal.azure.com
-shared GetAllDescendantsPortalWay=() as table =>
+shared GetAllDescendantsPortalWay=(govKind as text) as table =>
     let
         token = GetAccessToken(),        
         headers = [ Authorization = "Bearer " & token ],
-        tenantList = Json.Document(Web.Contents(GetManagementUri("tenants?api-version=2019-11-01"), 
+        tenantList = Json.Document(Web.Contents(GetManagementUri(govKind, "tenants?api-version=2019-11-01"), 
             [Headers=headers, 
             ManualCredentials=true])),
         value=tenantList[value],
         #"Converted to Table" = Table.FromList(value, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
         #"ExpandedColumns" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"id", "tenantId", "countryCode", "displayName", "domains", "tenantCategory"}, {"id", "tenantId", "countryCode", "displayName", "domains", "tenantCategory"}),
         // loop all tenants to get its management groups
-        #"RetrieveTenantManagementGroups"= Table.AddColumn(#"ExpandedColumns", "ManagementGroups", each GetTenantManagementGroups([tenantId], token))
+        #"RetrieveTenantManagementGroups"= Table.AddColumn(#"ExpandedColumns", "ManagementGroups", each GetTenantManagementGroups(govKind, [tenantId], token))
     in
         #"RetrieveTenantManagementGroups";
 // Retrieve the management groups in a tenant. it uses the same api than azure portal
-GetTenantManagementGroups=(tenanId, token)=>
+GetTenantManagementGroups=(govKind, tenanId, token)=>
     let
         headers = [Authorization="Bearer " & token],
-        Source = try Json.Document(Web.Contents(GetManagementUri("providers/Microsoft.Management/getEntities?api-version=2018-03-01-preview&%24filter=name%20eq%20%27" & tenanId & "%27"), 
+        Source = try Json.Document(Web.Contents(GetManagementUri(govKind, "providers/Microsoft.Management/getEntities?api-version=2018-03-01-preview&%24filter=name%20eq%20%27" & tenanId & "%27"), 
             [ Headers = headers, 
               ManualStatusHandling={403},
               ManualCredentials = true, 
@@ -86,12 +91,12 @@ GetTenantManagementGroups=(tenanId, token)=>
     in Source;
 
 // Get policy definitions
-shared GetPolicyDefinitions = () as table =>
+shared GetPolicyDefinitions = (govKind as text) as table =>
     let
         token = GetAccessToken(),        
-        #"ExpandIdColumns" = GetSubscriptionsTable(token),
+        #"ExpandIdColumns" = GetSubscriptionsTable(govKind, token),
         // loop the subscription list to retrieve data
-        #"Policies" = Table.AddColumn(#"ExpandIdColumns", "Policies", each try SubscriptionPolicyDefinitions([subscriptionId], token)),
+        #"Policies" = Table.AddColumn(#"ExpandIdColumns", "Policies", each try SubscriptionPolicyDefinitions(govKind, [subscriptionId], token)),
         #"ExpandedPolicies" = Table.ExpandRecordColumn(#"Policies", "Policies", {"HasError", "Value", "Error"}, {"HasError", "Value", "Error"}),
         #"PoliciesOk" = Table.SelectRows(#"ExpandedPolicies", each ([HasError] = false)),
         #"PoliciesNoErrorColumn" = Table.RemoveColumns(#"PoliciesOk",{"HasError", "Error"})
@@ -99,18 +104,18 @@ shared GetPolicyDefinitions = () as table =>
         #"PoliciesNoErrorColumn";
 
 // Get the subscriptions of each policy
-SubscriptionPolicyDefinitions=(subscriptionId as text, token as text)=>
+SubscriptionPolicyDefinitions=(govKind as text, subscriptionId as text, token as text)=>
     let
-        url = GetManagementUri("subscriptions/" & subscriptionId & "/providers/Microsoft.Authorization/policyDefinitions?api-version=2019-09-01"),
+        url = GetManagementUri(govKind, "subscriptions/" & subscriptionId & "/providers/Microsoft.Authorization/policyDefinitions?api-version=2019-09-01"),
         definitions = ListAllGet(url)
     in definitions;
 
 // Get published blueprints
-shared GetPublishedBlueprints=() as table =>
+shared GetPublishedBlueprints=(govKind as text) as table =>
     let
-        blueprintsSanitized = GetAllBlueprintsSanitized(),
+        blueprintsSanitized = GetAllBlueprintsSanitized(govKind),
         // loop subscription list to get blueprints
-        blueprintArtifacts = Table.AddColumn(blueprintsSanitized, "Artifacts", each try GetSubscriptionPublishedBlueprints([subscriptionId], [name])),
+        blueprintArtifacts = Table.AddColumn(blueprintsSanitized, "Artifacts", each try GetSubscriptionPublishedBlueprints(govKind, [subscriptionId], [name])),
         #"Expanded Artifacts" = Table.ExpandRecordColumn(blueprintArtifacts, "Artifacts", {"HasError", "Error", "Value"}, {"HasError", "Error", "Value"}),
         #"Filtered Rows" = Table.SelectRows(#"Expanded Artifacts", each ([HasError] = false)),
         RemovedErrorColumns = Table.RemoveColumns(#"Filtered Rows",{"HasError", "Error"}),
@@ -120,9 +125,9 @@ shared GetPublishedBlueprints=() as table =>
     in publishedBlueprints;
 
 // get published blueprints per susbscription
-GetSubscriptionPublishedBlueprints=(subscriptionId as text, blueprintName as text)=>
+GetSubscriptionPublishedBlueprints=(govKind as text, subscriptionId as text, blueprintName as text)=>
     let
-        Source = Json.Document(Web.Contents(GetManagementUri("subscriptions/"&subscriptionId&"/providers/Microsoft.Blueprint/blueprints/"&blueprintName&"/versions?api-version=2018-11-01-preview"))),
+        Source = Json.Document(Web.Contents(GetManagementUri(govKind, "subscriptions/"&subscriptionId&"/providers/Microsoft.Blueprint/blueprints/"&blueprintName&"/versions?api-version=2018-11-01-preview"))),
         value = Source[value],
         #"Converted to Table" = Record.ToTable(Source),
         #"Expanded Value" = Table.ExpandListColumn(#"Converted to Table", "Value")
@@ -130,12 +135,12 @@ GetSubscriptionPublishedBlueprints=(subscriptionId as text, blueprintName as tex
 
 
 // Gets the artifacts for all blueprints
-shared GetBlueprintArtifacts=() as table =>
+shared GetBlueprintArtifacts=(govKind as text) as table =>
     let
         // gets all blueprints for which the user has permissions
-        blueprintsSanitized = GetAllBlueprintsSanitized(),
+        blueprintsSanitized = GetAllBlueprintsSanitized(govKind),
         // loops the blueprints to retrieve the artifacts
-        blueprintArtifacts = Table.AddColumn(blueprintsSanitized, "Artifacts", each try GetArtifactsByBlueprint([subscriptionId], [name])),
+        blueprintArtifacts = Table.AddColumn(blueprintsSanitized, "Artifacts", each try GetArtifactsByBlueprint(govKind, [subscriptionId], [name])),
         // filter errors rows
         #"Expanded Artifacts" = Table.ExpandRecordColumn(blueprintArtifacts, "Artifacts", {"HasError", "Error", "Value"}, {"HasError", "Error", "Value"}),
         #"Filtered Rows" = Table.SelectRows(#"Expanded Artifacts", each ([HasError] = false)),
@@ -146,31 +151,31 @@ shared GetBlueprintArtifacts=() as table =>
     in #"Expanded value.2";
 
 // gets the artifacts for a blueprint. a blueprint is identified by its subscription and the blueprint name
-GetArtifactsByBlueprint=(subscriptionId as text, blueprintName as text)=>
+GetArtifactsByBlueprint=(govKind as text, subscriptionId as text, blueprintName as text)=>
     let
-        url =GetManagementUri("subscriptions/"&subscriptionId&"/providers/Microsoft.Blueprint/blueprints/"&blueprintName&"/artifacts?api-version=2018-11-01-preview"),
+        url =GetManagementUri(govKind, "subscriptions/"&subscriptionId&"/providers/Microsoft.Blueprint/blueprints/"&blueprintName&"/artifacts?api-version=2018-11-01-preview"),
         Source = Json.Document(Web.Contents(url))
     in Source;
 
 // try to get all blueprints, including the ones for which the user has no permissions
-shared GetAllBlueprints=() as table =>
+shared GetAllBlueprints=(govKind as text) as table =>
     let
         token= GetAccessToken(),
-        subscriptions = GetSubscriptionsTable(token),
-        blueprints = Table.AddColumn(subscriptions, "Blueprints", each GetSubscriptionBlueprints([subscriptionId], token))
+        subscriptions = GetSubscriptionsTable(govKind, token),
+        blueprints = Table.AddColumn(subscriptions, "Blueprints", each GetSubscriptionBlueprints(govKind, [subscriptionId], token))
     in 
         blueprints;
 // gets the blueprints for a subscription
-GetSubscriptionBlueprints= (subscriptionId as text, token as text) =>
+GetSubscriptionBlueprints= (govKind as text, subscriptionId as text, token as text) =>
     let
-        url = GetManagementUri("subscriptions/" & subscriptionId & "/providers/Microsoft.Blueprint/blueprints?api-version=2018-11-01-preview"),
+        url = GetManagementUri(govKind, "subscriptions/" & subscriptionId & "/providers/Microsoft.Blueprint/blueprints?api-version=2018-11-01-preview"),
         Source = ListAllGet(url)
     in
         Source;
 // get all blueprints filtering the rows with errors, for instance the ones not authorized
-GetAllBlueprintsSanitized= () as table=>
+GetAllBlueprintsSanitized= (govKind as text) as table=>
     let
-        blueprints = GetAllBlueprints(),
+        blueprints = GetAllBlueprints(govKind),
         noErrorBlueprints = Table.RemoveRowsWithErrors(blueprints, {"Blueprints"}),
         ExpandedBlueprints = Table.ExpandTableColumn(noErrorBlueprints, "Blueprints", {"Column1"}, {"Column1"}),
         ExpandedColumn1 = Table.ExpandListColumn(ExpandedBlueprints, "Column1"),
@@ -178,13 +183,13 @@ GetAllBlueprintsSanitized= () as table=>
     in sanitizedBluebrints;
 
 // get all resources for all subscription for which the user has permissions
-shared GetAllResources=() as table=>
+shared GetAllResources=(govKind as text) as table=>
     let
         token = GetAccessToken(),        
         // get all subscriptios
-        #"ExpandIdColumns" = GetSubscriptionsTable(token),
+        #"ExpandIdColumns" = GetSubscriptionsTable(govKind, token),
         // loop the subscription to retrieve all resources
-        #"allResources"=Table.AddColumn(#"ExpandIdColumns", "Resources", each try GetAllSubscriptionResources([subscriptionId], token)),
+        #"allResources"=Table.AddColumn(#"ExpandIdColumns", "Resources", each try GetAllSubscriptionResources(govKind, [subscriptionId], token)),
         #"ExpandedResources" = Table.ExpandRecordColumn(#"allResources", "Resources", {"HasError", "Value"}, {"HasError", "Value"}),
         #"ResourcesOk" = Table.SelectRows(#"ExpandedResources", each ([HasError] = false)),
         #"ResourcesNoErrorColumn" = Table.RemoveColumns(#"ResourcesOk",{"HasError"}),
@@ -194,21 +199,21 @@ shared GetAllResources=() as table=>
          #"TableWithResources";
 
 // get the resources of a subscription, following pages if necessary
-GetAllSubscriptionResources=(subscriptionId, token)=>
+GetAllSubscriptionResources=(govKind as text, subscriptionId, token)=>
     let
-        url = GetManagementUri("subscriptions/"&subscriptionId&"/resources?api-version=2019-05-01"),        
+        url = GetManagementUri(govKind, "subscriptions/"&subscriptionId&"/resources?api-version=2019-05-01"),        
         allSubscriptionResources=ListAllGet(url)
     in 
         allSubscriptionResources;
 
 // Retrieves all policies for all subscriptions where the user has permissions
-shared GetPoliciesTable = () as table =>
+shared GetPoliciesTable = (govKind as text) as table =>
     let
         token = GetAccessToken(),        
         // get all user subscriptions
-        #"ExpandIdColumns" = GetSubscriptionsTable(token),
+        #"ExpandIdColumns" = GetSubscriptionsTable(govKind, token),
         // loop all subscriptions to retrieve their policies
-        #"Policies" = Table.AddColumn(#"ExpandIdColumns", "Policies", each try Policies([subscriptionId], token)),
+        #"Policies" = Table.AddColumn(#"ExpandIdColumns", "Policies", each try Policies(govKind, [subscriptionId], token)),
         // Filter errors
         #"ExpandedPolicies" = Table.ExpandRecordColumn(#"Policies", "Policies", {"HasError", "Value", "Error"}, {"HasError", "Value", "Error"}),
         #"PoliciesOk" = Table.SelectRows(#"ExpandedPolicies", each ([HasError] = false)),
@@ -217,9 +222,9 @@ shared GetPoliciesTable = () as table =>
         #"PoliciesNoErrorColumn";
 
 // Retrieve all policies for a subscription
-Policies = (subscriptionId, token) =>
+Policies = (govKind, subscriptionId, token) =>
     let
-        url = GetManagementUri("subscriptions/"&subscriptionId&"/providers/Microsoft.PolicyInsights/policyStates/default/queryResults?api-version=2019-10-01"),
+        url = GetManagementUri(govKind, "subscriptions/"&subscriptionId&"/providers/Microsoft.PolicyInsights/policyStates/default/queryResults?api-version=2019-10-01"),
         // retrieve all policies, following continuation pages if needed
         #"PoliciesTable"= ListAllPost(url, token)
     in        
@@ -228,18 +233,18 @@ Policies = (subscriptionId, token) =>
 // HELPER FUNCTIONS
 
 // Get subscriptions for a given user
-shared GetSubscriptions=(token as text)=>
+shared GetSubscriptions=(govKind as text, token as text)=>
     let
         headers = [ Authorization = "Bearer " & token ],
-        subscriptionList = Json.Document(Web.Contents(GetManagementUri("subscriptions?api-version=2019-11-01"), 
+        subscriptionList = Json.Document(Web.Contents(GetManagementUri(govKind, "subscriptions?api-version=2019-11-01"), 
             [ Headers = headers, ManualCredentials = true])),
         value = subscriptionList[value]
     in
         value;
 // get subscriptios for a given user in table format
-shared GetSubscriptionsTable=(token as text) as table=>
+shared GetSubscriptionsTable=(govKind as text, token as text) as table=>
     let
-        subscriptions =GetSubscriptions(token),
+        subscriptions =GetSubscriptions(govKind, token),
         st = Table.FromList(subscriptions, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
         ExpandIdColumns = Table.ExpandRecordColumn(st, "Column1", {"subscriptionId", "displayName"}, {"subscriptionId", "displayName"})
     in
@@ -276,19 +281,58 @@ CcoDashboardAzureConnector.Publish = [
 //
 StartLogin = (resourceUrl, state, display) =>
     let
+        StartLoginResult = if Text.Contains(resourceUrl,"us-government")=true 
+            then StartLoginUsGov(resourceUrl, state, display)
+            else StartLoginGlobal(resourceUrl, state, display)
+    in
+        StartLoginResult;
+
+ StartLoginGlobal=(resourceUrl, state, display)=>
+        let
+//         OAuthBaseUrl = if Text.Contains(resourceUrl,"us-government")=true 
+//             then "https://login.microsoftonline.us/organizations/oauth2/v2.0" 
+//             else "https://login.windows.net/common/oauth2",
+        OAuthBaseUrl = "https://login.windows.net/common/oauth2",
+        managementUrl = "https://management.azure.com",
         AuthorizeUrl = OAuthBaseUrl & "/authorize?" & Uri.BuildQueryString([
-            client_id = client_id,
+            client_id = client_id_global,
+//             resource=resourceUrl,
             resource= managementUrl,
             response_type = "code",
             response_mode= "query",
             prompt="login",
             state = state,
             nonce= "nonce", // make it random
-            redirect_uri = redirect_uri])
+            redirect_uri = redirect_uri_global])
     in
         [
             LoginUri = AuthorizeUrl,
-            CallbackUri = redirect_uri,
+            CallbackUri = redirect_uri_global,
+            WindowHeight = windowHeight,
+            WindowWidth = windowWidth,
+            Context = null
+        ];
+
+StartLoginUsGov=(resourceUrl, state, display)=>
+    let
+        OAuthBaseUrl = "https://login.microsoftonline.us/organizations/oauth2/v2.0" ,
+        managementUrl = "https://management.usgovcloudapi.net/",
+        clientId=client_id_gov,
+        redirectUri="https://portal.azure.us/signin/index/?feature.refreshtokenbinding=true&feature.usemsallogin=true",
+        AuthorizeUrl = OAuthBaseUrl & "/authorize?" & Uri.BuildQueryString([
+            client_id = client_id_gov,
+//             resource= managementUrl,
+            scope=managementUrl & "//user_impersonation openid profile",
+            response_type = "code",
+            response_mode= "query",
+            prompt="login",
+            state = state,
+            nonce= "nonce", // make it random
+            redirect_uri = redirect_uri_gov])
+    in
+        [
+            LoginUri = AuthorizeUrl,
+            CallbackUri = redirect_uri_gov,
             WindowHeight = windowHeight,
             WindowWidth = windowWidth,
             Context = null
@@ -296,31 +340,52 @@ StartLogin = (resourceUrl, state, display) =>
 
 FinishLogin = (context, callbackUri, state) =>
     let
-        Parts = Uri.Parts(callbackUri)[Query]
+        Parts = Uri.Parts(callbackUri)[Query],
+        FinishLoginResult =  if Text.Contains(context,"us-government")=true then 
+                                TokenMethodUsGov(Parts[code], "authorization_code")
+                             else TokenMethodGlobal(Parts[code], "authorization_code")
     in
-        TokenMethod(Parts[code], "authorization_code");
+        FinishLoginResult;
 
-TokenMethod = (code, grant_type) =>
+TokenMethodGlobal = (code, grant_type) =>
     let
+        OAuthBaseUrl = "https://login.windows.net/common/oauth2",
         Response = Web.Contents(OAuthBaseUrl & "/token", [
             Content = Text.ToBinary(Uri.BuildQueryString([
-                client_id = client_id,
+                client_id = client_id_global,
                 code = code,
                 grant_type = grant_type,
-                redirect_uri = redirect_uri])),
+                redirect_uri = redirect_uri_global])),
             Headers=[#"Content-type" = "application/x-www-form-urlencoded",#"Accept" = "application/json"]]),
         Parts = Json.Document(Response)
     in
         Parts;
 
-Refresh = (resourceUrl, refresh_token) => TokenMethod(refresh_token, "refresh_token");
+TokenMethodUsGov = (code, grant_type) =>
+    let
+        OAuthBaseUrl = "https://login.microsoftonline.us/organizations/oauth2/v2.0",
+        Response = Web.Contents(OAuthBaseUrl & "/token", [
+            Content = Text.ToBinary(Uri.BuildQueryString([
+                client_id = client_id_gov,
+                code = code,
+                grant_type = grant_type,
+                redirect_uri = redirect_uri_gov])),
+            Headers=[#"Content-type" = "application/x-www-form-urlencoded",#"Accept" = "application/json"]]),
+        Parts = Json.Document(Response)
+    in
+        Parts;
+
+Refresh = (resourceUrl, refresh_token) => 
+    if Text.Contains(resourceUrl,"us-government")=true then 
+         TokenMethodUsGov(refresh_token, "refresh_token") 
+    else TokenMethodGlobal(refresh_token, "refresh_token");
 
 
 // Common library code
 shared GetAccessToken = () =>
 let
     credential = Extension.CurrentCredential(),
-        token = if (credential[AuthenticationKind] = "Key") then credential[Key] else credential[access_token]
+        token = credential[access_token]
      in
          token;
 

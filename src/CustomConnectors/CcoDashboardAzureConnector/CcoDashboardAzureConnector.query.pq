@@ -1,6 +1,6 @@
 ﻿// Use this file to write queries to test your data connector
 let
-    result = CcoDashboardAzureConnector.Management(){[Key="batchjson"]}[Data]
+    result = CcoDashboardAzureConnector.Management("us-government")
 in
     result
 

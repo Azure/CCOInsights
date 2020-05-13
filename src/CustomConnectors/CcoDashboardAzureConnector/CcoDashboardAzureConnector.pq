@@ -46,7 +46,8 @@ shared ManagementImpl = (gov as text) as table =>
             {"Policies",   "policies",      GetPoliciesTable(gov),  "Table",    "Table",    true},                        
             {"Get entities Management Groups",   "alldescendantstrick",      GetAllDescendantsPortalWay(gov),  "Table",    "Table",    true},   
             {"All Resources", "allresources", GetAllResources(gov), "Table", "Table", true},
-            {"Blueprints", "blueprints", GetAllBlueprints(gov), "Table", "Table", true},
+            {"Blueprints Legacy", "blueprintslegacy", GetAllBlueprints(gov), "Table", "Table", true},
+            {"Blueprints", "blueprints", GetAllBlueprintsByScope(gov), "Table", "Table", true},
             {"Blueprint Artifacts", "blueprintartifact", GetBlueprintArtifacts(gov), "Table", "Table", true},
             {"Published Blueprints", "blueprintspublished", GetPublishedBlueprints(gov), "Table", "Table", true},
             {"Policy definitions", "policydefinitions", GetPolicyDefinitions(gov), "Table", "Table", true}            
@@ -157,17 +158,26 @@ GetArtifactsByBlueprint=(govKind as text, subscriptionId as text, blueprintName 
         Source = Json.Document(Web.Contents(url))
     in Source;
 
-// try to get all blueprints, including the ones for which the user has no permissions
+
 shared GetAllBlueprints=(govKind as text) as table =>
+    let
+        token= GetAccessToken(),
+        subscriptions = GetSubscriptionsTable(govKind, token),
+        blueprints = Table.AddColumn(subscriptions, "Blueprints", each GetSubscriptionBlueprints(govKind, [subscriptionId], token))
+    in 
+        blueprints;
+
+// try to get all blueprints, including the ones for which the user has no permissions
+shared GetAllBlueprintsByScope=(govKind as text) as table =>
     let
         token= GetAccessToken(),
 //         subscriptions = GetSubscriptionsTable(govKind, token),
         descendants = GetAllDescendantsPortalWay(govKind),
          #"Expanded ManagementGroups" = Table.ExpandRecordColumn(descendants, "ManagementGroups", {"count", "value"}, {"ManagementGroups.count", "ManagementGroups.value"}),
     #"Expanded ManagementGroups.value" = Table.ExpandListColumn(#"Expanded ManagementGroups", "ManagementGroups.value"),
-    #"Expanded ManagementGroups.value1" = Table.ExpandRecordColumn(#"Expanded ManagementGroups.value", "ManagementGroups.value", {"id"}, {"id.1"}),
-    #"Filtered Rows" = Table.SelectRows(#"Expanded ManagementGroups.value1", each ([id.1] <> null)),
-        blueprints = Table.AddColumn(#"Filtered Rows", "Blueprints", each GetSubscriptionBlueprints(govKind, [id.1], token))
+    #"Expanded ManagementGroups.value1" = Table.ExpandRecordColumn(#"Expanded ManagementGroups.value", "ManagementGroups.value", {"id"}, {"scopeId"}),
+    #"Filtered Rows" = Table.SelectRows(#"Expanded ManagementGroups.value1", each ([scopeId] <> null)),
+        blueprints = Table.AddColumn(#"Filtered Rows", "Blueprints", each GetSubscriptionBlueprints(govKind, [scopeId], token))
     in 
         blueprints;
 // gets the blueprints for a subscription

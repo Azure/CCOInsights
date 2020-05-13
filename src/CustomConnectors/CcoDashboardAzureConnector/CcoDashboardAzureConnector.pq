@@ -161,14 +161,19 @@ GetArtifactsByBlueprint=(govKind as text, subscriptionId as text, blueprintName 
 shared GetAllBlueprints=(govKind as text) as table =>
     let
         token= GetAccessToken(),
-        subscriptions = GetSubscriptionsTable(govKind, token),
-        blueprints = Table.AddColumn(subscriptions, "Blueprints", each GetSubscriptionBlueprints(govKind, [subscriptionId], token))
+//         subscriptions = GetSubscriptionsTable(govKind, token),
+        descendants = GetAllDescendantsPortalWay(govKind),
+         #"Expanded ManagementGroups" = Table.ExpandRecordColumn(descendants, "ManagementGroups", {"count", "value"}, {"ManagementGroups.count", "ManagementGroups.value"}),
+    #"Expanded ManagementGroups.value" = Table.ExpandListColumn(#"Expanded ManagementGroups", "ManagementGroups.value"),
+    #"Expanded ManagementGroups.value1" = Table.ExpandRecordColumn(#"Expanded ManagementGroups.value", "ManagementGroups.value", {"id"}, {"id.1"}),
+    #"Filtered Rows" = Table.SelectRows(#"Expanded ManagementGroups.value1", each ([id.1] <> null)),
+        blueprints = Table.AddColumn(#"Filtered Rows", "Blueprints", each GetSubscriptionBlueprints(govKind, [id.1], token))
     in 
         blueprints;
 // gets the blueprints for a subscription
-GetSubscriptionBlueprints= (govKind as text, subscriptionId as text, token as text) =>
+GetSubscriptionBlueprints= (govKind as text, scope as text, token as text) =>
     let
-        url = GetManagementUri(govKind, "subscriptions/" & subscriptionId & "/providers/Microsoft.Blueprint/blueprints?api-version=2018-11-01-preview"),
+        url = GetManagementUri(govKind, scope & "/providers/Microsoft.Blueprint/blueprints?api-version=2018-11-01-preview"),
         Source = ListAllGet(url)
     in
         Source;
@@ -315,7 +320,7 @@ StartLogin = (resourceUrl, state, display) =>
 
 StartLoginUsGov=(resourceUrl, state, display)=>
     let
-        OAuthBaseUrl = "https://login.microsoftonline.us/organizations/oauth2/v2.0" ,
+        OAuthBaseUrl = "https://login.microsoftonline.us/common/oauth2/" ,
         managementUrl = "https://management.usgovcloudapi.net/",
         clientId=client_id_gov,
         redirectUri="https://portal.azure.us/signin/index/?feature.refreshtokenbinding=true&feature.usemsallogin=true",
@@ -363,7 +368,7 @@ TokenMethodGlobal = (code, grant_type) =>
 
 TokenMethodUsGov = (code, grant_type) =>
     let
-        OAuthBaseUrl = "https://login.microsoftonline.us/organizations/oauth2/v2.0",
+        OAuthBaseUrl = "https://login.microsoftonline.us/common/oauth2/",
         Response = Web.Contents(OAuthBaseUrl & "/token", [
             Content = Text.ToBinary(Uri.BuildQueryString([
                 client_id = client_id_gov,

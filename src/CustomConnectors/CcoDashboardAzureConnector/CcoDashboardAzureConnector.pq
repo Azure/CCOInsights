@@ -46,8 +46,8 @@ shared ManagementImpl = (gov as text) as table =>
             {"Policies",   "policies",      GetPoliciesTable(gov),  "Table",    "Table",    true},                        
             {"Get entities Management Groups",   "alldescendantstrick",      GetAllDescendantsPortalWay(gov),  "Table",    "Table",    true},   
             {"All Resources", "allresources", GetAllResources(gov), "Table", "Table", true},
-            {"Blueprints Legacy", "blueprintslegacy", GetAllBlueprints(gov), "Table", "Table", true},
-            {"Blueprints", "blueprints", GetAllBlueprintsByScope(gov), "Table", "Table", true},
+            {"Blueprints Legacy", "blueprints", GetAllBlueprints(gov), "Table", "Table", true},
+            {"Blueprints", "blueprintsnew", GetAllBlueprintsByScope(gov), "Table", "Table", true},
             {"Blueprint Artifacts", "blueprintartifact", GetBlueprintArtifacts(gov), "Table", "Table", true},
             {"Published Blueprints", "blueprintspublished", GetPublishedBlueprints(gov), "Table", "Table", true},
             {"Policy definitions", "policydefinitions", GetPolicyDefinitions(gov), "Table", "Table", true}            

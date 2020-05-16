@@ -32,15 +32,6 @@ ManagementMeta = type function(
 
 shared ManagementImpl = (gov as text) as table =>
     let
-//         managementUrl = (gov as text)=>
-//             let result = if gov="us-government" then "https://management.usgovcloudapi.net"
-//                     else if gov="germany-government" then""
-//                     else if gov = "china" then ""
-//                     else "https://management.azure.com"
-//                 in result,
-//         OAuthBaseUrl = (gov as text)=>
-//             let result = if gov="us-government" then "https://login.microsoftonline.us/common/auth2" else "https://login.windows.net/common/oauth2"
-//             in result,
         objects = #table(
             {"Name",       "Key",        "Data",                           "ItemKind", "ItemName", "IsLeaf"},{
             {"Policies",   "policies",      GetPoliciesTable(gov),  "Table",    "Table",    true},                        
@@ -50,7 +41,8 @@ shared ManagementImpl = (gov as text) as table =>
             {"Blueprints", "blueprints", GetAllBlueprintsByScope(gov), "Table", "Table", true},
             {"Blueprint Artifacts", "blueprintartifact", GetBlueprintArtifacts(gov), "Table", "Table", true},
             {"Published Blueprints", "blueprintspublished", GetPublishedBlueprints(gov), "Table", "Table", true},
-            {"Policy definitions", "policydefinitions", GetPolicyDefinitions(gov), "Table", "Table", true}            
+            {"Policy definitions", "policydefinitions", GetPolicyDefinitions(gov), "Table", "Table", true},
+            {"Subscriptions", "subscriptions", GetSubscriptionsTable(gov, ""), "Table", "Table", true}
         }),
         NavTable = Table.ToNavigationTable(objects, {"Key"}, "Name", "Data", "ItemKind", "ItemName", "IsLeaf")
     in
@@ -256,20 +248,24 @@ Policies = (govKind, subscriptionId, token) =>
 // HELPER FUNCTIONS
 
 // Get subscriptions for a given user
-shared GetSubscriptions=(govKind as text, token as text)=>
-    let
-        headers = [ Authorization = "Bearer " & token ],
-        subscriptionList = Json.Document(Web.Contents(GetManagementUri(govKind, "subscriptions?api-version=2019-11-01"), 
-            [ Headers = headers, ManualCredentials = true])),
-        value = subscriptionList[value]
-    in
-        value;
+// shared GetSubscriptions=(govKind as text, token as text)=>
+//     let
+//         headers = [ Authorization = "Bearer " & token ],
+//         subscriptionList = Json.Document(Web.Contents(GetManagementUri(govKind, "subscriptions?api-version=2019-11-01"), 
+//             [ Headers = headers, ManualCredentials = true])),
+//         subscriptionsUri = GetManagementUri(govKind, "subscriptions?api-version=2019-11-01"),
+//         subscr
+//         value = subscriptionList[value]
+//     in
+//         value;
 // get subscriptios for a given user in table format
 shared GetSubscriptionsTable=(govKind as text, token as text) as table=>
     let
-        subscriptions =GetSubscriptions(govKind, token),
-        st = Table.FromList(subscriptions, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
-        ExpandIdColumns = Table.ExpandRecordColumn(st, "Column1", {"subscriptionId", "displayName"}, {"subscriptionId", "displayName"})
+        subscriptionsUri = GetManagementUri(govKind, "subscriptions?api-version=2019-11-01"),
+        sl =ListAllGet(subscriptionsUri),
+        slExpanded = Table.ExpandListColumn(sl, "Column1"),
+//         st = Table.FromList(subscriptions, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+        ExpandIdColumns = Table.ExpandRecordColumn(slExpanded, "Column1", {"subscriptionId", "displayName"}, {"subscriptionId", "displayName"})
     in
         ExpandIdColumns;
 

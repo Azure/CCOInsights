@@ -167,6 +167,13 @@ shared GetAllBlueprints=(govKind as text) as table =>
     in 
         blueprints;
 
+GetSubscriptionBlueprints= (govKind as text, subscriptionId as text, token as text) =>
+    let
+        url = GetManagementUri(govKind, "subscriptions/" & subscriptionId & "/providers/Microsoft.Blueprint/blueprints?api-version=2018-11-01-preview"),
+        Source = ListAllGet(url)
+    in
+        Source;
+
 // try to get all blueprints, including the ones for which the user has no permissions
 shared GetAllBlueprintsByScope=(govKind as text) as table =>
     let
@@ -177,11 +184,11 @@ shared GetAllBlueprintsByScope=(govKind as text) as table =>
     #"Expanded ManagementGroups.value" = Table.ExpandListColumn(#"Expanded ManagementGroups", "ManagementGroups.value"),
     #"Expanded ManagementGroups.value1" = Table.ExpandRecordColumn(#"Expanded ManagementGroups.value", "ManagementGroups.value", {"id"}, {"scopeId"}),
     #"Filtered Rows" = Table.SelectRows(#"Expanded ManagementGroups.value1", each ([scopeId] <> null)),
-        blueprints = Table.AddColumn(#"Filtered Rows", "Blueprints", each GetSubscriptionBlueprints(govKind, [scopeId], token))
+        blueprints = Table.AddColumn(#"Filtered Rows", "Blueprints", each GetScopeBlueprints(govKind, [scopeId], token))
     in 
         blueprints;
 // gets the blueprints for a subscription
-GetSubscriptionBlueprints= (govKind as text, scope as text, token as text) =>
+GetScopeBlueprints= (govKind as text, scope as text, token as text) =>
     let
         url = GetManagementUri(govKind, scope & "/providers/Microsoft.Blueprint/blueprints?api-version=2018-11-01-preview"),
         Source = ListAllGet(url)

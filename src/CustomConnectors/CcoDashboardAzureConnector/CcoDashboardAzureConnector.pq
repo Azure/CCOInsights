@@ -22,7 +22,7 @@ shared CcoDashboardAzureConnector.Management = Value.ReplaceType(ManagementImpl,
 ManagementMeta = type function(
     azureKind as (type text meta [
         Documentation.FieldCaption = "Azure kind",
-        Documentation.FieldDescription = "Kind of azure: global or government",
+        Documentation.FieldDescription = "Kind of azure: global or government",        
         Documentation.AllowedValues = { "global", "us-government", "germany-government", "china" }
     ]))
     as table meta [
@@ -46,8 +46,8 @@ shared ManagementImpl = (gov as text) as table =>
             {"Policies",   "policies",      GetPoliciesTable(gov),  "Table",    "Table",    true},                        
             {"Get entities Management Groups",   "alldescendantstrick",      GetAllDescendantsPortalWay(gov),  "Table",    "Table",    true},   
             {"All Resources", "allresources", GetAllResources(gov), "Table", "Table", true},
-            {"Blueprints Legacy", "blueprints", GetAllBlueprints(gov), "Table", "Table", true},
-            {"Blueprints", "blueprintsnew", GetAllBlueprintsByScope(gov), "Table", "Table", true},
+//             {"Blueprints Legacy", "blueprints", GetAllBlueprints(gov), "Table", "Table", true},
+            {"Blueprints", "blueprints", GetAllBlueprintsByScope(gov), "Table", "Table", true},
             {"Blueprint Artifacts", "blueprintartifact", GetBlueprintArtifacts(gov), "Table", "Table", true},
             {"Published Blueprints", "blueprintspublished", GetPublishedBlueprints(gov), "Table", "Table", true},
             {"Policy definitions", "policydefinitions", GetPolicyDefinitions(gov), "Table", "Table", true}            
@@ -116,7 +116,7 @@ shared GetPublishedBlueprints=(govKind as text) as table =>
     let
         blueprintsSanitized = GetAllBlueprintsSanitized(govKind),
         // loop subscription list to get blueprints
-        blueprintArtifacts = Table.AddColumn(blueprintsSanitized, "Artifacts", each try GetSubscriptionPublishedBlueprints(govKind, [subscriptionId], [name])),
+        blueprintArtifacts = Table.AddColumn(blueprintsSanitized, "Artifacts", each try GetSubscriptionPublishedBlueprints(govKind, [scopeId], [name])),
         #"Expanded Artifacts" = Table.ExpandRecordColumn(blueprintArtifacts, "Artifacts", {"HasError", "Error", "Value"}, {"HasError", "Error", "Value"}),
         #"Filtered Rows" = Table.SelectRows(#"Expanded Artifacts", each ([HasError] = false)),
         RemovedErrorColumns = Table.RemoveColumns(#"Filtered Rows",{"HasError", "Error"}),
@@ -126,9 +126,9 @@ shared GetPublishedBlueprints=(govKind as text) as table =>
     in publishedBlueprints;
 
 // get published blueprints per susbscription
-GetSubscriptionPublishedBlueprints=(govKind as text, subscriptionId as text, blueprintName as text)=>
+GetSubscriptionPublishedBlueprints=(govKind as text, scopeId as text, blueprintName as text)=>
     let
-        Source = Json.Document(Web.Contents(GetManagementUri(govKind, "subscriptions/"&subscriptionId&"/providers/Microsoft.Blueprint/blueprints/"&blueprintName&"/versions?api-version=2018-11-01-preview"))),
+        Source = Json.Document(Web.Contents(GetManagementUri(govKind, scopeId & "/providers/Microsoft.Blueprint/blueprints/" & blueprintName & "/versions?api-version=2018-11-01-preview"))),
         value = Source[value],
         #"Converted to Table" = Record.ToTable(Source),
         #"Expanded Value" = Table.ExpandListColumn(#"Converted to Table", "Value")
@@ -141,7 +141,7 @@ shared GetBlueprintArtifacts=(govKind as text) as table =>
         // gets all blueprints for which the user has permissions
         blueprintsSanitized = GetAllBlueprintsSanitized(govKind),
         // loops the blueprints to retrieve the artifacts
-        blueprintArtifacts = Table.AddColumn(blueprintsSanitized, "Artifacts", each try GetArtifactsByBlueprint(govKind, [subscriptionId], [name])),
+        blueprintArtifacts = Table.AddColumn(blueprintsSanitized, "Artifacts", each try GetArtifactsByBlueprint(govKind, [scopeId], [name])),
         // filter errors rows
         #"Expanded Artifacts" = Table.ExpandRecordColumn(blueprintArtifacts, "Artifacts", {"HasError", "Error", "Value"}, {"HasError", "Error", "Value"}),
         #"Filtered Rows" = Table.SelectRows(#"Expanded Artifacts", each ([HasError] = false)),
@@ -152,9 +152,9 @@ shared GetBlueprintArtifacts=(govKind as text) as table =>
     in #"Expanded value.2";
 
 // gets the artifacts for a blueprint. a blueprint is identified by its subscription and the blueprint name
-GetArtifactsByBlueprint=(govKind as text, subscriptionId as text, blueprintName as text)=>
+GetArtifactsByBlueprint=(govKind as text, scopeId as text, blueprintName as text)=>
     let
-        url =GetManagementUri(govKind, "subscriptions/"&subscriptionId&"/providers/Microsoft.Blueprint/blueprints/"&blueprintName&"/artifacts?api-version=2018-11-01-preview"),
+        url =GetManagementUri(govKind, scopeId & "/providers/Microsoft.Blueprint/blueprints/"&blueprintName&"/artifacts?api-version=2018-11-01-preview"),
         Source = Json.Document(Web.Contents(url))
     in Source;
 
@@ -197,8 +197,9 @@ GetScopeBlueprints= (govKind as text, scope as text, token as text) =>
 // get all blueprints filtering the rows with errors, for instance the ones not authorized
 GetAllBlueprintsSanitized= (govKind as text) as table=>
     let
-        blueprints = GetAllBlueprints(govKind),
-        noErrorBlueprints = Table.RemoveRowsWithErrors(blueprints, {"Blueprints"}),
+        blueprints = GetAllBlueprintsByScope(govKind),
+        noIdBlueprints = Table.RemoveColumns(blueprints, {"id"}),
+        noErrorBlueprints = Table.RemoveRowsWithErrors(noIdBlueprints, {"Blueprints"}),
         ExpandedBlueprints = Table.ExpandTableColumn(noErrorBlueprints, "Blueprints", {"Column1"}, {"Column1"}),
         ExpandedColumn1 = Table.ExpandListColumn(ExpandedBlueprints, "Column1"),
         sanitizedBluebrints = Table.ExpandRecordColumn(ExpandedColumn1, "Column1", {"properties", "id", "type", "name"}, {"properties", "id", "type", "name"})

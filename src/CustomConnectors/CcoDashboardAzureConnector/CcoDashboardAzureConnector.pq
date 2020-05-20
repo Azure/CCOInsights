@@ -6,6 +6,7 @@ client_id_global = Text.FromBinary(Extension.Contents("client_id_global"));
 redirect_uri_global = "https://de-users-preview.sqlazurelabs.com/account/reply/";
 // Oauth info from azure portal government
 client_id_gov = Text.FromBinary(Extension.Contents("client_id_govus"));
+// redirect_uri_gov = "https://portal.azure.us/signin/index/?feature.refreshtokenbinding=true&feature.usemsallogin=true";
 redirect_uri_gov = "https://de-users-preview.sqlazurelabs.com/account/reply/";
 
 
@@ -334,10 +335,10 @@ StartLogin = (resourceUrl, state, display) =>
 
 StartLoginUsGov=(resourceUrl, state, display)=>
     let
-        OAuthBaseUrl = "https://login.microsoftonline.us/common/oauth2/" ,
+        OAuthBaseUrl = "https://login.microsoftonline.us/common/oauth2" ,
         managementUrl = "https://management.usgovcloudapi.net/",
         clientId=client_id_gov,
-        redirectUri="https://portal.azure.us/signin/index/?feature.refreshtokenbinding=true&feature.usemsallogin=true",
+        redirectUri=redirect_uri_gov,
         AuthorizeUrl = OAuthBaseUrl & "/authorize?" & Uri.BuildQueryString([
             client_id = client_id_gov,
 //             resource= managementUrl,

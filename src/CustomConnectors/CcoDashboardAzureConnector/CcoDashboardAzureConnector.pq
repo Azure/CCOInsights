@@ -341,8 +341,8 @@ StartLoginUsGov=(resourceUrl, state, display)=>
         redirectUri=redirect_uri_gov,
         AuthorizeUrl = OAuthBaseUrl & "/authorize?" & Uri.BuildQueryString([
             client_id = client_id_gov,
-//             resource= managementUrl,
-            scope=managementUrl & "//user_impersonation openid profile",
+            resource= managementUrl,            
+//             scope=managementUrl & "//user_impersonation openid profile",
             response_type = "code",
             response_mode= "query",
             prompt="login",

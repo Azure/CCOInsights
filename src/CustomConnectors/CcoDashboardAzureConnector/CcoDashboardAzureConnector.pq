@@ -43,18 +43,25 @@ shared ManagementImpl = (gov as text) as table =>
             {"Blueprint Artifacts", "blueprintartifact", GetBlueprintArtifacts(gov), "Table", "Table", true},
             {"Published Blueprints", "blueprintspublished", GetPublishedBlueprints(gov), "Table", "Table", true},
             {"Policy definitions", "policydefinitions", GetPolicyDefinitions(gov), "Table", "Table", true},
-            {"Subscriptions", "subscriptions", GetSubscriptionsTable(gov, ""), "Table", "Table", true}
+            {"Subscriptions", "subscriptions", GetSubscriptionsTable(gov, ""), "Table", "Table", true},
+            {"GetManagementUrl", "managementUrl", GetManagementBaseUri(gov), "Function", "Function", true}
         }),
         NavTable = Table.ToNavigationTable(objects, {"Key"}, "Name", "Data", "ItemKind", "ItemName", "IsLeaf")
     in
         NavTable;
 
-GetManagementUri=(govKind as text, requestPath as text)=>
+GetManagementBaseUri=(govKind as text) as text =>
     let
         managementUrl = if govKind ="us-government" then "https://management.usgovcloudapi.net"
                     else if govKind="germany-government" then""
                     else if govKind = "china" then ""
-                    else "https://management.azure.com",
+                    else "https://management.azure.com"
+    in
+        managementUrl;
+
+GetManagementUri=(govKind as text, requestPath as text)=>
+    let
+        managementUrl = GetManagementBaseUri(govKind),
         result = managementUrl & "/" & requestPath
     in result;
 
@@ -173,13 +180,15 @@ shared GetAllBlueprintsByScope=(govKind as text) as table =>
         token= GetAccessToken(),
 //         subscriptions = GetSubscriptionsTable(govKind, token),
         descendants = GetAllDescendantsPortalWay(govKind),
-         #"Expanded ManagementGroups" = Table.ExpandRecordColumn(descendants, "ManagementGroups", {"count", "value"}, {"ManagementGroups.count", "ManagementGroups.value"}),
-    #"Expanded ManagementGroups.value" = Table.ExpandListColumn(#"Expanded ManagementGroups", "ManagementGroups.value"),
-    #"Expanded ManagementGroups.value1" = Table.ExpandRecordColumn(#"Expanded ManagementGroups.value", "ManagementGroups.value", {"id"}, {"scopeId"}),
-    #"Filtered Rows" = Table.SelectRows(#"Expanded ManagementGroups.value1", each ([scopeId] <> null)),
+        #"Expanded ManagementGroups" = Table.ExpandRecordColumn(descendants, "ManagementGroups", {"count", "value"}, {"ManagementGroups.count", "ManagementGroups.value"}),
+        #"Expanded ManagementGroups.value" = Table.ExpandListColumn(#"Expanded ManagementGroups", "ManagementGroups.value"),
+        #"Expanded ManagementGroups.value1" = Table.ExpandRecordColumn(#"Expanded ManagementGroups.value", "ManagementGroups.value", {"id"}, {"scopeId"}),
+        #"Filtered Rows" = Table.SelectRows(#"Expanded ManagementGroups.value1", each ([scopeId] <> null)),
+        #"Removed Columns2" = Table.RemoveColumns(#"Filtered Rows",{"countryCode", "Subscription Name", "domains", "tenantCategory", "ManagementGroups.count"}),
         blueprints = Table.AddColumn(#"Filtered Rows", "Blueprints", each GetScopeBlueprints(govKind, [scopeId], token))
     in 
         blueprints;
+
 // gets the blueprints for a subscription
 GetScopeBlueprints= (govKind as text, scope as text, token as text) =>
     let
@@ -187,16 +196,19 @@ GetScopeBlueprints= (govKind as text, scope as text, token as text) =>
         Source = ListAllGet(url)
     in
         Source;
+
 // get all blueprints filtering the rows with errors, for instance the ones not authorized
 GetAllBlueprintsSanitized= (govKind as text) as table=>
     let
         blueprints = GetAllBlueprintsByScope(govKind),
+
         noIdBlueprints = Table.RemoveColumns(blueprints, {"id"}),
         noErrorBlueprints = Table.RemoveRowsWithErrors(noIdBlueprints, {"Blueprints"}),
         ExpandedBlueprints = Table.ExpandTableColumn(noErrorBlueprints, "Blueprints", {"Column1"}, {"Column1"}),
         ExpandedColumn1 = Table.ExpandListColumn(ExpandedBlueprints, "Column1"),
-        sanitizedBluebrints = Table.ExpandRecordColumn(ExpandedColumn1, "Column1", {"properties", "id", "type", "name"}, {"properties", "id", "type", "name"})
-    in sanitizedBluebrints;
+        sanitizedBluebrints = Table.ExpandRecordColumn(ExpandedColumn1, "Column1", {"properties", "id", "type", "name"}, {"properties", "id", "type", "name"}),
+        unnecessaryColumnsRemoved = Table.RemoveColumns(sanitizedBluebrints,{"countryCode", "domains", "tenantCategory", "ManagementGroups.count"})
+    in unnecessaryColumnsRemoved;
 
 // get all resources for all subscription for which the user has permissions
 shared GetAllResources=(govKind as text) as table=>

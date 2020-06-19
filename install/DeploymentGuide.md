@@ -65,7 +65,7 @@ The Continuous Optimization Power BI Dashboard pulls the information from severa
 
 | API Name| Dashboard API Version | Last API version | Using latest version|
 | --- | :---: | :---: |:---: |
-| [Azure Advisor](https://docs.microsoft.com/en-us/rest/api/advisor/) | 2017-04-19|2017-04-19|:heavy_check_mark:|
+| [Azure Advisor](https://docs.microsoft.com/en-us/rest/api/advisor/) | 2020-01-01|2020-01-01|:heavy_check_mark:|
 | [Azure Security Center Alerts](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2019-01-01 |2019-01-01|:heavy_check_mark:|
 | [Azure Security Center Tasks](https://msdn.microsoft.com/en/US/library/mt704034(Azure.100).aspx)  |2015-06-01-preview |2015-06-01-preview|:heavy_check_mark:|
 | [Azure Kubernetes Service](https://docs.microsoft.com/en-us/rest/api/aks) | 2019-08-01|2019-08-01|:heavy_check_mark:|
@@ -74,8 +74,8 @@ The Continuous Optimization Power BI Dashboard pulls the information from severa
 | [Azure Virtual Networks](https://docs.microsoft.com/en-us/rest/api/virtual-network) | 2019-04-01|2019-04-01|:heavy_check_mark:|
 | [Azure Network Interfaces](https://docs.microsoft.com/en-us/rest/api/virtualnetwork/networkinterfaces) |2019-04-01 |2019-04-01|:heavy_check_mark:|
 | [Resource Groups](https://docs.microsoft.com/en-us/rest/api/resources/resourcegroups)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
-| [Azure Resources](https://docs.microsoft.com/en-us/rest/api/resources/resources)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
-| [Azure Subscriptions](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
+| [Azure Resources](https://docs.microsoft.com/en-us/rest/api/resources/resources)  |2019-10-0 |2019-10-0|:heavy_check_mark:|
+| [Azure Subscriptions](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions)  |2020-01-01 |2020-01-01|:heavy_check_mark:|
 | [Azure Locations](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
 | [Azure Role Assignments](https://docs.microsoft.com/en-us/rest/api/authorization/roleassignments) |2015-07-01 |2015-07-01|:heavy_check_mark:|
 | [Azure Role Definitions](https://docs.microsoft.com/en-us/rest/api/authorization/roledefinitions) |2015-07-01 |2015-07-01|:heavy_check_mark:|
@@ -85,6 +85,16 @@ The Continuous Optimization Power BI Dashboard pulls the information from severa
 
 <div style="text-align: justify">
 
+API URLs by environment:
+
+| API Name| API URL | Environment|
+| --- | :---: | :---: | 
+| Management |https://management.azure.com/|Global|
+| Azure AD Graph |https://graph.windows.net/|Global|
+| Management |https://management.usgovcloudapi.net/|US Government|
+| Azure AD Graph |https://graph.microsoft.us/|US Government|
+| Management |https://management.chinacloudapi.cn/|China|
+| Azure AD Graph |https://graph.chinacloudapi.cn/|China|
 
 ## Resource Providers requirements
 

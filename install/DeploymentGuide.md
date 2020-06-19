@@ -299,9 +299,10 @@ You can filter the information by:
 ![azure rbacSP](/install/images/RBACServicePrincipals.png)
 
 ## IaaS Usage and Limits Dashboard tab
-This tab allows to identify the usage of any Compute, Storage and Networking Azure resource and validate the limits for each region and subscription 
+This tab allows to identify the usage of any Compute, Storage and Networking Azure resource and validate the limits for each region and subscription. 
 
 You can filter the information by:
+- Tenant
 - Subscription
 - Azure Region
 
@@ -311,6 +312,7 @@ You can filter the information by:
 This tab is lists all the Public IPs, Network Interfaces and Disks that are disconnected, idle or unattached.
 
 You can filter the information by:
+- Tenant
 - Subscription
 
 

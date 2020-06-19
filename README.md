@@ -27,6 +27,10 @@ The current set of CCO Dashboards includes 3 different Dashboards to discover in
 ![OverviewImage](/install/images/OverviewImage.png)
 
 
+## **CCO Azure Infrastructure Dashboard Version 8.0** Updates
+-  Tags report page removed
+
+
 ## **CCO Azure Infrastructure Dashboard Version 7.1** Updates
 - Bug fix [Issue #72](https://github.com/Azure/ccodashboard/issues/72): 
   - Subscription IDs in **All Subscriptions** table must be uniques.

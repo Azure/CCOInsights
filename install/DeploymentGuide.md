@@ -21,12 +21,11 @@
     - [Modify Privacy settings](#modify-privacy-settings)
 - [Report Pages](#report-pages)
   - [CCO Dashboard overview page](#cco-dashboard-overview-page)
-  - [Resource Tags overview page](#resource-tags-overview-page)
   - [Azure Advisor Recommendations Dashboard page](#azure-advisor-recommendations-dashboard-page)
-  - [Azure Security Center Recommendations Dashboard page](#azure-security-center-recommendations-dashboard-page)
   - [Azure Security Center Alerts Dashboard tab](#azure-security-center-alerts-dashboard-tab)
-  - [Azure VNETs and Subnets Recommendations Dashboard tab](#azure-vnets-and-subnets-recommendations-dashboard-tab)
   - [Azure Compute Dashboard tab](#azure-compute-dashboard-tab)
+  - [Azure VNETs and Subnets Recommendations Dashboard tab](#azure-vnets-and-subnets-recommendations-dashboard-tab)
+  - [Azure Network Security Groups Dashboard tab](#azure-network-security-groups-dashboard-tab)
   - [Role Based Access Control Dashboard tab](#role-based-access-control-dashboard-tab)
   - [Service Principal Role Based Access Control Dashboard tab](#service-principal-role-based-access-control-dashboard-tab)
   - [IaaS Usage and Limits Dashboard tab](#iaas-usage-and-limits-dashboard-tab)
@@ -202,25 +201,24 @@ If the permissions and credentials are properly flushed it should ask you for cr
 
 # Report Pages
 ## CCO Dashboard overview page
-In this page, you will be able to identify the top 5 of recommendations that Azure Advisor and Azure Security Center has identified. You can also locate all the deployed resources in a map.
+In this page, you will be able to identify the top 5 of recommendations that Azure Advisor has identified, the top 10 most attacked resources and the number of subscription owners. You can also locate all the deployed resources in a map.
 It’s important to mention that this tab just gives you a quick view. All the recommendations will be available with more details in the following tabs
 
+You can filter the information by:
+- Tenant
+- Subscription
+- Resource Tags
+
 ![overview](/install/images/OverviewImage.png)
-
-## Resource Tags overview page
-In this page you will be able to sort and filter all your Resources and Resource groups based on Tags. It will help you identify any missing Tag and if your naming standards and Tags classifications adheres to your organization guidelines or policies.
-
-![Tagsoverview](/install/images/TagsOverview.png)
 
 ## Azure Advisor Recommendations Dashboard page
 In this page of the report, you will be able to identify the total amount of recommendations that Azure Advisor has identified, to what resources each recommendations apply and to what subscription as well.
 
 You can filter the information by:
+- Tenant
 - Subscription
-- Resource Group
 - Resource type
-- Recommendation type
-- Tags
+
 
 It will also give a high-level overview of what subscriptions require more attention and has more recommendations to snooze or implement.
 
@@ -228,35 +226,33 @@ If you navigate to a impacted resource you will see a quick description, potenti
 
 ![advisor](/install/images/Advisor.png)
 
-## Azure Security Center Recommendations Dashboard page
-In this page, you will be able to identify the total amount of recommendations that Azure Security Center has detected, to what resources apply each recommendation and to what subscription is impacting.
-
-You can filter the information by:
-- Subscription
-- Resource Group
-- Task State
-- Resource Type
-- Tags
-  
-It will also give a high-level overview of what subscriptions require more attention and has more recommendations to snooze or implement.
-
-![SecurityCenterRecommendations](/install/images/SecurityCenterRecommendations.png)
-
 ## Azure Security Center Alerts Dashboard tab
-The fourth tab is used to show the Azure Security Center Advanced Threat Analytics Alerts from all the subscriptions a given Azure account has access to. Is important to remark that subscriptions will need to use the Standard plan if you want to detect and see the alerts in the Power BI Dashboard.
+The third tab is used to show the Azure Security Center Advanced Threat Analytics Alerts from all the subscriptions a given Azure account has access to. Is important to remark that subscriptions will need to use the Standard plan if you want to detect and see the alerts in the Power BI Dashboard.
 
 You can filter the information by:
-- Data range
+- Tenant
 - Subscription
 - Attack type
-- Tags
-    
+- Data range 
+     
 ![security Center alerts](/install/images/SecurityCenterAlerts.png)
+
+## Azure Compute Dashboard tab
+In this tab, you will be able to identify the number of VMs, the Operating System, the SKU, the Availability Set name, the location, the VM Size, the VNET and subnet each VM is connected, the private IP address and if the VM has any extension installed.
+
+You can filter the information by:
+- Tenant
+- Subscription
+- Resource Group
+- Vm extension
+
+![azurecompute](/install/images/AzureCompute.png)
 
 ## Azure VNETs and Subnets Recommendations Dashboard tab
 In this tab, you will be able to identify VNETs with only one subnet, if there are any VNET peering and if some of the subnets is exhausting its IP Pool. 
 
 You can filter the information by:
+- Tenant
 - Subscription
 - Resource Group
 - VNET
@@ -267,32 +263,38 @@ You can filter the information by:
 
 **IMPORTANT**: It is important to mention that although a VNET with only one subnet might not be an issue, it might be a good lead to investigate if that is the best network segmentation for the applications running on it.
 
-## Azure Compute Dashboard tab
-In this tab, you will be able to identify the number of VMs, the Operating System, the SKU, the Availability Set name, the location, the VM Size, the VNET and subnet each VM is connected, the private IP address and if the VM has any extension installed.
+## Azure Network Security Groups Dashboard tab
+In this tab, you will be able to identify all the NSGs assigned to a VM or Subnet. On each one, you can check all the rules that are being applied
 
 You can filter the information by:
+- Tenant
 - Subscription
-- Resource Group
-- If the VM contains containers or no
-- Vm extension
-
-![azurecompute](/install/images/AzureCompute.png)
+- VM
+- VNET
+- Subnet
+- NSG assignment
+  
+![azure NSGs](/install/images/NSGs.png)
 
 ## Role Based Access Control Dashboard tab
 This tab is used to show the Azure RBAC permissions from all the subscriptions a given Azure account has access to. You will be able to identify the roles applied to all Azure resources and if the subscriptions have custom roles.
 
 You can filter the information by:
+- Tenant
 - Subscription
-- Resource type
+- Object type
+- User
 
 ![azure rbac](/install/images/RBAC.png)
 
 ## Service Principal Role Based Access Control Dashboard tab
-This tab is used to show Azure Services Principals  RBAC permissions from all the subscriptions a given Azure account has access to. You will be able to identify the roles applied to all Azure resources and if the subscriptions have custom roles.
+This tab is used to show Azure Services Principals RBAC permissions from all the subscriptions a given Azure account has access to. You will be able to identify the roles applied to all Azure resources and if the subscriptions have custom roles.
 
 You can filter the information by:
+- Tenant
 - Subscription
-- Resource type
+- Object type
+- User
 
 ![azure rbacSP](/install/images/RBACServicePrincipals.png)
 

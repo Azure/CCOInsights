@@ -5,8 +5,8 @@
 
 - [Overview](README.md#overview)
 - [CCO Azure Governance Dashboard Governance Version 1.0](README.md#cco-azure-governance-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
-- [CCO Azure Infrastructure Dashboard Version 7.1 updates](README.md#cco-azure-infrastructure-dashboard-version-71-updates)
-- [CCO Azure Infrastructure Dashboard Version 7.0 updates](README.md#cco-azure-infrastructure-dashboard-version-70-updates)
+- [CCO Azure Infrastructure Dashboard Version 8.0 updates](README.md#cco-azure-infrastructure-dashboard-version-80-updates)
+- [CCO Azure Infrastructure Dashboard Version 7.0 updates](README.md#cco-azure-infrastructure-dashboard-version-71-updates)
 - [List of resources](README.md#List-of-resources)
 - [CCO Azure Infrastructure Dashboard report pages](README.md#cco-azure-infrastructure-dashboard-report-pages)
 - [CCO Azure Infrastructure Dashboard with AKS add-on report pages](README.md#cco-azure-infrastructure-dashboard-with-aks-add-on-report-pages)
@@ -27,9 +27,12 @@ The current set of CCO Dashboards includes 3 different Dashboards to discover in
 ![OverviewImage](/install/images/OverviewImage.png)
 
 
-## **CCO Azure Infrastructure Dashboard Version 8.0** Updates
--  Tags report page removed
-
+## **CCO Azure Infrastructure Dashboard Version 8.0 Updates**
+-  **US Govern and China region Azure environments supported <span style="color:green"><sup>NEW</sup></span>**. 
+-  New design for Overview, Azure Advisor and Azure Networking pages.
+-  **Potential cost optimizations**<span style="color:green"><sup>NEW</sup></span> in Azure Advisor recommendations page. 
+-  Tags and Security recommendations report pages moved from the infrastructure dashboard to the governance dashboard.
+-  All APIs calls updated to the last version.
 
 ## **CCO Azure Infrastructure Dashboard Version 7.1** Updates
 - Bug fix [Issue #72](https://github.com/Azure/ccodashboard/issues/72): 
@@ -126,20 +129,18 @@ This project includes the following resources:
     - ***CCODashboard-AKS folder*** has the add-on report to monitor Azure Kubernetes Services.
 
 ## CCO Azure Infrastructure Dashboard report pages
-The version 7.1 of the CCO Power BI Dashboard includes 12 report pages. You will be able to navigate, filter and report the following information:
+The version 8.0 of the CCO Power BI Dashboard includes 10 report pages. You will be able to navigate, filter and report the following information:
 
 - Page 1: Overview
-- Page 2: Tags Overview
-- Page 3: Azure Advisor Recommendations
-- Page 4: Azure Security Center Task recommendations
-- Page 5: Azure Security Center Alerts
-- Page 6: Azure Compute information
-- Page 7: Azure Networking information
-- Page 8: Network Security Groups
-- Page 9: Azure RBAC permissions
-- Page 10: Azure Service Principals RBAC permissions
-- Page 11: IaaS Usage and Limits
-- Page 12: IaaS Idle Resources
+- Page 2: Azure Advisor Recommendations
+- Page 3: Azure Security Center Alerts
+- Page 4: Azure Compute information
+- Page 5 Azure Networking information
+- Page 6: Network Security Groups
+- Page 7: Azure RBAC permissions
+- Page 8: Azure Service Principals RBAC permissions
+- Page 9: IaaS Usage and Limits
+- Page 10: IaaS Idle Resources
   
 You can find more details about each page on the [Deployment Guide](/install/DeploymentGuide.md) file
 

@@ -18,10 +18,10 @@
 - [Report Pages](#report-pages)
   - [Management Groups and Subscriptions Hierarchy Overview page](#management-groups-and-subscriptions-hierarchy-overview-page)
   - [Tags and naming standards page](#tags-and-naming-standards-page)
+  - [Azure Regulatory Standards Compliance Overview tab](#azure-regulatory-standards-compliance-overview-tab)
+  - [Azure Resources Security, Compliance and Regulatory Compliance tab](#azure-resources-security-compliance-and-regulatory-compliance-tab)
   - [Azure Policies page](#azure-policies-page)
   - [Azure Subscription Blueprints page](#azure-subscription-blueprints-page)
-  - [Azure Regulatory Compliance Overview tab](#azure-regulatory-compliance-overview-tab)
-  - [Azure Resources Regulatory Compliance tab](#azure-resources-regulatory-compliance-tab)
 
 ## Overview
 
@@ -153,6 +153,29 @@ In this page you will be able to sort and filter all your Resources and Resource
 
 ![Tagsoverview](/install/images/TagsOverview.png)
 
+
+## Azure Regulatory Standards Compliance Overview tab
+The fifth tab is used to show the Azure Regulatory Compliance controls level of the environment. It shows the status of the 4 built-in regulatory compliance controls that Azure applies by default to all the environments (SOC TSP, PCI-DSS-3.2, ISO 27001 and Azure CIS 1.1.0).
+
+You can filter the information by:
+- Subscription
+- Regulatory Compliance
+- Assesstment Category
+    
+![regulatorycompliance](/install/images/regulatorycompliance.png)
+
+## Azure Resources Security, Compliance and Regulatory Compliance tab
+In this tab, you will be able to identify which resources are compliant with all the additional regulatory compliance controls. Also it shows how your environment complies with controls and requirements designated by specific regulatory standards and industry benchmarks and provides prescriptive recommendations for how to address these requirements.
+(Public preview release of additional supported standards: NIST SP 800-53 R4, SWIFT CSP CSCF v2020, Canada Federal PBMM and UK Official together with UK NHS).
+
+You can filter the information by:
+- Subscription
+- Regulatory Standard Name
+- Secure Controls
+- Policy Category
+  
+![regulatorycomplianceresources](/install/images/regulatorycomplianceresources.png)
+
 ## Azure Policies page
 
 In this page of the report, you will be able to identify the total amount of policies that are you applying in your environment. It will also give a high-level overview of which policies has less compliance level and which resources require more attention.
@@ -171,36 +194,10 @@ If you navigate to a impacted resource you will see a quick description of the a
 In this page of the report, you will be able to identify the total amount of blueprints that are you applying in your environment. It will also show which are the artifacts within the blueprints.
 
 You can filter the information by:
--  Tenant
--  Management Group with subscriptions
-- Subscription
+- Subscription with assigned blueprints
 - Blueprint Definition
 - Published blueprint
 - Blueprint Assignment
   
 
 ![governanceSubsBlueprints](/install/images/governanceSubsBlueprints.png)
-
-## Azure Regulatory Compliance Overview tab
-The fifth tab is used to show the Azure Regulatory Compliance controls level of the environment. It shows the status of the 4 built-in regulatory compliance controls that Azure applies by default to all the environments (SOC TSP, PCI-DSS-3.2, ISO 27001 and Azure CIS 1.1.0).
-
-You can filter the information by:
--  Tenant
--  Management Group with subscriptions
-- Subscription
-- Resource Groups
-    
-![regulatorycompliance](/install/images/regulatorycompliance.png)
-
-## Azure Resources Regulatory Compliance tab
-In this tab, you will be able to identify which resources are compliant with all the additional regulatory compliance controls. Also it shows how your environment complies with controls and requirements designated by specific regulatory standards and industry benchmarks and provides prescriptive recommendations for how to address these requirements.
-(Public preview release of additional supported standards: NIST SP 800-53 R4, SWIFT CSP CSCF v2020, Canada Federal PBMM and UK Official together with UK NHS).
-
-You can filter the information by:
--  Tenant
--  Management Group with subscriptions
-- Subscription
-- Resource Groups
-- Regulatory Standard Name
-  
-![regulatorycomplianceresources](/install/images/regulatorycomplianceresources.png)

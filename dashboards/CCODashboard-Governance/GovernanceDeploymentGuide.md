@@ -23,19 +23,20 @@
   - [Azure Resources Regulatory Compliance tab](#azure-resources-regulatory-compliance-tab)
 
 ## Overview
+
 The CCO Azure Governance Dashboard is aligned with the Microsoft Cloud Adoption Framework governance principles and will allow to get quick insights around Management Groups, Subscriptions, Blueprints, Polices, Naming Standards, Tagging and Regulatory Standards compliance. The information captured on this Power BI Dashboard can help Cloud Teams, Operations Teams or business decision makers to have a snapshot of the current Azure configuration in just few minutes.
 
 ### Requirements
 
 - The CCO Azure Governance Dashboard is a Power BI Template that requires to download and install the Microsoft Power BI Desktop Edition from the Microsoft Store. Below you can find the minimum requirements to run the Dashboard
-    -    Windows 10 version **14393.0** or **higher**.
-    -    Internet access from the computer running Microsoft Power BI desktop.
-    - An Azure account on the desired tenant space with permissions on the subscriptions to read from the Azure Services described above.
-    - Install the custom connector and allow the use of any extension to load data without validation or warning. 
+  - Windows 10 version **14393.0** or **higher**.
+  - Internet access from the computer running Microsoft Power BI desktop.
+  - An Azure account on the desired tenant space with permissions on the subscriptions to read from the Azure Services described above.
+  - Install the custom connector and allow the use of any extension to load data without validation or warning. 
 
 ## APIs in use
-<div style="text-align: justify">
-The CCO Azure Governance Dashboard Governance pulls the information from several APIs. You can read the public documentation if you need further information about the calls and methods available:
+
+<div style="text-align: justify">The CCO Azure Governance Dashboard Governance pulls the information from several APIs. You can read the public documentation if you need further information about the calls and methods available:
 <br><br>
 </div>
 
@@ -49,10 +50,7 @@ The CCO Azure Governance Dashboard Governance pulls the information from several
 | [Azure Policies](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2019-09-01 |2019-09-01|:heavy_check_mark:|
 | [Azure Regulatory Compliances](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2016-06-01 |2016-06-01|:heavy_check_mark:|
 
-
-
 <div style="text-align: justify">
-
 
 ## Resource Providers requirements
 
@@ -130,7 +128,7 @@ It's important to mention that this page just gives you a quick view.
 ## Tags and naming standards page
 In this page you will be able to sort and filter all your Resources and Resource groups based on Tags. It will help you identify any missing Tag and if your naming standards and Tags classifications adheres to your organization guidelines or policies.
 
-![Tagsoverview](/install/images/GovernanceTags.png)
+![Tagsoverview](/install/images/TagsOverview.png)
 
 ## Azure Policies page
 In this page of the report, you will be able to identify the total amount of policies that are you applying in your environment. It will also give a high-level overview of which policies has less compliance level and which resources require more attention.

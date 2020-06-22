@@ -8,6 +8,7 @@
   - [Resource Providers requirements](#resource-providers-requirements)
 - [Installing the custom connector](#installing-the-custom-connector)
 - [Setting up the CCO Azure Governance Dashboard Governance](#setting-up-the-cco-azure-governance-dashboard-governance)
+  - [Environment selection](#environment-selection)
   - [Credentials](#credentials)
     - [Clean Credentials on the Data Source](#clean-credentials-on-the-data-source)
     - [Refresh the dashboard](#refresh-the-dashboard)
@@ -43,7 +44,7 @@ The CCO Azure Governance Dashboard Governance pulls the information from several
 | --- | :---: | :---: |:---: |
 | [Resource Groups](https://docs.microsoft.com/en-us/rest/api/resources/resourcegroups)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
 | [Azure Resources](https://docs.microsoft.com/en-us/rest/api/resources/resources)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
-| [Azure Subscriptions](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
+| [Azure Subscriptions](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions)  |2020-01-01 |2020-01-01|:heavy_check_mark:|
 | [Azure Locations](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
 | [Azure Blueprints](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2018-11-01-preview |2018-11-01-preview|:heavy_check_mark:|
 | [Azure Policies](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2019-09-01 |2019-09-01|:heavy_check_mark:|
@@ -53,6 +54,13 @@ The CCO Azure Governance Dashboard Governance pulls the information from several
 
 <div style="text-align: justify">
 
+API URLs by environment:
+
+| API Name| API URL | Environment|
+| --- | :---: | :---: | 
+| Management |https://management.azure.com/|Global|
+| Management |https://management.usgovcloudapi.net/|US Government|
+| Management |https://management.chinacloudapi.cn/|China|
 
 ## Resource Providers requirements
 
@@ -80,6 +88,16 @@ Then go to Power BI Options and under Global category in the Security section, s
 ![cc](/install/images/customconnectorsecurity.PNG)
 
 # Setting up the CCO Azure Governance Dashboard Governance
+
+## Environment selection
+
+Before start loading data you need to select which type of environment you're using:
+- Select "Global" for Microsoft Azure commercial environments. This is the default selection.
+- Select [US-Government](https://docs.microsoft.com/en-us/azure/azure-government/documentation-government-developer-guide) for Azure Us government services. Azure Government is a separate instance of the Microsoft Azure service. It addresses the security and compliance needs of United States federal agencies, state and local governments, and their solution providers.
+- Select [China](https://docs.microsoft.com/en-us/azure/china/resources-developer-guide) to load data from cloud applications in Microsoft Azure operated by 21Vianet (Azure China).
+
+![selector](/install/images/selectorGov.png)
+
 ## Credentials
 By default, the template doesn't have any Azure Account credentials preloaded. Hence, the first step to start showing subscriptions data is to sign-in with the right user credentials.
 

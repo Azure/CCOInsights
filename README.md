@@ -4,9 +4,8 @@
 ## Content
 
 - [Overview](README.md#overview)
-- [CCO Azure Governance Dashboard Governance Version 1.0](README.md#cco-azure-governance-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
-- [CCO Azure Infrastructure Dashboard Version 8.0 updates](README.md#cco-azure-infrastructure-dashboard-version-80-updates)
-- [CCO Azure Infrastructure Dashboard Version 7.0 updates](README.md#cco-azure-infrastructure-dashboard-version-71-updates)
+- [CCO Azure Governance Dashboard Governance Version 2.0](README.md#cco-azure-governance-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
+- [CCO Azure Infrastructure Dashboard Version 8.0 updates](README.md#cco-azure-infrastructure-dashboard-version-80-updates) ***<span style="color:green"><sup>NEW</sup></span>***
 - [List of resources](README.md#List-of-resources)
 - [CCO Azure Infrastructure Dashboard report pages](README.md#cco-azure-infrastructure-dashboard-report-pages)
 - [CCO Azure Infrastructure Dashboard with AKS add-on report pages](README.md#cco-azure-infrastructure-dashboard-with-aks-add-on-report-pages)
@@ -158,14 +157,14 @@ The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following 
 
 ## CCO Azure Governance Dashboard Report Pages
 
-The version 1.0 of the CCO Power BI Dashboard Governance includes the following information:
+The version 2.0 of the CCO Power BI Dashboard Governance includes the following information:
 
-- Azure Management Groups and Subcriptions hierarchy ***<span style="color:green"><sup>NEW</sup></span>***
+- Azure Management Groups and Subscriptions hierarchy 
 - Resource Groups and Resources Tagging information
-- Azure Policies ***<span style="color:green"><sup>NEW</sup></span>***
-- Azure Subscriptions Blueprints ***<span style="color:green"><sup>NEW</sup></span>***
 - Regulatory Standards Compliance Overview ***<span style="color:green"><sup>NEW</sup></span>***
-- Azure Resource Regulatory Standards Compliance ***<span style="color:green"><sup>NEW</sup></span>***
+- Azure Security and Compliance ***<span style="color:green"><sup>NEW</sup></span>***
+- Azure Policies 
+- Azure Subscriptions Blueprints ***<span style="color:green"><sup>NEW</sup></span>***
 
 You can find more details about each page on the [Deployment Guide](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md) file
 

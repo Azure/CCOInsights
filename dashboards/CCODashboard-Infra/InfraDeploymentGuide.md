@@ -147,7 +147,7 @@ The following picture shows the steps to configure Azure Security Center plan fo
 
 ![SecurityCenterStandardRecommendations](/install/images/EnableSecurityCenterStandard.png)
 
-# Setting up the Continuous Cloud Optimization Power BI Dashboard
+# Setting up the Continuous Cloud Optimization Azure Infrastructure Power BI Dashboard
 
 ## Environment selection
 

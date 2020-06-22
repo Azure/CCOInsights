@@ -9,7 +9,7 @@
   - [Azure Advisor Recommendations](#azure-advisor-recommendations)
     - [Generating Azure Advisor recommendations manually](#generating-azure-advisor-recommendations-manually)
   - [Azure Security Center Recommendations](#azure-security-center-recommendations)
-- [Setting up the Continuous Optimization Power BI Dashboard](#setting-up-the-continuous-optimization-power-bi-dashboard)
+- [Setting up the Continuous Cloud Optimization Power BI Dashboard](#setting-up-the-continuous-cloud-optimization-power-bi-dashboard)
   - [Environment selection](#environment-selection)
   - [Credentials](#credentials)
     - [Clean Credentials on the Data Source](#clean-credentials-on-the-data-source)
@@ -148,7 +148,7 @@ The following picture shows the steps to configure Azure Security Center plan fo
 
 ![SecurityCenterStandardRecommendations](/install/images/EnableSecurityCenterStandard.png)
 
-# Setting up the Continuous Optimization Power BI Dashboard
+# Setting up the Continuous Cloud Optimization Power BI Dashboard
 
 ## Environment selection
 

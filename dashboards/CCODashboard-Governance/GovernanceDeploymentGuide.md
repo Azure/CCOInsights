@@ -119,23 +119,27 @@ If the permissions and credentials are properly flushed it should ask you for cr
 ![Privacy](https://user-images.githubusercontent.com/39730064/60920947-3e6d2580-a24e-11e9-9042-f799c9f6fc53.png)
 
 # Report Pages
+
 ## Management Groups and Subscriptions Hierarchy Overview page
+
 In this page, you will be able to identify easily the hierarchy within your environment with the view of the Management Groups and Subscriptions.
-It's important to mention that this page just gives you a quick view. 
+It's important to mention that this page just gives you a quick view.
 
 ![overview](/install/images/GovernanceOverview.png)
 
 ## Tags and naming standards page
+
 In this page you will be able to sort and filter all your Resources and Resource groups based on Tags. It will help you identify any missing Tag and if your naming standards and Tags classifications adheres to your organization guidelines or policies.
 
 ![Tagsoverview](/install/images/TagsOverview.png)
 
 ## Azure Policies page
+
 In this page of the report, you will be able to identify the total amount of policies that are you applying in your environment. It will also give a high-level overview of which policies has less compliance level and which resources require more attention.
 
 You can filter the information by:
--  Tenant
--  Management Group with subscriptions
+
+- Management Group with subscriptions
 - Subscription
 - Policy scope
 

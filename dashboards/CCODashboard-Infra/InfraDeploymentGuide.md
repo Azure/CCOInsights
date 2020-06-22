@@ -9,7 +9,7 @@
   - [Azure Advisor Recommendations](#azure-advisor-recommendations)
     - [Generating Azure Advisor recommendations manually](#generating-azure-advisor-recommendations-manually)
   - [Azure Security Center Recommendations](#azure-security-center-recommendations)
-- [Setting up the Continuous Cloud Optimization Power BI Dashboard](#setting-up-the-continuous-cloud-optimization-power-bi-dashboard)
+- [Setting up the Continuous Cloud Optimization Azure Infrastructure Power BI Dashboard](#setting-up-the-continuous-cloud-optimization-azure-infrastructure-power-bi-dashboard)
   - [Environment selection](#environment-selection)
   - [Credentials](#credentials)
     - [Clean Credentials on the Data Source](#clean-credentials-on-the-data-source)
@@ -21,7 +21,7 @@
     - [Enter Access Web content credentials](#enter-access-web-content-credentials)
     - [Modify Privacy settings](#modify-privacy-settings)
 - [Report Pages](#report-pages)
-  - [CCO Dashboard overview page](#cco-dashboard-overview-page)
+  - [CCO Azure Infrastructure Dashboard overview page](#cco-azure-infrastructure-dashboard-overview-page)
   - [Azure Advisor Recommendations Dashboard page](#azure-advisor-recommendations-dashboard-page)
   - [Azure Security Center Alerts Dashboard tab](#azure-security-center-alerts-dashboard-tab)
   - [Azure Compute Dashboard tab](#azure-compute-dashboard-tab)
@@ -32,7 +32,7 @@
   - [IaaS Usage and Limits Dashboard tab](#iaas-usage-and-limits-dashboard-tab)
   - [IaaS Idle Resources Dashboard tab](#iaas-idle-resources-dashboard-tab)
   - [Azure Kubernetes Service Dashboard Overview tab](#azure-kubernetes-service-dashboard-overview-tab)
-  - [Azure Kubernetes Service Dashboard  tab](#azure-kubernetes-service-dashboard-tab)
+  - [Azure Kubernetes Service Dashboard tab](#azure-kubernetes-service-dashboard-tab)
 - [Scripts](#scripts)
   - [Generate All Subscriptions Advisor Recommendations](#generate-all-subscriptions-advisor-recommendations)
   - [PowerBI Dashboard Read Permissions Role](#powerbi-dashboard-read-permissions-role)
@@ -162,7 +162,7 @@ Before start loading data you need to select which type of environment you're us
 ## Credentials
 By default, the template doesn’t have any Azure Account credentials preloaded. Hence, the first step to start showing subscriptions data is to sign-in with the right user credentials.
 
-  -IMPORTANT NOTE: Power BI Desktop caches the credentials after the first logon. It is important to clear the credentials from Power BI desktop if you plan to switch between Azure GLobal and any other region like US Government or China. The same concept applies if you plan to swtich between tenants. Otherwise, the staged credentials will be used again for the different Azure environments and the authentication or data load process will fail.
+**IMPORTANT NOTE**: Power BI Desktop caches the credentials after the first logon. It is important to clear the credentials from Power BI desktop if you plan to switch between Azure GLobal and any other region like US Government or China. The same concept applies if you plan to switch between tenants. Otherwise, the staged credentials will be used again for the different Azure environments and the authentication or data load process will fail.
 
 ### Clean Credentials on the Data Source
 In some cases, old credentials are cached by previous logins using Power BI Desktop and the dashboard might show errors or blank fields.

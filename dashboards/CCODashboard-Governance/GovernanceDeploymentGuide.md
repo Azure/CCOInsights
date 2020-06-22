@@ -50,6 +50,7 @@ The CCO Azure Governance Dashboard is aligned with the Microsoft Cloud Adoption 
 | [Azure Blueprints](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2018-11-01-preview |2018-11-01-preview|:heavy_check_mark:|
 | [Azure Policies](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2019-09-01 |2019-09-01|:heavy_check_mark:|
 | [Azure Regulatory Compliances](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2016-06-01 |2016-06-01|:heavy_check_mark:|
+| [Azure Assesstments](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2020-01-01 |2020-01-01|:heavy_check_mark:|
 
 <div style="text-align: justify">
 

@@ -53,6 +53,14 @@ The CCO Azure Governance Dashboard is aligned with the Microsoft Cloud Adoption 
 
 <div style="text-align: justify">
 
+API URLs by environment:
+
+| API Name| API URL | Environment|
+| --- | :---: | :---: | 
+| Management |https://management.azure.com/|Global|
+| Management |https://management.usgovcloudapi.net/|US Government|
+| Management |https://management.chinacloudapi.cn/|China|
+
 ## Resource Providers requirements
 
 Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Security** resource provider is registered across all the  subscriptions that you plan analyze using the Dashboard. 

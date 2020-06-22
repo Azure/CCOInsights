@@ -10,6 +10,7 @@
     - [Generating Azure Advisor recommendations manually](#generating-azure-advisor-recommendations-manually)
   - [Azure Security Center Recommendations](#azure-security-center-recommendations)
 - [Setting up the Continuous Optimization Power BI Dashboard](#setting-up-the-continuous-optimization-power-bi-dashboard)
+  - [Environment selection](#environment-selection)
   - [Credentials](#credentials)
     - [Clean Credentials on the Data Source](#clean-credentials-on-the-data-source)
     - [Refresh the dashboard](#refresh-the-dashboard)
@@ -148,6 +149,17 @@ The following picture shows the steps to configure Azure Security Center plan fo
 ![SecurityCenterStandardRecommendations](/install/images/EnableSecurityCenterStandard.png)
 
 # Setting up the Continuous Optimization Power BI Dashboard
+
+## Environment selection
+
+Before start loading data you need to select which type of environment you're using:
+- Select Global for Microsoft Azure non-government environments. This is the default selection.
+- Select [US-Government](https://docs.microsoft.com/en-us/azure/azure-government/documentation-government-developer-guide) for Azure Us government services. Azure Government is a separate instance of the Microsoft Azure service. It addresses the security and compliance needs of United States federal agencies, state and local governments, and their solution providers.
+- Select [China](https://docs.microsoft.com/en-us/azure/china/resources-developer-guide) to load data from cloud applications in Microsoft Azure operated by 21Vianet (Azure China).
+
+![selector](/install/images/selector.png)
+
+
 ## Credentials
 By default, the template doesn’t have any Azure Account credentials preloaded. Hence, the first step to start showing subscriptions data is to sign-in with the right user credentials.
 

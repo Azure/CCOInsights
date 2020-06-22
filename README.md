@@ -14,25 +14,25 @@
 
 -------------------------------
 
-
 ## Overview
-The Continuous Cloud Optimization Power BI Dashboards project is a set of Power BI Dashboards developed using Power Query M language and DAX, that pulls information directly from different Azure and Graph REST APIs and enables monitoring, operation and infrastructure teams to quickly gain insights about the existing Azure Platform footprint and resources. 
+
+The Continuous Cloud Optimization Power BI Dashboards project is a set of Power BI Desktop Reports developed using Power Query M language and DAX, that pulls information directly from different Azure REST APIs and enables monitoring, operation and infrastructure teams to quickly gain insights about the existing Azure Platform footprint and resources.
 The current set of CCO Dashboards includes 3 different Dashboards to discover information about different Azure critcal design areas:
 
-  - [**CCO Azure Infrastructure Dashboard**](/install/DeploymentGuide.md): Get insights about Azure Identity and RBAC, Security of your resoruces, Networking, Compute, Idle resources and Subcriptions Quotas and Limits
-  - [**CCO Azure Governance Dashboard**](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md): Get insights Azure Governance aspects like Management Groups and Subscriptions hierarchy, Azure Policies, Azure Blueprints and Azure resources Regulatory Standards Compliance
-  - [**CCO Azure Infrastrucutre Dashboard with AKS**](/install/DeploymentGuide.md): Get all the insights from the infrastruture Dashboard plus AKS information
-
+  - [**CCO Azure Infrastructure Dashboard**](/install/DeploymentGuide.md): Get insights about Azure advisor optimizations, Azure Security Center Alerts, Networking, Compute, RBAC, Idle resources and Subcriptions Quotas and Limits
+  - [**CCO Azure Governance Dashboard**](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md): Get insights about Azure Governance aspects like Management Groups and Subscriptions hierarchy, resource tagging and naming standards, security controls, policies compliance, Regulatory Standards and Azure Blueprints
+  - [**CCO Azure Infrastrucutre Dashboard with AKS**](/install/DeploymentGuide.md): Get insights about AKS information
 
 ![OverviewImage](/install/images/OverviewImage.png)
 
-
 ## **CCO Azure Infrastructure Dashboard Version 8.0 Updates**
--  **US Govern and China region Azure environments supported <span style="color:green"><sup>NEW</sup></span>**. 
--  New design for Overview, Azure Advisor and Azure Networking pages.
--  **Potential cost optimizations**<span style="color:green"><sup>NEW</sup></span> in Azure Advisor recommendations page. 
--  Tags and Security recommendations report pages moved from the infrastructure dashboard to the governance dashboard.
--  All APIs calls updated to the last version.
+
+- **US Government and China Azure regions support<span style="color:green"><sup>NEW</sup></span>**. 
+- New design design
+- **Potential cost optimizations**<span style="color:green"><sup>NEW</sup></span> in Azure Advisor recommendations page. 
+- Resource Tags page moved to the CCO Azure Governance dashboard.
+- Azure Security Recommendations page under the CCO Azure Infra Dashboard deprecated and moved to the CCO Azure Governance Dashboard as the Security and Compliance page to be aligned with the Azure Security Benchmarks and the Azure Security Center Secure Score
+- All APIs calls updated to the last version.
 
 ## **CCO Azure Infrastructure Dashboard Version 7.1** Updates
 - Bug fix [Issue #72](https://github.com/Azure/ccodashboard/issues/72): 

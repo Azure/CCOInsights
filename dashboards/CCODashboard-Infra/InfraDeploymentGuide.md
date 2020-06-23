@@ -1,7 +1,8 @@
-# Continuous Cloud Optimization Power BI Dashboard
+# CCO Azure Infrastructure Dashboard
+
 <div style="text-align: justify">
 
-- [Continuous Cloud Optimization Power BI Dashboard](#continuous-cloud-optimization-power-bi-dashboard)
+- [CCO Azure Infrastructure Dashboard](#CCO-Azure-Infrastructure-Dashboard)
   - [Overview](#overview)
     - [Requirements](#requirements)
   - [APIs in use](#apis-in-use)

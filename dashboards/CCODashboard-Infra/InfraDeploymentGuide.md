@@ -74,7 +74,7 @@ The Continuous Optimization Power BI Dashboard pulls the information from severa
 | [Azure Virtual Networks](https://docs.microsoft.com/en-us/rest/api/virtual-network) | 2019-04-01|2019-04-01|:heavy_check_mark:|
 | [Azure Network Interfaces](https://docs.microsoft.com/en-us/rest/api/virtualnetwork/networkinterfaces) |2019-04-01 |2019-04-01|:heavy_check_mark:|
 | [Resource Groups](https://docs.microsoft.com/en-us/rest/api/resources/resourcegroups)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
-| [Azure Resources](https://docs.microsoft.com/en-us/rest/api/resources/resources)  |2019-10-0 |2019-10-0|:heavy_check_mark:|
+| [Azure Resources](https://docs.microsoft.com/en-us/rest/api/resources/resources)  |2019-10-01 |2019-10-01|:heavy_check_mark:|
 | [Azure Subscriptions](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions)  |2020-01-01 |2020-01-01|:heavy_check_mark:|
 | [Azure Locations](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
 | [Azure Role Assignments](https://docs.microsoft.com/en-us/rest/api/authorization/roleassignments) |2015-07-01 |2015-07-01|:heavy_check_mark:|

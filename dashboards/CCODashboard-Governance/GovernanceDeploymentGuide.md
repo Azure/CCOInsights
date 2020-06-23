@@ -8,6 +8,7 @@
   - [Resource Providers requirements](#resource-providers-requirements)
 - [Installing the custom connector](#installing-the-custom-connector)
 - [Setting up the CCO Azure Governance Dashboard Governance](#setting-up-the-cco-azure-governance-dashboard-governance)
+  - [Environment selection](#environment-selection)
   - [Credentials](#credentials)
     - [Clean Credentials on the Data Source](#clean-credentials-on-the-data-source)
     - [Refresh the dashboard](#refresh-the-dashboard)
@@ -17,10 +18,10 @@
 - [Report Pages](#report-pages)
   - [Management Groups and Subscriptions Hierarchy Overview page](#management-groups-and-subscriptions-hierarchy-overview-page)
   - [Tags and naming standards page](#tags-and-naming-standards-page)
+  - [Azure Regulatory Standards Compliance Overview tab](#azure-regulatory-standards-compliance-overview-tab)
+  - [Azure Resources Security, Compliance and Regulatory Compliance tab](#azure-resources-security-compliance-and-regulatory-compliance-tab)
   - [Azure Policies page](#azure-policies-page)
   - [Azure Subscription Blueprints page](#azure-subscription-blueprints-page)
-  - [Azure Regulatory Compliance Overview tab](#azure-regulatory-compliance-overview-tab)
-  - [Azure Resources Regulatory Compliance tab](#azure-resources-regulatory-compliance-tab)
 
 ## Overview
 
@@ -44,13 +45,22 @@ The CCO Azure Governance Dashboard is aligned with the Microsoft Cloud Adoption 
 | --- | :---: | :---: |:---: |
 | [Resource Groups](https://docs.microsoft.com/en-us/rest/api/resources/resourcegroups)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
 | [Azure Resources](https://docs.microsoft.com/en-us/rest/api/resources/resources)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
-| [Azure Subscriptions](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
+| [Azure Subscriptions](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions)  |2020-01-01 |2020-01-01|:heavy_check_mark:|
 | [Azure Locations](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
 | [Azure Blueprints](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2018-11-01-preview |2018-11-01-preview|:heavy_check_mark:|
 | [Azure Policies](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2019-09-01 |2019-09-01|:heavy_check_mark:|
 | [Azure Regulatory Compliances](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2016-06-01 |2016-06-01|:heavy_check_mark:|
+| [Azure Assesstments](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2020-01-01 |2020-01-01|:heavy_check_mark:|
 
 <div style="text-align: justify">
+
+API URLs by environment:
+
+| API Name| API URL | Environment|
+| --- | :---: | :---: | 
+| Management |https://management.azure.com/|Global|
+| Management |https://management.usgovcloudapi.net/|US Government|
+| Management |https://management.chinacloudapi.cn/|China|
 
 ## Resource Providers requirements
 
@@ -78,6 +88,16 @@ Then go to Power BI Options and under Global category in the Security section, s
 ![cc](/install/images/customconnectorsecurity.PNG)
 
 # Setting up the CCO Azure Governance Dashboard Governance
+
+## Environment selection
+
+Before start loading data you need to select which type of environment you're using:
+- Select "Global" for Microsoft Azure commercial environments. This is the default selection.
+- Select [US-Government](https://docs.microsoft.com/en-us/azure/azure-government/documentation-government-developer-guide) for Azure Us government services. Azure Government is a separate instance of the Microsoft Azure service. It addresses the security and compliance needs of United States federal agencies, state and local governments, and their solution providers.
+- Select [China](https://docs.microsoft.com/en-us/azure/china/resources-developer-guide) to load data from cloud applications in Microsoft Azure operated by 21Vianet (Azure China).
+
+![selector](/install/images/selectorGov.png)
+
 ## Credentials
 By default, the template doesn't have any Azure Account credentials preloaded. Hence, the first step to start showing subscriptions data is to sign-in with the right user credentials.
 
@@ -137,6 +157,7 @@ You can filter the information by:
 
 ![Tagsoverview](/install/images/TagsOverview.png)
 
+<<<<<<< HEAD
 ## Azure Regulatory Standards Compliance Page
 
 This page is used to show the Azure Regulatory Compliance controls level of the environment. It shows the status of the 4 built-in regulatory compliance controls that Azure applies by default to all the environments (SOC TSP, PCI-DSS-3.2, ISO 27001 and Azure CIS 1.1.0).
@@ -148,6 +169,31 @@ You can filter the information by:
 
 ![regulatorycompliance](/install/images/regulatorycompliance.png)
 
+=======
+
+## Azure Regulatory Standards Compliance Overview tab
+The fifth tab is used to show the Azure Regulatory Compliance controls level of the environment. It shows the status of the 4 built-in regulatory compliance controls that Azure applies by default to all the environments (SOC TSP, PCI-DSS-3.2, ISO 27001 and Azure CIS 1.1.0).
+
+You can filter the information by:
+- Subscription
+- Regulatory Compliance
+- Assesstment Category
+    
+![regulatorycompliance](/install/images/regulatorycompliance.png)
+
+## Azure Resources Security, Compliance and Regulatory Compliance tab
+In this tab, you will be able to identify which resources are compliant with all the additional regulatory compliance controls. Also it shows how your environment complies with controls and requirements designated by specific regulatory standards and industry benchmarks and provides prescriptive recommendations for how to address these requirements.
+(Public preview release of additional supported standards: NIST SP 800-53 R4, SWIFT CSP CSCF v2020, Canada Federal PBMM and UK Official together with UK NHS).
+
+You can filter the information by:
+- Subscription
+- Regulatory Standard Name
+- Secure Controls
+- Policy Category
+  
+![regulatorycomplianceresources](/install/images/regulatorycomplianceresources.png)
+
+>>>>>>> 2ed9564be274fc10d3e7135c0a7086edc7248994
 ## Azure Policies page
 
 In this page of the report, you will be able to identify the total amount of policies that are you applying in your environment. It will also give a high-level overview of which policies has less compliance level and which resources require more attention.
@@ -167,15 +213,20 @@ If you navigate to a impacted resource you will see a quick description of the a
 In this page of the report, you will be able to identify the total amount of blueprints that are you applying in your environment. It will also show which are the artifacts within the blueprints.
 
 You can filter the information by:
+<<<<<<< HEAD
 
 - Tenant
 - Management Group with subscriptions
 - Subscription
+=======
+- Subscription with assigned blueprints
+>>>>>>> 2ed9564be274fc10d3e7135c0a7086edc7248994
 - Blueprint Definition
 - Published blueprint
 - Blueprint Assignment
   
 ![governanceSubsBlueprints](/install/images/governanceSubsBlueprints.png)
+<<<<<<< HEAD
 
 ## Azure Resources Regulatory Compliance tab
 In this tab, you will be able to identify which resources are compliant with all the additional regulatory compliance controls. Also it shows how your environment complies with controls and requirements designated by specific regulatory standards and industry benchmarks and provides prescriptive recommendations for how to address these requirements.
@@ -189,3 +240,5 @@ You can filter the information by:
 - Regulatory Standard Name
   
 ![regulatorycomplianceresources](/install/images/regulatorycomplianceresources.png)
+=======
+>>>>>>> 2ed9564be274fc10d3e7135c0a7086edc7248994

@@ -2,7 +2,7 @@
 
 <div style="text-align: justify">
 
-- [CCO Azure Governance Dashboard](#cco-azure-governance-dashboard-governance)
+- [CCO Azure Governance Dashboard](#cco-azure-governance-dashboard)
   - [Overview](#overview)
     - [Requirements](#requirements)
   - [APIs in use](#apis-in-use)
@@ -13,16 +13,16 @@
   - [Credentials](#credentials)
     - [Clean Credentials on the Data Source](#clean-credentials-on-the-data-source)
     - [Refresh the dashboard](#refresh-the-dashboard)
-    - [Credentials for management.azure.com</span> REST API request:](#credentials-for-managementazurecom-rest-api-request)
-    - [Credentials for CCO Dashboard Custom Connector</span>:](#credentials-for-cco-dashboard-custom-connector)
+    - [Credentials for management.azure.com</span> REST API request](#credentials-for-managementazurecomspan-rest-api-request)
+    - [Credentials for CCO Dashboard Custom Connector](#credentials-for-cco-dashboard-custom-connector)
     - [Modify Privacy settings](#modify-privacy-settings)
 - [Report Pages](#report-pages)
   - [Management Groups and Subscriptions Hierarchy Overview page](#management-groups-and-subscriptions-hierarchy-overview-page)
   - [Tags and naming standards page](#tags-and-naming-standards-page)
-  - [Azure Regulatory Standards Compliance Overview tab](#azure-regulatory-standards-compliance-overview-tab)
-  - [Azure Resources Security, Compliance and Regulatory Compliance tab](#azure-resources-security-compliance-and-regulatory-compliance-tab)
+  - [Azure Regulatory Standards Forecast](#azure-regulatory-standards-forecast)
+  - [Azure Resources Security & Compliance page](#azure-resources-security--compliance-page)
   - [Azure Policies page](#azure-policies-page)
-  - [Azure Subscription Blueprints page](#azure-subscription-blueprints-page)
+  - [Azure Blueprints page](#azure-blueprints-page)
 
 ## Overview
 
@@ -34,7 +34,7 @@ The CCO Azure Governance Dashboard is aligned with the Microsoft Cloud Adoption 
   - Windows 10 version **14393.0** or **higher**.
   - Internet access from the computer running Microsoft Power BI desktop.
   - An Azure account on the desired tenant space with permissions on the subscriptions to read from the Azure Services described above.
-  - Install the custom connector and allow the use of any extension to load data without validation or warning. 
+  - Install the custom connector and allow the use of any extension to load data without validation or warning.
 
 ## APIs in use
 
@@ -181,7 +181,7 @@ You can filter the information by:
 
 ## Azure Resources Security & Compliance page
 
-In this page you can check the compliance status of your Azure resources based on the Azure Security Center Secure Score Controls and the correspoding Policy Set or Regulatory Standard
+In this page you can check the compliance status of your Azure resources based on the Azure Security Center Secure Score Controls and the corresponding Policy Set or Regulatory Standard
 
 You can filter the information by:
 

@@ -94,12 +94,13 @@ Then go to Power BI Options and under Global category in the Security section, s
 Before start loading data you need to select which type of environment you're using:
 - Select "Global" for Microsoft Azure commercial environments. This is the default selection.
 - Select [US-Government](https://docs.microsoft.com/en-us/azure/azure-government/documentation-government-developer-guide) for Azure Us government services. Azure Government is a separate instance of the Microsoft Azure service. It addresses the security and compliance needs of United States federal agencies, state and local governments, and their solution providers.
-- Select [China](https://docs.microsoft.com/en-us/azure/china/resources-developer-guide) to load data from cloud applications in Microsoft Azure operated by 21Vianet (Azure China).
 
-![selector](/install/images/selectorGov.png)
+![selector](/install/images/selectorGov.PNG)
 
 ## Credentials
 By default, the template doesn't have any Azure Account credentials preloaded. Hence, the first step to start showing subscriptions data is to sign-in with the right user credentials.
+
+**IMPORTANT NOTE**: Power BI Desktop caches the credentials after the first logon. It is important to clear the credentials from Power BI desktop if you plan to switch between Azure GLobal and any other region like US Government or China. The same concept applies if you plan to switch between tenants. Otherwise, the staged credentials will be used again for the different Azure environments and the authentication or data load process will fail.
 
 ### Clean Credentials on the Data Source
 In some cases, old credentials are cached by previous logins using Power BI Desktop and the dashboard might show errors or blank fields.

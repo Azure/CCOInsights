@@ -140,6 +140,7 @@ Azure Security Center is offered in two tiers:
 The Standard tier is offered [free for the first 60 days](https://azure.microsoft.com/en-us/pricing/details/security-center/).
 
 The following picture shows the steps to configure Azure Security Center plan for Azure Subscriptions
+
 1.	Click on **Security Center**.
 2.	Click on **Click on top to learn more**.
 3.	Click on **Select the subscription you want to configure**.
@@ -152,19 +153,21 @@ The following picture shows the steps to configure Azure Security Center plan fo
 ## Environment selection
 
 Before start loading data you need to select which type of environment you're using:
+
 - Select "Global" for Microsoft Azure commercial environments. This is the default selection.
 - Select [US-Government](https://docs.microsoft.com/en-us/azure/azure-government/documentation-government-developer-guide) for Azure Us government services. Azure Government is a separate instance of the Microsoft Azure service. It addresses the security and compliance needs of United States federal agencies, state and local governments, and their solution providers.
-- Select [China](https://docs.microsoft.com/en-us/azure/china/resources-developer-guide) to load data from cloud applications in Microsoft Azure operated by 21Vianet (Azure China).
+- **Preview feature:** Select [China](https://docs.microsoft.com/en-us/azure/china/resources-developer-guide) to load data from cloud applications in Microsoft Azure operated by 21Vianet (Azure China).
 
 ![selector](/install/images/selector.png)
 
-    
 ## Credentials
+
 By default, the template doesn’t have any Azure Account credentials preloaded. Hence, the first step to start showing subscriptions data is to sign-in with the right user credentials.
 
 **IMPORTANT NOTE**: Power BI Desktop caches the credentials after the first logon. It is important to clear the credentials from Power BI desktop if you plan to switch between Azure GLobal and any other region like US Government or China. The same concept applies if you plan to switch between tenants. Otherwise, the staged credentials will be used again for the different Azure environments and the authentication or data load process will fail.
 
 ### Clean Credentials on the Data Source
+
 In some cases, old credentials are cached by previous logins using Power BI Desktop and the dashboard might show errors or blank fields.
 
 - Click on Data sources in **Current file/Global permissions**.
@@ -174,6 +177,7 @@ In some cases, old credentials are cached by previous logins using Power BI Desk
 ![credentials1](/install/images/Credentials1.png) ![credentials2](/install/images/Credentials2.png)
 
 ### Refresh the dashboard
+
 If the permissions and credentials are properly flushed it should ask you for credentials for each REST API and you will have to set the Privacy Levels for each of them.
 
 - Click on **Refresh**.

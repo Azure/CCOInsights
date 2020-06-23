@@ -1,4 +1,5 @@
-# CCO Azure Governance Dashboard Governance Version 1.0
+# CCO Azure Governance Dashboard
+
 <div style="text-align: justify">
 
 - [CCO Azure Governance Dashboard Governance Version 1.0](#cco-azure-governance-dashboard-governance-version-10)

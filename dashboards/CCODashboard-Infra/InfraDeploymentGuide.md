@@ -46,7 +46,7 @@ The Continuous Cloud Optimization Azure Infrastructure Power BI Dashboard is a r
 
 ### Requirements
 
-- The Continuous Optimization Power BI Dashboard is a Power BI Template that requires to download and install the Microsoft Power BI Desktop Edition from the Microsoft Store. Below you can find the minimum requirements to run the Dashboard
+- The CCO Azure Infrastructure Dashboard is a Power BI Template that requires to download and install the Microsoft Power BI Desktop Edition from the Microsoft Store. Below you can find the minimum requirements to run the Dashboard
     -	Windows 10 version **14393.0** or **higher**.
     -	Internet access from the computer running Microsoft Power BI desktop.
     - An Azure account on the desired tenant space with permissions on the subscriptions to read from the Azure Services described above.
@@ -61,7 +61,7 @@ Below you can find the list of providers and the actions that you will need to p
 
 ## APIs in use
 <div style="text-align: justify">
-The Continuous Optimization Power BI Dashboard pulls the information from several APIs. You can read the public documentation if you need further information about the calls and methods available:
+The CCO Azure Infrastructure Dashboard pulls the information from several APIs. You can read the public documentation if you need further information about the calls and methods available:
 <br><br>
 </div>
 
@@ -120,7 +120,9 @@ The Continuous Optimization Power BI Dashboard will directly pull data from Azur
 To do so, you need to generate the recommendations for the first time manually from the Azure Portal, or programmatically using the script [GenerateAllSubscriptionsAdvisorRecommendations.ps1](/scripts/GenerateAllSubsAdvisorRecommendations.ps1)
 
 ### Generating Azure Advisor recommendations manually
-Open the Azure Portal with your Azure Account http://portal.azure.com  
+
+Open the Azure Portal with your Azure Account http://portal.azure.com 
+
 1. Click on **Advisor**.
 2.	Expand the subscriptions drop-down menu.
 3.	Select the subscription you want to update or generate the recommendations for the first time.
@@ -130,11 +132,13 @@ Open the Azure Portal with your Azure Account http://portal.azure.com
 ![AdvisorRecommendations](/install/images/AdvisorRecommendations.png)
 
 ## Azure Security Center Recommendations
+
 Azure Security Center provides unified security management and advanced threat protection for workloads running in Azure, on-premises, and in other clouds. It delivers visibility and control over hybrid cloud workloads, active defence that reduces your exposure to threats, and intelligent detection to help you keep pace with rapidly evolving cyber-attacks.
 
 You can find more information at the official Azure Security Center site [here](https://docs.microsoft.com/en-us/azure/security-center/security-center-intro).
 
 Azure Security Center is offered in two tiers:
+
 - Free
 - Standard
   
@@ -186,6 +190,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 ![credentials3](/install/images/Credentials3.png)
 
 ### Credentials for <span>management.azure.com</span> REST API request:
+
 - Click on **Organizational Account**.
 - Click on **Sign in**.
 - Click on **Connect**.
@@ -194,6 +199,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 ![credentials4](/install/images/Credentials4.png)
 
 ### Credentials for <span>github.com</span> Web
+
 - Click on **Anonymous**.
 - Click on **Sign in**.
 - Click on **Connect**.
@@ -201,6 +207,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 ![DocsCredentials](/install/images/DocsCredentials.png)
 
 ### Credentials for <span>graph.windows.net</span> API
+
 - Click on **Organizational Account**.
 - Click on **Sign in**.
 - Click on **Connect**.
@@ -208,6 +215,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 ![credentials5](/install/images/Credentials5.png)
 
 ### Credentials for <span>api.loganalytics.io</span> API
+
 - Click on **Organizational Account**.
 - Click on **Sign in**.
 - Click on **Connect**.
@@ -223,7 +231,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 
 ### Modify Privacy settings
 
- - Go to File -> Options -> Privacy and set to Always ignore privacy level settings.
+- Go to File -> Options -> Privacy and set to Always ignore privacy level settings.
 
 ![Privacy](https://user-images.githubusercontent.com/39730064/60920947-3e6d2580-a24e-11e9-9042-f799c9f6fc53.png)
 
@@ -242,7 +250,7 @@ You can filter the information by:
 
 ![overview](/install/images/OverviewImage.png)
 
-## Azure Advisor Recommendations Dashboard page
+## Azure Advisor Recommendations page
 
 In this page of the report, you will be able to identify the total amount of recommendations that Azure Advisor has identified, to what resources each recommendations apply and to what subscription as well.
 
@@ -258,7 +266,7 @@ If you navigate to a impacted resource you will see a quick description, potenti
 
 ![advisor](/install/images/Advisor.png)
 
-## Azure Security Center Alerts Dashboard tab
+## Azure Security Center Alerts page
 
 The third tab is used to show the Azure Security Center Advanced Threat Analytics Alerts from all the subscriptions a given Azure account has access to. Is important to remark that subscriptions will need to use the Standard plan if you want to detect and see the alerts in the Power BI Dashboard.
 
@@ -271,7 +279,7 @@ You can filter the information by:
 
 ![security Center alerts](/install/images/SecurityCenterAlerts.png)
 
-## Azure Compute Dashboard tab
+## Azure Compute Overview page
 
 In this tab, you will be able to identify the number of VMs, the Operating System, the SKU, the Availability Set name, the location, the VM Size, the VNET and subnet each VM is connected, the private IP address and if the VM has any extension installed.
 
@@ -284,7 +292,7 @@ You can filter the information by:
 
 ![azurecompute](/install/images/AzureCompute.png)
 
-## Azure VNETs and Subnets Recommendations Dashboard tab
+## Azure VNETs and Subnets Recommendations page
 
 In this tab, you will be able to identify VNETs with only one subnet, if there are any VNET peering and if some of the subnets is exhausting its IP Pool. 
 
@@ -301,7 +309,7 @@ You can filter the information by:
 
 **IMPORTANT**: It is important to mention that although a VNET with only one subnet might not be an issue, it might be a good lead to investigate if that is the best network segmentation for the applications running on it.
 
-## Azure Network Security Groups Dashboard tab
+## Azure Network Security Groups page
 
 In this tab, you will be able to identify all the NSGs assigned to a VM or Subnet. On each one, you can check all the rules that are being applied
 
@@ -316,7 +324,7 @@ You can filter the information by:
   
 ![azure NSGs](/install/images/NSGs.png)
 
-## Role Based Access Control Dashboard tab
+## Role Based Access Control page
 
 This tab is used to show the Azure RBAC permissions from all the subscriptions a given Azure account has access to. You will be able to identify the roles applied to all Azure resources and if the subscriptions have custom roles.
 
@@ -329,7 +337,7 @@ You can filter the information by:
 
 ![azure rbac](/install/images/RBAC.png)
 
-## Service Principal Role Based Access Control Dashboard tab
+## Service Principal Role Based Access Control page
 
 This tab is used to show Azure Services Principals RBAC permissions from all the subscriptions a given Azure account has access to. You will be able to identify the roles applied to all Azure resources and if the subscriptions have custom roles.
 
@@ -342,7 +350,7 @@ You can filter the information by:
 
 ![azure rbacSP](/install/images/RBACServicePrincipals.png)
 
-## IaaS Usage and Limits Dashboard tab
+## IaaS Usage and Limits page
 
 This tab allows to identify the usage of any Compute, Storage and Networking Azure resource and validate the limits for each region and subscription. 
 
@@ -354,7 +362,7 @@ You can filter the information by:
 
 ![azure Idle](/install/images/UsageAndLimits.png)
 
-## IaaS Idle Resources Dashboard tab
+## IaaS Idle Resources Dashboard page
 
 This tab is lists all the Public IPs, Network Interfaces and Disks that are disconnected, idle or unattached.
 
@@ -365,7 +373,7 @@ You can filter the information by:
 
 ![azure Idle](/install/images/IdleResources.png)
 
-## Azure Kubernetes Service Dashboard Overview tab
+## Azure Kubernetes Service Dashboard Overview page
 
 In this page, you will be able to identify the number of AKS Clusters, Nodes, Pods, Containers, Service Principals and Azure Security Center recommedations. It’s important to mention that this tab just gives you a quick view. All the detailed information will be available in the following tab.
 
@@ -379,7 +387,7 @@ You can filter the information by:
 **IMPORTANT**: to receive all the information related to the Pods, Containers and Container Images a log analytics workspace configured **is required**.
 </div>
 
-## Azure Kubernetes Service Dashboard tab
+## Azure Kubernetes Service page
 
 In this page, you will be able to identify the number of AKS Clusters, Nodes, Pods, Containers, Container images, Service principals and Azure Container Instances . All the information related to these resources will be shown (IPs, pods in use, status, network, image repositories, RBAC roles …).
 

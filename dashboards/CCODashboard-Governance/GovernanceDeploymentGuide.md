@@ -169,7 +169,7 @@ You can filter the information by:
 
 ## Azure Regulatory Standards Forecast
 
-The fifth tab is used to show the Azure Regulatory Compliance controls level of the environment. It shows the status of the 4 built-in regulatory compliance controls that Azure applies by default to all the environments (SOC TSP, PCI-DSS-3.2, ISO 27001 and Azure CIS 1.1.0).
+In this page you can compare your current Azure resources compliance against selected Regulatory Standards, to understand how far from a given Regulatory Standard your current Azure footprint is today. For more information check the published [Regulatory Standards](https://docs.microsoft.com/en-us/azure/governance/blueprints/samples/).
 
 You can filter the information by:
 
@@ -181,8 +181,7 @@ You can filter the information by:
 
 ## Azure Resources Security & Compliance page
 
-In this tab, you will be able to identify which resources are compliant with all the additional regulatory compliance controls. Also it shows how your environment complies with controls and requirements designated by specific regulatory standards and industry benchmarks and provides prescriptive recommendations for how to address these requirements.
-(Public preview release of additional supported standards: NIST SP 800-53 R4, SWIFT CSP CSCF v2020, Canada Federal PBMM and UK Official together with UK NHS).
+In this page you can check the compliance status of your Azure resources based on the Azure Security Center Secure Score Controls and the correspoding Policy Set or Regulatory Standard
 
 You can filter the information by:
 

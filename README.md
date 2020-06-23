@@ -26,21 +26,23 @@ The current set of CCO Dashboards includes 3 different Dashboards to discover in
 
 ## CCO Azure Governance Dashboard Version 2.0 Updates
 
-- US Government region support<span style="color:green"><sup>**NEW**</sup></span>
+- US Government region support <span style="color:green"><sup>NEW</sup></span>
 - Alignment with Azure Security Benchmarks and Azure Security Center Secure Scores
 - New Security & Compliance page <span style="color:green"><sup>NEW</sup></span>
 - New Regulatory Standards Forecast page <span style="color:green"><sup>NEW</sup></span>
 - Redesigned Azure Blueprints page
-- New UX design with latest Azure Portal Icons
+- New UX design with latest Azure Portal Icons <span style="color:green"><sup>NEW</sup></span>
+- General Bug Fixes and code improvements
 
 ## **CCO Azure Infrastructure Dashboard Version 8.0 Updates**
 
-- US Government and China Azure regions support<span style="color:green"><sup>NEW</sup></span>
-- Potential cost optimizations**<span style="color:green"><sup>NEW</sup></span> in Azure Advisor recommendations page
+- US Government and China Azure regions support <span style="color:green"><sup>NEW</sup></span>
+- Potential cost optimizations in Azure Advisor recommendations page <span style="color:green"><sup>NEW</sup></span>
 - Resource Tags page moved to the CCO Azure Governance dashboard.
 - Azure Security Recommendations moved to the CCO Azure Governance Dashboard as part of the Security & Compliance page content
 - All APIs calls updated to the last version.
-- New UX design with latest Azure Portal Icons
+- New UX design with latest Azure Portal Icons <span style="color:green"><sup>NEW</sup></span>
+- General Bug Fixes and code improvements
 
 ## **CCO Azure Infrastructure Dashboard Version 7.1** Updates
 

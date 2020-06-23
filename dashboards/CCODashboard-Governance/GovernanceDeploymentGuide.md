@@ -86,7 +86,7 @@ The path should be **C:\Users\\%username%\Documents\Power BI Desktop\Custom Conn
 
 ![cc](/install/images/customconnectorfolder.PNG)
 
-Then go to Power BI Options and under Global category in the Security section, select **(Not Recommended) Allow any extension to load without validation or warning** and click **OK**. 
+Then go to Power BI Options and under Global category in the Security section, select **(Not Recommended) Allow any extension to load without validation or warning** and click **OK**.
 
 ![cc](/install/images/customconnectorsecurity.PNG)
 
@@ -95,40 +95,46 @@ Then go to Power BI Options and under Global category in the Security section, s
 ## Environment selection
 
 Before start loading data you need to select which type of environment you're using:
+
 - Select "Global" for Microsoft Azure commercial environments. This is the default selection.
 - Select [US-Government](https://docs.microsoft.com/en-us/azure/azure-government/documentation-government-developer-guide) for Azure Us government services. Azure Government is a separate instance of the Microsoft Azure service. It addresses the security and compliance needs of United States federal agencies, state and local governments, and their solution providers.
 
 ![selector](/install/images/selectorGov.PNG)
 
 ## Credentials
+
 By default, the template doesn't have any Azure Account credentials preloaded. Hence, the first step to start showing subscriptions data is to sign-in with the right user credentials.
 
 **IMPORTANT NOTE**: Power BI Desktop caches the credentials after the first logon. It is important to clear the credentials from Power BI desktop if you plan to switch between Azure GLobal and any other region like US Government or China. The same concept applies if you plan to switch between tenants. Otherwise, the staged credentials will be used again for the different Azure environments and the authentication or data load process will fail.
 
 ### Clean Credentials on the Data Source
+
 In some cases, old credentials are cached by previous logins using Power BI Desktop and the dashboard might show errors or blank fields.
 
-- Click on Data sources in **Current file/Global permissions**.
+- Click on Data sources in **Current file/Global permissions**
 - Click on **Clear Permissions**.
 - Click on **Clear All Permissions**.
 
 ![credentials1](/install/images/Credentials1.png) ![credentials2](/install/images/Credentials2.png)
 
 ### Refresh the dashboard
+
 If the permissions and credentials are properly flushed it should ask you for credentials for each REST API and you will have to set the Privacy Levels for each of them.
 
 - Click on **Refresh**.
   
 ![refreshgovernance](/install/images/refreshgovernance1.png)
 
-### Credentials for <span>management.azure.com</span> REST API request:
+### Credentials for management.azure.com</span> REST API request
+
 - Click on **Organizational Account**.
 - Click on **Sign in**.
 - Click on **Connect**.
-- 
+
 ![credentials4](/install/images/Credentials4.png)
 
-### Credentials for <span>CCO Dashboard Custom Connector</span>:
+### Credentials for CCO Dashboard Custom Connector
+
 - Click on **Organizational Account**.
 - Click on **Sign in**.
 - Click on **Connect**.
@@ -161,35 +167,26 @@ You can filter the information by:
 
 ![Tagsoverview](/install/images/TagsOverview.png)
 
-<<<<<<< HEAD
-## Azure Regulatory Standards Compliance Page
+## Azure Regulatory Standards Forecast
 
-This page is used to show the Azure Regulatory Compliance controls level of the environment. It shows the status of the 4 built-in regulatory compliance controls that Azure applies by default to all the environments (SOC TSP, PCI-DSS-3.2, ISO 27001 and Azure CIS 1.1.0).
-
-You can filter the information by:
-
-- Subscription
-- Regulatory Standards
-
-![regulatorycompliance](/install/images/regulatorycompliance.png)
-
-=======
-
-## Azure Regulatory Standards Compliance Overview tab
 The fifth tab is used to show the Azure Regulatory Compliance controls level of the environment. It shows the status of the 4 built-in regulatory compliance controls that Azure applies by default to all the environments (SOC TSP, PCI-DSS-3.2, ISO 27001 and Azure CIS 1.1.0).
 
 You can filter the information by:
+
 - Subscription
 - Regulatory Compliance
+- Policy Set
 - Assesstment Category
-    
+
 ![regulatorycompliance](/install/images/regulatorycompliance.png)
 
-## Azure Resources Security, Compliance and Regulatory Compliance tab
+## Azure Resources Security & Compliance page
+
 In this tab, you will be able to identify which resources are compliant with all the additional regulatory compliance controls. Also it shows how your environment complies with controls and requirements designated by specific regulatory standards and industry benchmarks and provides prescriptive recommendations for how to address these requirements.
 (Public preview release of additional supported standards: NIST SP 800-53 R4, SWIFT CSP CSCF v2020, Canada Federal PBMM and UK Official together with UK NHS).
 
 You can filter the information by:
+
 - Subscription
 - Regulatory Standard Name
 - Secure Controls
@@ -197,7 +194,6 @@ You can filter the information by:
   
 ![regulatorycomplianceresources](/install/images/regulatorycomplianceresources.png)
 
->>>>>>> 2ed9564be274fc10d3e7135c0a7086edc7248994
 ## Azure Policies page
 
 In this page of the report, you will be able to identify the total amount of policies that are you applying in your environment. It will also give a high-level overview of which policies has less compliance level and which resources require more attention.

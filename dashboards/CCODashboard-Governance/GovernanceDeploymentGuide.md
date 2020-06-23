@@ -208,37 +208,13 @@ If you navigate to a impacted resource you will see a quick description of the a
 
 ![policies](/install/images/governancePolicies.png)
 
-## Azure Subscription Blueprints page
+## Azure Blueprints page
 
 In this page of the report, you will be able to identify the total amount of blueprints that are you applying in your environment. It will also show which are the artifacts within the blueprints.
 
 You can filter the information by:
-<<<<<<< HEAD
 
-- Tenant
-- Management Group with subscriptions
-- Subscription
-=======
 - Subscription with assigned blueprints
->>>>>>> 2ed9564be274fc10d3e7135c0a7086edc7248994
 - Blueprint Definition
-- Published blueprint
-- Blueprint Assignment
   
 ![governanceSubsBlueprints](/install/images/governanceSubsBlueprints.png)
-<<<<<<< HEAD
-
-## Azure Resources Regulatory Compliance tab
-In this tab, you will be able to identify which resources are compliant with all the additional regulatory compliance controls. Also it shows how your environment complies with controls and requirements designated by specific regulatory standards and industry benchmarks and provides prescriptive recommendations for how to address these requirements.
-(Public preview release of additional supported standards: NIST SP 800-53 R4, SWIFT CSP CSCF v2020, Canada Federal PBMM and UK Official together with UK NHS).
-
-You can filter the information by:
--  Tenant
--  Management Group with subscriptions
-- Subscription
-- Resource Groups
-- Regulatory Standard Name
-  
-![regulatorycomplianceresources](/install/images/regulatorycomplianceresources.png)
-=======
->>>>>>> 2ed9564be274fc10d3e7135c0a7086edc7248994

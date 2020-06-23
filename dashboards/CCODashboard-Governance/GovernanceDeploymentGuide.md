@@ -2,7 +2,7 @@
 
 <div style="text-align: justify">
 
-- [CCO Azure Governance Dashboard Governance Version 1.0](#cco-azure-governance-dashboard-governance-version-10)
+- [CCO Azure Governance Dashboard](#cco-azure-governance-dashboard-governance)
   - [Overview](#overview)
     - [Requirements](#requirements)
   - [APIs in use](#apis-in-use)

@@ -26,7 +26,7 @@ The current set of CCO Dashboards includes 3 different Dashboards to discover in
 
 ## CCO Azure Governance Dashboard Version 2.0 Updates
 
-- US Government region support<span style="color:green"><sup>NEW</sup></span>
+- US Government region support<span style="color:green"><sup>**NEW**</sup></span>
 - Alignment with Azure Security Benchmarks and Azure Security Center Secure Scores
 - New Security & Compliance page <span style="color:green"><sup>NEW</sup></span>
 - New Regulatory Standards Forecast page <span style="color:green"><sup>NEW</sup></span>

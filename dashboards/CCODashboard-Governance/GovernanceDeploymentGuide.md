@@ -111,10 +111,9 @@ If the permissions and credentials are properly flushed it should ask you for cr
 
 ![cc](/install/images/customconnector.PNG)
 
-
 ### Modify Privacy settings
 
- - Go to File -> Options -> Privacy and set to Always ignore privacy level settings.
+- Go to File -> Options -> Privacy and set to Always ignore privacy level settings.
 
 ![Privacy](https://user-images.githubusercontent.com/39730064/60920947-3e6d2580-a24e-11e9-9042-f799c9f6fc53.png)
 
@@ -131,7 +130,23 @@ It's important to mention that this page just gives you a quick view.
 
 In this page you will be able to sort and filter all your Resources and Resource groups based on Tags. It will help you identify any missing Tag and if your naming standards and Tags classifications adheres to your organization guidelines or policies.
 
+You can filter the information by:
+
+- Management Group with subscriptions
+- Subscription
+
 ![Tagsoverview](/install/images/TagsOverview.png)
+
+## Azure Regulatory Standards Compliance Page
+
+This page is used to show the Azure Regulatory Compliance controls level of the environment. It shows the status of the 4 built-in regulatory compliance controls that Azure applies by default to all the environments (SOC TSP, PCI-DSS-3.2, ISO 27001 and Azure CIS 1.1.0).
+
+You can filter the information by:
+
+- Subscription
+- Regulatory Standards
+
+![regulatorycompliance](/install/images/regulatorycompliance.png)
 
 ## Azure Policies page
 
@@ -148,29 +163,19 @@ If you navigate to a impacted resource you will see a quick description of the a
 ![policies](/install/images/governancePolicies.png)
 
 ## Azure Subscription Blueprints page
+
 In this page of the report, you will be able to identify the total amount of blueprints that are you applying in your environment. It will also show which are the artifacts within the blueprints.
 
 You can filter the information by:
--  Tenant
--  Management Group with subscriptions
+
+- Tenant
+- Management Group with subscriptions
 - Subscription
 - Blueprint Definition
 - Published blueprint
 - Blueprint Assignment
   
-
 ![governanceSubsBlueprints](/install/images/governanceSubsBlueprints.png)
-
-## Azure Regulatory Compliance Overview tab
-The fifth tab is used to show the Azure Regulatory Compliance controls level of the environment. It shows the status of the 4 built-in regulatory compliance controls that Azure applies by default to all the environments (SOC TSP, PCI-DSS-3.2, ISO 27001 and Azure CIS 1.1.0).
-
-You can filter the information by:
--  Tenant
--  Management Group with subscriptions
-- Subscription
-- Resource Groups
-    
-![regulatorycompliance](/install/images/regulatorycompliance.png)
 
 ## Azure Resources Regulatory Compliance tab
 In this tab, you will be able to identify which resources are compliant with all the additional regulatory compliance controls. Also it shows how your environment complies with controls and requirements designated by specific regulatory standards and industry benchmarks and provides prescriptive recommendations for how to address these requirements.

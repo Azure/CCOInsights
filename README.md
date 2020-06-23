@@ -24,6 +24,8 @@ The current set of CCO Dashboards includes 3 different Dashboards to discover in
 
 ![OverviewImage](/install/images/OverviewImage.png)
 
+- [**CCO Azure Infrastructure Dashboard**](/dashboards/CCODashboards-Infra/InfraDeploymentGuide.md)
+
 ## CCO Azure Governance Dashboard Version 2.0 Updates
 
 - US Government region support<span style="color:green"><sup>NEW</sup></span>

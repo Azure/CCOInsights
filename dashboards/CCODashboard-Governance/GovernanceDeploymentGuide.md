@@ -13,8 +13,8 @@
   - [Credentials](#credentials)
     - [Clean Credentials on the Data Source](#clean-credentials-on-the-data-source)
     - [Refresh the dashboard](#refresh-the-dashboard)
-    - [Credentials for <span>management.azure.com</span> REST API request:](#credentials-for-managementazurecom-rest-api-request)
-    - [Credentials for <span>CCO Dashboard Custom Connector</span>:](#credentials-for-cco-dashboard-custom-connector)
+    - [Credentials for management.azure.com</span> REST API request:](#credentials-for-managementazurecom-rest-api-request)
+    - [Credentials for CCO Dashboard Custom Connector</span>:](#credentials-for-cco-dashboard-custom-connector)
     - [Modify Privacy settings](#modify-privacy-settings)
 - [Report Pages](#report-pages)
   - [Management Groups and Subscriptions Hierarchy Overview page](#management-groups-and-subscriptions-hierarchy-overview-page)
@@ -50,15 +50,17 @@ The CCO Azure Governance Dashboard is aligned with the Microsoft Cloud Adoption 
 | [Azure Locations](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
 | [Azure Blueprints](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2018-11-01-preview |2018-11-01-preview|:heavy_check_mark:|
 | [Azure Policies](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2019-09-01 |2019-09-01|:heavy_check_mark:|
-| [Azure Regulatory Compliances](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2016-06-01 |2016-06-01|:heavy_check_mark:|
+| [Azure Regulatory Compliances](https://docs.microsoft.com/en-us/rest/api/securitycenter/regulatorycompliancestandards)  |2019-01-01-preview |2019-01-01-preview|:heavy_check_mark:|
 | [Azure Assesstments](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2020-01-01 |2020-01-01|:heavy_check_mark:|
+| [Azure Secure Scores](https://docs.microsoft.com/en-us/rest/api/securitycenter/securescores) |2020-01-01 |2020-01-01|:heavy_check_mark:|
+| [Azure Secure Scores Controls](https://docs.microsoft.com/en-us/rest/api/securitycenter/securescorecontrols) |2020-01-01-preview |2020-01-01-preview|:heavy_check_mark:|
 
 <div style="text-align: justify">
 
 API URLs by environment:
 
 | API Name| API URL | Environment|
-| --- | :---: | :---: | 
+|--- |--- |--- |
 | Management |https://management.azure.com/|Global|
 | Management |https://management.usgovcloudapi.net/|US Government|
 | Management |https://management.chinacloudapi.cn/|China|
@@ -76,9 +78,9 @@ Registering this Resource Provider has no cost or performance penalty on the sub
 
 # Installing the custom connector
 
-The new CCO Azure Governance Dashboard requires to install the Power BI Custom Connector that you will find in the same folder as the CCO Governance Dashboard ([CCoDashboardAzureConnector.mez]). This new Custom Connector allows us to leverage new information from Azure Management REST APIs required to put all the information together.
+The CCO Azure Governance Dashboard requires to install the Power BI Custom Connector located in the same folder as the CCO Governance Dashboard ([CCoDashboardAzureConnector.mez]). This Custom Connector allows us to leverage information from Azure Management REST APIs that requires POST methods and errors control
 
-To install the custom connector you must copy the file [CCoDashboardAzureConnector.mez](https://github.com/josunefon/ccodashboard/blob/master/dashboards/CCODashboard-Governance/CcoDashboardAzureConnector.mez) from the **ccodashboard/dashboards/CCODashboard-Governance/** folder to the folder that Power BI creates by default in the Documents folder in your PC. If this folder doesn't exist, you can create a new one with this name.
+To install the custom connector you must copy the file [CCoDashboardAzureConnector.mez](/dashboards/CCODashboard-Governance/CcoDashboardAzureConnector.mez) from the **ccodashboard/dashboards/CCODashboard-Governance/** folder to the folder that Power BI creates by default in the Documents folder in your PC. If this folder doesn't exist, you can create a new one with this name.
 
 The path should be **C:\Users\\%username%\Documents\Power BI Desktop\Custom Connectors**
 

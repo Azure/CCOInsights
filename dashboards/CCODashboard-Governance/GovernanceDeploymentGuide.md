@@ -175,7 +175,6 @@ You can filter the information by:
 
 - Subscription
 - Regulatory Compliance
-- Policy Set
 - Assesstment Category
 
 ![regulatorycompliance](/install/images/regulatorycompliance.png)
@@ -188,6 +187,7 @@ In this tab, you will be able to identify which resources are compliant with all
 You can filter the information by:
 
 - Subscription
+- Policy Set
 - Regulatory Standard Name
 - Secure Controls
 - Policy Category

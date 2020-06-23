@@ -198,14 +198,6 @@ If the permissions and credentials are properly flushed it should ask you for cr
 
 ![credentials4](/install/images/Credentials4.png)
 
-### Credentials for <span>github.com</span> Web
-
-- Click on **Anonymous**.
-- Click on **Sign in**.
-- Click on **Connect**.
-
-![DocsCredentials](/install/images/DocsCredentials.png)
-
 ### Credentials for <span>graph.windows.net</span> API
 
 - Click on **Organizational Account**.

@@ -42,12 +42,15 @@
     <Compile Include="resources.resx">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="client_id">
-      <SubType>Content</SubType>
-    </Compile>
     <Content Include="CcoDashboardAzureConnector.query.pq">
       <SubType>Code</SubType>
     </Content>
+    <Compile Include="client_id_global">
+      <SubType>Content</SubType>
+    </Compile>
+    <Compile Include="client_id_govus">
+      <SubType>Content</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="BuildExtension" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll">

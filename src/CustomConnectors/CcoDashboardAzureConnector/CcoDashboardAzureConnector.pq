@@ -24,7 +24,7 @@ ManagementMeta = type function(
     azureKind as (type text meta [
         Documentation.FieldCaption = "Azure kind",
         Documentation.FieldDescription = "Kind of azure: global or government",        
-        Documentation.AllowedValues = { "global", "us-government", "germany-government", "china" }
+        Documentation.AllowedValues = { "global", "us-government"}
     ]))
     as table meta [
         Documentation.Name = "CCO Dashboard Custom Connector",
@@ -38,7 +38,6 @@ shared ManagementImpl = (gov as text) as table =>
             {"Policies",   "policies",      GetPoliciesTable(gov),  "Table",    "Table",    true},                        
             {"Get entities Management Groups",   "alldescendantstrick",      GetAllDescendantsPortalWay(gov),  "Table",    "Table",    true},   
             {"All Resources", "allresources", GetAllResources(gov), "Table", "Table", true},
-//             {"Blueprints Legacy", "blueprints", GetAllBlueprints(gov), "Table", "Table", true},
             {"Blueprints", "blueprints", GetAllBlueprintsByScope(gov), "Table", "Table", true},
             {"Blueprint Artifacts", "blueprintartifact", GetBlueprintArtifacts(gov), "Table", "Table", true},
             {"Published Blueprints", "blueprintspublished", GetPublishedBlueprints(gov), "Table", "Table", true},
@@ -50,15 +49,15 @@ shared ManagementImpl = (gov as text) as table =>
     in
         NavTable;
 
+// get the management api url for each azure kind 
 GetManagementBaseUri=(govKind as text) as text =>
     let
         managementUrl = if govKind ="us-government" then "https://management.usgovcloudapi.net"
-                    else if govKind="germany-government" then""
-                    else if govKind = "china" then ""
                     else "https://management.azure.com"
     in
         managementUrl;
 
+// Prepare the final url request, taking the azure kind and the request path without the domain
 GetManagementUri=(govKind as text, requestPath as text)=>
     let
         managementUrl = GetManagementBaseUri(govKind),
@@ -158,7 +157,7 @@ GetArtifactsByBlueprint=(govKind as text, scopeId as text, blueprintName as text
         Source = Json.Document(Web.Contents(url))
     in Source;
 
-
+// get all blueprints for all subscriptions
 shared GetAllBlueprints=(govKind as text) as table =>
     let
         token= GetAccessToken(),
@@ -167,6 +166,7 @@ shared GetAllBlueprints=(govKind as text) as table =>
     in 
         blueprints;
 
+// get all brueprints of a given subscription
 GetSubscriptionBlueprints= (govKind as text, subscriptionId as text, token as text) =>
     let
         url = GetManagementUri(govKind, "subscriptions/" & subscriptionId & "/providers/Microsoft.Blueprint/blueprints?api-version=2018-11-01-preview"),
@@ -178,7 +178,6 @@ GetSubscriptionBlueprints= (govKind as text, subscriptionId as text, token as te
 shared GetAllBlueprintsByScope=(govKind as text) as table =>
     let
         token= GetAccessToken(),
-//         subscriptions = GetSubscriptionsTable(govKind, token),
         descendants = GetAllDescendantsPortalWay(govKind),
         #"Expanded ManagementGroups" = Table.ExpandRecordColumn(descendants, "ManagementGroups", {"count", "value"}, {"ManagementGroups.count", "ManagementGroups.value"}),
         #"Expanded ManagementGroups.value" = Table.ExpandListColumn(#"Expanded ManagementGroups", "ManagementGroups.value"),
@@ -260,24 +259,12 @@ Policies = (govKind, subscriptionId, token) =>
 
 // HELPER FUNCTIONS
 
-// Get subscriptions for a given user
-// shared GetSubscriptions=(govKind as text, token as text)=>
-//     let
-//         headers = [ Authorization = "Bearer " & token ],
-//         subscriptionList = Json.Document(Web.Contents(GetManagementUri(govKind, "subscriptions?api-version=2019-11-01"), 
-//             [ Headers = headers, ManualCredentials = true])),
-//         subscriptionsUri = GetManagementUri(govKind, "subscriptions?api-version=2019-11-01"),
-//         subscr
-//         value = subscriptionList[value]
-//     in
-//         value;
 // get subscriptios for a given user in table format
 shared GetSubscriptionsTable=(govKind as text, token as text) as table=>
     let
         subscriptionsUri = GetManagementUri(govKind, "subscriptions?api-version=2019-11-01"),
         sl =ListAllGet(subscriptionsUri),
         slExpanded = Table.ExpandListColumn(sl, "Column1"),
-//         st = Table.FromList(subscriptions, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
         ExpandIdColumns = Table.ExpandRecordColumn(slExpanded, "Column1", {"subscriptionId", "displayName"}, {"subscriptionId", "displayName"})
     in
         ExpandIdColumns;
@@ -319,11 +306,9 @@ StartLogin = (resourceUrl, state, display) =>
     in
         StartLoginResult;
 
+// login for azure global
  StartLoginGlobal=(resourceUrl, state, display)=>
         let
-//         OAuthBaseUrl = if Text.Contains(resourceUrl,"us-government")=true 
-//             then "https://login.microsoftonline.us/organizations/oauth2/v2.0" 
-//             else "https://login.windows.net/common/oauth2",
         OAuthBaseUrl = "https://login.windows.net/common/oauth2",
         managementUrl = "https://management.azure.com",
         AuthorizeUrl = OAuthBaseUrl & "/authorize?" & Uri.BuildQueryString([
@@ -345,6 +330,7 @@ StartLogin = (resourceUrl, state, display) =>
             Context = null
         ];
 
+// login for azure us government
 StartLoginUsGov=(resourceUrl, state, display)=>
     let
         OAuthBaseUrl = "https://login.microsoftonline.us/common/oauth2" ,
@@ -354,7 +340,6 @@ StartLoginUsGov=(resourceUrl, state, display)=>
         AuthorizeUrl = OAuthBaseUrl & "/authorize?" & Uri.BuildQueryString([
             client_id = client_id_gov,
             resource= managementUrl,            
-//             scope=managementUrl & "//user_impersonation openid profile",
             response_type = "code",
             response_mode= "query",
             prompt="login",
@@ -370,6 +355,7 @@ StartLoginUsGov=(resourceUrl, state, display)=>
             Context = null
         ];
 
+// complete the login process
 FinishLogin = (context, callbackUri, state) =>
     let
         Parts = Uri.Parts(callbackUri)[Query],
@@ -379,6 +365,7 @@ FinishLogin = (context, callbackUri, state) =>
     in
         FinishLoginResult;
 
+// Get access token for azure global
 TokenMethodGlobal = (code, grant_type) =>
     let
         OAuthBaseUrl = "https://login.windows.net/common/oauth2",
@@ -392,7 +379,7 @@ TokenMethodGlobal = (code, grant_type) =>
         Parts = Json.Document(Response)
     in
         Parts;
-
+// Get access token for azure us government
 TokenMethodUsGov = (code, grant_type) =>
     let
         OAuthBaseUrl = "https://login.microsoftonline.us/common/oauth2/",
@@ -407,6 +394,7 @@ TokenMethodUsGov = (code, grant_type) =>
     in
         Parts;
 
+// refresh token
 Refresh = (resourceUrl, refresh_token) => 
     if Text.Contains(resourceUrl,"us-government")=true then 
          TokenMethodUsGov(refresh_token, "refresh_token") 

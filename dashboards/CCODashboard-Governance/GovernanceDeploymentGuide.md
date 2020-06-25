@@ -78,7 +78,7 @@ Registering this Resource Provider has no cost or performance penalty on the sub
 
 # Installing the custom connector
 
-The CCO Azure Governance Dashboard requires to install the Power BI Custom Connector located in the same folder as the CCO Governance Dashboard ([CCoDashboardAzureConnector.mez]). This Custom Connector allows us to leverage information from Azure Management REST APIs that requires POST methods and errors control
+The CCO Azure Governance Dashboard requires to install the Power BI Custom Connector located in the same folder as the CCO Governance Dashboard ([CCoDashboardAzureConnector.mez](/dashboards/CCODashboard-Governance/CcoDashboardAzureConnector.mez)). This Custom Connector allows us to leverage information from Azure Management REST APIs that requires POST methods and errors control
 
 To install the custom connector you must copy the file [CCoDashboardAzureConnector.mez](/dashboards/CCODashboard-Governance/CcoDashboardAzureConnector.mez) from the **ccodashboard/dashboards/CCODashboard-Governance/** folder to the folder that Power BI creates by default in the Documents folder in your PC. If this folder doesn't exist, you can create a new one with this name.
 
@@ -103,7 +103,7 @@ Before start loading data you need to select which type of environment you're us
 
 ## Credentials
 
-By default, the template doesn't have any Azure Account credentials preloaded. Hence, the first step to start showing subscriptions data is to sign-in with the right user credentials.
+By default, the template doesn't have any Azure Account credentials preloaded. Hence, the first step to start loading subscriptions data is to sign-in with the right user credentials.
 
 **IMPORTANT NOTE**: Power BI Desktop caches the credentials after the first logon. It is important to clear the credentials from Power BI desktop if you plan to switch between Azure GLobal and any other region like US Government or China. The same concept applies if you plan to switch between tenants. Otherwise, the staged credentials will be used again for the different Azure environments and the authentication or data load process will fail.
 
@@ -181,7 +181,7 @@ You can filter the information by:
 
 ## Azure Resources Security & Compliance page
 
-In this page you can check the compliance status of your Azure resources based on the Azure Security Center Secure Score Controls and the corresponding Policy Set or Regulatory Standard
+In this page you can check the compliance status of your Azure resources based on the Azure Security Center Secure Score Controls and the corresponding Policy Set or Regulatory Standard.
 
 You can filter the information by:
 

@@ -170,7 +170,7 @@ The version 2.0 of the CCO Power BI Dashboard Governance includes the following 
 - Azure Policies
 - Azure Subscriptions Blueprints ***<span style="color:green"><sup>NEW</sup></span>***
 
-You can find more details about each page on the [Deployment Guide](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md) file
+You can find more details about each page on the [Deployment Guide](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md) file.
 
 ## CCO Azure Infrastructure Dashboard report pages
 
@@ -187,7 +187,7 @@ The version 8.0 of the CCO Power BI Dashboard includes 10 report pages. You will
 - Page 9: IaaS Usage and Limits
 - Page 10: IaaS Idle Resources
   
-You can find more details about each page on the [Deployment Guide](/install/DeploymentGuide.md) file
+You can find more details about each page on the [Deployment Guide](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Infra/InfraDeploymentGuide.md) file.
 
 ## CCO Azure Infrastructure Dashboard with AKS add-on report pages
 
@@ -198,7 +198,7 @@ The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following 
 - Azure Container Images (and source repositories) running on AKS Clusters ***<span style="color:green"><sup>NEW</sup></span>***
 - Security recommendations to apply from Azure Security Center ***<span style="color:green"><sup>NEW</sup></span>***
 - Service principals (showing assigned RBAC Roles) with cluster permissions ***<span style="color:green"><sup>NEW</sup></span>***
-- Azure Container Intances information ***<span style="color:green"><sup>NEW</sup></span>***
+- Azure Container Instances information ***<span style="color:green"><sup>NEW</sup></span>***
 - Improved API Rest calls ***<span style="color:green"><sup>NEW</sup></span>***
 
 ## Call for contribution

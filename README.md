@@ -170,7 +170,7 @@ The version 2.0 of the CCO Power BI Dashboard Governance includes the following 
 - Azure Policies
 - Azure Subscriptions Blueprints ***<span style="color:green"><sup>NEW</sup></span>***
 
-You can find more details about each page on the [Deployment Guide](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md) file
+You can find more details about each page on the [Deployment Guide](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md) file.
 
 ## CCO Azure Infrastructure Dashboard report pages
 
@@ -187,7 +187,7 @@ The version 8.0 of the CCO Power BI Dashboard includes 10 report pages. You will
 - Page 9: IaaS Usage and Limits
 - Page 10: IaaS Idle Resources
   
-You can find more details about each page on the [Deployment Guide](/install/DeploymentGuide.md) file
+You can find more details about each page on the [Deployment Guide](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Infra/InfraDeploymentGuide.md) file.
 
 ## CCO Azure Infrastructure Dashboard with AKS add-on report pages
 

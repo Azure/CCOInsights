@@ -4,7 +4,7 @@
 ## Content
 
 - [Overview](README.md#overview)
-- [CCO Azure Governance Dashboard Governance Version 2.0](README.md#cco-azure-governance-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
+- [CCO Azure Governance Dashboard Governance Version 2.1](README.md#cco-azure-governance-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
 - [CCO Azure Infrastructure Dashboard Version 8.0](README.md#cco-azure-infrastructure-dashboard-version-80) ***<span style="color:green"><sup>NEW</sup></span>***
 - [List of resources](README.md#List-of-resources)
 - [CCO Azure Infrastructure Dashboard report pages](README.md#cco-azure-infrastructure-dashboard-report-pages)
@@ -23,6 +23,11 @@ The current set of CCO Dashboards includes 3 different Dashboards to discover in
 - [**CCO Azure Infrastructure Dashboard with AKS**](/dashboards/CCODashboard-Infra/InfraDeploymentGuide.md): Get insights about AKS information
 
 ![OverviewImage](/install/images/OverviewImage.png)
+
+## CCO Azure Governance Dashboard Version 2.1 Updates
+
+- Custom connector and Assessments metadata API Bug fixing 
+- Azure Policy and Azure Blueprints names changed.
 
 ## CCO Azure Governance Dashboard Version 2.0 Updates
 

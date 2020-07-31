@@ -177,7 +177,7 @@ The version 2.0 of the CCO Power BI Dashboard Governance includes the following 
 
 You can find more details about each page on the [Deployment Guide](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md) file.
 
-## CCO Azure Infrastructure Dashboard report pages
+## CCO Azure Infrastructure Dashboard Report Pages
 
 The version 8.0 of the CCO Power BI Dashboard includes 10 report pages. You will be able to navigate, filter and report the following information:
 
@@ -194,7 +194,7 @@ The version 8.0 of the CCO Power BI Dashboard includes 10 report pages. You will
   
 You can find more details about each page on the [Deployment Guide](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Infra/InfraDeploymentGuide.md) file.
 
-## CCO Azure Infrastructure Dashboard with AKS add-on report pages
+## CCO Azure Infrastructure Dashboard with AKS add-on Report Pages
 
 The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following information:
 

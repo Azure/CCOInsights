@@ -26,7 +26,7 @@ The current set of CCO Dashboards includes 3 different Dashboards to discover in
 
 ## CCO Azure Governance Dashboard Version 2.2 Updates
 
-- Secure Score Definitions API updates data model bug fix
+- Secure Score Definitions API (2020-01-01-preview) updates data model bug fix
 
 ## CCO Azure Governance Dashboard Version 2.1 Updates
 

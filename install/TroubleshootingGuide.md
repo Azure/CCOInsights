@@ -99,6 +99,13 @@ The solution is to wait a few minutes and launch a new refresh.
 
 In some ocasions when having both Power BI Desktop versions installed on the computer we have seen the Data Relationship model to dissapear. If that happens you can use the following reference to manually reconfigure the relationship between tables. It should also help you to understand how we defined the Data Model in case you want to expand the default content
 
-![relationship model](/install/images/RelationshipsModel.PNG)
+Governance:
+
+![relationship model](/install/images/RelationshipsModelGovernance.PNG)
+
+Infrastructure:
+
+![relationship model](/install/images/RelationshipsModelInfrastructure.PNG)
+
 
 

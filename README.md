@@ -28,8 +28,6 @@ The current set of CCO Dashboards includes 3 different Dashboards to discover in
 
 ![OverviewImage](/install/images/OverviewImage.png)
 
-
-
 ## Last release notes
 
 ### CCO Azure Governance Dashboard Version 2.2 Updates

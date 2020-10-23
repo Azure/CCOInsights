@@ -16,13 +16,19 @@
 ## Overview
 
 The Continuous Cloud Optimization Power BI Dashboards project is a set of Power BI Desktop Reports developed using Power Query M language and DAX, that pulls information directly from different Azure REST APIs and enables monitoring, operation and infrastructure teams to quickly gain insights about the existing Azure Platform footprint and resources.
-The current set of CCO Dashboards includes 3 different Dashboards to discover information about different Azure critcal design areas:
+
+The current set of CCO Dashboards includes 3 different Dashboards to discover information about different Azure critical design areas:
 
 - [**CCO Azure Infrastructure Dashboard**](/dashboards/CCODashboard-Infra/InfraDeploymentGuide.md): Get insights about Azure advisor optimizations, Azure Security Center Alerts, Networking, Compute, RBAC, Idle resources and Subscriptions Quotas and Limits
 - [**CCO Azure Governance Dashboard**](/dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md): Get insights about Azure Governance aspects like Management Groups and Subscriptions hierarchy, resource tagging and naming standards, security controls, policies compliance, Regulatory Standards and Azure Blueprints
 - [**CCO Azure Infrastructure Dashboard with AKS**](/dashboards/CCODashboard-Infra/InfraDeploymentGuide.md): Get insights about AKS information
 
+**NOTE**: If your're experiencing problems during the deployment of the dashboards, please check the [Troubleshooting guide](https://github.com/Azure/ccodashboard/blob/EarlyAdopters/install/TroubleshootingGuide.md) and the [Github issues](https://github.com/Azure/ccodashboard/issues?q=is%3Aissue) before creating a new one.
+ 
+
 ![OverviewImage](/install/images/OverviewImage.png)
+
+
 
 ## Last release notes
 

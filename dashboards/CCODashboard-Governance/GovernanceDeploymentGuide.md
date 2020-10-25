@@ -22,7 +22,7 @@
   - [Azure Regulatory Standards Forecast](#azure-regulatory-standards-forecast)
   - [Azure Resources Security & Compliance page](#azure-resources-security--compliance-page)
   - [Azure Policies page](#azure-policies-page)
-  - [Azure Blueprints page](#azure-blueprints-page)\
+  - [Azure Blueprints page](#azure-blueprints-page)
 
 ## Overview
 

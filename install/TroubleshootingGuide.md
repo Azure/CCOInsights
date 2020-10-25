@@ -20,7 +20,7 @@ The Continuous Cloud Optimization Power BI Dashboard development started about a
 
     - [Data Model Relationships missing](TroubleshootingGuide.md#data-model-relationships-missing)
     
-    - [Errors regarding missing `column1` on refresh](#errors-regarding-missing-column1-on-refresh)
+    - [Errors regarding missing 'column1' on refresh](#errors-regarding-missing-column1-on-refresh)
 
 We will keep updating this list of known issues as soon as we get more feedback from the community....
    

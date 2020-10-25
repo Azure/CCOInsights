@@ -22,8 +22,7 @@
   - [Azure Regulatory Standards Forecast](#azure-regulatory-standards-forecast)
   - [Azure Resources Security & Compliance page](#azure-resources-security--compliance-page)
   - [Azure Policies page](#azure-policies-page)
-  - [Azure Blueprints page](#azure-blueprints-page)
-- [Troubleshoot](#troubleshoot)
+  - [Azure Blueprints page](#azure-blueprints-page)\
 
 ## Overview
 
@@ -221,9 +220,3 @@ You can filter the information by:
 - Blueprint Definition
   
 ![governanceSubsBlueprints](/install/images/governanceSubsBlueprints.png)
-
-# Troubleshoot
-
-## Errors regarding missing `column1` on refresh
-
-Try using a native user account to the AAD tenant you are connecting to instead of a guest user account.

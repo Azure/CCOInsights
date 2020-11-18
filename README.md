@@ -5,7 +5,7 @@
 
 - [Overview](README.md#overview)
 - [CCO Azure Governance Dashboard Governance Version 2.2](README.md#cco-azure-governance-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
-- [CCO Azure Infrastructure Dashboard Version 8.0](README.md#cco-azure-infrastructure-dashboard-version-80) ***<span style="color:green"><sup>NEW</sup></span>***
+- [CCO Azure Infrastructure Dashboard Version 8.1](README.md#cco-azure-infrastructure-dashboard-version-80) ***<span style="color:green"><sup>NEW</sup></span>***
 - [List of resources](README.md#List-of-resources)
 - [CCO Azure Infrastructure Dashboard report pages](README.md#cco-azure-infrastructure-dashboard-report-pages)
 - [CCO Azure Infrastructure Dashboard with AKS add-on report pages](README.md#cco-azure-infrastructure-dashboard-with-aks-add-on-report-pages)
@@ -30,22 +30,13 @@ The current set of CCO Dashboards includes 3 different Dashboards to discover in
 
 ## Last release notes
 
-### CCO Azure Governance Dashboard Version 2.2 Updates
+### **CCO Azure Infrastructure Dashboard Version 8.1 Updates**
+
+- Bug fixing 1:1 relationship between Tenants and Subscriptions to M:N relationship.
+
+### **CCO Azure Governance Dashboard Version 2.2 Updates**
 
 - Secure Score Definitions API (2020-01-01-preview) updates data model bug fix.
-
-
-### **CCO Azure Infrastructure Dashboard Version 8.0 Updates**
-
-- US Government and China Azure regions support <span style="color:green"><sup>NEW</sup></span>
-- Potential cost optimizations in Azure Advisor recommendations page <span style="color:green"><sup>NEW</sup></span>
-- Resource Tags page moved to the CCO Azure Governance dashboard.
-- Azure Security Recommendations moved to the CCO Azure Governance Dashboard as part of the Security & Compliance page content
-- All APIs calls updated to the last version.
-- New UX design with latest Azure Portal Icons <span style="color:green"><sup>NEW</sup></span>
-- General Bug Fixes and code improvements
-
-For more release notes please check the [old versions release notes](README.md#old-release-notes).
 
 ## List of resources
 

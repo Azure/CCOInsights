@@ -117,7 +117,7 @@ Azure Advisor is a personalized cloud consultant that helps you follow best prac
 
 The Continuous Optimization Power BI Dashboard will directly pull data from Azure Advisor REST APIs to aggregate all the information across the Azure account subscriptions. This requires generating the recommendations before the first time we load the template else the Dashboard will be empty or will fail because it was unable to download any data.
 
-To do so, you need to generate the recommendations for the first time manually from the Azure Portal, or programmatically using the script [GenerateAllSubscriptionsAdvisorRecommendations.ps1](/scripts/GenerateAllSubsAdvisorRecommendations.ps1)
+To do so, you need to generate the recommendations for the first time manually from the Azure Portal, or programmatically using the script [GenerateAllSubscriptionsAdvisorRecommendations.ps1](/install/scripts/GenerateAllSubsAdvisorRecommendations.ps1)
 
 ### Generating Azure Advisor recommendations manually
 

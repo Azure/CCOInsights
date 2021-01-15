@@ -1,10 +1,10 @@
-﻿<#
+#
 .SYNOPSIS
 Generates Azure Advisor recommendations for all the subscriptions to the given Azure Account.
 .DESCRIPTION
 Generates Azure Advisor recommendations for all the subscriptions to the given Azure Account.
 
-The script calls Login-AzureRmAccount to require authentication before it can start generating/updating Azure Advisor recommendations.
+The script calls Connect-AzAccount to require authentication before it can start generating/updating Azure Advisor recommendations.
 
 .EXAMPLE
 GenerateAllSubsAdvisorRecommendations.ps1
@@ -12,44 +12,26 @@ GenerateAllSubsAdvisorRecommendations.ps1
 #>
 
 
-        Login-AzureRmAccount
+        Connect-AzAccount
 
-        if (-not (Get-Module AzureRm.Profile))
-        {
-            Import-Module AzureRm.Profile
-        }
 
-        $azureRmProfileModuleVersion = (Get-Module AzureRm.Profile).Version
-        # refactoring performed in AzureRm.Profile v3.0 or later
-        if ($azureRmProfileModuleVersion.Major -ge 3)
-        {
-            $azureRmProfile = [Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureRmProfileProvider]::Instance.Profile
-            if (-not $azureRmProfile.Accounts.Count)
+            $AzProfile = [Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureRmProfileProvider]::Instance.Profile
+            if (-not $AzProfile.Accounts.Count)
             {
-                Write-Error "Please run Login-AzureRmAccount before calling this function."
+                Write-Error "Please run Connect-AzAccount before calling this function."
                 break
             }
-        }
-        else
-        {
-            # AzureRm.Profile < v3.0
-            $azureRmProfile = [Microsoft.WindowsAzure.Commands.Common.AzureRmProfileProvider]::Instance.Profile
-            if (-not $azureRmProfile.Context.Account.Count)
-            {
-                Write-Error "Please run Login-AzureRmAccount before calling this function."
-                break
-            }
-        }
+        
         
         $Timeout = 60
-        $currentAzureContext = Get-AzureRmContext
-        $profileClient = New-Object Microsoft.Azure.Commands.ResourceManager.Common.RMProfileClient($azureRmProfile)
+        $currentAzureContext = Get-AzContext
+        $profileClient = New-Object Microsoft.Azure.Commands.ResourceManager.Common.RMProfileClient($AzProfile)
         Write-Debug ("Getting access token for tenant" + $currentAzureContext.Subscription.TenantId)
         $token = $profileClient.AcquireAccessToken($currentAzureContext.Subscription.TenantId)
         $headers = @{"Authorization"="Bearer " + $token.AccessToken}
         Write-Debug $token.AccessToken
     
-        $SubsList = Get-AzureRmSubscription | where {$_.state -eq "Enabled"}
+        $SubsList = Get-AzSubscription | where {$_.state -eq "Enabled"}
 
 
         foreach ($sub in $SubsList)

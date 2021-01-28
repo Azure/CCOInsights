@@ -2,7 +2,7 @@
 
 <div style="text-align: justify">
 
-- [CCO Azure Infrastructure Dashboard](#CCO-Azure-Infrastructure-Dashboard)
+- [CCO Azure Infrastructure Dashboard](#cco-azure-infrastructure-dashboard)
   - [Overview](#overview)
     - [Requirements](#requirements)
   - [APIs in use](#apis-in-use)
@@ -12,28 +12,27 @@
   - [Azure Security Center Recommendations](#azure-security-center-recommendations)
 - [Setting up the Continuous Cloud Optimization Azure Infrastructure Power BI Dashboard](#setting-up-the-continuous-cloud-optimization-azure-infrastructure-power-bi-dashboard)
   - [Environment selection](#environment-selection)
+  - [Modify Privacy settings](#modify-privacy-settings)
   - [Credentials](#credentials)
     - [Clean Credentials on the Data Source](#clean-credentials-on-the-data-source)
     - [Refresh the dashboard](#refresh-the-dashboard)
-    - [Credentials for management.azure.com</span> REST API request:](#credentials-for-managementazurecom-rest-api-request)
-    - [Credentials for github.com</span> Web](#credentials-for-githubcom-web)
-    - [Credentials for graph.windows.net</span> API](#credentials-for-graphwindowsnet-api)
-    - [Credentials for api.loganalytics.io</span> API](#credentials-for-apiloganalyticsio-api)
+    - [Credentials for <span>management.azure.com</span> REST API request:](#credentials-for-managementazurecom-rest-api-request)
+    - [Credentials for <span>graph.windows.net</span> API](#credentials-for-graphwindowsnet-api)
+    - [Credentials for <span>api.loganalytics.io</span> API](#credentials-for-apiloganalyticsio-api)
     - [Enter Access Web content credentials](#enter-access-web-content-credentials)
-    - [Modify Privacy settings](#modify-privacy-settings)
 - [Report Pages](#report-pages)
   - [CCO Azure Infrastructure Dashboard overview page](#cco-azure-infrastructure-dashboard-overview-page)
-  - [Azure Advisor Recommendations Dashboard page](#azure-advisor-recommendations-dashboard-page)
-  - [Azure Security Center Alerts Dashboard tab](#azure-security-center-alerts-dashboard-tab)
-  - [Azure Compute Dashboard tab](#azure-compute-dashboard-tab)
-  - [Azure VNETs and Subnets Recommendations Dashboard tab](#azure-vnets-and-subnets-recommendations-dashboard-tab)
-  - [Azure Network Security Groups Dashboard tab](#azure-network-security-groups-dashboard-tab)
-  - [Role Based Access Control Dashboard tab](#role-based-access-control-dashboard-tab)
-  - [Service Principal Role Based Access Control Dashboard tab](#service-principal-role-based-access-control-dashboard-tab)
-  - [IaaS Usage and Limits Dashboard tab](#iaas-usage-and-limits-dashboard-tab)
-  - [IaaS Idle Resources Dashboard tab](#iaas-idle-resources-dashboard-tab)
-  - [Azure Kubernetes Service Dashboard Overview tab](#azure-kubernetes-service-dashboard-overview-tab)
-  - [Azure Kubernetes Service Dashboard tab](#azure-kubernetes-service-dashboard-tab)
+  - [Azure Advisor Recommendations page](#azure-advisor-recommendations-page)
+  - [Azure Security Center Alerts page](#azure-security-center-alerts-page)
+  - [Azure Compute Overview page](#azure-compute-overview-page)
+  - [Azure VNETs and Subnets Recommendations page](#azure-vnets-and-subnets-recommendations-page)
+  - [Azure Network Security Groups page](#azure-network-security-groups-page)
+  - [Role Based Access Control page](#role-based-access-control-page)
+  - [Service Principal Role Based Access Control page](#service-principal-role-based-access-control-page)
+  - [IaaS Usage and Limits page](#iaas-usage-and-limits-page)
+  - [IaaS Idle Resources Dashboard page](#iaas-idle-resources-dashboard-page)
+  - [Azure Kubernetes Service Dashboard Overview page](#azure-kubernetes-service-dashboard-overview-page)
+  - [Azure Kubernetes Service page](#azure-kubernetes-service-page)
 - [Scripts](#scripts)
   - [Generate All Subscriptions Advisor Recommendations](#generate-all-subscriptions-advisor-recommendations)
   - [PowerBI Dashboard Read Permissions Role](#powerbi-dashboard-read-permissions-role)
@@ -165,6 +164,12 @@ Before start loading data you need to select which type of environment you're us
 
 ![selector](/install/images/selector.png)
 
+## Modify Privacy settings
+
+- Go to File -> Options -> Privacy and set to Always ignore privacy level settings.
+
+![Privacy](https://user-images.githubusercontent.com/39730064/60920947-3e6d2580-a24e-11e9-9042-f799c9f6fc53.png)
+
 ## Credentials
 
 By default, the template doesn’t have any Azure Account credentials preloaded. Hence, the first step to start showing subscriptions data is to sign-in with the right user credentials.
@@ -221,11 +226,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
   
 ![credentials7](/install/images/Credentials7.png)
 
-### Modify Privacy settings
 
-- Go to File -> Options -> Privacy and set to Always ignore privacy level settings.
-
-![Privacy](https://user-images.githubusercontent.com/39730064/60920947-3e6d2580-a24e-11e9-9042-f799c9f6fc53.png)
 
 # Report Pages
 

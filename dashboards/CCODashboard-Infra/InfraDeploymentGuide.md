@@ -100,14 +100,13 @@ API URLs by environment:
 
 Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** resource providers are registered across all the  subscriptions that you plan analyze using the Dashboard. 
 
-Registering these 3 Resource Providers has no cost or performance penalty on the subscription:
+Registering these 2 Resource Providers has no cost or performance penalty on the subscription:
 
 1. Click on **Subscriptions**.
 2. Click on the Subscription name you want to configure.
 3. Click on **Resource Providers**.
 4. Click on **Microsoft.Advisor** and **Register**.
-5. Click on **Microsoft.Resourcehealth** and **Register**.
-6. Click on **Microsoft.Security** and **Register**.
+5. Click on **Microsoft.Security** and **Register**.
 
 ![resource providers](/install/images/resourceproviders.png)
 

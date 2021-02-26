@@ -49,6 +49,7 @@ The Continuous Cloud Optimization Azure Infrastructure Power BI Dashboard is a r
     -	Windows 10 version **14393.0** or **higher**.
     -	Internet access from the computer running Microsoft Power BI desktop.
     - An Azure account on the desired tenant space with permissions on the subscriptions to read from the Azure Services described above.
+    - The subscriptions will need to use the Azure Security Center **Standard** plan if you want to detect and see the alerts in the Azure Security Center Alerts page of the CCO Azure Infrastructure Dashboard.
 
 Below you can find the list of providers and the actions that you will need to permit to allow to run the CCO Power BI Dashboard:
 </div>
@@ -141,6 +142,8 @@ Azure Security Center is offered in two tiers:
 - Standard
   
 The Standard tier is offered [free for the first 60 days](https://azure.microsoft.com/en-us/pricing/details/security-center/).
+
+The subscriptions will need to use the **Standard** tier if you want to detect and see the alerts in the Azure Security Center Alerts page of the dashboard.
 
 The following picture shows the steps to configure Azure Security Center plan for Azure Subscriptions
 

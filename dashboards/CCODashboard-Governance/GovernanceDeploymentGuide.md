@@ -9,13 +9,14 @@
   - [Resource Providers requirements](#resource-providers-requirements)
 - [Installing the custom connector](#installing-the-custom-connector)
 - [Setting up the CCO Azure Governance Dashboard Governance](#setting-up-the-cco-azure-governance-dashboard-governance)
+  - [Template download](#template-download)
   - [Environment selection](#environment-selection)
+  - [Modify Privacy settings](#modify-privacy-settings)
   - [Credentials](#credentials)
     - [Clean Credentials on the Data Source](#clean-credentials-on-the-data-source)
     - [Refresh the dashboard](#refresh-the-dashboard)
     - [Credentials for management.azure.com</span> REST API request](#credentials-for-managementazurecomspan-rest-api-request)
     - [Credentials for CCO Dashboard Custom Connector](#credentials-for-cco-dashboard-custom-connector)
-    - [Modify Privacy settings](#modify-privacy-settings)
 - [Report Pages](#report-pages)
   - [Management Groups and Subscriptions Hierarchy Overview page](#management-groups-and-subscriptions-hierarchy-overview-page)
   - [Tags and naming standards page](#tags-and-naming-standards-page)
@@ -104,6 +105,12 @@ Before start loading data you need to select which type of environment you're us
 
 ![selector](/install/images/selectorGov.PNG)
 
+## Modify Privacy settings
+
+- Go to File -> Options -> Privacy and set to Always ignore privacy level settings.
+
+![Privacy](https://user-images.githubusercontent.com/39730064/60920947-3e6d2580-a24e-11e9-9042-f799c9f6fc53.png)
+
 ## Credentials
 
 By default, the template doesn't have any Azure Account credentials preloaded. Hence, the first step to start loading subscriptions data is to sign-in with the right user credentials.
@@ -144,11 +151,6 @@ If the permissions and credentials are properly flushed it should ask you for cr
 
 ![cc](/install/images/customconnector.PNG)
 
-### Modify Privacy settings
-
-- Go to File -> Options -> Privacy and set to Always ignore privacy level settings.
-
-![Privacy](https://user-images.githubusercontent.com/39730064/60920947-3e6d2580-a24e-11e9-9042-f799c9f6fc53.png)
 
 # Report Pages
 

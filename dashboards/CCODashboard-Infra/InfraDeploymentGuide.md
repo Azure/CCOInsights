@@ -2,7 +2,7 @@
 
 <div style="text-align: justify">
 
-- [CCO Azure Infrastructure Dashboard](#CCO-Azure-Infrastructure-Dashboard)
+- [CCO Azure Infrastructure Dashboard](#cco-azure-infrastructure-dashboard)
   - [Overview](#overview)
     - [Requirements](#requirements)
   - [APIs in use](#apis-in-use)
@@ -12,28 +12,27 @@
   - [Azure Security Center Recommendations](#azure-security-center-recommendations)
 - [Setting up the Continuous Cloud Optimization Azure Infrastructure Power BI Dashboard](#setting-up-the-continuous-cloud-optimization-azure-infrastructure-power-bi-dashboard)
   - [Environment selection](#environment-selection)
+  - [Modify Privacy settings](#modify-privacy-settings)
   - [Credentials](#credentials)
     - [Clean Credentials on the Data Source](#clean-credentials-on-the-data-source)
     - [Refresh the dashboard](#refresh-the-dashboard)
-    - [Credentials for management.azure.com</span> REST API request:](#credentials-for-managementazurecom-rest-api-request)
-    - [Credentials for github.com</span> Web](#credentials-for-githubcom-web)
-    - [Credentials for graph.windows.net</span> API](#credentials-for-graphwindowsnet-api)
-    - [Credentials for api.loganalytics.io</span> API](#credentials-for-apiloganalyticsio-api)
+    - [Credentials for <span>management.azure.com</span> REST API request:](#credentials-for-managementazurecom-rest-api-request)
+    - [Credentials for <span>graph.windows.net</span> API](#credentials-for-graphwindowsnet-api)
+    - [Credentials for <span>api.loganalytics.io</span> API](#credentials-for-apiloganalyticsio-api)
     - [Enter Access Web content credentials](#enter-access-web-content-credentials)
-    - [Modify Privacy settings](#modify-privacy-settings)
 - [Report Pages](#report-pages)
   - [CCO Azure Infrastructure Dashboard overview page](#cco-azure-infrastructure-dashboard-overview-page)
-  - [Azure Advisor Recommendations Dashboard page](#azure-advisor-recommendations-dashboard-page)
-  - [Azure Security Center Alerts Dashboard tab](#azure-security-center-alerts-dashboard-tab)
-  - [Azure Compute Dashboard tab](#azure-compute-dashboard-tab)
-  - [Azure VNETs and Subnets Recommendations Dashboard tab](#azure-vnets-and-subnets-recommendations-dashboard-tab)
-  - [Azure Network Security Groups Dashboard tab](#azure-network-security-groups-dashboard-tab)
-  - [Role Based Access Control Dashboard tab](#role-based-access-control-dashboard-tab)
-  - [Service Principal Role Based Access Control Dashboard tab](#service-principal-role-based-access-control-dashboard-tab)
-  - [IaaS Usage and Limits Dashboard tab](#iaas-usage-and-limits-dashboard-tab)
-  - [IaaS Idle Resources Dashboard tab](#iaas-idle-resources-dashboard-tab)
-  - [Azure Kubernetes Service Dashboard Overview tab](#azure-kubernetes-service-dashboard-overview-tab)
-  - [Azure Kubernetes Service Dashboard tab](#azure-kubernetes-service-dashboard-tab)
+  - [Azure Advisor Recommendations page](#azure-advisor-recommendations-page)
+  - [Azure Security Center Alerts page](#azure-security-center-alerts-page)
+  - [Azure Compute Overview page](#azure-compute-overview-page)
+  - [Azure VNETs and Subnets Recommendations page](#azure-vnets-and-subnets-recommendations-page)
+  - [Azure Network Security Groups page](#azure-network-security-groups-page)
+  - [Role Based Access Control page](#role-based-access-control-page)
+  - [Service Principal Role Based Access Control page](#service-principal-role-based-access-control-page)
+  - [IaaS Usage and Limits page](#iaas-usage-and-limits-page)
+  - [IaaS Idle Resources Dashboard page](#iaas-idle-resources-dashboard-page)
+  - [Azure Kubernetes Service Dashboard Overview page](#azure-kubernetes-service-dashboard-overview-page)
+  - [Azure Kubernetes Service page](#azure-kubernetes-service-page)
 - [Scripts](#scripts)
   - [Generate All Subscriptions Advisor Recommendations](#generate-all-subscriptions-advisor-recommendations)
   - [PowerBI Dashboard Read Permissions Role](#powerbi-dashboard-read-permissions-role)
@@ -50,6 +49,7 @@ The Continuous Cloud Optimization Azure Infrastructure Power BI Dashboard is a r
     -	Windows 10 version **14393.0** or **higher**.
     -	Internet access from the computer running Microsoft Power BI desktop.
     - An Azure account on the desired tenant space with permissions on the subscriptions to read from the Azure Services described above.
+    - The subscriptions will need to use the Azure Security Center **Standard** plan if you want to detect and see the alerts in the Azure Security Center Alerts page of the CCO Azure Infrastructure Dashboard.
 
 Below you can find the list of providers and the actions that you will need to permit to allow to run the CCO Power BI Dashboard:
 </div>
@@ -101,14 +101,13 @@ API URLs by environment:
 
 Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** resource providers are registered across all the  subscriptions that you plan analyze using the Dashboard. 
 
-Registering these 3 Resource Providers has no cost or performance penalty on the subscription:
+Registering these 2 Resource Providers has no cost or performance penalty on the subscription:
 
 1. Click on **Subscriptions**.
 2. Click on the Subscription name you want to configure.
 3. Click on **Resource Providers**.
 4. Click on **Microsoft.Advisor** and **Register**.
-5. Click on **Microsoft.Resourcehealth** and **Register**.
-6. Click on **Microsoft.Security** and **Register**.
+5. Click on **Microsoft.Security** and **Register**.
 
 ![resource providers](/install/images/resourceproviders.png)
 
@@ -117,7 +116,7 @@ Azure Advisor is a personalized cloud consultant that helps you follow best prac
 
 The Continuous Optimization Power BI Dashboard will directly pull data from Azure Advisor REST APIs to aggregate all the information across the Azure account subscriptions. This requires generating the recommendations before the first time we load the template else the Dashboard will be empty or will fail because it was unable to download any data.
 
-To do so, you need to generate the recommendations for the first time manually from the Azure Portal, or programmatically using the script [GenerateAllSubscriptionsAdvisorRecommendations.ps1](/scripts/GenerateAllSubsAdvisorRecommendations.ps1)
+To do so, you need to generate the recommendations for the first time manually from the Azure Portal, or programmatically using the script [GenerateAllSubscriptionsAdvisorRecommendations.ps1](/install/scripts/GenerateAllSubsAdvisorRecommendations.ps1)
 
 ### Generating Azure Advisor recommendations manually
 
@@ -144,6 +143,8 @@ Azure Security Center is offered in two tiers:
   
 The Standard tier is offered [free for the first 60 days](https://azure.microsoft.com/en-us/pricing/details/security-center/).
 
+The subscriptions will need to use the **Standard** tier if you want to detect and see the alerts in the Azure Security Center Alerts page of the dashboard.
+
 The following picture shows the steps to configure Azure Security Center plan for Azure Subscriptions
 
 1.	Click on **Security Center**.
@@ -164,6 +165,12 @@ Before start loading data you need to select which type of environment you're us
 - **Preview feature:** Select [China](https://docs.microsoft.com/en-us/azure/china/resources-developer-guide) to load data from cloud applications in Microsoft Azure operated by 21Vianet (Azure China).
 
 ![selector](/install/images/selector.png)
+
+## Modify Privacy settings
+
+- Go to File -> Options -> Privacy and set to Always ignore privacy level settings.
+
+![Privacy](https://user-images.githubusercontent.com/39730064/60920947-3e6d2580-a24e-11e9-9042-f799c9f6fc53.png)
 
 ## Credentials
 
@@ -221,11 +228,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
   
 ![credentials7](/install/images/Credentials7.png)
 
-### Modify Privacy settings
 
-- Go to File -> Options -> Privacy and set to Always ignore privacy level settings.
-
-![Privacy](https://user-images.githubusercontent.com/39730064/60920947-3e6d2580-a24e-11e9-9042-f799c9f6fc53.png)
 
 # Report Pages
 

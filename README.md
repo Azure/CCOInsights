@@ -128,6 +128,10 @@ The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following 
 
 - Bug fixing 1:1 relationship between Tenants and Subscriptions to M:N relationship.
 
+### **CCO Azure Infrastructure Dashboard Version 8.1 Updates**
+
+- Bug fixing 1:1 relationship between Tenants and Subscriptions to M:N relationship.
+
 ### **CCO Azure Infrastructure Dashboard Version 7.1** Updates
 
 - Bug fix [Issue #72](https://github.com/Azure/ccodashboard/issues/72):

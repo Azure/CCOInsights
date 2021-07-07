@@ -155,6 +155,9 @@ The following picture shows the steps to configure Azure Security Center plan fo
 ![SecurityCenterStandardRecommendations](/install/images/EnableSecurityCenterStandard.png)
 
 # Setting up the Continuous Cloud Optimization Azure Infrastructure Power BI Dashboard
+  
+## Template download
+Make sure to download and open the `.pbit` file from  https://github.com/Azure/ccodashboard/tree/master/dashboards/CCODashboard-Infra
 
 ## Environment selection
 

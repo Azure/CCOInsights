@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{50016b5a-7b07-4238-8576-7e8135fba5d4}</ProjectGuid>
+    <ProjectGuid>{36dc029c-3497-44be-8222-786dde6c76e4}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>MyRootNamespace</RootNamespace>
     <AssemblyName>MyAssemblyName</AssemblyName>

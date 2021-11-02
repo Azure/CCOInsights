@@ -251,7 +251,7 @@ shared GetPoliciesTable = (govKind as text) as table =>
 // Retrieve all policies for a subscription
 Policies = (govKind, subscriptionId, token) =>
     let
-        url = GetManagementUri(govKind, "subscriptions/"&subscriptionId&"/providers/Microsoft.PolicyInsights/policyStates/default/queryResults?api-version=2019-10-01"),
+        url = GetManagementUri(govKind, "subscriptions/"&subscriptionId&"/providers/Microsoft.PolicyInsights/policyStates/latest/queryResults?api-version=2019-10-01"),
         // retrieve all policies, following continuation pages if needed
         #"PoliciesTable"= ListAllPost(url, token)
     in        

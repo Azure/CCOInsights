@@ -56,7 +56,7 @@ let
      result = try @LL & @GetPages(Source[#"nextLink"]) otherwise @LL
  in
  result,
-     Fullset = GetPages(GetManagementURL(AzureKind)&"/subscriptions/"&SubscriptionId&"/providers/Microsoft.Security/SecureScoreControls?api-version=2020-01-01-preview"),
+     Fullset = GetPages(GetManagementURL(AzureKind)&"/subscriptions/"&SubscriptionId&"/providers/Microsoft.Security/SecureScoreControls?api-version=2020-01-01"),
      #"Converted to Table" = Table.FromList(Fullset, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
     #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"id", "name", "type", "properties"}, {"id", "name", "type", "properties"}),
     #"Expanded properties" = Table.ExpandRecordColumn(#"Expanded Column1", "properties", {"displayName", "score", "healthyResourceCount", "unhealthyResourceCount", "notApplicableResourceCount"}, {"displayName", "score", "healthyResourceCount", "unhealthyResourceCount", "notApplicableResourceCount"}),
@@ -82,14 +82,15 @@ let
      result = try @LL & @GetPages(Source[#"nextLink"]) otherwise @LL
  in
  result,
-     Fullset = GetPages(GetManagementURL(AzureKind)&"/subscriptions/"&SubscriptionId&"/providers/Microsoft.Security/SecureScoreControlDefinitions?api-version=2020-01-01-preview"),
+     Fullset = GetPages(GetManagementURL(AzureKind)&"/subscriptions/"&SubscriptionId&"/providers/Microsoft.Security/SecureScoreControlDefinitions?api-version=2020-01-01"),
      #"Converted to Table" = Table.FromList(Fullset, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
     #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"id", "name", "type", "properties"}, {"id", "name", "type", "properties"}),
-    #"Expanded properties" = Table.ExpandRecordColumn(#"Expanded Column1", "properties", {"displayName", "maxScore", "source", "assessmentsDefinition"}, {"displayName", "maxScore", "source", "assessmentsDefinition"}),
+    #"Expanded properties" = Table.ExpandRecordColumn(#"Expanded Column1", "properties", {"displayName", "maxScore", "source", "assessmentDefinitions"}, {"displayName", "maxScore", "source", "assessmentDefinitions"}),
     #"Expanded source" = Table.ExpandRecordColumn(#"Expanded properties", "source", {"sourceType"}, {"sourceType"}),
-    #"Expanded assessmentsDefinition" = Table.ExpandListColumn(#"Expanded source", "assessmentsDefinition")
+    #"Expanded assessmentsDefinitions" = Table.ExpandListColumn(#"Expanded source", "assessmentDefinitions"),
+    #"Expanded assessmentsDefinitions1" = Table.ExpandRecordColumn(#"Expanded assessmentsDefinitions", "assessmentDefinitions", {"id"}, {"id.1"})
 in
-    #"Expanded assessmentsDefinition"
+    #"Expanded assessmentsDefinitions1"
 
 in
 ListSecureScoreControlsDefinitions
@@ -101,19 +102,19 @@ let
     #"Reordered Columns" = Table.ReorderColumns(#"Removed Columns",{"tenantId", "Subscription Name", "subscriptionId"}),
     #"Invoked Custom Function" = Table.AddColumn(#"Reordered Columns", "SecureScoreControlDefinitions", each SecureScoreControlsDefinitions([subscriptionId])),
     #"Removed Errors" = Table.RemoveRowsWithErrors(#"Invoked Custom Function", {"SecureScoreControlDefinitions"}),
-    #"Expanded SecureScoreControlDefinitions" = Table.ExpandTableColumn(#"Removed Errors", "SecureScoreControlDefinitions", {"id", "name", "displayName", "maxScore", "sourceType", "assessmentsDefinition"}, {"SecureScoreControlDefinitions.id", "SecureScoreControlDefinitions.name", "SecureScoreControlDefinitions.displayName", "SecureScoreControlDefinitions.maxScore", "SecureScoreControlDefinitions.sourceType", "SecureScoreControlDefinitions.assessmentsDefinition"}),
-    #"Split Column by Delimiter" = Table.SplitColumn(#"Expanded SecureScoreControlDefinitions", "SecureScoreControlDefinitions.id", Splitter.SplitTextByDelimiter("/providers", QuoteStyle.Csv), {"SecureScoreControlDefinitions.id.1", "SecureScoreControlDefinitions.id.2"}),
-    #"Changed Type" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"SecureScoreControlDefinitions.id.1", type text}, {"SecureScoreControlDefinitions.id.2", type text}}),
-    #"Removed Columns2" = Table.RemoveColumns(#"Changed Type",{"SecureScoreControlDefinitions.id.1"}),
-    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns2",{{"SecureScoreControlDefinitions.id.2", "SecureScoreControlDefinitions.id"}}),
-    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns",{{"SecureScoreControlDefinitions.maxScore", type number}}),
-    #"Duplicated Column" = Table.DuplicateColumn(#"Changed Type1", "SecureScoreControlDefinitions.assessmentsDefinition", "SecureScoreControlDefinitions.assessmentsDefinition - Copy"),
+    #"Expanded SecureScoreControlDefinitions1" = Table.ExpandTableColumn(#"Removed Errors", "SecureScoreControlDefinitions", {"id", "name", "type", "displayName", "maxScore", "sourceType", "id.1"}, {"id", "name", "type", "displayName", "maxScore", "sourceType", "id.1"}),
+    #"Split Column by Delimiter" = Table.SplitColumn(#"Expanded SecureScoreControlDefinitions1", "id.1", Splitter.SplitTextByDelimiter("/providers", QuoteStyle.Csv), {"id.1", "id.2"}),
+    #"Changed Type" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"id.1", type text}, {"id.2", type text}}),
+    #"Removed Columns2" = Table.RemoveColumns(#"Changed Type",{"id.1"}),
+    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns2",{{"id.2", "SecureScoreControlDefinitions.id"}}),
+    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns",{{"maxScore", type number}}),
+    #"Duplicated Column" = Table.DuplicateColumn(#"Changed Type1", "SecureScoreControlDefinitions.id", "SecureScoreControlDefinitions.assessmentsDefinition - Copy"),
     #"Split Column by Delimiter1" = Table.SplitColumn(#"Duplicated Column", "SecureScoreControlDefinitions.assessmentsDefinition - Copy", Splitter.SplitTextByEachDelimiter({"/"}, QuoteStyle.Csv, true), {"SecureScoreControlDefinitions.assessmentsDefinition - Copy.1", "SecureScoreControlDefinitions.assessmentsDefinition - Copy.2"}),
     #"Changed Type2" = Table.TransformColumnTypes(#"Split Column by Delimiter1",{{"SecureScoreControlDefinitions.assessmentsDefinition - Copy.1", type text}, {"SecureScoreControlDefinitions.assessmentsDefinition - Copy.2", type text}}),
     #"Removed Columns1" = Table.RemoveColumns(#"Changed Type2",{"SecureScoreControlDefinitions.assessmentsDefinition - Copy.1"}),
     #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns1",{{"SecureScoreControlDefinitions.assessmentsDefinition - Copy.2", "Assesstment name"}}),
-    #"Removed Duplicates" = Table.Distinct(#"Renamed Columns1", {"SecureScoreControlDefinitions.assessmentsDefinition"}),
-    #"Removed Columns3" = Table.RemoveColumns(#"Removed Duplicates",{"tenantId", "Subscription Name", "subscriptionId"})
+    #"Removed Duplicates1" = Table.Distinct(#"Renamed Columns1", {"Assesstment name"}),
+    #"Removed Columns3" = Table.RemoveColumns(#"Removed Duplicates1",{"Subscription Resource Id","tenantId", "Subscription Name", "subscriptionId"})
 in
     #"Removed Columns3"
 
@@ -146,7 +147,7 @@ in
 // ListPolicyDefinitions
 let ListAllPolicies = (subscriptionId as text) =>
 let
-    Source = Json.Document(Web.Contents(GetManagementURL(AzureKind)&"/subscriptions/"&subscriptionId&"/providers/Microsoft.Authorization/policyDefinitions?api-version=2019-09-01")),
+    Source = Json.Document(Web.Contents(GetManagementURL(AzureKind)&"/subscriptions/"&subscriptionId&"/providers/Microsoft.Authorization/policyDefinitions?api-version=2021-06-01")),
     value = Source[value],
     #"Converted to Table" = Table.FromList(value, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
     #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"properties", "id", "type", "name"}, {"properties", "id", "type", "name"}),
@@ -177,7 +178,7 @@ in
 
 // AllBuiltInPoliciesDefinition
 let
-    Source = Json.Document(Web.Contents(GetManagementURL(AzureKind)&"/providers/Microsoft.Authorization/policyDefinitions?api-version=2019-09-01")),
+    Source = Json.Document(Web.Contents(GetManagementURL(AzureKind)&"/providers/Microsoft.Authorization/policyDefinitions?api-version=2021-06-01")),
     value = Source[value],
     #"Converted to Table" = Table.FromList(value, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
     #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"properties", "id", "name"}, {"properties", "id", "name"}),
@@ -200,7 +201,7 @@ let
      result = try @LL & @GetPages(Source[#"nextLink"]) otherwise @LL
  in
  result,
-    Fullset = GetPages(GetManagementURL(AzureKind)&"/subscriptions/"&SubscriptionId&"/resources?api-version=2019-05-01"),
+    Fullset = GetPages(GetManagementURL(AzureKind)&"/subscriptions/"&SubscriptionId&"/resources?api-version=2021-04-01"),
     #"Converted to Table" = Table.FromList(Fullset, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
 
     #"Expanded Column2" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"id", "name", "type", "location", "tags"}, {"id", "name", "type", "location", "tags"}),
@@ -298,12 +299,11 @@ let
    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Converted to Table", {"Column1"}),
     #"Expanded Column1" = Table.ExpandRecordColumn(#"Removed Errors", "Column1", {"id", "name", "type", "properties"}, {"id", "name", "type", "properties"}),
     #"Expanded properties" = Table.ExpandRecordColumn(#"Expanded Column1", "properties", {"displayName", "assessmentType", "policyDefinitionId", "description", "remediationDescription", "categories", "preview", "severity", "userImpact", "implementationEffort", "threats"}, {"displayName", "assessmentType", "policyDefinitionId", "description", "remediationDescription", "categories", "preview", "severity", "userImpact", "implementationEffort", "threats"}),
-    #"Extracted Values" = Table.TransformColumns(#"Expanded properties", {"categories", each Text.Combine(List.Transform(_, Text.From), ","), type text}),
-    #"Extracted Values1" = Table.TransformColumns(#"Extracted Values", {"threats", each Text.Combine(List.Transform(_, Text.From), ","), type text})
+    #"Extracted Values" = Table.TransformColumns(#"Expanded properties", {"categories", each Text.Combine(List.Transform(_, Text.From), ","), type text})
 in
-    #"Extracted Values1"
+    #"Extracted Values"
 
-// Blueprints
+// CC Blueprints
 let
     Source = CcoDashboardAzureConnector.Management(AzureKind),
     blueprints = Source{[Key="blueprints"]}[Data],
@@ -325,7 +325,7 @@ let
 in
     #"Added Conditional Column1"
 
-// Published Blueprints
+// CC Published Blueprints
 let
     Source = CcoDashboardAzureConnector.Management(AzureKind),
     blueprintspublished = Source{[Key="blueprintspublished"]}[Data],
@@ -345,7 +345,7 @@ let
 in
     #"Replaced Value1"
 
-// Blueprint Artifacts
+// CC Blueprint Artifacts
 let
     Source = CcoDashboardAzureConnector.Management(AzureKind),
     blueprintartifact = Source{[Key="blueprintartifact"]}[Data],
@@ -400,7 +400,7 @@ let
      result = try @LL & @GetPages(Source[#"nextLink"]) otherwise @LL
  in
  result,
-    Fullset = GetPages(GetManagementURL(AzureKind)&"/subscriptions/"&SubscriptionId&"/resourcegroups?api-version=2019-05-01"),
+    Fullset = GetPages(GetManagementURL(AzureKind)&"/subscriptions/"&SubscriptionId&"/resourcegroups?api-version=2021-04-01"),
     #"Converted to Table" = Table.FromList(Fullset, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
     #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"id", "name", "type", "location", "tags"}, {"id", "name", "type", "location", "tags"}),
     #"Renamed Columns" = Table.RenameColumns(#"Expanded Column1",{{"id", "Resource Group Id"}, {"name", "Resource Group Name"}}),
@@ -437,7 +437,7 @@ let
      result = try @LL & @GetPages(Source[#"nextLink"]) otherwise @LL
  in
  result,
-    Fullset = GetPages(GetManagementURL(AzureKind)&"/subscriptions/"&SubscriptionId&"/resourcegroups?api-version=2019-05-01"),
+    Fullset = GetPages(GetManagementURL(AzureKind)&"/subscriptions/"&SubscriptionId&"/resourcegroups?api-version=2021-04-01"),
     #"Converted to Table" = Table.FromList(Fullset, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
     #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"id", "name","tags"}, {"id", "name","tags"}),
     ColumnContents = Table.Column(#"Expanded Column1", "tags"),
@@ -476,7 +476,9 @@ let
     #"Expanded properties" = Table.ExpandRecordColumn(#"Renamed Columns1", "properties", {"numberOfChildren", "numberOfChildGroups", "numberOfDescendants", "displayName", "parentDisplayNameChain", "inheritedPermissions", "permissions"}, {"numberOfChildren", "numberOfChildGroups", "numberOfDescendants", "displayName.1", "parentDisplayNameChain", "inheritedPermissions", "permissions"}),
     #"Renamed Columns2" = Table.RenameColumns(#"Expanded properties",{{"displayName.1", "Resource Display Name"}}),
     #"Extracted Values" = Table.TransformColumns(#"Renamed Columns2", {"parentDisplayNameChain", each Text.Combine(List.Transform(_, Text.From), "/"), type text}),
-    #"Split Column by Delimiter" = Table.SplitColumn(#"Extracted Values", "parentDisplayNameChain", Splitter.SplitTextByEachDelimiter({"/"}, QuoteStyle.Csv, true), {"parentDisplayNameChain.1", "parentDisplayNameChain.2"}),
+    #"Added 'parentPath'" = Table.AddColumn(#"Extracted Values", "parentPath", each [parentDisplayNameChain], type text),
+    #"Added 'resourcePath'" = Table.AddColumn(#"Added 'parentPath'", "resourcePath", each if [parentDisplayNameChain] = "" then [Resource Display Name] else Text.Combine({[parentDisplayNameChain], [Resource Display Name]}, "/"), type text),
+    #"Split Column by Delimiter" = Table.SplitColumn(#"Added 'resourcePath'", "parentDisplayNameChain", Splitter.SplitTextByEachDelimiter({"/"}, QuoteStyle.Csv, true), {"parentDisplayNameChain.1", "parentDisplayNameChain.2"}),
     #"Changed Type" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"parentDisplayNameChain.1", type text}, {"parentDisplayNameChain.2", type text}}),
     #"Added Conditional Column" = Table.AddColumn(#"Changed Type", "TempParentDisplayName", each if [parentDisplayNameChain.1] = "" then "IsRoot" else [parentDisplayNameChain.2]),
     #"Added Conditional Column1" = Table.AddColumn(#"Added Conditional Column", "Parent Display Name", each if [TempParentDisplayName] = null then [parentDisplayNameChain.1] else [TempParentDisplayName]),
@@ -544,7 +546,7 @@ let
      result = try @LL & @GetPages(Source[#"nextLink"]) otherwise @LL
  in
  result,
-    Fullset = GetPages(GetManagementURL(AzureKind)&"/subscriptions/"&SubscriptionId&"/resources?api-version=2019-10-01"),
+    Fullset = GetPages(GetManagementURL(AzureKind)&"/subscriptions/"&SubscriptionId&"/resources?api-version=2021-04-01"),
     #"Converted to Table" = Table.FromList(Fullset, Splitter.SplitByNothing(), null, null, ExtraValues.Error), 
     #"Expanded Column1" = Table.ExpandRecordColumn( #"Converted to Table", "Column1", {"id", "name", "tags"}, {"id", "name", "tags"}),
     #"Renamed Columns1" = Table.RenameColumns(#"Expanded Column1",{{"name", "ResourceName"}}),

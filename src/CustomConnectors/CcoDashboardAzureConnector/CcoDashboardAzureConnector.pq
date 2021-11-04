@@ -69,7 +69,7 @@ shared GetAllDescendantsPortalWay=(govKind as text) as table =>
     let
         token = GetAccessToken(),        
         headers = [ Authorization = "Bearer " & token ],
-        tenantList = Json.Document(Web.Contents(GetManagementUri(govKind, "tenants?api-version=2019-11-01"), 
+        tenantList = Json.Document(Web.Contents(GetManagementUri(govKind, "tenants?api-version=2020-01-01"), 
             [Headers=headers, 
             ManualCredentials=true])),
         value=tenantList[value],
@@ -83,7 +83,7 @@ shared GetAllDescendantsPortalWay=(govKind as text) as table =>
 GetTenantManagementGroups=(govKind, tenanId, token)=>
     let
         headers = [Authorization="Bearer " & token],
-        Source = try Json.Document(Web.Contents(GetManagementUri(govKind, "providers/Microsoft.Management/getEntities?api-version=2018-03-01-preview&%24filter=name%20eq%20%27" & tenanId & "%27"), 
+        Source = try Json.Document(Web.Contents(GetManagementUri(govKind, "providers/Microsoft.Management/getEntities?api-version=2020-05-01&%24filter=name%20eq%20%27" & tenanId & "%27"), 
             [ Headers = headers, 
               ManualStatusHandling={403},
               ManualCredentials = true, 
@@ -106,7 +106,7 @@ shared GetPolicyDefinitions = (govKind as text) as table =>
 // Get the subscriptions of each policy
 SubscriptionPolicyDefinitions=(govKind as text, subscriptionId as text, token as text)=>
     let
-        url = GetManagementUri(govKind, "subscriptions/" & subscriptionId & "/providers/Microsoft.Authorization/policyDefinitions?api-version=2019-09-01"),
+        url = GetManagementUri(govKind, "subscriptions/" & subscriptionId & "/providers/Microsoft.Authorization/policyDefinitions?api-version=2021-06-01"),
         definitions = ListAllGet(url)
     in definitions;
 
@@ -228,7 +228,7 @@ shared GetAllResources=(govKind as text) as table=>
 // get the resources of a subscription, following pages if necessary
 GetAllSubscriptionResources=(govKind as text, subscriptionId, token)=>
     let
-        url = GetManagementUri(govKind, "subscriptions/"&subscriptionId&"/resources?api-version=2019-05-01"),        
+        url = GetManagementUri(govKind, "subscriptions/"&subscriptionId&"/resources?api-version=2021-04-01"),        
         allSubscriptionResources=ListAllGet(url)
     in 
         allSubscriptionResources;
@@ -251,7 +251,7 @@ shared GetPoliciesTable = (govKind as text) as table =>
 // Retrieve all policies for a subscription
 Policies = (govKind, subscriptionId, token) =>
     let
-        url = GetManagementUri(govKind, "subscriptions/"&subscriptionId&"/providers/Microsoft.PolicyInsights/policyStates/default/queryResults?api-version=2019-10-01"),
+        url = GetManagementUri(govKind, "subscriptions/"&subscriptionId&"/providers/Microsoft.PolicyInsights/policyStates/latest/queryResults?api-version=2019-10-01"),
         // retrieve all policies, following continuation pages if needed
         #"PoliciesTable"= ListAllPost(url, token)
     in        
@@ -262,7 +262,7 @@ Policies = (govKind, subscriptionId, token) =>
 // get subscriptios for a given user in table format
 shared GetSubscriptionsTable=(govKind as text, token as text) as table=>
     let
-        subscriptionsUri = GetManagementUri(govKind, "subscriptions?api-version=2019-11-01"),
+        subscriptionsUri = GetManagementUri(govKind, "subscriptions?api-version=2020-01-01"),
         sl =ListAllGet(subscriptionsUri),
         slExpanded = Table.ExpandListColumn(sl, "Column1"),
         ExpandIdColumns = Table.ExpandRecordColumn(slExpanded, "Column1", {"subscriptionId", "displayName"}, {"subscriptionId", "displayName"})

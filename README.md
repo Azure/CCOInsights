@@ -34,6 +34,10 @@ The current set of CCO Dashboards includes 3 different Dashboards to discover in
 
 - Bug fixes: Issues [169](https://github.com/Azure/ccodashboard/issues/169), [168](https://github.com/Azure/ccodashboard/issues/168) , [166](https://github.com/Azure/ccodashboard/issues/166) and [160](https://github.com/Azure/ccodashboard/issues/160).
 
+### **CCO Azure Infrastructure Dashboard Version 8.3.1 Updates**
+
+- Enhancements: Issues [209](https://github.com/Azure/ccodashboard/issues/209).
+
 ### **CCO Azure Governance Dashboard Version 2.2 Updates**
 
 - Secure Score Definitions API (2020-01-01-preview) updates data model bug fix.

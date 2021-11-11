@@ -4,7 +4,7 @@
 ## Content
 
 - [Overview](README.md#overview)
-- [CCO Azure Governance Dashboard Governance Version 2.2](README.md#cco-azure-governance-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
+- [CCO Azure Governance Dashboard Governance Version 2.4](README.md#cco-azure-governance-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
 - [CCO Azure Infrastructure Dashboard Version 8.3](README.md#cco-azure-infrastructure-dashboard-version-83) ***<span style="color:green"><sup>NEW</sup></span>***
 - [List of resources](README.md#List-of-resources)
 - [CCO Azure Infrastructure Dashboard report pages](README.md#cco-azure-infrastructure-dashboard-report-pages)
@@ -38,9 +38,9 @@ The current set of CCO Dashboards includes 3 different Dashboards to discover in
 
 - Enhancements: Issues [209](https://github.com/Azure/ccodashboard/issues/209).
 
-### **CCO Azure Governance Dashboard Version 2.2 Updates**
+### **CCO Azure Governance Dashboard Version 2.4 Updates**
 
-- Secure Score Definitions API (2020-01-01-preview) updates data model bug fix.
+- APIs updated (Custom Connector Updated and Dashboard) 
 
 ## List of resources
 
@@ -56,7 +56,7 @@ This project includes the following resources:
 
 ## CCO Azure Governance Dashboard Report Pages
 
-The version 2.2 of the CCO Power BI Dashboard Governance includes the following information:
+The version 2.4 of the CCO Power BI Dashboard Governance includes the following information:
 
 - Azure Management Groups and Subscriptions hierarchy
 - Resource Groups and Resources Tagging information

@@ -36,7 +36,8 @@ The current set of CCO Dashboards includes 3 different Dashboards to discover in
 
 ### **CCO Azure Governance Dashboard Version 2.4 Updates**
 
-- APIs updated (Custom Connector Updated and Dashboard) 
+- APIs updated (Custom Connector Updated and Dashboard)
+- Added reset filter button in every page
 
 ## List of resources
 

@@ -445,7 +445,7 @@ let
                       ManualStatusHandling={403}, 
                       Content=Text.ToBinary("")])) otherwise "cannot retrieve data",
        data = try Source[value] otherwise null,
-       next = try Source[nextLink] otherwise null,
+       next = try Source[nextLink] otherwise try Source[#"@odata.nextLink"] otherwise null,
        res = [Data=data, Next=next]
     in
         res,
@@ -457,7 +457,6 @@ let
 
     #"Converted to Table" = Table.FromList(GeneratedListOfPages, Splitter.SplitByNothing(), null, null, ExtraValues.Error)
     in #"Converted to Table";
-
 
 // method to prepare a navigation table
 Table.ToNavigationTable = (

@@ -5,7 +5,7 @@
 
 - [Overview](README.md#overview)
 - [CCO Azure Governance Dashboard Governance Version 2.4](README.md#cco-azure-governance-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
-- [CCO Azure Infrastructure Dashboard Version 8.3](README.md#cco-azure-infrastructure-dashboard-version-83) ***<span style="color:green"><sup>NEW</sup></span>***
+- [CCO Azure Infrastructure Dashboard Version 8.4](README.md#cco-azure-infrastructure-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
 - [List of resources](README.md#List-of-resources)
 - [CCO Azure Infrastructure Dashboard report pages](README.md#cco-azure-infrastructure-dashboard-report-pages)
 - [CCO Azure Infrastructure Dashboard with AKS add-on report pages](README.md#cco-azure-infrastructure-dashboard-with-aks-add-on-report-pages)
@@ -69,13 +69,13 @@ You can find more details about each page on the [Deployment Guide](https://gith
 
 ## CCO Azure Infrastructure Dashboard Report Pages
 
-The version 8.3 of the CCO Power BI Dashboard includes 10 report pages. You will be able to navigate, filter and report the following information:
+The CCO Power BI Dashboard includes 10 report pages. You will be able to navigate, filter, and report the following information:
 
 - Page 1: Overview
 - Page 2: Azure Advisor Recommendations
 - Page 3: Azure Security Center Alerts
 - Page 4: Azure Compute information
-- Page 5 Azure Networking information
+- Page 5: Azure Networking information
 - Page 6: Network Security Groups
 - Page 7: Azure RBAC permissions
 - Page 8: Azure Service Principals RBAC permissions

@@ -69,7 +69,7 @@ You can find more details about each page on the [Deployment Guide](https://gith
 
 ## CCO Azure Infrastructure Dashboard Report Pages
 
-The CCO Power BI Dashboard includes 10 report pages. You will be able to navigate, filter, and report the following information:
+The CCO Power BI Dashboard Infrastructure includes 10 report pages. You will be able to navigate, filter, and report the following information:
 
 - Page 1: Overview
 - Page 2: Azure Advisor Recommendations

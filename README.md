@@ -30,17 +30,16 @@ The current set of CCO Dashboards includes 3 different Dashboards to discover in
 
 ## Last release notes
 
-### **CCO Azure Infrastructure Dashboard Version 8.3 Updates**
-
-- Bug fixes: Issues [169](https://github.com/Azure/ccodashboard/issues/169), [168](https://github.com/Azure/ccodashboard/issues/168) , [166](https://github.com/Azure/ccodashboard/issues/166) and [160](https://github.com/Azure/ccodashboard/issues/160).
-
-### **CCO Azure Infrastructure Dashboard Version 8.3.1 Updates**
+### **CCO Azure Infrastructure Dashboard Version 8.4 Updates**
 
 - Enhancements: Issues [209](https://github.com/Azure/ccodashboard/issues/209).
+- New features on Azure Advisor page:
+  - Link to Azure Portal for Impacted Resources. ***<span style="color:green"><sup>NEW</sup></span>***
+  - Filter on recommendation status for Active / Postponed & Dismissed. ***<span style="color:green"><sup>NEW</sup></span>***
 
 ### **CCO Azure Governance Dashboard Version 2.4 Updates**
 
-- APIs updated (Custom Connector Updated and Dashboard) 
+- APIs updated (Custom Connector Updated and Dashboard)
 
 ## List of resources
 
@@ -121,16 +120,16 @@ The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following 
 
 ## CCO Azure Infrastructure Dashboard
 
+### **CCO Azure Infrastructure Dashboard Version 8.3 Updates**
+
+- Bug fixes: Issues [169](https://github.com/Azure/ccodashboard/issues/169), [168](https://github.com/Azure/ccodashboard/issues/168) , [166](https://github.com/Azure/ccodashboard/issues/166) and [160](https://github.com/Azure/ccodashboard/issues/160).
+
 ### **CCO Azure Infrastructure Dashboard Version 8.2 Updates**
 
 - Bug fix: Maps location problems in Overview, Compute and Usage&Limits resources pages fixed.
 - New features:
   - Expiration date added to the SPNs. ***<span style="color:green"><sup>NEW</sup></span>***
   - Reset filters button added. ***<span style="color:green"><sup>NEW</sup></span>***
-
-### **CCO Azure Infrastructure Dashboard Version 8.1 Updates**
-
-- Bug fixing 1:1 relationship between Tenants and Subscriptions to M:N relationship.
 
 ### **CCO Azure Infrastructure Dashboard Version 8.1 Updates**
 

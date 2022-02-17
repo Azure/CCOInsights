@@ -4,8 +4,8 @@
 ## Content
 
 - [Overview](README.md#overview)
-- [CCO Azure Governance Dashboard Governance Version 2.4](README.md#cco-azure-governance-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
-- [CCO Azure Infrastructure Dashboard Version 8.3](README.md#cco-azure-infrastructure-dashboard-version-83) ***<span style="color:green"><sup>NEW</sup></span>***
+- [CCO Azure Governance Dashboard Governance Version 2.5](README.md#cco-azure-governance-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
+- [CCO Azure Infrastructure Dashboard Version 9.1](README.md#cco-azure-infrastructure-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
 - [List of resources](README.md#List-of-resources)
 - [CCO Azure Infrastructure Dashboard report pages](README.md#cco-azure-infrastructure-dashboard-report-pages)
 - [CCO Azure Infrastructure Dashboard with AKS add-on report pages](README.md#cco-azure-infrastructure-dashboard-with-aks-add-on-report-pages)
@@ -30,14 +30,15 @@ The current set of CCO Dashboards includes 3 different Dashboards to discover in
 
 ## Last release notes
 
-### **CCO Azure Infrastructure Dashboard Version 8.3 Updates**
+### **CCO Azure Infrastructure Dashboard Version 9.1 Updates**
 
-- Bug fixes: Issues [169](https://github.com/Azure/ccodashboard/issues/169), [168](https://github.com/Azure/ccodashboard/issues/168) , [166](https://github.com/Azure/ccodashboard/issues/166) and [160](https://github.com/Azure/ccodashboard/issues/160).
+- New report page available for Azure Web Applications.
+- Management Group filtering
+- IMPORTANT: Now it requires the Custom connector (mandatory to retrieve the MGs)
 
-### **CCO Azure Governance Dashboard Version 2.4 Updates**
+### **CCO Azure Governance Dashboard Version 2.5 Updates**
 
-- APIs updated (Custom Connector Updated and Dashboard)
-- Added reset filter button in every page
+- Governance dashboard MG&Subscription visual fix
 
 ## List of resources
 
@@ -53,7 +54,7 @@ This project includes the following resources:
 
 ## CCO Azure Governance Dashboard Report Pages
 
-The version 2.4 of the CCO Power BI Dashboard Governance includes the following information:
+The version 2.5 of the CCO Power BI Dashboard Governance includes the following information:
 
 - Azure Management Groups and Subscriptions hierarchy
 - Resource Groups and Resources Tagging information
@@ -66,18 +67,20 @@ You can find more details about each page on the [Deployment Guide](https://gith
 
 ## CCO Azure Infrastructure Dashboard Report Pages
 
-The version 8.3 of the CCO Power BI Dashboard includes 10 report pages. You will be able to navigate, filter and report the following information:
+The version 9.1 of the CCO Power BI Dashboard includes 10 report pages. You will be able to navigate, filter and report the following information:
 
 - Page 1: Overview
 - Page 2: Azure Advisor Recommendations
 - Page 3: Azure Security Center Alerts
 - Page 4: Azure Compute information
-- Page 5 Azure Networking information
-- Page 6: Network Security Groups
-- Page 7: Azure RBAC permissions
-- Page 8: Azure Service Principals RBAC permissions
-- Page 9: IaaS Usage and Limits
-- Page 10: IaaS Idle Resources
+- Page 5: Web Applications (Includding function Apps)
+- Page 6 Azure Networking information
+- Page 7: Network Security Groups
+- Page 8: Azure RBAC permissions
+- Page 9: Azure Service Principals RBAC permissions
+- Page 10: IaaS Usage and Limits
+- Page 11: IaaS Idle Resources
+
 
 You can find more details about each page on the [Deployment Guide](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Infra/InfraDeploymentGuide.md) file.
 

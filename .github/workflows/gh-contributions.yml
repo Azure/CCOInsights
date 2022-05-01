@@ -10,7 +10,7 @@ on:
         default: "test"
 
 jobs:
-  build_source_code_dev:
+  deploy_dashboard:
     runs-on: windows-2022
     name: "Dashboard Backend"
     steps:

@@ -29,3 +29,25 @@ jobs:
         with:
           resourceGroupName: ${{ github.event.inputs.resourceGroupName }}
           template: ./dashboards/GitHubDashboard-Contributors/infrastructure/deploy.bicep
+      - name: "Replace tokens"
+        shell: pwsh
+        run: |
+          $ConvertTokenListFunctionInput = @{
+            FilePath   = './dashboards/GitHubDashboard-Contributors/src/local.settings.dev.json'
+            TokenName  = '<<PAT>>'
+            TokenValue = '${{ secrets.PAT }}'
+          }
+          ./tools/scripts/Convert-TokenInFile.ps1 @ConvertTokenListFunctionInput -Verbose
+      - name: "Deploy code"
+        shell: pwsh
+        run: |
+          # Initialize parameters
+          Install-Module -Name Az.Functions -Force
+          $functionApp = Get-AzFunctionApp -ResourceGroupName '${{ github.event.inputs.resourceGroupName }}'
+          $functionAppName = $functionApp[0].Name
+          $DeployFunctionInputs = @{
+              ResourceGroup      = '${{ env.resourceGroupNameDev }}'
+              FunctionAppName    = $functionAppName
+          }
+          # Invoke Function
+          ./tools/scripts/deploy-function.ps1 @DeployFunctionInputs -Verbose

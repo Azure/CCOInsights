@@ -46,7 +46,7 @@ jobs:
           $functionApp = Get-AzFunctionApp -ResourceGroupName '${{ github.event.inputs.resourceGroupName }}'
           $functionAppName = $functionApp[0].Name
           $DeployFunctionInputs = @{
-              ResourceGroup      = '${{ env.resourceGroupNameDev }}'
+              ResourceGroup      = '${{ github.event.inputs.resourceGroupName }}'
               FunctionAppName    = $functionAppName
           }
           # Invoke Function

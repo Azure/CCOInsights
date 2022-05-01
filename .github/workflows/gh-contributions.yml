@@ -33,7 +33,7 @@ jobs:
         shell: pwsh
         run: |
           $ConvertTokenListFunctionInput = @{
-            FilePath   = './dashboards/GitHubDashboard-Contributors/src/local.settings.dev.json'
+            FilePath   = './dashboards/GitHubDashboard-Contributors/src/local.settings.json'
             TokenName  = '<<PAT>>'
             TokenValue = '${{ secrets.PAT }}'
           }

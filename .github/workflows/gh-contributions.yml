@@ -27,6 +27,7 @@ jobs:
         id: rg
         uses: azure/arm-deploy@v1
         with:
+          deploymentName: ${{ github.event.inputs.resourceGroupName }}
           resourceGroupName: ${{ github.event.inputs.resourceGroupName }}
           template: ./dashboards/GitHubDashboard-Contributors/infrastructure/deploy.bicep
       - name: "Replace tokens"

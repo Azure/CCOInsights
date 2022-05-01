@@ -1,5 +1,13 @@
 # CCO GitHub Contributions Dashboard
 
+### _Navigation_
+
+- [Overview](#overview)
+- [Infrastructure](#Infrastructure)
+  - [Deployment](#deployment)
+  - [Backend Deployment](#Backend-Deployment)
+- [Dashboard](#dashboard)
+
 ## Overview
 
 As part of the Continuous Cloud Optimization solution, a dashboard is included to track the contributions made to a GitHub repository. The objective is to monitor not only the cloud environment, but also all the resources used for its design, deployment and maintenance. This dashboard allows you to monitor different metrics such as:
@@ -49,7 +57,7 @@ In order to successfully user the deploy.bicep and workflow provided, you will n
     | admin:repo_hook | Full control of repository hooks |
     | admin:org | Full control of orgs and teams, read and write org projects |
 
-#### Deployment
+#### Backend Deployment
 
 In the [infrastructure](./infrastructure/) folder you will find a `deploy.bicep` file which is the template that will be used to deploy the infrastructure. Please, go ahead and update the first two parameters (`name` and `staname`) with your unique values. **Name** will be used to compose the name of all resources except for the storage account, which will leverage the **staname**.
 

@@ -6,8 +6,8 @@ on:
       resourceGroupName:
         type: string
         description: "Resource Group where infrastructure will be deployed/updated"
-        required: false
-        default: "test"
+        required: true
+        default: ""
 
 jobs:
   deploy_dashboard:

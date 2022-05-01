@@ -49,6 +49,9 @@ resource appService 'Microsoft.Web/sites@2021-03-01' = {
       http20Enabled: false
       functionAppScaleLimit: 200
       minimumElasticInstanceCount: 1
+      netFrameworkVersion: 'v4.0'
+      phpVersion: '5.6'
+      powerShellVersion: '~7'
     }
     clientAffinityEnabled: false
     clientCertEnabled: false

@@ -12,7 +12,7 @@ on:
 jobs:
   build_source_code_dev:
     runs-on: windows-2022
-    name: "Deploy GitHub Contributions backend"
+    name: "Dashboard Backend"
     steps:
       - name: "Checkout"
         uses: actions/checkout@v2

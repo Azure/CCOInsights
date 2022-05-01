@@ -16,7 +16,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' = {
   }
 }
 
-resource appService 'Microsoft.Web/sites@2018-11-01' = {
+resource appService 'Microsoft.Web/sites@2021-03-01' = {
   name: '${name}-fa'
   location: location
   kind: 'functionapp'
@@ -42,14 +42,24 @@ resource appService 'Microsoft.Web/sites@2018-11-01' = {
     reserved: false
     scmSiteAlsoStopped: false
     serverFarmId: appServicePlan.id
-    siteConfig: {}
+    siteConfig: {
+      numberOfWorkers: 1
+      acrUseManagedIdentityCreds: false
+      alwaysOn: false
+      http20Enabled: false
+      functionAppScaleLimit: 200
+      minimumElasticInstanceCount: 1
+    }
     clientAffinityEnabled: false
     clientCertEnabled: false
+    clientCertMode: 'Required'
     hostNamesDisabled: false
     containerSize: 1536
     dailyMemoryTimeQuota: 0
     httpsOnly: true
     redundancyMode: 'None'
+    storageAccountRequired: false
+    keyVaultReferenceIdentity: 'SystemAssigned'
   }
 }
 
@@ -62,6 +72,7 @@ resource appServiceLogging 'Microsoft.Web/sites/config@2020-06-01' = {
     FUNCTIONS_WORKER_RUNTIME: 'powershell'
     WEBSITE_CONTENTAZUREFILECONNECTIONSTRING: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};AccountKey=${storageAccount.listKeys().keys[0].value};EndpointSuffix=core.windows.net'
     WEBSITE_CONTENTSHARE: appService.name
+    AzureWebJobsStorage: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};AccountKey=${storageAccount.listKeys().keys[0].value};EndpointSuffix=core.windows.net'
   }
   dependsOn: [
     appServiceSiteExtension

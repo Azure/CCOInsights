@@ -8,11 +8,6 @@ on:
         description: "Resource Group where infrastructure will be deployed/updated"
         required: false
         default: "test"
-  push:
-    branches: [main, users/**]
-    paths:
-      - "platform/**"
-      - ".github/workflows/platform.yml"
 
 jobs:
   build_source_code_dev:

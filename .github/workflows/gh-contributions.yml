@@ -1,0 +1,36 @@
+name: "GitHub Contributions"
+
+on:
+  workflow_dispatch:
+    inputs:
+      resourceGroupName:
+        type: string
+        description: "Resource Group where infrastructure will be deployed/updated"
+        required: false
+        default: "test"
+  push:
+    branches: [main, users/**]
+    paths:
+      - "platform/**"
+      - ".github/workflows/platform.yml"
+
+jobs:
+  build_source_code_dev:
+    runs-on: windows-2022
+    name: "Deploy GitHub Contributions backend"
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true
+      - name: "Deploy infrastructure"
+        id: rg
+        uses: azure/arm-deploy@v1
+        with:
+          resourceGroupName: ${{ inputs.resourceGroupName }}
+          template: ./dashboards/GitHubDashboard-Contributors/infrastructure/deploy.bicep

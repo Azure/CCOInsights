@@ -86,26 +86,6 @@ resource appServiceSiteExtension 'Microsoft.Web/sites/siteextensions@2020-06-01'
   ]
 }
 
-resource appFunction_daily 'Microsoft.Web/sites/functions@2021-03-01' = {
-  name: 'GitHubDailySync'
-  parent: appService
-  properties: {
-    config: {}
-    isDisabled: false
-    language: 'powershell'
-  }
-}
-
-resource appFunction_initialize 'Microsoft.Web/sites/functions@2021-03-01' = {
-  name: 'InitializeTables'
-  parent: appService
-  properties: {
-    config: {}
-    isDisabled: false
-    language: 'powershell'
-  }
-}
-
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-08-01' = {
   name: '${name}-la'
   location: location

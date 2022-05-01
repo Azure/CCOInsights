@@ -68,6 +68,8 @@ resource appServiceLogging 'Microsoft.Web/sites/config@2020-06-01' = {
   name: 'appsettings'
   properties: {
     APPINSIGHTS_INSTRUMENTATIONKEY: appInsights.properties.InstrumentationKey
+    FUNCTIONS_EXTENSION_VERSION: '~3'
+    FUNCTIONS_WORKER_RUNTIME: 'powershell'
   }
   dependsOn: [
     appServiceSiteExtension

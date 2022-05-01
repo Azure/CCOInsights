@@ -70,6 +70,8 @@ resource appServiceLogging 'Microsoft.Web/sites/config@2020-06-01' = {
     APPINSIGHTS_INSTRUMENTATIONKEY: appInsights.properties.InstrumentationKey
     FUNCTIONS_EXTENSION_VERSION: '~3'
     FUNCTIONS_WORKER_RUNTIME: 'powershell'
+    WEBSITE_CONTENTAZUREFILECONNECTIONSTRING: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};AccountKey=${storageAccount.listKeys().keys[0].value};EndpointSuffix=core.windows.net'
+    WEBSITE_CONTENTSHARE: appService.name
   }
   dependsOn: [
     appServiceSiteExtension
@@ -94,11 +96,6 @@ resource appFunction_daily 'Microsoft.Web/sites/functions@2021-03-01' = {
   }
 }
 
-resource appFunction_daily_key 'Microsoft.Web/sites/functions/keys@2021-03-01' = {
-  name: 'default'
-  parent: appFunction_daily
-}
-
 resource appFunction_initialize 'Microsoft.Web/sites/functions@2021-03-01' = {
   name: 'InitializeTables'
   parent: appService
@@ -107,11 +104,6 @@ resource appFunction_initialize 'Microsoft.Web/sites/functions@2021-03-01' = {
     isDisabled: false
     language: 'powershell'
   }
-}
-
-resource appFunction_initialize_key 'Microsoft.Web/sites/functions/keys@2021-03-01' = {
-  name: 'default'
-  parent: appFunction_initialize
 }
 
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-08-01' = {

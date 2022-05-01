@@ -27,5 +27,5 @@ jobs:
         id: rg
         uses: azure/arm-deploy@v1
         with:
-          resourceGroupName: ${{ inputs.resourceGroupName }}
+          resourceGroupName: ${{ github.event.inputs.resourceGroupName }}
           template: ./dashboards/GitHubDashboard-Contributors/infrastructure/deploy.bicep

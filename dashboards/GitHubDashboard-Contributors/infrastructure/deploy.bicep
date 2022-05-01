@@ -16,7 +16,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' = {
   }
 }
 
-resource appService 'Microsoft.Web/sites@2021-03-01' = {
+resource appService 'Microsoft.Web/sites@2018-11-01' = {
   name: '${name}-fa'
   location: location
   kind: 'functionapp'
@@ -42,24 +42,14 @@ resource appService 'Microsoft.Web/sites@2021-03-01' = {
     reserved: false
     scmSiteAlsoStopped: false
     serverFarmId: appServicePlan.id
-    siteConfig: {
-      numberOfWorkers: 1
-      acrUseManagedIdentityCreds: false
-      alwaysOn: false
-      http20Enabled: false
-      functionAppScaleLimit: 200
-      minimumElasticInstanceCount: 1
-    }
+    siteConfig: {}
     clientAffinityEnabled: false
     clientCertEnabled: false
-    clientCertMode: 'Required'
     hostNamesDisabled: false
     containerSize: 1536
     dailyMemoryTimeQuota: 0
     httpsOnly: true
     redundancyMode: 'None'
-    storageAccountRequired: false
-    keyVaultReferenceIdentity: 'SystemAssigned'
   }
 }
 

@@ -45,7 +45,7 @@ resource appService 'Microsoft.Web/sites@2021-03-01' = {
     siteConfig: {
       numberOfWorkers: 1
       acrUseManagedIdentityCreds: false
-      alwaysOn: false
+      alwaysOn: true
       http20Enabled: false
       functionAppScaleLimit: 200
       minimumElasticInstanceCount: 1

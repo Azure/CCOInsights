@@ -1,9 +1,9 @@
 {
     "IsEncrypted": false,
     "Values": {
-        "organization": "masanzde",
+        "organization": "servicescode",
         "resourceGroup": "test",
-        "storageAccount": "ccoghcontsta",
+        "storageAccount": "ccoadocontsta",
         "pat": "<<ADOPAT>>"
     }
 }

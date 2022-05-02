@@ -4,6 +4,6 @@
         "organization": "masanzde",
         "resourceGroup": "test",
         "storageAccount": "ccoghcontsta",
-        "pat": "<<PAT>>"
+        "pat": "<<ADOPAT>>"
     }
 }

@@ -221,7 +221,6 @@ Function Get-ClosedPullRequests {
                     deletions    = $deletions
                     changedFiles = $changedFiles
                 }
-                Write-Host $closedPullRequest
                 Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey "$repositoryId-$($_.pullRequestId)" -property $closedPullRequest -UpdateExisting | Out-Null
                 $dashboardclosedPullRequests += $closedPullRequest
             }

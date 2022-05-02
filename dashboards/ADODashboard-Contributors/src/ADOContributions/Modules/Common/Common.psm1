@@ -135,6 +135,20 @@ Function Get-OpenPullRequests {
                     $deletions += ($stats.changes | Where-Object { $_.changeType -eq 'delete' }).Count
                     $changedFiles += ($stats.changes | Where-Object { $_.changeType -eq 'edit' }).Count
                 }
+                $openPullRequest = @{
+                    projectName  = $projectName
+                    repositoryId = $repositoryId
+                    id           = $_.pullRequestId
+                    user         = $_.createdBy.uniqueName
+                    state        = $_.status
+                    title        = $_.title
+                    createdDate  = $_.creationDate
+                    additions    = $additions
+                    deletions    = $deletions
+                    changedFiles = $changedFiles
+                }
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey "$repositoryId-$($_.pullRequestId)" -property $openPullRequest -UpdateExisting | Out-Null
+                $dashboardopenPullRequests += $openPullRequest
             }
             catch [System.Net.WebException] {
                 # HTTP error, grab response from exception
@@ -142,20 +156,7 @@ Function Get-OpenPullRequests {
                 $HTTP_Status = [int]$HTTP_Response.StatusCode
                 Write-Verbose "$HTTP_Status error thrown"
             }
-            $openPullRequest = @{
-                projectName  = $projectName
-                repositoryId = $repositoryId
-                id           = $_.pullRequestId
-                user         = $_.createdBy.uniqueName
-                state        = $_.status
-                title        = $_.title
-                createdDate  = $_.creationDate
-                additions    = $additions
-                deletions    = $deletions
-                changedFiles = $changedFiles
-            }
-            Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey "$repositoryId-$($_.pullRequestId)" -property $openPullRequest -UpdateExisting | Out-Null
-            $dashboardopenPullRequests += $openPullRequest
+
         }
     }
     Write-Host "$($dashboardopenPullRequests.Count) Open pull requests successfully loaded"
@@ -208,6 +209,21 @@ Function Get-ClosedPullRequests {
                     $deletions += ($stats.changes | Where-Object { $_.changeType -eq 'delete' }).Count
                     $changedFiles += ($stats.changes | Where-Object { $_.changeType -eq 'edit' }).Count
                 }
+                $closedPullRequest = @{
+                    projectName  = $projectName
+                    repositoryId = $repositoryId
+                    id           = $_.pullRequestId
+                    user         = $_.createdBy.uniqueName
+                    state        = $_.status
+                    title        = $_.title
+                    createdDate  = $_.creationDate
+                    additions    = $additions
+                    deletions    = $deletions
+                    changedFiles = $changedFiles
+                }
+                Write-Host $closedPullRequest
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey "$repositoryId-$($_.pullRequestId)" -property $closedPullRequest -UpdateExisting | Out-Null
+                $dashboardclosedPullRequests += $closedPullRequest
             }
             catch [System.Net.WebException] {
                 # HTTP error, grab response from exception
@@ -216,20 +232,6 @@ Function Get-ClosedPullRequests {
                 Write-Verbose "$HTTP_Status error thrown"
             }
         }
-        $closedPullRequest = @{
-            projectName  = $projectName
-            repositoryId = $repositoryId
-            id           = $_.pullRequestId
-            user         = $_.createdBy.uniqueName
-            state        = $_.status
-            title        = $_.title
-            createdDate  = $_.creationDate
-            additions    = $additions
-            deletions    = $deletions
-            changedFiles = $changedFiles
-        }
-        Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey "$repositoryId-$($_.pullRequestId)" -property $closedPullRequest -UpdateExisting | Out-Null
-        $dashboardclosedPullRequests += $closedPullRequest
     }
     Write-Host "$($dashboardclosedPullRequests.Count) Closed pull requests successfully loaded"
     return $dashboardclosedPullRequests.number

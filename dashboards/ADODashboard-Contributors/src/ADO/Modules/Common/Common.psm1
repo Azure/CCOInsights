@@ -1,7 +1,7 @@
 Function Get-Project {
 
     $organization = $env:organization
-    $pat = $env:pat
+    $pat = $env:adopat
 
     #Create table
     $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
@@ -44,7 +44,7 @@ Function Get-Repository {
     )
 
     $organization = $env:organization
-    $pat = $env:pat
+    $pat = $env:adopat
 
     #Create table
     $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
@@ -100,7 +100,7 @@ Function Get-OpenPullRequests {
     )
     
     $organization = $env:organization
-    $pat = $env:pat
+    $pat = $env:adopat
 
     #Create table
     $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
@@ -173,7 +173,7 @@ Function Get-ClosedPullRequests {
     )
     
     $organization = $env:organization
-    $pat = $env:pat
+    $pat = $env:adopat
 
     #Create table
     $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
@@ -247,7 +247,7 @@ Function Get-Commits {
     )
     
     $organization = $env:organization
-    $pat = $env:pat
+    $pat = $env:adopat
 
     #Create table
     $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
@@ -300,7 +300,7 @@ Function Get-Branches {
     )
     
     $organization = $env:organization
-    $pat = $env:pat
+    $pat = $env:adopat
 
     #Create table
     $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup

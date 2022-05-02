@@ -35,8 +35,8 @@ jobs:
         run: |
           $ConvertTokenListFunctionInput = @{
             FilePath   = './dashboards/ADODashboard-Contributors/src/local.settings.json'
-            TokenName  = '<<PAT>>'
-            TokenValue = '${{ secrets.PAT }}'
+            TokenName  = '<<ADOPAT>>'
+            TokenValue = '${{ secrets.ADOPAT }}'
           }
           ./tools/scripts/Convert-TokenInFile.ps1 @ConvertTokenListFunctionInput -Verbose
       - name: "Deploy code"

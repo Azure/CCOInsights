@@ -1,10 +1,9 @@
 {
     "IsEncrypted": false,
     "Values": {
-        "owner": "Azure",
-        "repository": "ccodashboard",
+        "organization": "servicescode",
         "resourceGroup": "test",
-        "storageAccount": "ccoghcontsta",
-        "pat": "<<PAT>>"
+        "storageAccount": "ccoadocontsta",
+        "pat": "<<ADOPAT>>"
     }
 }

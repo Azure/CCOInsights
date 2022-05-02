@@ -49,6 +49,7 @@ jobs:
           $DeployFunctionInputs = @{
               ResourceGroup      = '${{ github.event.inputs.resourceGroupName }}'
               FunctionAppName    = $functionAppName
+              Dashboard          = 'GitHub'
           }
           # Invoke Function
           ./tools/scripts/deploy-function.ps1 @DeployFunctionInputs -Verbose

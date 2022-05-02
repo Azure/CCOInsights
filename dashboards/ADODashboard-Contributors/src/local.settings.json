@@ -1,0 +1,10 @@
+{
+    "IsEncrypted": false,
+    "Values": {
+        "owner": "Azure",
+        "repository": "ccodashboard",
+        "resourceGroup": "test",
+        "storageAccount": "ccoghcontsta",
+        "pat": "<<PAT>>"
+    }
+}

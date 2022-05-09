@@ -79,7 +79,7 @@ After successfully deploying the backend go to the Azure portal and manually run
 
 ## Dashboard
 
-With the previous backend deployed, you can now download the [ADOContributions v1.0.pbit](./ADObContributions%20v1.0.pbit) and execute it locally. You will be asked to enter:
+With the previous backend deployed, you can now download the [ADOContributions v1.0.pbit](./ADOContributions%20v1.0.pbit) and execute it locally. You will be asked to enter:
 - The Storage Account name of the Storage Account you deployed.
 ![Storage Account Name](/install/images/ado-storage-account.png)
 - The Storage account access key.

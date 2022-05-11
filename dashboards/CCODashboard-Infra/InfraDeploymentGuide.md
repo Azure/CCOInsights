@@ -10,6 +10,7 @@
   - [Azure Advisor Recommendations](#azure-advisor-recommendations)
     - [Generating Azure Advisor recommendations manually](#generating-azure-advisor-recommendations-manually)
   - [Azure Security Center Recommendations](#azure-security-center-recommendations)
+  - [Installing the custom connector](#installing-the-custom-connector)
 - [Setting up the Continuous Cloud Optimization Azure Infrastructure Power BI Dashboard](#setting-up-the-continuous-cloud-optimization-azure-infrastructure-power-bi-dashboard)
   - [Environment selection](#environment-selection)
   - [Modify Privacy settings](#modify-privacy-settings)
@@ -153,6 +154,21 @@ The following picture shows the steps to configure Azure Security Center plan fo
 4.	Click on **Free** or **Standard** plan and the click **Save**.
 
 ![SecurityCenterStandardRecommendations](/install/images/EnableSecurityCenterStandard.png)
+  
+# Installing the custom connector
+
+The CCO Azure Governance Dashboard requires to install the Power BI Custom Connector located in the same folder as the CCO Governance Dashboard ([CCoDashboardAzureConnector.mez](/dashboards/CCODashboard-Governance/CcoDashboardAzureConnector.mez)). This Custom Connector allows us to leverage information from Azure Management REST APIs that requires POST methods and errors control
+
+To install the custom connector you must copy the file [CCoDashboardAzureConnector.mez](/dashboards/CCODashboard-Governance/CcoDashboardAzureConnector.mez) from the **ccodashboard/dashboards/CCODashboard-Governance/** folder to the folder that Power BI creates by default in the Documents folder in your PC. If this folder doesn't exist, you can create a new one with this name.
+
+The path should be **C:\Users\\%username%\Documents\Power BI Desktop\Custom Connectors** or if you are using onedrive to backup the documents folder this path would not work for you and you should manualy go to your documents folder and create the folder structure there. 
+
+![cc](/install/images/customconnectorfolder.PNG)
+
+Then go to Power BI Options and under Global category in the Security section, select **(Not Recommended) Allow any extension to load without validation or warning** and click **OK**.
+
+![cc](/install/images/customconnectorsecurity.PNG)
+
 
 # Setting up the Continuous Cloud Optimization Azure Infrastructure Power BI Dashboard
   

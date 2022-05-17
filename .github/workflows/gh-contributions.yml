@@ -6,18 +6,13 @@ on:
       resourceGroupName:
         type: string
         description: "Resource Group where infrastructure will be deployed/updated"
-        required: false
-        default: "test"
-  push:
-    branches: [main, users/**]
-    paths:
-      - "platform/**"
-      - ".github/workflows/platform.yml"
+        required: true
+        default: ""
 
 jobs:
-  build_source_code_dev:
+  deploy_dashboard:
     runs-on: windows-2022
-    name: "Deploy GitHub Contributions backend"
+    name: "Dashboard Backend"
     steps:
       - name: "Checkout"
         uses: actions/checkout@v2
@@ -32,5 +27,28 @@ jobs:
         id: rg
         uses: azure/arm-deploy@v1
         with:
-          resourceGroupName: ${{ inputs.resourceGroupName }}
+          deploymentName: ${{ github.event.inputs.resourceGroupName }}
+          resourceGroupName: ${{ github.event.inputs.resourceGroupName }}
           template: ./dashboards/GitHubDashboard-Contributors/infrastructure/deploy.bicep
+      - name: "Replace tokens"
+        shell: pwsh
+        run: |
+          $ConvertTokenListFunctionInput = @{
+            FilePath   = './dashboards/GitHubDashboard-Contributors/src/local.settings.json'
+            TokenName  = '<<PAT>>'
+            TokenValue = '${{ secrets.PAT }}'
+          }
+          ./tools/scripts/Convert-TokenInFile.ps1 @ConvertTokenListFunctionInput -Verbose
+      - name: "Deploy code"
+        shell: pwsh
+        run: |
+          # Initialize parameters
+          Install-Module -Name Az.Functions -Force
+          $functionApp = Get-AzFunctionApp -ResourceGroupName '${{ github.event.inputs.resourceGroupName }}'
+          $functionAppName = $functionApp[0].Name
+          $DeployFunctionInputs = @{
+              ResourceGroup      = '${{ github.event.inputs.resourceGroupName }}'
+              FunctionAppName    = $functionAppName
+          }
+          # Invoke Function
+          ./tools/scripts/deploy-function.ps1 @DeployFunctionInputs -Verbose

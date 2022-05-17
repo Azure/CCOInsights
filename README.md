@@ -9,6 +9,7 @@
 - [List of resources](README.md#List-of-resources)
 - [CCO Azure Infrastructure Dashboard report pages](README.md#cco-azure-infrastructure-dashboard-report-pages)
 - [CCO Azure Infrastructure Dashboard with AKS add-on report pages](README.md#cco-azure-infrastructure-dashboard-with-aks-add-on-report-pages)
+- [CCO GitHub Contributions Dashboard](README.md#cco-github-contributions-dashboard-pages)
 - [Call for Contribution](README.md#Call-for-Contribution)
 
 -------------------------------
@@ -81,7 +82,6 @@ The version 9.1 of the CCO Power BI Dashboard includes 10 report pages. You will
 - Page 10: IaaS Usage and Limits
 - Page 11: IaaS Idle Resources
 
-
 You can find more details about each page on the [Deployment Guide](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Infra/InfraDeploymentGuide.md) file.
 
 **IMPORTANT**: You must follow this [procedure](https://docs.microsoft.com/en-us/azure/lighthouse/how-to/onboard-customer) to implement Azure delegated resource management to get data from subscriptions in other tenants.
@@ -98,7 +98,21 @@ The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following 
 - Azure Container Instances information ***<span style="color:green"><sup>NEW</sup></span>***
 - Improved API Rest calls ***<span style="color:green"><sup>NEW</sup></span>***
 
+## CCO Azure GitHub Contributions Dashboard
 
+The version 1.0 of the CCO GitHub Contributions Dashboard includes 1 report page. You will be able to naviage, filter and report the following information:
+- Number of contributors
+- Total number of pull requests
+- Number of watchers
+- Number of stars
+- Number of forks
+- Number of clones
+- Number of open pull requests
+- Avergae pull requests per day
+- Pull requests' lifecycle (in days)
+- Comparison between number of open vs closed pull requests ofer the last months.
+- Comparison between number of additions vs deletions per month
+- Top contributors measured by changes in their pull requests.
 
 ## Old release notes
 

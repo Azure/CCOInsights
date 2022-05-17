@@ -1,16 +1,17 @@
 [CmdletBinding()]
 Param(
     [Parameter(Mandatory = $true)][String]$ResourceGroup,
-    [Parameter(Mandatory = $true)][String]$FunctionAppName
+    [Parameter(Mandatory = $true)][String]$FunctionAppName,
+    [Parameter(Mandatory = $true)][String]$Dashboard
 )
 
 # Create a Zip with the publish result
-$publishFolder = "dashboards/GitHubDashboard-Contributors/src/GitHubContributions"
+$publishFolder = "dashboards/$($Dashboard)Dashboard-Contributors/src/$($Dashboard)Contributions"
 $publishZip = "publish.zip"
 Add-Type -assembly "system.io.compression.filesystem"
 [io.compression.zipfile]::CreateFromDirectory($publishFolder, $publishZip)
 
-$AppSettings = Get-Content "dashboards/GitHubDashboard-Contributors/src/local.settings.json"
+$AppSettings = Get-Content "dashboards/$($Dashboard)Dashboard-Contributors/src/local.settings.json"
 # Deploy zipped package
 if (![string]::IsNullOrEmpty($AppSettings)) {
     $settings = ($AppSettings | ConvertFrom-Json)

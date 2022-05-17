@@ -2,33 +2,19 @@
 
 ### _Navigation_
 
-<<<<<<< HEAD
 - [CCO GitHub Contributions Dashboard](#cco-github-contributions-dashboard)
     - [_Navigation_](#navigation)
-- [- Dashboard](#--dashboard)
   - [Overview](#overview)
   - [Infrastructure](#infrastructure)
-- [This dashboard requires an infrastructure being deployed in Azure. The infrastructure consists of a Powershell Function App, an Application Insights for monitoring and a Storage Account where results from the GitHub REST API calls will be stored in different tables. The following diagram represents the infrastructure to be deployed.](#this-dashboard-requires-an-infrastructure-being-deployed-in-azure-the-infrastructure-consists-of-a-powershell-function-app-an-application-insights-for-monitoring-and-a-storage-account-where-results-from-the-github-rest-api-calls-will-be-stored-in-different-tables-the-following-diagram-represents-the-infrastructure-to-be-deployed)
-  - [Infrastructure](#infrastructure-1)
     - [Deployment](#deployment)
       - [Pre-requisites](#pre-requisites)
-- [<<<<<<< HEAD](#-head)
       - [Backend Deployment](#backend-deployment)
-- [- **GitHubDailySync**: this endpoint will be automatically executed in a daily basis and will add more data to the already created storage account tables. If you don't want a daily execution you can update the cron expression in the `function.json` file under the GitHub DailySync folder.](#--githubdailysync-this-endpoint-will-be-automatically-executed-in-a-daily-basis-and-will-add-more-data-to-the-already-created-storage-account-tables-if-you-dont-want-a-daily-execution-you-can-update-the-cron-expression-in-the-functionjson-file-under-the-github-dailysync-folder)
   - [Dashboard](#dashboard)
-=======
-- [Overview](#overview)
-- [Infrastructure](#Infrastructure)
-  - [Deployment](#deployment)
-  - [Backend Deployment](#Backend-Deployment)
-- [Dashboard](#dashboard)
->>>>>>> 1f9451a01e46a8b75e0a83e47bc4c40456a1d5aa
 
 ## Overview
 
 As part of the Continuous Cloud Optimization solution, a dashboard is included to track the contributions made to a GitHub repository. The objective is to monitor not only the cloud environment, but also all the resources used for its design, deployment and maintenance. This dashboard allows you to monitor different metrics such as:
 - Number of contributors
-<<<<<<< HEAD
 - Number of open pull requests
 - Average pull requests per day
 - Pull requests' lifecycle (in days)
@@ -40,19 +26,6 @@ An important note about this dashboard is that **this dashboard can be published
 ## Infrastructure
 
 This dashboard requires an infrastructure being deployed in Azure. The infrastructure consists of a Powershell Function App, an Application Insights for monitoring and a Storage Account where results from the GitHub REST API calls will be stored in different tables. The following diagram represents the infrastructure to be deployed.
-=======
-- Numer of open pull requests
-- Avergae pull requests per day
-- Pull requests' lifecycle (in days)
-- Comparison between number of open vs closed pull requests ofer the last months
-- ...
-
-An important note about this dashboard is that **this dashboard can be published in the PowerBI online service with autorefresh enabled**. The difference with the current versions of the other CCO dashboards is that, for this one, no dynamic queries are being done directly from the PowerBI file, meaning that it can be published and consumed directly from the [PowerBI online](https://docs.microsoft.com/en-us/power-bi/create-reports/desktop-upload-desktop-files) service.
-
-## Infrastructure
-
-This dashboard requires an infrastructure being deployed in Azure. The infrastructure consists of a Powershell Function App, an Application Ingishts for monitoring and a Storage Account where results from the GitHub REST API calls will be stored in different tables. The following diagram represents the infrastructure to be deployed.
->>>>>>> 1f9451a01e46a8b75e0a83e47bc4c40456a1d5aa
 
 ![GitHub Dashboard Architecture](/install/images/github-dashboard-architecture.png)
 
@@ -86,26 +59,17 @@ In order to successfully user the deploy.bicep and workflow provided, you will n
     | user | Update ALL user data |
     | admin:repo_hook | Full control of repository hooks |
     | admin:org | Full control of orgs and teams, read and write org projects |
-<<<<<<< HEAD
-=======
 - In the [local.settings.json](./src/local.settings.json) file, update the values for the `owner`, `repository`, `resourceGroup` and `storageAccount` with the names you want to configure in your environment. Also, make sure that these names match the values in the [deploy.bicep](./infrastructure/deploy.bicep) file for the same resources.
 
     > Note: The **owner** and **repository** names correpond to the GitHub organization and repository name from where the information needs to be retrieved.
->>>>>>> 1f9451a01e46a8b75e0a83e47bc4c40456a1d5aa
 
 #### Backend Deployment
 
 In the [infrastructure](./infrastructure/) folder you will find a `deploy.bicep` file which is the template that will be used to deploy the infrastructure. Please, go ahead and update the first two parameters (`name` and `staname`) with your unique values. **Name** will be used to compose the name of all resources except for the storage account, which will leverage the **staname**.
 
-<<<<<<< HEAD
 In the [src](./src/) folder you can find the source code that will be deployed in the Function App once the infrastructure is ready. Basically you will deploy two endpoints:
 - **InitializeTables**: you will need to run this endpoint once manually to initialize the Storage Account with the required tables and collect all the data history available in the GitHub API.
 - **GitHubDailySync**: this endpoint will be automatically executed in a daily basis and will add more data to the already created storage account tables. If you don't want a daily execution you can update the cron expression in the `function.json` file under the [GitHub DailySync folder](./src/GitHubContributions/GitHubDailySync/).
-=======
-In the [src](./src/) folder you can find the source code that will be deployed in the Function App once the infrastructure is ready. Basically you will deply two endpoints:
-- **InitializeTables**: you will need to run this endpoint once manually to initiallize the Storage Account with the required tables and collect all the data history available in the GitHub API.
-- **GitHubDailySync**: this enpoint will be automatically executed in a daily basis and will add more data to the already created storage account tables. If you don't want a daily execution you can update the cron expression in the `function.json` file under the [GitHub DailySync folder](./src/GitHubContributions/GitHubDailySync/).
->>>>>>> 1f9451a01e46a8b75e0a83e47bc4c40456a1d5aa
 
 Finally, if you go to the root folder of the repository you will find the [workflows folder](/.github/workflows/) under the `.github` folder. There you can locate the workflow that you will have to execute to deploy the backend of the dashboard. The only parameter you will need to setup manually while triggering the workflow in the `resourceGroupName` that you created earlier.
 

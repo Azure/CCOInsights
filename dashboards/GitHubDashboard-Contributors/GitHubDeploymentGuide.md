@@ -38,7 +38,7 @@ In order to successfully user the deploy.bicep and workflow provided, you will n
 - A [resource group](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal) already created.
 - A service principal with Owner permissions in your subscription. You will need owner permissions because as part of the architecture you will be creating a Managed Identity that will require a role assignment to save the retrieve data in the Storage Account. You can create your service principal with Contributor permissions by executing the following commands:
     ```sh
-    az ad sp create-for-rbac --name "mgr-labs-<<username>>" --role "Contributor" --output "json"
+    az ad sp create-for-rbac --name "<<service-principal-name>>" --role "Contributor" --output "json"
     ```
 - A secret in your GitHub repository with the name `AZURE_CREDENTIALS`. You can user the output from the previous command to generate this secret. The format of the secret should be:
     ```json
@@ -56,6 +56,9 @@ In order to successfully user the deploy.bicep and workflow provided, you will n
     | user | Update ALL user data |
     | admin:repo_hook | Full control of repository hooks |
     | admin:org | Full control of orgs and teams, read and write org projects |
+- In the [local.settings.json](./src/local.settings.json) file, update the values for the `owner`, `repository`, `resourceGroup` and `storageAccount` with the names you want to configure in your environment. Also, make sure that these names match the values in the [deploy.bicep](./infrastructure/deploy.bicep) file for the same resources.
+
+    > Note: The **owner** and **repository** names correpond to the GitHub organization and repository name from where the information needs to be retrieved.
 
 #### Backend Deployment
 

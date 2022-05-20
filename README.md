@@ -4,7 +4,7 @@
 ## Content
 
 - [Overview](README.md#overview)
-- [CCO Azure Governance Dashboard Governance Version 2.5](README.md#cco-azure-governance-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
+- [CCO Azure Governance Dashboard Governance Version 2.6](README.md#cco-azure-governance-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
 - [CCO Azure Infrastructure Dashboard Version 9.1](README.md#cco-azure-infrastructure-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
 - [List of resources](README.md#List-of-resources)
 - [CCO Azure Infrastructure Dashboard report pages](README.md#cco-azure-infrastructure-dashboard-report-pages)
@@ -37,9 +37,9 @@ The current set of CCO Dashboards includes 3 different Dashboards to discover in
 - Management Group filtering
 - IMPORTANT: Now it requires the Custom connector (mandatory to retrieve the MGs)
 
-### **CCO Azure Governance Dashboard Version 2.5 Updates**
+### **CCO Azure Governance Dashboard Version 2.6 Updates**
 
-- Governance dashboard MG&Subscription visual fix
+- Governance dashboard policies visuals fix
 
 ## List of resources
 
@@ -55,7 +55,7 @@ This project includes the following resources:
 
 ## CCO Azure Governance Dashboard Report Pages
 
-The version 2.5 of the CCO Power BI Dashboard Governance includes the following information:
+The version 2.6 of the CCO Power BI Dashboard Governance includes the following information:
 
 - Azure Management Groups and Subscriptions hierarchy
 - Resource Groups and Resources Tagging information
@@ -74,7 +74,7 @@ The version 9.1 of the CCO Power BI Dashboard includes 10 report pages. You will
 - Page 2: Azure Advisor Recommendations
 - Page 3: Azure Security Center Alerts
 - Page 4: Azure Compute information
-- Page 5: Web Applications (Includding function Apps)
+- Page 5: Web Applications (Including function Apps)
 - Page 6 Azure Networking information
 - Page 7: Network Security Groups
 - Page 8: Azure RBAC permissions
@@ -86,7 +86,34 @@ You can find more details about each page on the [Deployment Guide](https://gith
 
 **IMPORTANT**: You must follow this [procedure](https://docs.microsoft.com/en-us/azure/lighthouse/how-to/onboard-customer) to implement Azure delegated resource management to get data from subscriptions in other tenants.
 
-## CCO Azure Infrastructure Dashboard with AKS add-on Report Pages
+## CCO Azure GitHub Contributions Dashboard
+
+The version 1.0 of the CCO GitHub Contributions Dashboard includes 1 report page. You will be able to navigate, filter and report the following information:
+- Number of contributors
+- Total number of pull requests
+- Number of watchers
+- Number of stars
+- Number of forks
+- Number of clones
+- Number of open pull requests
+- Average pull requests per day
+- Pull requests' lifecycle (in days)
+- Comparison between number of open vs closed pull requests over the last months.
+- Comparison between number of additions vs deletions per month
+- Top contributors measured by changes in their pull requests.
+
+## CCO Azure ADO Contributions Dashboard
+
+The version 1.0 of the CCO ADO Contributions Dashboard includes 1 report page. You will be able to navigate, filter and report the following information:
+- Number of Projects
+- Number of open/closed pull requests
+- Average pull requests per day
+- Comparison between number of open vs closed pull requests over the last months
+- Branches created over the last months
+- ...
+
+
+## CCO Azure Infrastructure Dashboard with AKS add-on Report Pages (not updated)
 
 The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following information:
 
@@ -97,22 +124,6 @@ The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following 
 - Service principals (showing assigned RBAC Roles) with cluster permissions ***<span style="color:green"><sup>NEW</sup></span>***
 - Azure Container Instances information ***<span style="color:green"><sup>NEW</sup></span>***
 - Improved API Rest calls ***<span style="color:green"><sup>NEW</sup></span>***
-
-## CCO Azure GitHub Contributions Dashboard
-
-The version 1.0 of the CCO GitHub Contributions Dashboard includes 1 report page. You will be able to naviage, filter and report the following information:
-- Number of contributors
-- Total number of pull requests
-- Number of watchers
-- Number of stars
-- Number of forks
-- Number of clones
-- Number of open pull requests
-- Avergae pull requests per day
-- Pull requests' lifecycle (in days)
-- Comparison between number of open vs closed pull requests ofer the last months.
-- Comparison between number of additions vs deletions per month
-- Top contributors measured by changes in their pull requests.
 
 ## Old release notes
 

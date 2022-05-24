@@ -8,7 +8,7 @@ Function Get-Project {
     $ctx = $storageAccount.Context
     $partitionKey = "Project"
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
-    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
 
     Write-Host "Fetching projects..."
     $projectsBaseUrl = "https://dev.azure.com/$($organization)/_apis/projects?api-version=6.0"
@@ -51,7 +51,7 @@ Function Get-Repository {
     $ctx = $storageAccount.Context
     $partitionKey = "Repository"
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
-    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
 
     Write-Host "Fetching repositories..."
     $dashboardRepositories = @()
@@ -107,7 +107,7 @@ Function Get-OpenPullRequests {
     $ctx = $storageAccount.Context
     $partitionKey = "OpenPullRequests"
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
-    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
 
     Write-Host "Fetching open pull requests for project $($projectName) and repository $($repositoryId)..."
     $openPullRequestsBaseUrl = "https://dev.azure.com/$($organization)/$($projectName)/_apis/git/repositories/$($repositoryId)/pullrequests?api-version=7.1-preview.1"
@@ -181,7 +181,7 @@ Function Get-ClosedPullRequests {
     $ctx = $storageAccount.Context
     $partitionKey = "ClosedPullRequests"
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
-    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
 
     Write-Host "Fetching closed pull requests..."
     $closedPullRequestsBaseUrl = "https://dev.azure.com/$($organization)/$($projectName)/_apis/git/repositories/$($repositoryId)/pullrequests?searchCriteria.status=completed&api-version=7.1-preview.1"
@@ -255,7 +255,7 @@ Function Get-Commits {
     $ctx = $storageAccount.Context
     $partitionKey = "Commits"
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
-    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
 
     Write-Host "Fetching commits for project $($projectName) and repository $($repositoryId)..."
     $commitsBaseUrl = "https://dev.azure.com/$($organization)/$($projectName)/_apis/git/repositories/$($repositoryId)/commits?api-version=6.0"
@@ -308,7 +308,7 @@ Function Get-Branches {
     $ctx = $storageAccount.Context
     $partitionKey = "Branches"
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
-    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
 
     Write-Host "Fetching branches for project $($projectName) and repository $($repositoryId)..."
     $branchesBaseUrl = "https://dev.azure.com/$($organization)/$($projectName)/_apis/git/repositories/$($repositoryId)/refs?api-version=6.0"

@@ -362,7 +362,7 @@ Function Get-Wikis {
 
         $wikis = Invoke-RestMethod -Uri $wikisBaseUrl -Method Get -ContentType "application/json" -Headers $header
         $wikis.value | ForEach-Object {
-            if ((![String]::IsNullOrEmpty($_.id)) -and (!$_.isDisabled) ) {
+            if (![String]::IsNullOrEmpty($_.id)) {
                 $wikisTable = @{
                     id          = $_.id
                     name        = $_.name

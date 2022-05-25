@@ -374,6 +374,15 @@ Function Get-Wikis {
             }
         }
     }
+    Write-Host "$($dashboardWikis.Count) wikis successfully loaded"
+    $output = @()
+    $dashboardWikis | ForEach-Object {
+        $output += @{
+            projectName = $_.projectName
+            wikiId = $_.id         
+        }
+    }
+    return $output
 }
 
 Function Get-WikiStats {

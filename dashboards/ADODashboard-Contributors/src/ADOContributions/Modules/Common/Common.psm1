@@ -417,7 +417,7 @@ Function Get-WikiStats {
 
     $params = @{
         'Uri'         = $wikiStatsBaseUrl
-        'Headers'     = $Header
+        'Headers'     = $header
         'Method'      = 'POST'
         'Body'        = $body
         'ContentType' = 'application/json; charset=utf-8'

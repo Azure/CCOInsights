@@ -405,6 +405,7 @@ Function Get-WikiStats {
     $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
 
     Write-Host "Fetching wiki statistics..."
+    Write-Host "Fetching wiki statistics for project $($projectName) and wikiId $($wikiId)..."
     $dashboardWikiStats = @()
     $wikiStatsBaseUrl = ('https://dev.azure.com/{0}/{1}/_apis/wiki/wikis/{2}/pagesbatch?api-version=7.1-preview.1' -f $Organization, $projectName, $wikiId)
     $encodedToken = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes((":{0}" -f $pat)))
@@ -445,6 +446,8 @@ Function Get-WikiStats {
         }
 
         $wikiStats = ($TotalResult | ConvertFrom-Json).value | Select-Object path, @{'Label' = 'Visits'; E = { ($_.viewStats | measure-object -Property count -Sum).sum } }, Id, viewStats
+        Write-Host 'Output wikiStats variable output'
+        $wikiStats
         $wikiStats | ForEach-Object {
             if (![String]::IsNullOrEmpty($_.id)) {
                 $wikiStatsTable = @{

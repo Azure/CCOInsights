@@ -12,4 +12,7 @@ $repositories | ForEach-Object {
     Get-Commits -projectName $_.projectName -repositoryId $_.id
     Get-Branches -projectName $_.projectName -repositoryId $_.id
 }
-Get-Wikis -projectNames $projectNames
+$wikis = Get-Wikis -projectNames $projectNames
+$wikis | ForEach-Object {
+    Get-WikiStats -projectName $_.projectName -wikiId $_.id
+}

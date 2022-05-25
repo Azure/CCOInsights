@@ -375,3 +375,79 @@ Function Get-Wikis {
         }
     }
 }
+
+Function Get-WikiStats {
+    [CmdletBinding()]
+    param (
+        [Parameter()]
+        [string]$projectName,
+        [Parameter()]
+        [string]$wikiId
+    )
+    
+    $organization = $env:organization
+    $pat = $env:pat
+
+    #Create table
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+    $ctx = $storageAccount.Context
+    $partitionKey = "WikiStats"
+    New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
+
+    Write-Host "Fetching wiki statistics..."
+    $dashboardWikiStats = @()
+    $wikiStatsBaseUrl = ('https://dev.azure.com/{0}/{1}/_apis/wiki/wikis/{2}/pagesbatch?api-version=7.1-preview.1' -f $Organization, $projectName, $wikiId)
+    $encodedToken = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes((":{0}" -f $pat)))
+    $header = @{authorization = "Basic $encodedToken" }
+    foreach ($wiki in $wikis) {
+        $TotalResult = @()
+        $body = @{
+            "pageViewsForDays" = 30
+        } | ConvertTo-Json
+
+        $params = @{
+            'Uri'         = $wikiStatsBaseUrl
+            'Headers'     = $Header
+            'Method'      = 'POST'
+            'Body'        = $body
+            'ContentType' = 'application/json; charset=utf-8'
+        }
+
+        $Result = Invoke-WebRequest @params
+        $TotalResult += $Result.Content
+
+        While ($Result.Headers.'X-MS-ContinuationToken') {
+            $body = @{
+                "pageViewsForDays"  = 30
+                "continuationToken" = $($Result.Headers.'X-MS-ContinuationToken')
+            } | ConvertTo-Json
+
+            $params = @{
+                'Uri'         = $wikiStatsBaseUrl
+                'Headers'     = $Header
+                'Method'      = 'POST'
+                'Body'        = $body
+                'ContentType' = 'application/json; charset=utf-8'
+            }
+
+            $Result = Invoke-WebRequest @params
+            $TotalResult += $Result.Content
+        }
+
+        $wikiStats = ($TotalResult | ConvertFrom-Json).value | Select-Object path, @{'Label' = 'Visits'; E = { ($_.viewStats | measure-object -Property count -Sum).sum } }, Id, viewStats
+        $wikiStats | ForEach-Object {
+            if (![String]::IsNullOrEmpty($_.id)) {
+                $wikiStatsTable = @{
+                    id          = $_.id
+                    path        = $_.name
+                    projectName = $projectName
+                    viewStats   = $_.viewStats
+                    visits      = $_.visits
+                }
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.id -property $wikiStatsTable -UpdateExisting | Out-Null
+                $dashboardWikiStats += $wikiStatsTable
+            }
+        }
+    }
+}

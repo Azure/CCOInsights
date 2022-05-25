@@ -334,3 +334,44 @@ Function Get-Branches {
     }
     Write-Host "$($dashboardBranches.Count) commits successfully loaded"
 }
+
+Function Get-Wikis {
+    [CmdletBinding()]
+    param (
+        [Parameter()]
+        [array]$projectNames
+    )
+    
+    $organization = $env:organization
+    $pat = $env:pat
+
+    #Create table
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+    $ctx = $storageAccount.Context
+    $partitionKey = "Wikis"
+    New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
+
+    Write-Host "Fetching wikis..."
+    $dashboardWikis = @()
+    foreach ($projectName in $projectNames) {
+
+        $wikisBaseUrl = ('https://dev.azure.com/{0}/{1}/_apis/wiki/wikis?api-version=6.0-preview.1' -f $Organization, $projectName)
+        $encodedToken = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes((":{0}" -f $pat)))
+        $header = @{authorization = "Basic $encodedToken" }
+
+        $wikis = Invoke-RestMethod -Uri $wikisBaseUrl -Method Get -ContentType "application/json" -Headers $header
+        $wikis.value | ForEach-Object {
+            if ((![String]::IsNullOrEmpty($_.id)) -and (!$_.isDisabled) ) {
+                $wikisTable = @{
+                    id          = $_.id
+                    name        = $_.name
+                    projectName = $projectName
+                    projectId   = $_.projectid
+                }
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.id -property $wikisTable -UpdateExisting | Out-Null
+                $dashboardWikis += $wikisTable
+            }
+        }
+    }
+}

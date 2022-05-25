@@ -442,6 +442,7 @@ Function Get-WikiStats {
                     id          = $_.id
                     path        = $_.name
                     projectName = $projectName
+                    projectId   = $_.projectid
                     viewStats   = $_.viewStats
                     visits      = $_.visits
                 }

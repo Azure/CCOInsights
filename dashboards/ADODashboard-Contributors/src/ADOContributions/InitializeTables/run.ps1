@@ -14,5 +14,5 @@ $repositories | ForEach-Object {
 }
 $wikis = Get-Wikis -projectNames $projectNames
 $wikis | ForEach-Object {
-    Get-WikiStats -projectName $_.projectName -wikiId $_.wikiId
+    Get-WikiStats -projectName $_.projectName -projectId $_.projectId -wikiId $_.wikiId
 }

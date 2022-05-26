@@ -379,6 +379,7 @@ Function Get-Wikis {
     $dashboardWikis | ForEach-Object {
         $output += @{
             projectName = $_.projectName
+            projectId   = $_.projectid
             wikiId      = $_.id         
         }
     }
@@ -390,6 +391,8 @@ Function Get-WikiStats {
     param (
         [Parameter()]
         [string]$projectName,
+        [Parameter()]
+        [string]$projectId,
         [Parameter()]
         [string]$wikiId
     )
@@ -450,6 +453,7 @@ Function Get-WikiStats {
                 id               = $_.id
                 path             = $_.path
                 projectName      = $projectName
+                projectId        = $projectId
                 visits           = [int]($_.viewStats | measure-object -Property count -Sum).sum
                 pageViewsForDays = 30
             }

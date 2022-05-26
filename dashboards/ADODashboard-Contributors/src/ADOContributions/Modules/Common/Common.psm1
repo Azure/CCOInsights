@@ -444,19 +444,17 @@ Function Get-WikiStats {
         $TotalResult += $Result.Content
     }
 
-    $wikiStats = ($TotalResult | ConvertFrom-Json).value | Select-Object path, @{'Label' = 'Visits'; E = { ($_.viewStats | measure-object -Property count -Sum).sum } }, Id, viewStats
-    $wikiStats | ForEach-Object {
+        ($TotalResult | ConvertFrom-Json).value | ForEach-Object {
         if (![String]::IsNullOrEmpty($_.id)) {
             $wikiStatsTable = @{
                 id          = $_.id
-                path        = $_.name
+                path        = $_.path
                 projectName = $projectName
-                projectId   = $_.projectid
-                viewStats   = $_.viewStats
-                visits      = $_.visits
+                #viewStats   = $_.viewStats
+                visits      = ($_.viewStats | measure-object -Property count -Sum).sum
             }
-            Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.id -property $wikiStatsTable -UpdateExisting | Out-Null
+            Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.id -property $wikiStatsTable | Out-Null
             $dashboardWikiStats += $wikiStatsTable
-        }
+        }        
     }    
 }

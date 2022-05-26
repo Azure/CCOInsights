@@ -445,8 +445,6 @@ Function Get-WikiStats {
     }
 
     $wikiStats = ($TotalResult | ConvertFrom-Json).value | Select-Object path, @{'Label' = 'Visits'; E = { ($_.viewStats | measure-object -Property count -Sum).sum } }, Id, viewStats
-    Write-Host 'Output wikiStats variable output'
-    $wikiStats
     $wikiStats | ForEach-Object {
         if (![String]::IsNullOrEmpty($_.id)) {
             $wikiStatsTable = @{

@@ -444,17 +444,17 @@ Function Get-WikiStats {
         $TotalResult += $Result.Content
     }
 
-        ($TotalResult | ConvertFrom-Json).value | ForEach-Object {
+    ($TotalResult | ConvertFrom-Json).value | ForEach-Object {
         if (![String]::IsNullOrEmpty($_.id)) {
             $wikiStatsTable = @{
-                id          = $_.id
-                path        = $_.path
-                projectName = $projectName
-                #viewStats   = $_.viewStats
-                visits      = ($_.viewStats | measure-object -Property count -Sum).sum
+                id               = $_.id
+                path             = $_.path
+                projectName      = $projectName
+                visits           = [int]($_.viewStats | measure-object -Property count -Sum).sum
+                pageViewsForDays = 30
             }
-            Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.id -property $wikiStatsTable | Out-Null
+            Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $(new-guid).guid -property $wikiStatsTable | Out-Null
             $dashboardWikiStats += $wikiStatsTable
         }        
-    }    
+    }
 }

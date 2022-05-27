@@ -407,6 +407,9 @@ Function Get-WikiStats {
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
     $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
 
+    #Delete all entities in the table
+    Get-AzTableRow -table $table | Remove-AzTableRow -table $table | Out-Null
+
     Write-Host "Fetching wiki statistics for project $($projectName) and wikiId $($wikiId)..."
     $dashboardWikiStats = @()
     $wikiStatsBaseUrl = ('https://dev.azure.com/{0}/{1}/_apis/wiki/wikis/{2}/pagesbatch?api-version=7.1-preview.1' -f $Organization, $projectName, $wikiId)

@@ -17,5 +17,5 @@ $wikis | ForEach-Object -parallel {
     $wikiStats = Get-WikiStats -projectName $_.projectName -projectId $_.projectId -wikiId $_.wikiId
 }
 $wikiStats | ForEach-Object -parallel {
-    Get-WikiPages -projectName $_.projectName -projectId $_.projectId -Id $_.Id
+    Get-WikiPage -projectName $_.projectName -projectId $_.projectId -Id $_.Id -wikiId $_.wikiId
 }

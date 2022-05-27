@@ -13,9 +13,9 @@ $repositories | ForEach-Object {
     Get-Branches -projectName $_.projectName -repositoryId $_.id
 }
 $wikis = Get-Wikis -projectNames $projectNames
-$wikis | ForEach-Object -parallel {
+$wikis | ForEach-Object {
     $wikiStats = Get-WikiStats -projectName $_.projectName -projectId $_.projectId -wikiId $_.wikiId
 }
-$wikiStats | ForEach-Object -parallel {
+$wikiStats | ForEach-Object {
     Get-WikiPage -projectName $_.projectName -projectId $_.projectId -Id $_.Id -wikiId $_.wikiId
 }

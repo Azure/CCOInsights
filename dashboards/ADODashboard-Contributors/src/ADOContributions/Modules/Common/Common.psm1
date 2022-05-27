@@ -518,8 +518,7 @@ Function Get-WikiPage {
             projectName = $projectName
             projectId   = $projectid
         }
-        Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $wikiPage.id -property $wikiPageTable -UpdateExisting | Out-Null
+        Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey ({0}-{1} -f $wikiId, $($wikiPage.id) )-property $wikiPageTable -UpdateExisting | Out-Null
         $dashboardWikiPages += $wikiPageTable
     }
-
 }

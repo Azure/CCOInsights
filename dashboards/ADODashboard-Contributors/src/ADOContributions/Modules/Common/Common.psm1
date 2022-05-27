@@ -453,6 +453,7 @@ Function Get-WikiStats {
     ($TotalResult | ConvertFrom-Json).value | ForEach-Object {
         if (![String]::IsNullOrEmpty($_.id)) {
             $wikiStatsTable = @{
+                wikiId           = $wikiId
                 id               = $_.id
                 path             = $_.path
                 projectName      = $projectName
@@ -464,4 +465,61 @@ Function Get-WikiStats {
             $dashboardWikiStats += $wikiStatsTable
         }        
     }
+    Write-Host "$($dashboardWikiStats.Count) wikistats successfully loaded"
+    $output = @()
+    $dashboardWikiStats | ForEach-Object {
+        $output += @{
+            projectName = $_.projectName
+            projectId   = $_.projectid
+            wikiId      = $_.wikiId
+            id          = $_.id         
+        }
+    }
+    return $output
+}
+
+# Iterate through all wiki pages and retrieve latest commit per wiki page.
+Function Get-WikiPage {
+    [CmdletBinding()]
+    param (
+        [Parameter()]
+        [string]$projectName,
+        [Parameter()]
+        [string]$projectId,
+        [Parameter()]
+        [string]$wikiId,
+        [Parameter()]
+        [string]$Id
+    )
+
+    $organization = $env:organization
+    $pat = $env:pat
+
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+    $ctx = $storageAccount.Context
+    $partitionKey = "WikiPages"
+    New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
+
+    Write-Host "Fetching wiki page with id: $id..."
+    $dashboardWikiPages = @()
+
+    $wikiPagesBaseUrl = ('https://dev.azure.com/{0}/{1}/_apis/wiki/wikis/{2}/pages/{3}?api-version=7.1-preview.1' -f $organization, $project, $wikiId, $id)
+    $encodedToken = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes((":{0}" -f $pat)))
+    $header = @{authorization = "Basic $encodedToken" }
+
+    $wikiPage = Invoke-RestMethod -Uri $wikiPagesBaseUrl -Method Get -ContentType "application/json" -Headers $header
+
+    if (![String]::IsNullOrEmpty($wikiPage.id)) {
+        $wikiPageTable = @{
+            path        = $wikiPage.path
+            id          = $wikiPage.id
+            gitItemPath = $wikiPage.gitItemPath
+            projectName = $projectName
+            projectId   = $projectid
+        }
+        Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $wikiPage.id -property $wikiPageTable -UpdateExisting | Out-Null
+        $dashboardWikiPages += $wikiPageTable
+    }
+
 }

@@ -477,8 +477,6 @@ Function Get-WikiStats {
     }
     return $output
 }
-
-# Iterate through all wiki pages and retrieve latest commit per wiki page.
 Function Get-WikiPage {
     [CmdletBinding()]
     param (
@@ -495,6 +493,7 @@ Function Get-WikiPage {
     $organization = $env:organization
     $pat = $env:pat
 
+    #Create table
     $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
     $ctx = $storageAccount.Context
     $partitionKey = "WikiPages"
@@ -504,7 +503,7 @@ Function Get-WikiPage {
     Write-Host "Fetching wiki page with id: $id..."
     $dashboardWikiPages = @()
 
-    $wikiPagesBaseUrl = ('https://dev.azure.com/{0}/{1}/_apis/wiki/wikis/{2}/pages/{3}?api-version=7.1-preview.1' -f $organization, $project, $wikiId, $id)
+    $wikiPagesBaseUrl = ('https://dev.azure.com/{0}/{1}/_apis/wiki/wikis/{2}/pages/{3}?api-version=7.1-preview.1' -f $organization, $projectName, $wikiId, $id)
     $encodedToken = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes((":{0}" -f $pat)))
     $header = @{authorization = "Basic $encodedToken" }
 
@@ -520,5 +519,5 @@ Function Get-WikiPage {
         }
         Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey ('{0}-{1}' -f $wikiId, $($wikiPage.id)) -property $wikiPageTable -UpdateExisting | Out-Null
         $dashboardWikiPages += $wikiPageTable
-    }
+    }    
 }

@@ -41,7 +41,7 @@ In order to successfully user the deploy.bicep and workflow provided, you will n
 - A [resource group](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal) already created.
 - A service principal with Owner permissions in your subscription. You will need owner permissions because as part of the architecture you will be creating a Managed Identity that will require a role assignment to save the retrieved data in the Storage Account. You can create your service principal with Contributor rights by executing the following commands:
     ```sh
-    az ad sp create-for-rbac --name "<<service-principal-name>>" --role "Contributor" --output "json"
+    az ad sp create-for-rbac --name "<<service-principal-name>>" --role "Contributor" --scopes /subscriptions/<<subscriptionId>> --output "json" 
     ```
 - A secret in your GitHub repository with the name `AZURE_CREDENTIALS`. You can user the output from the previous command to generate this secret. The format of the secret should be:
     ```json
@@ -52,7 +52,7 @@ In order to successfully user the deploy.bicep and workflow provided, you will n
     "TenantId": "<tenant_id>"
     }
     ```
-- Another secret in your Azure DevOps repository with the name `PAT`. This will be store the value of a PAT token you will need to generate with the following permissions:
+- Another secret in your Azure DevOps repository with the name `ADOPAT`. This will be store the value of a PAT token you will need to generate with the following permissions:
     | Scope | Permission |
     |-------| ---------- |
     | Code | Read |

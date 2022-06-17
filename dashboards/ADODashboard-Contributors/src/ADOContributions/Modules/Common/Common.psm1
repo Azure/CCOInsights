@@ -449,13 +449,75 @@ Function Get-WikiStats {
 
     ($TotalResult | ConvertFrom-Json).value | ForEach-Object {
         if (![String]::IsNullOrEmpty($_.id)) {
+            # Emulate gitItempath creation. Otherwise, each individual wiki page needs to be fetched (which slows down the process)
+            $regex = [regex]'[\-:*?+"]'
+            $_.path = $regex.replace($_.path, { "%$('{0:X2}' -f [int]$args[0].value[0])" })
+            $gitItemPath = $_.path.Replace(' ', '-').Replace('%2B', '+') + '.md'
+            $id = $_.id
+
+            Try {
+                # Get Wiki Page Owner via REST API
+                $body = @{
+                    "includeUserImageUrl" = $false
+                    "itemPath"            = $gitItemPath
+                    "includePushData"     = $true
+                } | ConvertTo-Json
+    
+                $params = @{
+                    'Uri'         = ('https://dev.azure.com/{0}/{1}/_apis/git/repositories/{2}/CommitsBatch?$top=1&api-version=6.0' -f $Organization, $projectName, $wikiId)
+                    'Headers'     = $Header
+                    'Method'      = 'POST'
+                    'Body'        = $body
+                    'ContentType' = 'application/json; charset=utf-8'
+                }
+                $response = Invoke-RestMethod @params -errorAction Stop
+                $CommitterName = $response.value.committer.name
+            }
+            Catch {
+                # If the commit for the wiki page cannot be found, try a different method.
+                $Uri = ('https://dev.azure.com/{0}/{1}/_apis/wiki/wikis/{2}/pages/{3}?api-version=7.1-preview.1' -f $Organization, $projectName, $WikiId, $id)
+
+                $Header = @{
+                    'Authorization' = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($PAT)")) 
+                }
+
+                $params = @{
+                    'Uri'         = $Uri
+                    'Headers'     = $Header
+                    'Method'      = 'GET'
+                    'ContentType' = 'application/json; charset=utf-8'
+                }
+    
+                $Result = Invoke-RestMethod @params
+                $gitItemPath = $result.gitItemPath
+
+                # Get Wiki Page Owner via REST API
+                $body = @{
+                    "includeUserImageUrl" = $false
+                    "itemPath"            = $gitItemPath
+                    "includePushData"     = $true
+                } | ConvertTo-Json
+    
+                $params = @{
+                    'Uri'         = ('https://dev.azure.com/{0}/{1}/_apis/git/repositories/{2}/CommitsBatch?$top=1&api-version=6.0' -f $Organization, $projectName, $wikiId)
+                    'Headers'     = $Header
+                    'Method'      = 'POST'
+                    'Body'        = $body
+                    'ContentType' = 'application/json; charset=utf-8'
+                }
+                $response = Invoke-RestMethod @params -errorAction Stop
+                $CommitterName = $response.value.committer.name
+            }            
+
             $wikiStatsTable = @{
                 wikiId           = $wikiId
                 id               = $_.id
                 path             = $_.path
+                gitItemPath      = $gitItemPath
                 projectName      = $projectName
                 projectId        = $projectId
                 visits           = [int]($_.viewStats | measure-object -Property count -Sum).sum
+                owner            = $CommitterName
                 pageViewsForDays = 30
             }
             Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $(new-guid).guid -property $wikiStatsTable | Out-Null

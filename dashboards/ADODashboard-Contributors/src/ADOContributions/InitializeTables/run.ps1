@@ -15,15 +15,9 @@ $repositories | ForEach-Object {
 $wikis = Get-Wikis -projectNames $projectNames
 
 # Clear existing WikiStats Azure Storage Table
-$ctx = $storageAccount.Context
-$partitionKey = "WikiStats"
-New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
-$table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
-Get-AzTableRow -table $table | Remove-AzTableRow -table $table | Out-Null
+Remove-WikiStatsTable
+
 # Get wiki stats
 $wikis | ForEach-Object {
     $wikiStats = Get-WikiStats -projectName $_.projectName -projectId $_.projectId -wikiId $_.wikiId
 }
-# $wikiStats | ForEach-Object {
-#     Get-WikiPage -projectName $_.projectName -projectId $_.projectId -Id $_.Id -wikiId $_.wikiId
-# }

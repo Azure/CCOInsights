@@ -386,6 +386,19 @@ Function Get-Wikis {
     return $output
 }
 
+Function Remove-WikiStatsTable {
+
+    Write-output "Clearing existing WikiStats Azure Storage Table"
+    
+    #Remove WikiStats table
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+
+    $ctx = $storageAccount.Context
+    $partitionKey = "WikiStats"
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable    
+    Get-AzTableRow -table $table | Remove-AzTableRow -table $table | Out-Null
+}
+
 Function Get-WikiStats {
     [CmdletBinding()]
     param (

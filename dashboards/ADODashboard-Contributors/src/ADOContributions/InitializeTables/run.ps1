@@ -19,5 +19,5 @@ Remove-WikiStatsTable
 
 # Get wiki stats
 $wikis | ForEach-Object {
-    $wikiStats = Get-WikiStats -projectName $_.projectName -projectId $_.projectId -wikiId $_.wikiId
+    Get-WikiStats -projectName $_.projectName -projectId $_.projectId -wikiId $_.wikiId
 }

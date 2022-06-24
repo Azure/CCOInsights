@@ -1,33 +1,33 @@
 
-# Continuous Cloud Optimization Power BI Dashboards Project
+# Continuous Cloud Optimization Insights
 
 ## Content
 
 - [Overview](README.md#overview)
 - [CCO Azure Governance Dashboard Governance Version 2.6](README.md#cco-azure-governance-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
 - [CCO Azure Infrastructure Dashboard Version 9.1](README.md#cco-azure-infrastructure-dashboard-report-pages) ***<span style="color:green"><sup>NEW</sup></span>***
-- [List of resources](README.md#List-of-resources)
+- [List of resources](README.md#list-of-resources)
 - [CCO Azure Infrastructure Dashboard report pages](README.md#cco-azure-infrastructure-dashboard-report-pages)
-- [CCO Azure Infrastructure Dashboard with AKS add-on report pages](README.md#cco-azure-infrastructure-dashboard-with-aks-add-on-report-pages)
-- [CCO GitHub Contributions Dashboard](README.md#cco-github-contributions-dashboard-pages)
-- [Call for Contribution](README.md#Call-for-Contribution)
+- [CCO Azure Infrastructure Dashboard with AKS add-on report pages](README.md#cco-azure-infrastructure-dashboard-with-aks-add-on-report-pages-not-updated)
+- [CCO GitHub Contributions Dashboard](README.md#cco-github-contributions-dashboard)
+- [Call for Contribution](README.md#call-for-contribution)
 
 -------------------------------
 
 ## Overview
 
-The Continuous Cloud Optimization Power BI Dashboards project is a set of Power BI Desktop Reports developed using Power Query M language and DAX, that pulls information directly from different Azure REST APIs and enables monitoring, operation and infrastructure teams to quickly gain insights about their existing Azure Platform footprint and resources.
+The Continuous Cloud Optimization Insights project is a set of Power BI Desktop Reports developed using Power Query M language and DAX, that pulls information directly from different Azure REST APIs and enables monitoring, operation and infrastructure teams to quickly gain insights about their existing Azure Platform footprint and resources.
 
-The current set of CCO Dashboards includes 3 different Dashboards to discover information about different Azure critical design areas:
+CCO Insights currently includes 3 different Dashboards to discover information about different Azure critical design areas:
 
-- [**CCO Azure Infrastructure Dashboard**](/dashboards/CCODashboard-Infra/InfraDeploymentGuide.md): Get insights about Azure advisor optimizations, Azure Security Center Alerts, Networking, Compute, RBAC, Idle resources and Subscriptions Quotas and Limits
-- [**CCO Azure Governance Dashboard**](/dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md): Get insights about Azure Governance aspects like Management Groups and Subscriptions hierarchy, resource tagging and naming standards, security controls, policies compliance, Regulatory Standards and Azure Blueprints
-- [**CCO Azure Infrastructure Dashboard with AKS**](/dashboards/CCODashboard-Infra/InfraDeploymentGuide.md): Get insights about AKS information
+- [**CCO Azure Infrastructure Dashboard**](./dashboards/CCODashboard-Infra/InfraDeploymentGuide.md): Get insights about Azure advisor optimizations, Azure Security Center Alerts, Networking, Compute, RBAC, Idle resources and Subscriptions Quotas and Limits
+- [**CCO Azure Governance Dashboard**](./dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md): Get insights about Azure Governance aspects like Management Groups and Subscriptions hierarchy, resource tagging and naming standards, security controls, policies compliance, Regulatory Standards and Azure Blueprints
+- [**CCO Azure Infrastructure Dashboard with AKS**](./dashboards/CCODashboard-Infra/InfraDeploymentGuide.md): Get insights about AKS information
 
 **NOTE**: If your're experiencing problems during the deployment of the dashboards, please check the [Troubleshooting guide](https://github.com/Azure/ccodashboard/blob/EarlyAdopters/install/TroubleshootingGuide.md) and the [Github issues](https://github.com/Azure/ccodashboard/issues?q=is%3Aissue) before creating a new one.
 
 
-![OverviewImage](/install/images/OverviewImage.png)
+![OverviewImage](./install/images/OverviewImage.png)
 
 ## Last release notes
 
@@ -45,10 +45,10 @@ The current set of CCO Dashboards includes 3 different Dashboards to discover in
 
 This project includes the following resources:
 
-1. **install folder**: Includes all the files required to successfully deploy the Dashboard in your environment. The [Deployment Guide](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md) file contains a detailed guidance to install and setup your dashboard including the requirements, what REST APIs are in use, the resource providers that needs to be enabled or what tabs are included as part of the default Dashboard. The [Troubleshooting Guide](/install/TroubleshootingGuide.md) file contains guidance to solve potential issues that you might encounter during the Dashboard deployment. Errors like Power BI regional settings, or Privacy levels will be documented on this document.
+1. **install folder**: Includes all the files required to successfully deploy the Dashboard in your environment. The [Deployment Guide](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md) file contains a detailed guidance to install and setup your dashboard including the requirements, what REST APIs are in use, the resource providers that needs to be enabled or what tabs are included as part of the default Dashboard. The [Troubleshooting Guide](./install/TroubleshootingGuide.md) file contains guidance to solve potential issues that you might encounter during the Dashboard deployment. Errors like Power BI regional settings, or Privacy levels will be documented on this document.
 2. **queries folder**: Includes the M queries used in the Dashboard to pull data from Azure and Graph REST APIs. This content is for reference purposes to facilitate the Data Model comprehension and to enable contributors to expand the Dashboard capabilities.
 3. **docs/assets/pictures folder**: Contains all the images that the Dashboard will use when loading data from Azure. The content of this folder will be dynamic and we will update the repository regularly. Make sure the computer running the Dashboard that has internet access also have access to this URL https://azure.github.io/ccodashboard/assets/pictures
-4. **dashboards folder**: This parent folder contains sub folders with different versions of the CCO Dashboard depending on the workloads you want to get report from. We expect to see more versions in the future from community contributions.
+4. **dashboards folder**: This parent folder contains sub folders with different versions of the dashboards of CCO Insights depending on the workloads you want to get report from. We expect to see more versions in the future from community contributions.
     - ***CCODashboard-Infra folder*** has a more generic version of the Dashboard that includes information from Azure Advisor, Azure Security Center, Azure Networking REST APIs, Azure Compute REST APIs and Graph
     - ***CCODashboard-Governance folder*** has a dashboard aligned with the Microsoft Cloud Adoption Framework governance principles and will allow to get quick insights around Management Groups, Subscriptions, Blueprints, Polices, Naming Standards, Tagging and Regulatory Standards compliance. For this dashboard is needed the installation of a [custom connector](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md#installing-the-custom-connector).
     - ***CCODashboard-AKS folder*** has the add-on report to monitor Azure Kubernetes Services.
@@ -86,7 +86,7 @@ You can find more details about each page on the [Deployment Guide](https://gith
 
 **IMPORTANT**: You must follow this [procedure](https://docs.microsoft.com/en-us/azure/lighthouse/how-to/onboard-customer) to implement Azure delegated resource management to get data from subscriptions in other tenants.
 
-## CCO Azure GitHub Contributions Dashboard
+## CCO GitHub Contributions Dashboard
 
 The version 1.0 of the CCO GitHub Contributions Dashboard includes 1 report page. You will be able to navigate, filter and report the following information:
 - Number of contributors
@@ -177,7 +177,7 @@ The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following 
 
 ### **CCO Azure Infrastructure Dashboard Version 6.3** Updates
 
-- Bug fixing ASC recommendation: Now all the Security Center Recommendations are defined in this [file](/docs/assets/SecRec.md). This file contains all the recommendations from docs.microsoft.com but will be updated by us for consolidating the model and avoid the issues when the official URL is updated.
+- Bug fixing ASC recommendation: Now all the Security Center Recommendations are defined in this [file](./docs/assets/SecRec.md). This file contains all the recommendations from docs.microsoft.com but will be updated by us for consolidating the model and avoid the issues when the official URL is updated.
 
 ### **CCO Azure Infrastructure Dashboard Version 6.2** Updates
 

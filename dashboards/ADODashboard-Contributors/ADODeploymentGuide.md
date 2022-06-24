@@ -13,7 +13,7 @@
 
 ## Overview
 
-As part of the Continuous Cloud Optimization solution, a dashboard is included to track the contributions made to a Azure DevOps repository. The objective is to monitor not only the cloud environment, but also all the resources used for its design, deployment and maintenance. This dashboard allows you to monitor different metrics such as:
+As part of the Continuous Cloud Optimization Insights solution, a dashboard is included to track the contributions made to a Azure DevOps repository. The objective is to monitor not only the cloud environment, but also all the resources used for its design, deployment and maintenance. This dashboard allows you to monitor different metrics such as:
 - Number of Projects
 - Number of open/closed pull requests
 - Average pull requests per day
@@ -21,13 +21,13 @@ As part of the Continuous Cloud Optimization solution, a dashboard is included t
 - Branches created over the last months
 - ...
 
-An important note about this dashboard is that **this dashboard can be published in the PowerBI online service with auto refresh enabled**. The difference with the current versions of the other CCO dashboards is that, for this one, no dynamic queries are being done directly from the PowerBI file, meaning that it can be published and consumed directly from the [PowerBI online](https://docs.microsoft.com/en-us/power-bi/create-reports/desktop-upload-desktop-files) service.
+An important note about this dashboard is that **this dashboard can be published in the PowerBI online service with auto refresh enabled**. The difference with the current versions of the other dashboards of CCO Insights is that, for this one, no dynamic queries are being done directly from the PowerBI file, meaning that it can be published and consumed directly from the [PowerBI online](https://docs.microsoft.com/en-us/power-bi/create-reports/desktop-upload-desktop-files) service.
 
 ## Infrastructure
 
-This dashboard requires an infrastructure being deployed in Azure. The infrastructure consists of a Powershell Function App, an Application Insights for monitoring and a Storage Account where results from the Azure DevOps REST API calls will be stored in different tables. The following diagram represents the infrastructure to be deployed.
+The CCO Azure DevOps Contributions dashboard requires an infrastructure being deployed in Azure. The infrastructure consists of a Powershell Function App, an Application Insights for monitoring and a Storage Account where results from the Azure DevOps REST API calls will be stored in different tables. The following diagram represents the infrastructure to be deployed.
 
-![GitHub Dashboard Architecture](/install/images/github-dashboard-architecture.png)
+![GitHub Dashboard Architecture](../../install/images/github-dashboard-architecture.png)
 
 ### Deployment
 
@@ -70,24 +70,24 @@ In the [infrastructure](./infrastructure/) folder you will find a `deploy.bicep`
 
 In the [src](./src/) folder you can find the source code that will be deployed in the Function App once the infrastructure is ready. Basically you will deploy two endpoints:
 - **InitializeTables**: you will need to run this endpoint once manually to initialize the Storage Account with the required tables and collect all the data history available in the Azure DevOps API.
-- **ADODailySync**: this endpoint will be automatically executed in a daily basis and will add more data to the already created storage account tables. If you don't want a daily execution you can update the cron expression in the `function.json` file under the [ADO DailySync folder](./src/ADOs/ADODailySync/).
+- **ADODailySync**: this endpoint will be automatically executed in a daily basis and will add more data to the already created storage account tables. If you don't want a daily execution you can update the cron expression in the `function.json` file under the [ADO DailySync folder](./src/ADOContributions/ADODailySync/).
 
-Finally, if you go to the root folder of the repository you will find the [workflows folder](/.github/workflows/) under the `.github` folder. There you can locate the workflow that you will have to execute to deploy the backend of the dashboard. The only parameter you will need to setup manually while triggering the workflow in the `resourceGroupName` that you created earlier.
+Finally, if you go to the root folder of the repository you will find the [workflows folder](../../.github/workflows/) under the `.github` folder. There you can locate the workflow that you will have to execute to deploy the backend of the dashboard. The only parameter you will need to setup manually while triggering the workflow in the `resourceGroupName` that you created earlier.
 
 Now you are ready to deploy your backend in your environment:
-![deploy-backend](/install/images/ado-run-workflow.png)
+![deploy-backend](../../install/images/ado-run-workflow.png)
 
 After successfully deploying the backend go to the Azure portal and manually rung the `InitializeTables` endpoint. Make sure you see the tables in your Storage Account before moving forward.
 
-![storage-tables](/install/images/ado-storage-tables.png)
+![storage-tables](../../install/images/ado-storage-tables.png)
 
 ## Dashboard
 
 With the previous backend deployed, you can now download the [ADOContributions v1.0.pbit](./ADOContributions%20v1.0.pbit) and execute it locally. You will be asked to enter:
 - The Storage Account name of the Storage Account you deployed.
-![Storage Account Name](/install/images/ado-storage-account.png)
+![Storage Account Name](../../install/images/ado-storage-account.png)
 - The Storage account access key.
 
 After that you will be able to monitor your contributions!
 
-![Ado Contributions](/install/images/Ado-contributions-dashboard.png)
+![Ado Contributions](../../install/images/Ado-contributions-dashboard.png)

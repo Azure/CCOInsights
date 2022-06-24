@@ -1,8 +1,8 @@
-# CCO Dashboard Troubleshooting guide
+# CCO Insights Troubleshooting guide
 <div style="text-align: justify">
 
 ## Introduction
-The Continuous Cloud Optimization Power BI Dashboard development started about a year ago. During all this time the project team and some Microsoft Services folks have been piloting and testing different versions of the Dashboards until the latest version was published in here (v4.0). We have been able to identify and fix several bugs or product limitations and we would like to encourage you to read this document before running the Dashboard.
+During the continued development of CCO Insights, we have been able to identify and fix several bugs or product limitations and we would like to encourage you to read this document before starting to leverage the solution.
 
 - ## List of known issues or limitations
     - [Which Power BI Desktop version I should use?](TroubleshootingGuide.md#which-power-bi-desktop-version-i-should-use-microsoft-store-or-web-download)  (Microsoft Store or  Web Download)
@@ -14,7 +14,7 @@ The Continuous Cloud Optimization Power BI Dashboard development started about a
 
     - [RBAC information is empty or blank](TroubleshootingGuide.md#rbac-information-is-empty-or-blank)
 
-    - [Management Groups - Access to the resource is forbidden error](TroubleshootingGuide.md#Management-Groups-Access-to-the-resource-is-forbidden-error) 
+    - [Management Groups - Access to the resource is forbidden error](TroubleshootingGuide.md#management-groups-access-to-the-resource-is-forbidden-error) 
   
     - [Log Analytics REST API timeout (CCO Dashboard AKS add on only)](TroubleshootingGuide.md#log-analytics-rest-api-timeout-cco-dashboard-aks-add-on-only)
 
@@ -42,9 +42,9 @@ It might happen then when you run the Dashboard using different regional setting
 
 During the first run of the CCO Dashboard template you should be prompted to enter the credentials for both the Azure Management REST API and the GRAPH REST API. You might get the error message from below if you incorrectly enter your credentials. Also, in some cases, during the first execuction Power BI will not ask for credentials because they are already cached by some other Power BI Dashboard execution accessing the same APIs. 
 
-![graph apil](/install/images/WrongTenantNameError.png)
+![graph apil](../install/images/WrongTenantNameError.png)
 
-![graph apil](/install/images/problem_graph_api.png)
+![graph apil](../install/images/problem_graph_api.png)
 
 If that happens you will need to manually set the proper credentials for the GRAPH REST API Data Source.
 To do this you must follow this steps:
@@ -79,17 +79,17 @@ This is an example of a wrong Privacy Levels configuration across Data Sources. 
 
 Everytime you run the Dashboard from the .pbit template you will be asked to enter the Tenant parameter. This parameter is critical to properly get your RBAC information. If this parameter is entered incorrectly but the tenant exists it will load the Dashboard information with blank information on the RBAC page or the Subscriptions Owners visualization on the Overview page
 
-![Wrong Tenant Name](/install/images/RBACwrongTenantName.PNG)
+![Wrong Tenant Name](../install/images/RBACwrongTenantName.PNG)
 
 #### Management Groups Access to the resource is forbidden error
 
 Management Groups in Azure is a relatively new capability and some users reported the following error when loading the Dashboard for the first time. The reason behind that error can be the lack of permissions but also because there is no Management Groups definition.
 
-![Management Groups access forbidden](/install/images/MGForbiddenAccessError.png)
+![Management Groups access forbidden](../install/images/MGForbiddenAccessError.png)
 
 If that is the case and you are still not using Management Groups in your environment you can simply open the Query Editor, browse to the Management Groups query on the left side panel and disable the query. You will need to refresh all the data once this change is applied.
 
-![Management Groups access forbidden workaround](/install/images/MGQueryDisabled.png)
+![Management Groups access forbidden workaround](../install/images/MGQueryDisabled.png)
 
 #### Log Analytics REST API timeout (CCO Dashboard AKS add on only)
 
@@ -103,11 +103,11 @@ In some ocasions when having both Power BI Desktop versions installed on the com
 
 Governance:
 
-![relationship model](/install/images/RelationshipsModelGovernance.PNG)
+![relationship model](../install/images/RelationshipsModelGovernance.PNG)
 
 Infrastructure:
 
-![relationship model](/install/images/RelationshipsModelInfrastructure.PNG)
+![relationship model](../install/images/RelationshipsModelInfrastructure.PNG)
 
 
 #### Errors regarding missing `column1` on refresh

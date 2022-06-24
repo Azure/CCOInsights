@@ -11,14 +11,15 @@
     - [Generating Azure Advisor recommendations manually](#generating-azure-advisor-recommendations-manually)
   - [Azure Security Center Recommendations](#azure-security-center-recommendations)
 - [Setting up the Continuous Cloud Optimization Azure Infrastructure Power BI Dashboard](#setting-up-the-continuous-cloud-optimization-azure-infrastructure-power-bi-dashboard)
+  - [Template download](#template-download)
   - [Environment selection](#environment-selection)
   - [Modify Privacy settings](#modify-privacy-settings)
   - [Credentials](#credentials)
     - [Clean Credentials on the Data Source](#clean-credentials-on-the-data-source)
     - [Refresh the dashboard](#refresh-the-dashboard)
-    - [Credentials for <span>management.azure.com</span> REST API request:](#credentials-for-managementazurecom-rest-api-request)
-    - [Credentials for <span>graph.windows.net</span> API](#credentials-for-graphwindowsnet-api)
-    - [Credentials for <span>api.loganalytics.io</span> API](#credentials-for-apiloganalyticsio-api)
+    - [Credentials for management.azure.com REST API request:](#credentials-for-managementazurecom-rest-api-request)
+    - [Credentials for graph.windows.net API](#credentials-for-graphwindowsnet-api)
+    - [Credentials for api.loganalytics.io API](#credentials-for-apiloganalyticsio-api)
     - [Enter Access Web content credentials](#enter-access-web-content-credentials)
 - [Report Pages](#report-pages)
   - [CCO Azure Infrastructure Dashboard overview page](#cco-azure-infrastructure-dashboard-overview-page)
@@ -109,14 +110,14 @@ Registering these 2 Resource Providers has no cost or performance penalty on the
 4. Click on **Microsoft.Advisor** and **Register**.
 5. Click on **Microsoft.Security** and **Register**.
 
-![resource providers](/install/images/resourceproviders.png)
+![resource providers](../../install/images/resourceproviders.png)
 
 ## Azure Advisor Recommendations
 Azure Advisor is a personalized cloud consultant that helps you follow best practices to optimize your Azure deployments. It analyzes your resource configuration and usage telemetry. It then recommends solutions to help improve the performance, security, and high availability of your resources while looking for opportunities to reduce your overall Azure spend.
 
 The Continuous Optimization Power BI Dashboard will directly pull data from Azure Advisor REST APIs to aggregate all the information across the Azure account subscriptions. This requires generating the recommendations before the first time we load the template else the Dashboard will be empty or will fail because it was unable to download any data.
 
-To do so, you need to generate the recommendations for the first time manually from the Azure Portal, or programmatically using the script [GenerateAllSubscriptionsAdvisorRecommendations.ps1](/install/scripts/GenerateAllSubsAdvisorRecommendations.ps1)
+To do so, you need to generate the recommendations for the first time manually from the Azure Portal, or programmatically using the script [GenerateAllSubscriptionsAdvisorRecommendations.ps1](../../install/scripts/GenerateAllSubsAdvisorRecommendations.ps1)
 
 ### Generating Azure Advisor recommendations manually
 
@@ -128,7 +129,7 @@ Open the Azure Portal with your Azure Account http://portal.azure.com
 4.	Wait until the recommendations for the selected subscriptions has been loaded.
 5.	Repeat these steps for each subscription you want to generate Azure Advisor recommendations.
 
-![AdvisorRecommendations](/install/images/AdvisorRecommendations.png)
+![AdvisorRecommendations](../../install/images/AdvisorRecommendations.png)
 
 ## Azure Security Center Recommendations
 
@@ -152,7 +153,7 @@ The following picture shows the steps to configure Azure Security Center plan fo
 3.	Click on **Select the subscription you want to configure**.
 4.	Click on **Free** or **Standard** plan and the click **Save**.
 
-![SecurityCenterStandardRecommendations](/install/images/EnableSecurityCenterStandard.png)
+![SecurityCenterStandardRecommendations](../../install/images/EnableSecurityCenterStandard.png)
 
 # Setting up the Continuous Cloud Optimization Azure Infrastructure Power BI Dashboard
   
@@ -167,7 +168,7 @@ Before start loading data you need to select which type of environment you're us
 - Select [US-Government](https://docs.microsoft.com/en-us/azure/azure-government/documentation-government-developer-guide) for Azure Us government services. Azure Government is a separate instance of the Microsoft Azure service. It addresses the security and compliance needs of United States federal agencies, state and local governments, and their solution providers.
 - **Preview feature:** Select [China](https://docs.microsoft.com/en-us/azure/china/resources-developer-guide) to load data from cloud applications in Microsoft Azure operated by 21Vianet (Azure China).
 
-![selector](/install/images/selector.png)
+![selector](../../install/images/selector.png)
 
 ## Modify Privacy settings
 
@@ -189,7 +190,7 @@ In some cases, old credentials are cached by previous logins using Power BI Desk
 - Click on **Clear Permissions**.
 - Click on **Clear All Permissions**.
 
-![credentials1](/install/images/Credentials1.png) ![credentials2](/install/images/Credentials2.png)
+![credentials1](../../install/images/Credentials1.png) ![credentials2](../../install/images/Credentials2.png)
 
 ### Refresh the dashboard
 
@@ -197,39 +198,39 @@ If the permissions and credentials are properly flushed it should ask you for cr
 
 - Click on **Refresh**.
   
-![credentials3](/install/images/Credentials3.png)
+![credentials3](../../install/images/Credentials3.png)
 
-### Credentials for <span>management.azure.com</span> REST API request:
-
-- Click on **Organizational Account**.
-- Click on **Sign in**.
-- Click on **Connect**.
-
-
-![credentials4](/install/images/Credentials4.png)
-
-### Credentials for <span>graph.windows.net</span> API
+### Credentials for management.azure.com REST API request:
 
 - Click on **Organizational Account**.
 - Click on **Sign in**.
 - Click on **Connect**.
 
-![credentials5](/install/images/Credentials5.png)
 
-### Credentials for <span>api.loganalytics.io</span> API
+![credentials4](../../install/images/Credentials4.png)
+
+### Credentials for graph.windows.net API
 
 - Click on **Organizational Account**.
 - Click on **Sign in**.
 - Click on **Connect**.
 
-![loganalytics](/install/images/loganalyticsAPI.PNG)
+![credentials5](../../install/images/Credentials5.png)
+
+### Credentials for api.loganalytics.io API
+
+- Click on **Organizational Account**.
+- Click on **Sign in**.
+- Click on **Connect**.
+
+![loganalytics](../../install/images/loganalyticsAPI.PNG)
 
 ### Enter Access Web content credentials
 
 - Make sure that you select **Organization account** type.
 - Click on **Sign in**.
   
-![credentials7](/install/images/Credentials7.png)
+![credentials7](../../install/images/Credentials7.png)
 
 
 
@@ -246,7 +247,7 @@ You can filter the information by:
 - Subscription
 - Resource Tags
 
-![overview](/install/images/OverviewImage.png)
+![overview](../../install/images/OverviewImage.png)
 
 ## Azure Advisor Recommendations page
 
@@ -262,7 +263,7 @@ It will also give a high-level overview of what subscriptions require more atten
 
 If you navigate to a impacted resource you will see a quick description, potential solution and in some cases a link to a website where you can find all the steps to solve the problem.
 
-![advisor](/install/images/Advisor.png)
+![advisor](../../install/images/Advisor.png)
 
 ## Azure Security Center Alerts page
 
@@ -275,7 +276,7 @@ You can filter the information by:
 - Attack type
 - Data range
 
-![security Center alerts](/install/images/SecurityCenterAlerts.png)
+![security Center alerts](../../install/images/SecurityCenterAlerts.png)
 
 ## Azure Compute Overview page
 
@@ -288,7 +289,7 @@ You can filter the information by:
 - Resource Group
 - Vm extension
 
-![azurecompute](/install/images/AzureCompute.png)
+![azurecompute](../../install/images/AzureCompute.png)
 
 ## Azure VNETs and Subnets Recommendations page
 
@@ -303,7 +304,7 @@ You can filter the information by:
 - Subnet
 - Networking Interface
   
-![azure networking](/install/images/AzureNetworking.png)
+![azure networking](../../install/images/AzureNetworking.png)
 
 **IMPORTANT**: It is important to mention that although a VNET with only one subnet might not be an issue, it might be a good lead to investigate if that is the best network segmentation for the applications running on it.
 
@@ -320,7 +321,7 @@ You can filter the information by:
 - Subnet
 - NSG assignment
   
-![azure NSGs](/install/images/NSGs.png)
+![azure NSGs](../../install/images/NSGs.png)
 
 ## Role Based Access Control page
 
@@ -333,7 +334,7 @@ You can filter the information by:
 - Object type
 - User
 
-![azure rbac](/install/images/RBAC.png)
+![azure rbac](../../install/images/RBAC.png)
 
 ## Service Principal Role Based Access Control page
 
@@ -346,7 +347,7 @@ You can filter the information by:
 - Object type
 - User
 
-![azure rbacSP](/install/images/RBACServicePrincipals.png)
+![azure rbacSP](../../install/images/RBACServicePrincipals.png)
 
 ## IaaS Usage and Limits page
 
@@ -358,7 +359,7 @@ You can filter the information by:
 - Subscription
 - Azure Region
 
-![azure Idle](/install/images/UsageAndLimits.png)
+![azure Idle](../../install/images/UsageAndLimits.png)
 
 ## IaaS Idle Resources Dashboard page
 
@@ -369,7 +370,7 @@ You can filter the information by:
 - Tenant
 - Subscription
 
-![azure Idle](/install/images/IdleResources.png)
+![azure Idle](../../install/images/IdleResources.png)
 
 ## Azure Kubernetes Service Dashboard Overview page
 
@@ -380,7 +381,7 @@ You can filter the information by:
 - Subscription
 - AKS Cluster
 
-![aks](/install/images/aks.PNG)
+![aks](../../install/images/aks.PNG)
 
 **IMPORTANT**: to receive all the information related to the Pods, Containers and Container Images a log analytics workspace configured **is required**.
 </div>
@@ -399,7 +400,7 @@ You can filter the information by:
 **IMPORTANT**: to receive all the information related to the Pods, Containers and Container Images a log analytics workspace configured **is required**.
 </div>
 
-![aks](/install/images/aks2.png)
+![aks](../../install/images/aks2.png)
 
 # Scripts
 

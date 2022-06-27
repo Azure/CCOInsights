@@ -1,9 +1,6 @@
 # CCO Azure DevOps Contributions Dashboard
 
-### _Navigation_
-
 - [CCO Azure DevOps Contributions Dashboard](#cco-azure-devops-contributions-dashboard)
-    - [_Navigation_](#navigation)
   - [Overview](#overview)
   - [Infrastructure](#infrastructure)
     - [Deployment](#deployment)

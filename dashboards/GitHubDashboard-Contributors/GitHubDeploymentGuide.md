@@ -1,9 +1,6 @@
 # CCO GitHub Contributions Dashboard
 
-### _Navigation_
-
 - [CCO GitHub Contributions Dashboard](#cco-github-contributions-dashboard)
-    - [_Navigation_](#navigation)
   - [Overview](#overview)
   - [Infrastructure](#infrastructure)
     - [Deployment](#deployment)

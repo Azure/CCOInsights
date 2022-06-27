@@ -1,7 +1,5 @@
 # CCO Azure Governance Dashboard
 
-<div style="text-align: justify">
-
 - [CCO Azure Governance Dashboard](#cco-azure-governance-dashboard)
   - [Overview](#overview)
     - [Requirements](#requirements)
@@ -15,8 +13,8 @@
   - [Credentials](#credentials)
     - [Clean Credentials on the Data Source](#clean-credentials-on-the-data-source)
     - [Refresh the dashboard](#refresh-the-dashboard)
-    - [Credentials for management.azure.com</span> REST API request](#credentials-for-managementazurecomspan-rest-api-request)
-    - [Credentials for CCO Dashboard Custom Connector](#credentials-for-cco-dashboard-custom-connector)
+    - [Credentials for management.azure.com REST API request](#credentials-for-managementazurecom-rest-api-request)
+    - [Credentials for Custom Connector](#credentials-for-custom-connector)
 - [Report Pages](#report-pages)
   - [Management Groups and Subscriptions Hierarchy Overview page](#management-groups-and-subscriptions-hierarchy-overview-page)
   - [Tags and naming standards page](#tags-and-naming-standards-page)
@@ -39,7 +37,7 @@ The CCO Azure Governance Dashboard is aligned with the Microsoft Cloud Adoption 
 
 ## APIs in use
 
-<div style="text-align: justify">The CCO Azure Governance Dashboard Governance pulls the information from several APIs. You can read the public documentation if you need further information about the calls and methods available:
+The CCO Azure Governance Dashboard Governance pulls the information from several APIs. You can read the public documentation if you need further information about the calls and methods available:
 <br><br>
 </div>
 
@@ -55,8 +53,6 @@ The CCO Azure Governance Dashboard is aligned with the Microsoft Cloud Adoption 
 | [Azure Assessments](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2020-01-01 |2020-01-01|:heavy_check_mark:|
 | [Azure Secure Scores](https://docs.microsoft.com/en-us/rest/api/securitycenter/securescores) |2020-01-01 |2020-01-01|:heavy_check_mark:|
 | [Azure Secure Scores Controls](https://docs.microsoft.com/en-us/rest/api/securitycenter/securescorecontrols) |2020-01-01-preview |2020-01-01-preview|:heavy_check_mark:|
-
-<div style="text-align: justify">
 
 API URLs by environment:
 
@@ -83,7 +79,7 @@ The CCO Azure Governance Dashboard requires to install the Power BI Custom Conne
 
 To install the custom connector you must copy the file [CCoDashboardAzureConnector.mez](../../dashboards/CCODashboard-Governance/CcoDashboardAzureConnector.mez) from the **ccodashboard/dashboards/CCODashboard-Governance/** folder to the folder that Power BI creates by default in the Documents folder in your PC. If this folder doesn't exist, you can create a new one with this name.
 
-The path should be **C:\Users\\%username%\Documents\Power BI Desktop\Custom Connectors** or if you are using onedrive to backup the documents folder this path would not work for you and you should manualy go to your documents folder and create the folder structure there. 
+The path should be **C:\Users\\%username%\Documents\Power BI Desktop\Custom Connectors** or if you are using OneDrive to backup the documents folder this path would not work for you and you should manually go to your documents folder and create the folder structure there. 
 
 ![cc](../../install/images/customconnectorfolder.PNG)
 
@@ -135,7 +131,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
   
 ![refreshgovernance](../../install/images/refreshgovernance1.png)
 
-### Credentials for management.azure.com</span> REST API request
+### Credentials for management.azure.com REST API request
 
 - Click on **Organizational Account**.
 - Click on **Sign in**.
@@ -143,7 +139,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 
 ![credentials4](../../install/images/Credentials4.png)
 
-### Credentials for CCO Dashboard Custom Connector
+### Credentials for Custom Connector
 
 - Click on **Organizational Account**.
 - Click on **Sign in**.
@@ -170,7 +166,7 @@ You can filter the information by:
 - Management Group with subscriptions
 - Subscription
 
-![Tagsoverview](../../install/images/TagsOverview.png)
+![TagsOverview](../../install/images/TagsOverview.png)
 
 ## Azure Regulatory Standards Forecast
 
@@ -196,7 +192,7 @@ You can filter the information by:
 - Secure Controls
 - Policy Category
   
-![regulatorycomplianceresources](../../install/images/regulatorycomplianceresources.png)
+![regulatory compliance resources](../../install/images/regulatorycomplianceresources.png)
 
 ## Azure Policies page
 

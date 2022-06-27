@@ -1,7 +1,5 @@
 # CCO Azure Infrastructure Dashboard
 
-<div style="text-align: justify">
-
 - [CCO Azure Infrastructure Dashboard](#cco-azure-infrastructure-dashboard)
   - [Overview](#overview)
     - [Requirements](#requirements)
@@ -61,7 +59,7 @@ Below you can find the list of providers and the actions that you will need to p
 |*|*/Read|
 
 ## APIs in use
-<div style="text-align: justify">
+
 The CCO Azure Infrastructure Dashboard pulls the information from several APIs. You can read the public documentation if you need further information about the calls and methods available:
 <br><br>
 </div>
@@ -84,8 +82,6 @@ The CCO Azure Infrastructure Dashboard pulls the information from several APIs. 
 | [Azure Container Registry](https://docs.microsoft.com/en-us/rest/api/containerregistry/)  | 2017-10-01|2017-10-01|:heavy_check_mark:|
 | <span style="color:#0088cc">Log Analytics Rest API </span> ([1](https://docs.microsoft.com/en-us/rest/api/loganalytics/), [2](https://dev.loganalytics.io/))  |v1 |v1|:heavy_check_mark:|
 | [Azure Active Directory Graph API](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-graph-api) | 1.6|1.6 |:heavy_check_mark:|
-
-<div style="text-align: justify">
 
 API URLs by environment:
 
@@ -133,7 +129,7 @@ Open the Azure Portal with your Azure Account http://portal.azure.com
 
 ## Azure Security Center Recommendations
 
-Azure Security Center provides unified security management and advanced threat protection for workloads running in Azure, on-premises, and in other clouds. It delivers visibility and control over hybrid cloud workloads, active defence that reduces your exposure to threats, and intelligent detection to help you keep pace with rapidly evolving cyber-attacks.
+Azure Security Center provides unified security management and advanced threat protection for workloads running in Azure, on-premises, and in other clouds. It delivers visibility and control over hybrid cloud workloads, active defense that reduces your exposure to threats, and intelligent detection to help you keep pace with rapidly evolving cyber-attacks.
 
 You can find more information at the official Azure Security Center site [here](https://docs.microsoft.com/en-us/azure/security-center/security-center-intro).
 
@@ -289,7 +285,7 @@ You can filter the information by:
 - Resource Group
 - Vm extension
 
-![azurecompute](../../install/images/AzureCompute.png)
+![azure compute](../../install/images/AzureCompute.png)
 
 ## Azure VNETs and Subnets Recommendations page
 
@@ -374,7 +370,7 @@ You can filter the information by:
 
 ## Azure Kubernetes Service Dashboard Overview page
 
-In this page, you will be able to identify the number of AKS Clusters, Nodes, Pods, Containers, Service Principals and Azure Security Center recommedations. It’s important to mention that this tab just gives you a quick view. All the detailed information will be available in the following tab.
+In this page, you will be able to identify the number of AKS Clusters, Nodes, Pods, Containers, Service Principals and Azure Security Center recommendations. It’s important to mention that this tab just gives you a quick view. All the detailed information will be available in the following tab.
 
 You can filter the information by:
 
@@ -556,7 +552,7 @@ $providers | %{
     "type": "Microsoft.Authorization/roleDefinitions",
     "apiVersion": "2017-09-01",
     "properties": {
-      "Name":  "Continous Optimization Dashboard Reader",
+      "Name":  "Continuous Optimization Dashboard Reader",
       "Id":  null,
       "IsCustom":  true,
       "Description":  "Can read Resources, Azure Security Center and Advisor Information",

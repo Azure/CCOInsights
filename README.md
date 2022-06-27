@@ -14,7 +14,7 @@
     - [CCO Azure Infrastructure Dashboard Report Pages](#cco-azure-infrastructure-dashboard-report-pages)
     - [CCO GitHub Contributions Dashboard](#cco-github-contributions-dashboard)
     - [CCO ADO Contributions Dashboard](#cco-ado-contributions-dashboard)
-    - [CCO Azure Infrastructure Dashboard with AKS add-on Report Pages (not updated)](#cco-azure-infrastructure-dashboard-with-aks-add-on-report-pages-not-updated)
+    - [CCO Azure Infrastructure Dashboard with AKS add-on Report Pages (not maintained)](#cco-azure-infrastructure-dashboard-with-aks-add-on-report-pages-not-maintained)
   - [Call for contribution](#call-for-contribution)
 
 -------------------------------
@@ -27,11 +27,11 @@ CCO Insights currently includes 5 different dashboards to discover information a
 
 - [**CCO Azure Infrastructure Dashboard**](./dashboards/CCODashboard-Infra/InfraDeploymentGuide.md): Get insights about Azure advisor optimizations, Azure Security Center Alerts, Networking, Compute, RBAC, Idle resources and Subscriptions Quotas and Limits
 - [**CCO Azure Governance Dashboard**](./dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md): Get insights about Azure Governance aspects like Management Groups and Subscriptions hierarchy, resource tagging and naming standards, security controls, policies compliance, Regulatory Standards and Azure Blueprints
-- [**CCO Azure Infrastructure Dashboard with AKS**](./dashboards/CCODashboard-Infra/InfraDeploymentGuide.md): Get insights about AKS information
+- [**CCO Azure Infrastructure Dashboard with AKS (not maintained)**](./dashboards/CCODashboard-Infra/InfraDeploymentGuide.md): Get insights about AKS information
 - [**CCO GitHub Contributions Dashboard**](./dashboards/GitHubDashboard-Contributors/GitHubDeploymentGuide.md): Get insights about the contributions to your GitHub project.
 - [**CCO Azure DevOps Contributions Dashboard**](./dashboards/ADODashboard-Contributors/ADODeploymentGuide.md): Get insights about the contributions to your Azure DevOps (ADO) project.
 
-**NOTE**: If your're experiencing problems during the deployment of the dashboards, please check the [Troubleshooting guide](https://github.com/Azure/ccodashboard/blob/EarlyAdopters/install/TroubleshootingGuide.md) and the [Github issues](https://github.com/Azure/ccodashboard/issues?q=is%3Aissue) before creating a new one.
+**NOTE**: If your're experiencing problems during the deployment of the dashboards, please check the [Troubleshooting guide](./install/TroubleshootingGuide.md) and the [Github issues](https://github.com/Azure/ccodashboard/issues?q=is%3Aissue) before creating a new one.
 
 
 ![OverviewImage](./install/images/OverviewImage.png)
@@ -39,6 +39,7 @@ CCO Insights currently includes 5 different dashboards to discover information a
 ## Release notes
 
 For the comprehensive list of release notes, see the [Release notes](./Release-Notes.md) page.
+
 ### Highlights of the latest releases
 
 #### CCO ADO & GitHub Contributions Dashboards Version 1.0
@@ -50,7 +51,7 @@ For the comprehensive list of release notes, see the [Release notes](./Release-N
 
 - New report page available for Azure Web Applications.
 - Management Group filtering
-- IMPORTANT: Now it requires the Custom connector (mandatory to retrieve the MGs)
+- **IMPORTANT**: Now it requires the Custom connector (mandatory to retrieve the MGs)
 
 #### CCO Azure Governance Dashboard Version 2.6 Updates
 
@@ -60,7 +61,7 @@ For the comprehensive list of release notes, see the [Release notes](./Release-N
 
 This project includes the following resources:
 
-1. **install folder**: Includes all the files required to successfully deploy the Dashboard in your environment. The [Deployment Guide](https://github.com/Azure/ccodashboard/blob/master/dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md) file contains a detailed guidance to install and setup your dashboard including the requirements, what REST APIs are in use, the resource providers that needs to be enabled or what tabs are included as part of the default Dashboard. The [Troubleshooting Guide](./install/TroubleshootingGuide.md) file contains guidance to solve potential issues that you might encounter during the Dashboard deployment. Errors like Power BI regional settings, or Privacy levels will be documented on this document.
+1. **install folder**: Includes all the files required to successfully deploy the Dashboard in your environment. The [Deployment Guide](./dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md) file contains a detailed guidance to install and setup your dashboard including the requirements, what REST APIs are in use, the resource providers that needs to be enabled or what tabs are included as part of the default Dashboard. The [Troubleshooting Guide](./install/TroubleshootingGuide.md) file contains guidance to solve potential issues that you might encounter during the Dashboard deployment. Errors like Power BI regional settings, or Privacy levels will be documented on this document.
 2. **queries folder**: Includes the M queries used in the Dashboard to pull data from Azure and Graph REST APIs. This content is for reference purposes to facilitate the Data Model comprehension and to enable contributors to expand the Dashboard capabilities.
 3. **docs/assets/pictures folder**: Contains all the images that the Dashboard will use when loading data from Azure. The content of this folder will be dynamic and we will update the repository regularly. Make sure the computer running the Dashboard that has internet access also have access to this URL https://azure.github.io/ccodashboard/assets/pictures
 4. **dashboards folder**: This parent folder contains sub folders with different versions of the dashboards of CCO Insights depending on the workloads you want to get report from. We expect to see more versions in the future from community contributions.
@@ -132,7 +133,7 @@ The version 1.0 of the CCO ADO Contributions Dashboard includes 1 report page. Y
 
 You can find more information about this dashboard in the [Deployment Guide](./dashboards/ADODashboard-Contributors/ADODeploymentGuide.md).
 
-### CCO Azure Infrastructure Dashboard with AKS add-on Report Pages (not updated)
+### CCO Azure Infrastructure Dashboard with AKS add-on Report Pages (not maintained)
 
 The version 5.0 of the CCO Power BI Dashboard AKS add-on includes the following information:
 

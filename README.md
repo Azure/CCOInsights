@@ -1,10 +1,7 @@
 
 # Continuous Cloud Optimization Insights
 
-## Content
-
 - [Continuous Cloud Optimization Insights](#continuous-cloud-optimization-insights)
-  - [Content](#content)
   - [Overview](#overview)
   - [Release notes](#release-notes)
     - [Highlights of the latest releases](#highlights-of-the-latest-releases)

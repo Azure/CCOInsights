@@ -5,7 +5,8 @@
   - [Overview](#overview)
   - [Release notes](#release-notes)
     - [Highlights of the latest releases](#highlights-of-the-latest-releases)
-      - [CCO ADO & GitHub Contributions Dashboards Version 1.0](#cco-ado--github-contributions-dashboards-version-10)
+      - [CCO GitHub Contributions Dashboards Version 1.0](#cco-github-contributions-dashboards-version-10)
+      - [CCO ADO Contributions Dashboards Version 1.0](#cco-ado-contributions-dashboards-version-10)
       - [CCO Azure Infrastructure Dashboard Version 9.1 Updates](#cco-azure-infrastructure-dashboard-version-91-updates)
       - [CCO Azure Governance Dashboard Version 2.6 Updates](#cco-azure-governance-dashboard-version-26-updates)
   - [List of resources](#list-of-resources)
@@ -42,10 +43,13 @@ For the comprehensive list of release notes, see the [Release notes](./Release-N
 
 ### Highlights of the latest releases
 
-#### CCO ADO & GitHub Contributions Dashboards Version 1.0
+#### CCO GitHub Contributions Dashboards Version 1.0
+
+- Initial release of the CCO GitHub Contributions Dashboard
+
+#### CCO ADO Contributions Dashboards Version 1.0
 
 - Initial release of the CCO ADO Contributions Dashboard
-- Initial release of the CCO GitHub Contributions Dashboard
 
 #### CCO Azure Infrastructure Dashboard Version 9.1 Updates
 
@@ -129,7 +133,6 @@ The version 1.0 of the CCO ADO Contributions Dashboard includes 1 report page. Y
 - Average pull requests per day
 - Comparison between number of open vs closed pull requests over the last months
 - Branches created over the last months
-- ...
 
 You can find more information about this dashboard in the [Deployment Guide](./dashboards/ADODashboard-Contributors/ADODeploymentGuide.md).
 

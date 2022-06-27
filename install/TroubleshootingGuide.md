@@ -21,7 +21,7 @@ During the continued development of CCO Insights, we have been able to identify 
   
   - [Errors regarding missing 'column1' on refresh](#errors-regarding-missing-column1-on-refresh)
 
-We will keep updating this list of known issues as soon as we get more feedback from the community....
+We will keep updating this list of known issues as soon as we get more feedback from the community.
    
 ----------------------------------
 ### Which Power BI Desktop version I should use? (Microsoft Store or Web Download)

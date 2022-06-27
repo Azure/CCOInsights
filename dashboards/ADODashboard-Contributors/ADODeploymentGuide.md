@@ -16,7 +16,6 @@ As part of the Continuous Cloud Optimization Insights solution, a dashboard is i
 - Average pull requests per day
 - Comparison between number of open vs closed pull requests over the last months
 - Branches created over the last months
-- ...
 
 An important note about this dashboard is that **this dashboard can be published in the PowerBI online service with auto refresh enabled**. The difference with the current versions of the other dashboards of CCO Insights is that, for this one, no dynamic queries are being done directly from the PowerBI file, meaning that it can be published and consumed directly from the [PowerBI online](https://docs.microsoft.com/en-us/power-bi/create-reports/desktop-upload-desktop-files) service.
 
@@ -69,7 +68,7 @@ In the [src](./src/) folder you can find the source code that will be deployed i
 - **InitializeTables**: you will need to run this endpoint once manually to initialize the Storage Account with the required tables and collect all the data history available in the Azure DevOps API.
 - **ADODailySync**: this endpoint will be automatically run in a daily basis and will add more data to the already created storage account tables. If you don't want a daily cadence, you can update the cron expression in the `function.json` file under the [ADO DailySync folder](./src/ADOContributions/ADODailySync/).
 
-Finally, if you go to the root folder of the repository you will find the [workflows folder](../../.github/workflows/) under the `.github` folder. There you can locate the workflow that you will have to run to deploy the back end of the dashboard. The only parameter you will need to setup manually while triggering the workflow in the `resourceGroupName` that you created earlier.
+Finally, if you go to the root folder of the repository you will find the [workflows folder](../../.github/workflows/) under the `.github` folder. There you can locate the workflow that you will have to run to deploy the back-end of the dashboard. The only parameter you will need to setup manually while triggering the workflow in the `resourceGroupName` that you created earlier.
 
 Now you are ready to deploy the back-end solution in your environment:
 ![deploy-back-end](../../install/images/ado-run-workflow.png)

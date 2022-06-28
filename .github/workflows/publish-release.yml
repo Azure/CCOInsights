@@ -2,8 +2,10 @@ name: "Release"
 
 on: # yamllint disable-line rule:truthy
   push:
-    tags:
-      - "**"
+    branches: [master]
+    paths:
+      - "ccodashboard/dashboards/*"
+      - ".github/workflows/release.yml"
 
 jobs:
   release:
@@ -11,7 +13,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Determine tag"
-        run: "echo \"RELEASE_TAG=${GITHUB_REF#refs/tags/}\" >> $GITHUB_ENV"
+        run: "echo \"RELEASE_TAG=${GITHUB_REPOSITORY}.v$GITHUB_RUN_NUMBER\" >> $GITHUB_ENV"
       - name: "Create release"
         uses: "actions/github-script@v5"
         with:

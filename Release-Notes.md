@@ -75,7 +75,7 @@
 
 ### CCO Azure Infrastructure Dashboard Version 7.1
 
-- Bug fix [Issue #72](https://github.com/Azure/ccodashboard/issues/72):
+- Bug fix [Issue #72](https://github.com/Azure/CCOInsights/issues/72):
   - Subscription IDs in All Subscriptions table must be uniques.
   - One tenant can be managed by one or more tenants (this data now is hidden but it will be used in future releases).
 

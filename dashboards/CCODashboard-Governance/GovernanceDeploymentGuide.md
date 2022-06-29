@@ -90,7 +90,7 @@ Then go to Power BI Options and under Global category in the Security section, s
 # Setting up the CCO Azure Governance Dashboard Governance
 
 ## Template download
-Make sure to download and open the `.pbit` file from  https://github.com/Azure/ccodashboard/tree/master/dashboards/CCODashboard-Governance
+Make sure to download and open the `.pbit` file from  https://github.com/Azure/CCOInsights/tree/master/dashboards/CCODashboard-Governance
 
 ## Environment selection
 

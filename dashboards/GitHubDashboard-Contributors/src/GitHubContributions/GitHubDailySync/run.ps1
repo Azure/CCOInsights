@@ -12,3 +12,5 @@ if ($users.Count -gt 0) {
 $pullRequestsNumbers = Get-ClosedPullRequests -DailyRefresh
 Get-Stargazers
 Get-Traffic
+Get-Issues -DailyRefresh
+Get-Releases

@@ -12,4 +12,5 @@ $pullRequestsNumbers = Get-ClosedPullRequests
 Get-Stargazers
 Get-Contributors -users $users
 Get-Traffic
-
+Get-Issues
+Get-Releases

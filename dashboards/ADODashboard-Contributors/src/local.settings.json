@@ -1,9 +1,9 @@
 {
     "IsEncrypted": false,
     "Values": {
-        "organization": "stefanstranger",
-        "resourceGroup": "ccodashboard-rg",
-        "storageAccount": "ccoadocontstastefstr",
+        "organization": "servicescode",
+        "resourceGroup": "test",
+        "storageAccount": "ccoadocontsta",
         "pat": "<<ADOPAT>>"
     }
 }

@@ -330,15 +330,17 @@ Function Get-Contributors {
     $header = @{authorization = "token $pat" }
     $count = 0
     $users | ForEach-Object {
+        
         $count += 1
         $usersUrl = "https://api.github.com/users/$_"
         $userData = Invoke-RestMethod -Uri $usersUrl -Method Get -ContentType "application/json" -Headers $header
+        $id = [int](((Get-Date -Format "dddd MM/dd/yyyy").Split(" ")[1]) -replace "/", "") + $userData.id
         $user = @{
             login  = $userData.login
-            id     = $userData.id
+            id     = $id
             avatar = $userData.avatar_url
         }
-        Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $userData.id -property $user -UpdateExisting | Out-Null
+        Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $id -property $user -UpdateExisting | Out-Null
     }
     Write-Host "$count contributors successfully loaded"
 }
@@ -382,4 +384,93 @@ Function Get-Traffic {
     }
 
     Write-Host "$($dashboardviews.Count) views successfully loaded"
+}
+
+Function Get-Issues {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $false)]
+        [Switch]$DailyRefresh
+    )
+
+    $owner = $env:owner
+    $repository = $env:repository
+    $pat = $env:pat
+
+    #Create table
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+    $ctx = $storageAccount.Context
+    $partitionKey = "Issues"
+    New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
+    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+
+    $issuesBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/issues?state=all&per_page=100"
+    $header = @{authorization = "token $pat" }
+    $page = 1
+
+    Write-Host "Fetching Issues..."
+    $issues = Invoke-RestMethod -Uri $issuesBaseUrl -Method Get -ContentType "application/json" -Headers $header
+    if ($DailyRefresh) {
+        $issues = $issues | Where-Object { ($_.created_at -gt (Get-Date -Hour 0 -Minute 00 -Second 00).AddDays(-1)) -and ($null -eq $_.pull_request) }
+    }
+    $dashboardIssues = @()
+    while ($issues.Count -gt 0) {
+        $issues | ForEach-Object {
+            $issue = @{
+                id         = $_.id
+                number     = $_.number
+                title      = $_.title
+                user       = $_.user.login
+                state      = $_.state
+                assignee   = if ([String]::IsNullOrEmpty($_.assignee)) { "" } else { $_.assignee.login }
+                milestone  = if ([String]::IsNullOrEmpty($_.milestone)) { "" } else { $_.milestone.title }
+                created_at = $_.created_at
+                updated_at = $_.updated_at
+                closed_at  = if ([String]::IsNullOrEmpty($_.closed_at)) { "" } else { $_.closed_at }
+
+            }
+            Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.id -property $issue -UpdateExisting | Out-Null
+            $dashboardIssues += $issue
+        }
+        $page += 1
+        $uri = $issuesBaseUrl + "&page=$page"
+        $issues = Invoke-RestMethod -Uri $uri -Method Get -ContentType "application/json" -Headers $header
+        if ($DailyRefresh) {
+            $issues = $issues | Where-Object { $_.created_at -gt (Get-Date -Hour 0 -Minute 00 -Second 00).AddDays(-1) }
+        }
+    }
+    Write-Host "$($dashboardIssues.Count) issues successfully loaded"
+}
+
+Function Get-Releases {
+    $owner = $env:owner
+    $repository = $env:repository
+    $pat = $env:pat
+
+    #Create table
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+    $ctx = $storageAccount.Context
+    $partitionKey = "Releases"
+    New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
+    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+
+    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/releases"
+    $header = @{authorization = "token $pat" }
+
+    Write-Host "Fetching Releases..."
+    $releases = Invoke-RestMethod -Uri $tagsBaseUrl -Method Get -ContentType "application/json" -Headers $header
+
+    $dashboardReleases = @()
+    while ($releases.Count -gt 0) {
+        $releases | ForEach-Object {
+            $release = @{
+                name = $_.tag_name
+                date = $_.published_at
+
+            }
+            Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.name -property $release -UpdateExisting | Out-Null
+            $dashboardReleases += $release
+        }
+    }
+    Write-Host "$($dashboardTags.Count) tags successfully loaded"
 }

@@ -22,10 +22,11 @@
 - [Report Pages](#report-pages)
   - [CCO Azure Infrastructure Dashboard overview page](#cco-azure-infrastructure-dashboard-overview-page)
   - [Azure Advisor Recommendations page](#azure-advisor-recommendations-page)
-  - [Azure Security Center Alerts page](#azure-security-center-alerts-page)
+  - [Azure Defender Alerts page](#azure-defender-alerts-page)
   - [Azure Compute Overview page](#azure-compute-overview-page)
   - [Azure VNETs and Subnets Recommendations page](#azure-vnets-and-subnets-recommendations-page)
   - [Azure Network Security Groups page](#azure-network-security-groups-page)
+  - [Azure App Services page](#azure-app-services-page)
   - [Role Based Access Control page](#role-based-access-control-page)
   - [Service Principal Role Based Access Control page](#service-principal-role-based-access-control-page)
   - [IaaS Usage and Limits page](#iaas-usage-and-limits-page)
@@ -55,7 +56,7 @@ Below you can find the list of providers and the actions that you will need to p
 
 | Resource Provider Name| Permissions |
 | --- | --- |
-|Azure Advisor| Microsoft.Advisor/generateRecommendations/action <br> 
+|Azure Advisor| Microsoft.Advisor/generateRecommendations/action <br>
 |*|*/Read|
 
 ## APIs in use
@@ -86,7 +87,7 @@ The CCO Azure Infrastructure Dashboard pulls the information from several APIs. 
 API URLs by environment:
 
 | API Name| API URL | Environment|
-| --- | :---: | :---: | 
+| --- | :---: | :---: |
 | Management |https://management.azure.com/|Global|
 | Azure AD Graph |https://graph.windows.net/|Global|
 | Management |https://management.usgovcloudapi.net/|US Government|
@@ -96,7 +97,7 @@ API URLs by environment:
 
 ## Resource Providers requirements
 
-Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** resource providers are registered across all the  subscriptions that you plan analyze using the Dashboard. 
+Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** resource providers are registered across all the  subscriptions that you plan analyze using the Dashboard.
 
 Registering these 2 Resource Providers has no cost or performance penalty on the subscription:
 
@@ -117,7 +118,7 @@ To do so, you need to generate the recommendations for the first time manually f
 
 ### Generating Azure Advisor recommendations manually
 
-Open the Azure Portal with your Azure Account http://portal.azure.com 
+Open the Azure Portal with your Azure Account http://portal.azure.com
 
 1. Click on **Advisor**.
 2.	Expand the subscriptions drop-down menu.
@@ -137,7 +138,7 @@ Azure Security Center is offered in two tiers:
 
 - Free
 - Standard
-  
+
 The Standard tier is offered [free for the first 60 days](https://azure.microsoft.com/en-us/pricing/details/security-center/).
 
 The subscriptions will need to use the **Standard** tier if you want to detect and see the alerts in the Azure Security Center Alerts page of the dashboard.
@@ -152,7 +153,7 @@ The following picture shows the steps to configure Azure Security Center plan fo
 ![SecurityCenterStandardRecommendations](../../install/images/EnableSecurityCenterStandard.png)
 
 # Setting up the Continuous Cloud Optimization Azure Infrastructure Power BI Dashboard
-  
+
 ## Template download
 Make sure to download and open the `.pbit` file from  https://github.com/Azure/CCOInsights/tree/master/dashboards/CCODashboard-Infra
 
@@ -193,7 +194,7 @@ In some cases, old credentials are cached by previous logins using Power BI Desk
 If the permissions and credentials are properly flushed it should ask you for credentials for each REST API and you will have to set the Privacy Levels for each of them.
 
 - Click on **Refresh**.
-  
+
 ![credentials3](../../install/images/Credentials3.png)
 
 ### Credentials for management.azure.com REST API request:
@@ -225,7 +226,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 
 - Make sure that you select **Organization account** type.
 - Click on **Sign in**.
-  
+
 ![credentials7](../../install/images/Credentials7.png)
 
 
@@ -261,9 +262,9 @@ If you navigate to a impacted resource you will see a quick description, potenti
 
 ![advisor](../../install/images/Advisor.png)
 
-## Azure Security Center Alerts page
+## Azure Defender Alerts page
 
-The third tab is used to show the Azure Security Center Advanced Threat Analytics Alerts from all the subscriptions a given Azure account has access to. Is important to remark that subscriptions will need to use the Standard plan if you want to detect and see the alerts in the Power BI Dashboard.
+The third tab is used to show the Azure Defender Advanced Threat Analytics Alerts from all the subscriptions a given Azure account has access to. Is important to remark that subscriptions will need to use the Standard plan if you want to detect and see the alerts in the Power BI Dashboard.
 
 You can filter the information by:
 
@@ -289,7 +290,7 @@ You can filter the information by:
 
 ## Azure VNETs and Subnets Recommendations page
 
-In this tab, you will be able to identify VNETs with only one subnet, if there are any VNET peering and if some of the subnets is exhausting its IP Pool. 
+In this tab, you will be able to identify VNETs with only one subnet, if there are any VNET peering and if some of the subnets is exhausting its IP Pool.
 
 You can filter the information by:
 
@@ -299,7 +300,7 @@ You can filter the information by:
 - VNET
 - Subnet
 - Networking Interface
-  
+
 ![azure networking](../../install/images/AzureNetworking.png)
 
 **IMPORTANT**: It is important to mention that although a VNET with only one subnet might not be an issue, it might be a good lead to investigate if that is the best network segmentation for the applications running on it.
@@ -316,8 +317,19 @@ You can filter the information by:
 - VNET
 - Subnet
 - NSG assignment
-  
-![azure NSGs](../../install/images/NSGs.png)
+
+## Azure App Services page
+
+In this tab, you will be able to identify all the Application Services. On each one, you can check all the identities types, SKU and inbound and outbound IPs
+
+You can filter the information by:
+
+- Tenant
+- Subscription
+- Tags
+
+
+![azure Apps](../../install/images/AppServices.png)
 
 ## Role Based Access Control page
 
@@ -347,7 +359,7 @@ You can filter the information by:
 
 ## IaaS Usage and Limits page
 
-This tab allows to identify the usage of any Compute, Storage and Networking Azure resource and validate the limits for each region and subscription. 
+This tab allows to identify the usage of any Compute, Storage and Networking Azure resource and validate the limits for each region and subscription.
 
 You can filter the information by:
 
@@ -503,17 +515,17 @@ Login-AzureRmAccount
 Get-AzureRmSubscription | Out-GridView -PassThru
 
 #Resource Types
-$ref = @('^recommendations$', '^tasks$', '^alerts$','^managedClusters$','^virtualMachines$','^virtualNetworks$','^networkInterfaces$','^networkInterfaces$','^resourceGroups$','^subscriptions$','^resources$','^roleAssignments$','^roleDefinitions$','^networkSecurityGroups$')    
-$refRegex = [string]::Join('|', $ref) 
+$ref = @('^recommendations$', '^tasks$', '^alerts$','^managedClusters$','^virtualMachines$','^virtualNetworks$','^networkInterfaces$','^networkInterfaces$','^resourceGroups$','^subscriptions$','^resources$','^roleAssignments$','^roleDefinitions$','^networkSecurityGroups$')
+$refRegex = [string]::Join('|', $ref)
 #Resource Providers
 $ref2 = @('Microsoft.Resources','Microsoft.Network','Microsoft.Advisor','Microsoft.Compute','Microsoft.ContainerService','Microsoft.Security','Microsoft.Authorization')
 $ref2Regex = [string]::Join('|', $ref2)
 
 #Resource Types (location only for resources)
-$ref3 = @('^resourceGroups$','^subscriptions$','^locations$')    
-$ref3Regex = [string]::Join('|', $ref3) 
+$ref3 = @('^resourceGroups$','^subscriptions$','^locations$')
+$ref3Regex = [string]::Join('|', $ref3)
 
-$providers = Get-AzureRmResourceProvider 
+$providers = Get-AzureRmResourceProvider
 $providers | %{
     if ($_.ProviderNamespace -match $ref2Regex){
         "******************************************************************"
@@ -522,10 +534,10 @@ $providers | %{
         #"### Resource Types:    " + ((Get-AzureRmResourceProvider -ProviderNamespace $_.ProviderNamespace).ResourceTypes).count
         ""
         #We only want to show location resource API version if the provider is Microsoft.Resources
-        if ($_.ProviderNamespace -eq 'Microsoft.Resources'){ 
+        if ($_.ProviderNamespace -eq 'Microsoft.Resources'){
                 $resourcetypes | %{
                     If ($_.ResourceTypeName -match $ref3Regex){
-                        "- Resource Type Name:  " + $_.ResourceTypeName 
+                        "- Resource Type Name:  " + $_.ResourceTypeName
                         "- API last version:    " + ($_.ApiVersions | Select-Object -First 1)
                         ""
                     }
@@ -534,7 +546,7 @@ $providers | %{
         else{
             $resourcetypes | %{
                     If ($_.ResourceTypeName -match $refRegex){
-                        "- Resource Type Name:  " + $_.ResourceTypeName 
+                        "- Resource Type Name:  " + $_.ResourceTypeName
                         "- API last version:    " + ($_.ApiVersions | Select-Object -First 1)
                         ""
                     }
@@ -557,13 +569,13 @@ $providers | %{
       "IsCustom":  true,
       "Description":  "Can read Resources, Azure Security Center and Advisor Information",
       "Actions":  [
-                      "Microsoft.Advisor/generateRecommendations/action", 
+                      "Microsoft.Advisor/generateRecommendations/action",
                       "*/Read"
                   ],
       "NotActions":  [],
-          
-      "AssignableScopes":  [                          
-                               "/subscriptions/XXXXXXXXXXXXXXXXXXXXX"                             
+
+      "AssignableScopes":  [
+                               "/subscriptions/XXXXXXXXXXXXXXXXXXXXX"
                            ]
       }
   }

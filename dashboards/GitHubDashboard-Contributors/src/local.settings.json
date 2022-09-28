@@ -2,9 +2,9 @@
     "IsEncrypted": false,
     "Values": {
         "owner": "Azure",
-        "repository": "CCOInsights",
-        "resourceGroup": "GithubccotestRG",
-        "storageAccount": "ccoghcontsta",
+        "repository": "ResourceModules",
+        "resourceGroup": "CARML-dashboard",
+        "storageAccount": "carmlghcontsta",
         "pat": "<<PAT>>"
     }
 }

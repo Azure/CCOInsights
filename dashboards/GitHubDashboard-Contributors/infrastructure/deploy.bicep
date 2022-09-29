@@ -1,8 +1,8 @@
 @description('Base name to be used in all resources')
-param name string = 'cco-github-contributions'
+param name string = 'CCOInsights-Dashboard'
 
 @description('Name of the sotrage account')
-param staname string = 'ccoghcontsta'
+param staname string = 'ccoghcontstg'
 
 @description('Location where resources should be deployed')
 param location string = resourceGroup().location

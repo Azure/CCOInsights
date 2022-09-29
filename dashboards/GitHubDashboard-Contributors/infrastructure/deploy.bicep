@@ -1,5 +1,5 @@
 @description('Base name to be used in all resources')
-param name string = 'CCOInsights-Dashboard'
+param name string = 'CCOInsights-Dashboard1'
 
 @description('Name of the sotrage account')
 param staname string = 'ccoghcontstg'

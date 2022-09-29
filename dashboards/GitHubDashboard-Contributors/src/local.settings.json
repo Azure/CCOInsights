@@ -3,7 +3,7 @@
     "Values": {
         "owner": "Azure",
         "repository": "CCOInsights",
-        "resourceGroup": "CCOInsights-Dashboard",
+        "resourceGroup": "CCOInsights-Dashboard1",
         "storageAccount": "ccoghcontstg",
         "pat": "<<PAT>>"
     }

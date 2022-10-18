@@ -10,7 +10,7 @@
 
 ## Overview
 
-As part of the Continuous Cloud Optimization Insights solution, a dashboard is included to track the contributions made to a GitHub repository. The objective is to monitor not only the cloud environment, but also all the resources used for its design, deployment and maintenance. This dashboard allows you to monitor different metrics such as:
+As part of the Continuous Cloud Optimization Insights solution, a dashboard is included to track the contributions made to a GitHub repository. This dashboard allows you to monitor different metrics such as:
 - Number of contributors
 - Number of open pull requests
 - Average pull requests per day

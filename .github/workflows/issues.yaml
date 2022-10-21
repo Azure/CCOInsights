@@ -24,8 +24,12 @@ jobs:
         with:
           azcliversion: 2.30.0
           inlineScript: |
+            echo "Creating ${{steps.gh.outputs.title}}"
+            echo "URL ${{steps.gh.outputs.url}}"
             ado_title=$(echo ${{steps.gh.outputs.title}})
             ado_url=$(echo ${{steps.gh.outputs.url}})
+            echo $ado_title
+            
             export AZURE_DEVOPS_EXT_PAT=${{ secrets.ADOPAT }}
             az extension add --name azure-devops
             ado_issue=$(az boards work-item create --title $ado_title --type 'Bug' -d $ado_url --org 'https://dev.azure.com/strategy-and-solutions/' -p 'product-portfolio' -o json --query "id")

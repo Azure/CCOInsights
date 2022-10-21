@@ -32,5 +32,6 @@ jobs:
             
             export AZURE_DEVOPS_EXT_PAT=${{ secrets.ADOPAT }}
             az extension add --name azure-devops
-            ado_issue=$(az boards work-item create --title $ado_title --type 'Bug' -d $ado_url --org 'https://dev.azure.com/strategy-and-solutions/' -p 'product-portfolio' -o json --query "id")
+            az devops login --organization 'https://dev.azure.com/strategy-and-solutions'
+            ado_issue=$(az boards work-item create --title "$ado_title" --type 'Bug' -d $ado_url --org 'https://dev.azure.com/strategy-and-solutions/' -p 'product-portfolio' -o json --query "id")
             az boards work-item relation add --id '104' --relation-type 'child' --target-id $ado_issue --org 'https://dev.azure.com/strategy-and-solutions/'

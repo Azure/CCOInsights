@@ -68,7 +68,7 @@ resource appService 'Microsoft.Web/sites@2021-03-01' = {
 
 resource appServiceLogging 'Microsoft.Web/sites/config@2020-06-01' = {
   parent: appService
-  name: 'appsettings'
+  name: 'appsettings1'
   properties: {
     APPINSIGHTS_INSTRUMENTATIONKEY: appInsights.properties.InstrumentationKey
     FUNCTIONS_EXTENSION_VERSION: '~3'

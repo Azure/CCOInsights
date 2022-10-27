@@ -4,7 +4,6 @@
 - [Continuous Cloud Optimization Insights](#continuous-cloud-optimization-insights)
   - [Description](#description)
   - [Get started](#get-started)
-  - [Videos](#videos)
   - [Contributing](#contributing)
   - [Trademarks](#trademarks)
 
@@ -16,27 +15,16 @@ The Continuous Cloud Optimization Insights (CCO Insights) project is a set of Po
 ## Get started
 
 * For introduction and guidance visit the [Wiki](https://github.com/azure/CCOInsights/wiki).
+* For detailed overview of capabilities, features and installation steps of the CCO Insights solution, watch these informational [videos](https://aka.ms/ccoinsights/videos).
 * For information on contributing, see [Contribution](<https://github.com/Azure/CCOInsights/wiki/Contribution%20guide>).
 * File an issue via [GitHub Issues](https://github.com/azure/CCOInsights/issues/new/choose).
-* For a high level overview of the dashboards provided by this solution see [Dashboard overview](#dashboard-overview) section below.
 * Check all new features added in the [Release Notes](https://github.com/Azure/CCOInsights/wiki/Release%20Notes)
-* Watch these informational [videos](https://aka.ms/ccoinsights/videos) for a detailed overview of capabilities, features and installation steps of the CCO Insights solution.
 
 
->**NOTE**: If you're experiencing problems during the deployment of the dashboards, please check the [Troubleshooting guide](./install/TroubleshootingGuide.md) and the [Github issues](https://github.com/Azure/CCOInsights/issues?q=is%3Aissue) before creating a new one.
+>**NOTE**: If you're experiencing problems during the deployment of the dashboards, please check the [Troubleshooting Guide](./install/TroubleshootingGuide.md) and the [Github issues](https://github.com/Azure/CCOInsights/issues?q=is%3Aissue) before creating a new one.
 
 
 ![OverviewImage](./install/images/OverviewImage.png)
-
-## Videos
-
-See the informational [videos](https://aka.ms/ccoinsights/videos) on YouTube or on the thumbnails below.
-||||
-|:---:|:---:|:---:|
-|[<img src="https://img.youtube.com/vi/9l9ME_WXxJk/0.jpg" width="250"/>](https://www.youtube.com/watch?v=9l9ME_WXxJk)|[<img src="https://img.youtube.com/vi/z5pez0kl8_s/0.jpg" width="250"/>](https://www.youtube.com/watch?v=z5pez0kl8_s) | [<img src="https://img.youtube.com/vi/3lXcSaGtlx4/0.jpg" width="250"/>](https://www.youtube.com/watch?v=3lXcSaGtlx4)|
-|CCO Insights Chapter 0 - Introduction|CCO Insights Chapter 1 - Setup Power BI Desktop|CCO Insights Chapter 2 - Governance Dashboard
-|[<img src="https://img.youtube.com/vi/TzIbdpDQX5U/0.jpg" width="250"/>](https://www.youtube.com/watch?v=TzIbdpDQX5U)|[<img src="https://img.youtube.com/vi/uYbcd3B4z4I/0.jpg" width="250"/>](https://www.youtube.com/watch?v=uYbcd3B4z4I)||
-|CCO Insights Chapter 3 - Infrastructure Dashboard|CCO Insights Chapter 4 - GitHub Dashboard||
 
 ## Contributing
 

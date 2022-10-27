@@ -4,20 +4,11 @@
 - [Continuous Cloud Optimization Insights](#continuous-cloud-optimization-insights)
   - [Description](#description)
   - [Get started](#get-started)
-  - [Dashboard overview](#dashboard-overview)
-  - [Release notes](#release-notes)
-    - [Highlights of the latest releases](#highlights-of-the-latest-releases)
-      - [CCO GitHub Contributions Dashboards Version 1.0](#cco-github-contributions-dashboards-version-10)
-      - [CCO ADO Contributions Dashboards Version 1.0](#cco-ado-contributions-dashboards-version-10)
-      - [CCO Azure Infrastructure Dashboard Version 9.1 Updates](#cco-azure-infrastructure-dashboard-version-91-updates)
-      - [CCO Azure Governance Dashboard Version 2.6 Updates](#cco-azure-governance-dashboard-version-26-updates)
+  - [Videos](#videos)
   - [Contributing](#contributing)
   - [Trademarks](#trademarks)
 
 -------------------------------
->**NOTE**:  Watch these informational [videos](https://aka.ms/ccoinsights/videos) for a detailed overview of capabilities, features and installation steps of the CCO Insights solution.
-
-
 ## Description
 
 The Continuous Cloud Optimization Insights (CCO Insights) project is a set of Power BI Desktop Reports developed using Power Query M language and DAX that pulls information directly from different Azure REST APIs and enables monitoring, operation and infrastructure teams to quickly gain insights about their existing Azure Platform footprint and resources as well as code contribution characteristics on two major platforms - Azure DevOps and GitHub.
@@ -28,17 +19,8 @@ The Continuous Cloud Optimization Insights (CCO Insights) project is a set of Po
 * For information on contributing, see [Contribution](<https://github.com/Azure/CCOInsights/wiki/Contribution%20guide>).
 * File an issue via [GitHub Issues](https://github.com/azure/CCOInsights/issues/new/choose).
 * For a high level overview of the dashboards provided by this solution see [Dashboard overview](#dashboard-overview) section below.
-
-## Dashboard overview
-
-CCO Insights currently includes 5 different dashboards to discover information about your Azure, Azure DevOps and GitHub cloud platforms:
-
-- [**CCO Azure Infrastructure Dashboard**](./dashboards/CCODashboard-Infra/InfraDeploymentGuide.md): Get insights about Azure advisor optimizations, Azure Security Center Alerts, Networking, Compute, RBAC, Idle resources and Subscriptions Quotas and Limits
-- [**CCO Azure Governance Dashboard**](./dashboards/CCODashboard-Governance/GovernanceDeploymentGuide.md): Get insights about Azure Governance aspects like Management Groups and Subscriptions hierarchy, resource tagging and naming standards, security controls, policies compliance, Regulatory Standards and Azure Blueprints
-- [**CCO Azure Infrastructure Dashboard with AKS (not maintained)**](./dashboards/CCODashboard-Infra/InfraDeploymentGuide.md): Get insights about AKS information
-- [**CCO GitHub Contributions Dashboard**](./dashboards/GitHubDashboard-Contributors/GitHubDeploymentGuide.md): Get insights about the contributions to your GitHub project.
-- [**CCO Azure DevOps Contributions Dashboard**](./dashboards/ADODashboard-Contributors/ADODeploymentGuide.md): Get insights about the contributions to your Azure DevOps (ADO) project.
-
+* Check all new features added in the [Release Notes](https://github.com/Azure/CCOInsights/wiki/Release%20Notes)
+* Watch these informational [videos](https://aka.ms/ccoinsights/videos) for a detailed overview of capabilities, features and installation steps of the CCO Insights solution.
 
 
 >**NOTE**: If you're experiencing problems during the deployment of the dashboards, please check the [Troubleshooting guide](./install/TroubleshootingGuide.md) and the [Github issues](https://github.com/Azure/CCOInsights/issues?q=is%3Aissue) before creating a new one.
@@ -46,29 +28,15 @@ CCO Insights currently includes 5 different dashboards to discover information a
 
 ![OverviewImage](./install/images/OverviewImage.png)
 
-## Release notes
+## Videos
 
-For the comprehensive list of release notes, see the [Release notes](./Release-Notes.md) page.
-
-### Highlights of the latest releases
-
-#### CCO GitHub Contributions Dashboards Version 1.0
-
-- Initial release of the CCO GitHub Contributions Dashboard
-
-#### CCO ADO Contributions Dashboards Version 1.0
-
-- Initial release of the CCO ADO Contributions Dashboard
-
-#### CCO Azure Infrastructure Dashboard Version 9.1 Updates
-
-- New report page available for Azure Web Applications.
-- Management Group filtering
-- **IMPORTANT**: Now it requires the Custom connector (mandatory to retrieve the MGs)
-
-#### CCO Azure Governance Dashboard Version 2.6 Updates
-
-- Governance dashboard policies visuals fix
+See the informational [videos](https://aka.ms/ccoinsights/videos) on YouTube or on the thumbnails below.
+||||
+|:---:|:---:|:---:|
+|[<img src="https://img.youtube.com/vi/9l9ME_WXxJk/0.jpg" width="250"/>](https://www.youtube.com/watch?v=9l9ME_WXxJk)|[<img src="https://img.youtube.com/vi/z5pez0kl8_s/0.jpg" width="250"/>](https://www.youtube.com/watch?v=z5pez0kl8_s) | [<img src="https://img.youtube.com/vi/3lXcSaGtlx4/0.jpg" width="250"/>](https://www.youtube.com/watch?v=3lXcSaGtlx4)|
+|CCO Insights Chapter 0 - Introduction|CCO Insights Chapter 1 - Setup Power BI Desktop|CCO Insights Chapter 2 - Governance Dashboard
+|[<img src="https://img.youtube.com/vi/TzIbdpDQX5U/0.jpg" width="250"/>](https://www.youtube.com/watch?v=TzIbdpDQX5U)|[<img src="https://img.youtube.com/vi/uYbcd3B4z4I/0.jpg" width="250"/>](https://www.youtube.com/watch?v=uYbcd3B4z4I)||
+|CCO Insights Chapter 3 - Infrastructure Dashboard|CCO Insights Chapter 4 - GitHub Dashboard||
 
 ## Contributing
 

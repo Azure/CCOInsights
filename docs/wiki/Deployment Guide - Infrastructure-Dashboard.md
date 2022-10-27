@@ -58,6 +58,8 @@ Below you can find the list of providers and the actions that you will need to p
 |Azure Advisor| Microsoft.Advisor/generateRecommendations/action <br> 
 |*|*/Read|
 
+**IMPORTANT**: You must follow [this procedure](https://docs.microsoft.com/en-us/azure/lighthouse/how-to/onboard-customer) to implement Azure delegated resource management to get data from subscriptions in other tenants.
+
 ## APIs in use
 
 The CCO Azure Infrastructure Dashboard pulls the information from several APIs. You can read the public documentation if you need further information about the calls and methods available:

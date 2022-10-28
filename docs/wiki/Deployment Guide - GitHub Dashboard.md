@@ -1,11 +1,15 @@
 ### _Navigation_
 
-  - [Overview](#overview)
-  - [Infrastructure](#infrastructure)
-    - [Deployment](#deployment)
-      - [Prerequisites](#prerequisites)
-      - [Backend Deployment](#backend-deployment)
-  - [Dashboard](#dashboard)
+- [Overview](#overview)
+- [Infrastructure](#infrastructure)
+  - [Deployment](#deployment)
+    - [Prerequisites](#prerequisites)
+    - [Backend Deployment](#backend-deployment)
+- [Dashboard](#dashboard)
+
+---
+
+<br>
 
 # Overview
 
@@ -21,6 +25,8 @@ As part of the Continuous Cloud Optimization Insights solution, a dashboard is i
 - Top contributors measured by changes in their pull requests.
 
 An important note about this dashboard is that **this dashboard can be published in the PowerBI online service with auto refresh enabled**. The difference with the current versions of the other dashboards of CCO Insights is that, for this one, no dynamic queries are being done directly from the PowerBI file, meaning that it can be published and consumed directly from the [PowerBI online][PublishPowerBI] service.
+
+<br>
 
 # Infrastructure
 
@@ -78,6 +84,8 @@ Now you are ready to deploy your backend in your environment:
 After successfully deploying the backend go to the Azure portal and manually run the `InitializeTables` endpoint. Make sure you see the tables in your Storage Account before moving forward.
 
 ![storage-tables][StorageTables]
+
+<br>
 
 # Dashboard
 

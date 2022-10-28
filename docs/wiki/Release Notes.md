@@ -1,37 +1,11 @@
-# Release Notes
+### _Navigation_
 
-- [Release Notes](#release-notes)
-  - [CCO Azure Governance Dashboard](#cco-azure-governance-dashboard)
-    - [CCO Azure Governance Dashboard Version 2.6 Updates](#cco-azure-governance-dashboard-version-26-updates)
-    - [CCO Azure Governance Dashboard Version 2.1](#cco-azure-governance-dashboard-version-21)
-    - [CCO Azure Governance Dashboard Version 2.0](#cco-azure-governance-dashboard-version-20)
-  - [CCO Azure Infrastructure Dashboard](#cco-azure-infrastructure-dashboard)
-    - [CCO Azure Infrastructure Dashboard Version 9.1](#cco-azure-infrastructure-dashboard-version-91)
-    - [CCO Azure Infrastructure Dashboard Version 8.2](#cco-azure-infrastructure-dashboard-version-82)
-    - [CCO Azure Infrastructure Dashboard Version 8.1](#cco-azure-infrastructure-dashboard-version-81)
-    - [CCO Azure Infrastructure Dashboard Version 7.1](#cco-azure-infrastructure-dashboard-version-71)
-    - [CCO Azure Infrastructure Dashboard Version 7.0](#cco-azure-infrastructure-dashboard-version-70)
-    - [CCO Azure Infrastructure Dashboard Version 6.3](#cco-azure-infrastructure-dashboard-version-63)
-    - [CCO Azure Infrastructure Dashboard Version 6.2](#cco-azure-infrastructure-dashboard-version-62)
-    - [CCO Azure Infrastructure Dashboard Version 6.1](#cco-azure-infrastructure-dashboard-version-61)
-    - [CCO Azure Infrastructure Dashboard Version 6.0](#cco-azure-infrastructure-dashboard-version-60)
-    - [CCO Azure Infrastructure Dashboard Version 5.4](#cco-azure-infrastructure-dashboard-version-54)
-    - [CCO Azure Infrastructure Dashboard Version 5.3](#cco-azure-infrastructure-dashboard-version-53)
-    - [CCO Azure Infrastructure Dashboard Version 5.2](#cco-azure-infrastructure-dashboard-version-52)
-      - [Overview Page](#overview-page)
-      - [Tags Overview](#tags-overview)
-      - [Azure Advisor](#azure-advisor)
-      - [Azure Security Center](#azure-security-center)
-      - [Security Alerts](#security-alerts)
-      - [Compute](#compute)
-      - [Networking](#networking)
-      - [NSGs](#nsgs)
-      - [RBAC](#rbac)
-      - [RBAC Service Principals](#rbac-service-principals)
-  - [CCO ADO Contributions Dashboard](#cco-ado-contributions-dashboard)
-    - [CCO ADO Contributions Dashboard Version 1.0](#cco-ado-contributions-dashboard-version-10)
-  - [CCO GitHub Contributions Dashboard](#cco-github-contributions-dashboard)
-    - [CCO GitHub Contributions Dashboard Version 1.0](#cco-github-contributions-dashboard-version-10)
+- [CCO Azure Governance Dashboard](#cco-azure-governance-dashboard)
+- [CCO Azure Infrastructure Dashboard](#cco-azure-infrastructure-dashboard)
+- [CCO ADO Contributions Dashboard](#cco-ado-contributions-dashboard)
+- [CCO GitHub Contributions Dashboard](#cco-github-contributions-dashboard)
+
+---
 
 ## CCO Azure Governance Dashboard
 
@@ -54,6 +28,7 @@
 - New UX design with latest Azure Portal Icons 
 - General Bug Fixes and code improvements
 
+---
 ## CCO Azure Infrastructure Dashboard
 
 ### CCO Azure Infrastructure Dashboard Version 9.1
@@ -75,7 +50,7 @@
 
 ### CCO Azure Infrastructure Dashboard Version 7.1
 
-- Bug fix [Issue #72](https://github.com/Azure/CCOInsights/issues/72):
+- Bug fix [Issue #72][Issue72]:
   - Subscription IDs in All Subscriptions table must be uniques.
   - One tenant can be managed by one or more tenants (this data now is hidden but it will be used in future releases).
 
@@ -85,11 +60,11 @@
   - Tenant filtering in all pages.
 - Added subscription filtering in IaaS Usage and Limits and IaaS Idle Resources pages.
 
-IMPORTANT: You must follow this [procedure](https://docs.microsoft.com/en-us/azure/lighthouse/how-to/onboard-customer) to implement Azure delegated resource management.
+IMPORTANT: You must follow this [procedure][Procedure] to implement Azure delegated resource management.
 
 ### CCO Azure Infrastructure Dashboard Version 6.3
 
-- Bug fixing ASC recommendation: Now all the Security Center Recommendations are defined in this [file](./docs/assets/SecRec.md). This file contains all the recommendations from docs.microsoft.com but will be updated by us for consolidating the model and avoid the issues when the official URL is updated.
+- Bug fixing ASC recommendation: Now all the Security Center Recommendations are defined in this [file][SecurityRecommendations]. This file contains all the recommendations from docs.microsoft.com but will be updated by us for consolidating the model and avoid the issues when the official URL is updated.
 
 ### CCO Azure Infrastructure Dashboard Version 6.2
 
@@ -177,6 +152,8 @@ Azure Idle Resources identification Page
 - Filtering RBAC permissions by Service Principal Type
 - Search option for Users and Resource Groups
 
+---
+
 ## CCO ADO Contributions Dashboard
 
 ### CCO ADO Contributions Dashboard Version 1.0
@@ -188,6 +165,7 @@ The version 1.0 of the CCO ADO Contributions Dashboard includes 1 report page. Y
 - Comparison between number of open vs closed pull requests over the last months
 - Branches created over the last months
 
+---
 ## CCO GitHub Contributions Dashboard
 
 ### CCO GitHub Contributions Dashboard Version 1.0
@@ -205,3 +183,13 @@ The version 1.0 of the CCO GitHub Contributions Dashboard includes 1 report page
 - Comparison between number of open vs closed pull requests over the last months.
 - Comparison between number of additions vs deletions per month
 - Top contributors measured by changes in their pull requests.
+
+
+<!-- Docs -->
+
+<!-- Images -->
+
+<!-- References -->
+[Issue72]: <https://github.com/Azure/CCOInsights/issues/72>
+[Procedure]: <https://docs.microsoft.com/en-us/azure/lighthouse/how-to/onboard-customer>
+[SecurityRecommendations]: <./Security Recommendations.md>

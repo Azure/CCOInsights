@@ -22,6 +22,10 @@
   - [Azure Policies page](#azure-policies-page)
   - [Azure Blueprints page](#azure-blueprints-page)
 
+---
+
+<br>
+
 # Overview
 
 The CCO Azure Governance Dashboard is aligned with the Microsoft Cloud Adoption Framework governance principles and will allow to get quick insights around Management Groups, Subscriptions, Blueprints, Polices, Naming Standards, Tagging and Regulatory Standards compliance. The information captured on this Power BI Dashboard can help Cloud Teams, Operations Teams or business decision makers to have a snapshot of the current Azure configuration in just few minutes.
@@ -33,6 +37,8 @@ The CCO Azure Governance Dashboard is aligned with the Microsoft Cloud Adoption 
   - Internet access from the computer running Microsoft Power BI desktop.
   - An Azure account on the desired tenant space with permissions on the subscriptions to read from the Azure Services described above.
   - Install the custom connector and allow the use of any extension to load data without validation or warning.
+
+<br>
 
 # APIs in use
 
@@ -61,6 +67,8 @@ API URLs by environment:
 | Management |https://management.usgovcloudapi.net/|US Government|
 | Management |https://management.chinacloudapi.cn/|China|
 
+<br>
+
 # Resource Providers requirements
 
 Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Security** resource provider is registered across all the  subscriptions that you plan analyze using the Dashboard. 
@@ -71,6 +79,8 @@ Registering this Resource Provider has no cost or performance penalty on the sub
 2. Click on the Subscription name you want to configure.
 3. Click on **Resource Providers**.
 4. Click on **Microsoft.Security** and **Register**.
+
+<br>
 
 # Installing the custom connector
 
@@ -85,6 +95,8 @@ The path should be **C:\Users\\%username%\Documents\Power BI Desktop\Custom Conn
 Then go to Power BI Options and under Global category in the Security section, select **(Not Recommended) Allow any extension to load without validation or warning** and click **OK**.
 
 ![CustomConnectorSecurity][CustomConnectorSecurity]
+
+<br>
 
 # Setting up the CCO Azure Governance Dashboard Governance
 
@@ -146,6 +158,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 
 ![CustomConnector][CustomConnector]
 
+<br>
 
 # Report Pages
 
@@ -226,10 +239,9 @@ You can filter the information by:
 [AzureBlueprints]: <https://learn.microsoft.com/en-us/rest/api/blueprints>
 [AzurePolicies]: <https://learn.microsoft.com/en-us/rest/api/policy/>
 [AzureRegulatoryCompliances]: <https://learn.microsoft.com/en-us/rest/api/defenderforcloud/regulatory-compliance-standards>
-[AzureAssessments]: <https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations>
+[AzureAssessments]: <https://learn.microsoft.com/es-es/rest/api/defenderforcloud/assessments/list>
 [AzureSecureScores]: <https://learn.microsoft.com/en-us/rest/api/defenderforcloud/secure-scores>
 [AzureSecureScoresControls]: <https://learn.microsoft.com/en-us/rest/api/defenderforcloud/secure-score-controls>
-[CCODashboardGovernance]: <https://github.com/Azure/CCOInsights/tree/main/dashboards/CCODashboard-Governance>
 [UsGovernment]: <https://learn.microsoft.com/en-us/azure/azure-government/documentation-government-developer-guide>
 [RegulatoryStandards]: <https://learn.microsoft.com/en-us/azure/governance/blueprints/samples/>
 
@@ -251,5 +263,5 @@ You can filter the information by:
 [GovernanceSubsBlueprints]: <./media/governanceSubsBlueprints.png>
 
 <!-- References -->
-
+[CCODashboardGovernance]: <https://github.com/Azure/CCOInsights/tree/main/dashboards/CCODashboard-Governance>
 [CCoDashboardAzureConnector]: <https://github.com/Azure/CCOInsights/blob/main/dashboards/CCODashboard-Governance/CcoDashboardAzureConnector.mez>

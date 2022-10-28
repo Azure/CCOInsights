@@ -1,10 +1,9 @@
-# CCO Azure Governance Dashboard
+### _Navigation_
 
-- [CCO Azure Governance Dashboard](#cco-azure-governance-dashboard)
-  - [Overview](#overview)
-    - [Requirements](#requirements)
-  - [APIs in use](#apis-in-use)
-  - [Resource Providers requirements](#resource-providers-requirements)
+- [Overview](#overview)
+  - [Requirements](#requirements)
+- [APIs in use](#apis-in-use)
+- [Resource Providers requirements](#resource-providers-requirements)
 - [Installing the custom connector](#installing-the-custom-connector)
 - [Setting up the CCO Azure Governance Dashboard Governance](#setting-up-the-cco-azure-governance-dashboard-governance)
   - [Template download](#template-download)
@@ -23,11 +22,11 @@
   - [Azure Policies page](#azure-policies-page)
   - [Azure Blueprints page](#azure-blueprints-page)
 
-## Overview
+# Overview
 
 The CCO Azure Governance Dashboard is aligned with the Microsoft Cloud Adoption Framework governance principles and will allow to get quick insights around Management Groups, Subscriptions, Blueprints, Polices, Naming Standards, Tagging and Regulatory Standards compliance. The information captured on this Power BI Dashboard can help Cloud Teams, Operations Teams or business decision makers to have a snapshot of the current Azure configuration in just few minutes.
 
-### Requirements
+## Requirements
 
 - The CCO Azure Governance Dashboard is a Power BI Template that requires to download and install the Microsoft Power BI Desktop Edition from the Microsoft Store. Below you can find the minimum requirements to run the Dashboard
   - Windows 10 version **14393.0** or **higher**.
@@ -35,7 +34,7 @@ The CCO Azure Governance Dashboard is aligned with the Microsoft Cloud Adoption 
   - An Azure account on the desired tenant space with permissions on the subscriptions to read from the Azure Services described above.
   - Install the custom connector and allow the use of any extension to load data without validation or warning.
 
-## APIs in use
+# APIs in use
 
 The CCO Azure Governance Dashboard Governance pulls the information from several APIs. You can read the public documentation if you need further information about the calls and methods available:
 <br><br>
@@ -43,16 +42,16 @@ The CCO Azure Governance Dashboard Governance pulls the information from several
 
 | API Name| Dashboard API Version | Last API version | Using latest version|
 | --- | :---: | :---: |:---: |
-| [Resource Groups](https://docs.microsoft.com/en-us/rest/api/resources/resourcegroups)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
-| [Azure Resources](https://docs.microsoft.com/en-us/rest/api/resources/resources)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
-| [Azure Subscriptions](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions)  |2020-01-01 |2020-01-01|:heavy_check_mark:|
-| [Azure Locations](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2019-05-01 |2019-05-01|:heavy_check_mark:|
-| [Azure Blueprints](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2018-11-01-preview |2018-11-01-preview|:heavy_check_mark:|
-| [Azure Policies](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2019-09-01 |2019-09-01|:heavy_check_mark:|
-| [Azure Regulatory Compliances](https://docs.microsoft.com/en-us/rest/api/securitycenter/regulatorycompliancestandards)  |2019-01-01-preview |2019-01-01-preview|:heavy_check_mark:|
-| [Azure Assessments](https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations)  |2020-01-01 |2020-01-01|:heavy_check_mark:|
-| [Azure Secure Scores](https://docs.microsoft.com/en-us/rest/api/securitycenter/securescores) |2020-01-01 |2020-01-01|:heavy_check_mark:|
-| [Azure Secure Scores Controls](https://docs.microsoft.com/en-us/rest/api/securitycenter/securescorecontrols) |2020-01-01-preview |2020-01-01-preview|:heavy_check_mark:|
+| [Resource Groups][ResourceGroups]  |2019-05-01 |2019-05-01|:heavy_check_mark:|
+| [Azure Resources][AzureResources]  |2019-05-01 |2019-05-01|:heavy_check_mark:|
+| [Azure Subscriptions][AzureSubscriptions]  |2020-01-01 |2020-01-01|:heavy_check_mark:|
+| [Azure Locations][AzureLocations]  |2019-05-01 |2019-05-01|:heavy_check_mark:|
+| [Azure Blueprints][AzureBlueprints]  |2018-11-01-preview |2018-11-01-preview|:heavy_check_mark:|
+| [Azure Policies][AzurePolicies]  |2019-09-01 |2019-09-01|:heavy_check_mark:|
+| [Azure Regulatory Compliances][AzureRegulatoryCompliances]  |2019-01-01-preview |2019-01-01-preview|:heavy_check_mark:|
+| [Azure Assessments][AzureAssessments]  |2020-01-01 |2020-01-01|:heavy_check_mark:|
+| [Azure Secure Scores][AzureSecureScores] |2020-01-01 |2020-01-01|:heavy_check_mark:|
+| [Azure Secure Scores Controls][AzureSecureScoresControls] |2020-01-01-preview |2020-01-01-preview|:heavy_check_mark:|
 
 API URLs by environment:
 
@@ -62,7 +61,7 @@ API URLs by environment:
 | Management |https://management.usgovcloudapi.net/|US Government|
 | Management |https://management.chinacloudapi.cn/|China|
 
-## Resource Providers requirements
+# Resource Providers requirements
 
 Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Security** resource provider is registered across all the  subscriptions that you plan analyze using the Dashboard. 
 
@@ -75,37 +74,37 @@ Registering this Resource Provider has no cost or performance penalty on the sub
 
 # Installing the custom connector
 
-The CCO Azure Governance Dashboard requires to install the Power BI Custom Connector located in the same folder as the CCO Governance Dashboard ([CCoDashboardAzureConnector.mez](../../dashboards/CCODashboard-Governance/CcoDashboardAzureConnector.mez)). This Custom Connector allows us to leverage information from Azure Management REST APIs that requires POST methods and errors control
+The CCO Azure Governance Dashboard requires to install the Power BI Custom Connector located in the same folder as the CCO Governance Dashboard ([CCoDashboardAzureConnector.mez][CCoDashboardAzureConnector]). This Custom Connector allows us to leverage information from Azure Management REST APIs that requires POST methods and errors control
 
-To install the custom connector you must copy the file [CCoDashboardAzureConnector.mez](../../dashboards/CCODashboard-Governance/CcoDashboardAzureConnector.mez) from the **ccodashboard/dashboards/CCODashboard-Governance/** folder to the folder that Power BI creates by default in the Documents folder in your PC. If this folder doesn't exist, you can create a new one with this name.
+To install the custom connector you must copy the file [CCoDashboardAzureConnector.mez][CCoDashboardAzureConnector] from the **ccodashboard/dashboards/CCODashboard-Governance/** folder to the folder that Power BI creates by default in the Documents folder in your PC. If this folder doesn't exist, you can create a new one with this name.
 
 The path should be **C:\Users\\%username%\Documents\Power BI Desktop\Custom Connectors** or if you are using OneDrive to backup the documents folder this path would not work for you and you should manually go to your documents folder and create the folder structure there. 
 
-![cc](../../install/images/customconnectorfolder.PNG)
+![CustomConnectorFolder][CustomConnectorFolder]
 
 Then go to Power BI Options and under Global category in the Security section, select **(Not Recommended) Allow any extension to load without validation or warning** and click **OK**.
 
-![cc](../../install/images/customconnectorsecurity.PNG)
+![CustomConnectorSecurity][CustomConnectorSecurity]
 
 # Setting up the CCO Azure Governance Dashboard Governance
 
 ## Template download
-Make sure to download and open the `.pbit` file from  https://github.com/Azure/CCOInsights/tree/master/dashboards/CCODashboard-Governance
+Download and open the `.pbit` file from  [CCODashboard-Governance][CCODashboardGovernance] folder.
 
 ## Environment selection
 
 Before start loading data you need to select which type of environment you're using:
 
 - Select "Global" for Microsoft Azure commercial environments. This is the default selection.
-- Select [US-Government](https://docs.microsoft.com/en-us/azure/azure-government/documentation-government-developer-guide) for Azure Us government services. Azure Government is a separate instance of the Microsoft Azure service. It addresses the security and compliance needs of United States federal agencies, state and local governments, and their solution providers.
+- Select [US-Government][UsGovernment] for Azure Us government services. Azure Government is a separate instance of the Microsoft Azure service. It addresses the security and compliance needs of United States federal agencies, state and local governments, and their solution providers.
 
-![selector](../../install/images/selectorGov.PNG)
+![selector][SelectorGov]
 
 ## Modify Privacy settings
 
 - Go to File -> Options -> Privacy and set to Always ignore privacy level settings.
 
-![Privacy](https://user-images.githubusercontent.com/39730064/60920947-3e6d2580-a24e-11e9-9042-f799c9f6fc53.png)
+![Privacy][Privacy]
 
 ## Credentials
 
@@ -121,7 +120,7 @@ In some cases, old credentials are cached by previous logins using Power BI Desk
 - Click on **Clear Permissions**.
 - Click on **Clear All Permissions**.
 
-![credentials1](../../install/images/Credentials1.png) ![credentials2](../../install/images/Credentials2.png)
+![credentials1][Credentials1] ![credentials2][Credentials2]
 
 ### Refresh the dashboard
 
@@ -129,7 +128,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 
 - Click on **Refresh**.
   
-![refreshgovernance](../../install/images/refreshgovernance1.png)
+![refreshgovernance][RefreshGovernance]
 
 ### Credentials for management.azure.com REST API request
 
@@ -137,7 +136,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 - Click on **Sign in**.
 - Click on **Connect**.
 
-![credentials4](../../install/images/Credentials4.png)
+![credentials4][Credentials4]
 
 ### Credentials for Custom Connector
 
@@ -145,7 +144,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 - Click on **Sign in**.
 - Click on **Connect**.
 
-![cc](../../install/images/customconnector.PNG)
+![CustomConnector][CustomConnector]
 
 
 # Report Pages
@@ -155,7 +154,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 In this page, you will be able to identify easily the hierarchy within your environment with the view of the Management Groups and Subscriptions.
 It's important to mention that this page just gives you a quick view.
 
-![overview](../../install/images/GovernanceOverview.png)
+![overview][Overview]
 
 ## Tags and naming standards page
 
@@ -166,11 +165,11 @@ You can filter the information by:
 - Management Group with subscriptions
 - Subscription
 
-![TagsOverview](../../install/images/TagsOverview.png)
+![TagsOverview][TagsOverview]
 
 ## Azure Regulatory Standards Forecast
 
-In this page you can compare your current Azure resources compliance against selected Regulatory Standards, to understand how far from a given Regulatory Standard your current Azure footprint is today. For more information check the published [Regulatory Standards](https://docs.microsoft.com/en-us/azure/governance/blueprints/samples/).
+In this page you can compare your current Azure resources compliance against selected Regulatory Standards, to understand how far from a given Regulatory Standard your current Azure footprint is today. For more information check the published [Regulatory Standards][RegulatoryStandards].
 
 You can filter the information by:
 
@@ -178,7 +177,7 @@ You can filter the information by:
 - Regulatory Compliance
 - Assessment Category
 
-![regulatorycompliance](../../install/images/regulatorycompliance.png)
+![regulatorycompliance][RegulatoryCompliance]
 
 ## Azure Resources Security & Compliance page
 
@@ -192,7 +191,7 @@ You can filter the information by:
 - Secure Controls
 - Policy Category
   
-![regulatory compliance resources](../../install/images/regulatorycomplianceresources.png)
+![regulatory compliance resources][RegulatoryComplianceResources]
 
 ## Azure Policies page
 
@@ -206,7 +205,7 @@ You can filter the information by:
 
 If you navigate to a impacted resource you will see a quick description of the applied policies.
 
-![policies](../../install/images/governancePolicies.png)
+![policies][policies]
 
 ## Azure Blueprints page
 
@@ -217,4 +216,40 @@ You can filter the information by:
 - Subscription with assigned blueprints
 - Blueprint Definition
   
-![governanceSubsBlueprints](../../install/images/governanceSubsBlueprints.png)
+![governanceSubsBlueprints][GovernanceSubsBlueprints]
+
+<!-- Docs -->
+[ResourceGroups]: <https://learn.microsoft.com/en-us/rest/api/resources/resource-groups>
+[AzureResources]: <https://learn.microsoft.com/en-us/rest/api/resources/resources>
+[AzureSubscriptions]: <https://docs.microsoft.com/en-us/rest/api/resources/subscriptions>
+[AzureLocations]: <https://learn.microsoft.com/en-us/rest/api/resources/subscriptions/list-locations>
+[AzureBlueprints]: <https://learn.microsoft.com/en-us/rest/api/blueprints>
+[AzurePolicies]: <https://learn.microsoft.com/en-us/rest/api/policy/>
+[AzureRegulatoryCompliances]: <https://learn.microsoft.com/en-us/rest/api/defenderforcloud/regulatory-compliance-standards>
+[AzureAssessments]: <https://docs.microsoft.com/en-us/rest/api/resources/subscriptions/listlocations>
+[AzureSecureScores]: <https://learn.microsoft.com/en-us/rest/api/defenderforcloud/secure-scores>
+[AzureSecureScoresControls]: <https://learn.microsoft.com/en-us/rest/api/defenderforcloud/secure-score-controls>
+[CCODashboardGovernance]: <https://github.com/Azure/CCOInsights/tree/main/dashboards/CCODashboard-Governance>
+[UsGovernment]: <https://learn.microsoft.com/en-us/azure/azure-government/documentation-government-developer-guide>
+[RegulatoryStandards]: <https://learn.microsoft.com/en-us/azure/governance/blueprints/samples/>
+
+<!-- Images -->
+[CustomConnectorFolder]: <./media/customconnectorfolder.PNG>
+[CustomConnectorSecurity]: <./media/customconnectorsecurity.PNG>
+[SelectorGov]: <./media/selectorGov.PNG>
+[Privacy]: <./media/governancePrivacy.png>
+[Credentials1]: <./media/Credentials1.png>
+[Credentials2]: <./media/Credentials2.png>
+[RefreshGovernance]: <./media/refreshgovernance1.png>
+[Credentials4]: <./media/Credentials4.png>
+[CustomConnector]: <./media/customconnector.PNG>
+[Overview]: <./media/GovernanceOverview.png>
+[TagsOverview]: <./media/TagsOverview.png>
+[RegulatoryCompliance]: <./media/regulatorycompliance.png>
+[RegulatoryComplianceResources]: <./media/regulatorycomplianceresources.png>
+[policies]: <./media/governancePolicies.png>
+[GovernanceSubsBlueprints]: <./media/governanceSubsBlueprints.png>
+
+<!-- References -->
+
+[CCoDashboardAzureConnector]: <https://github.com/Azure/CCOInsights/blob/main/dashboards/CCODashboard-Governance/CcoDashboardAzureConnector.mez>

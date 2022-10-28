@@ -53,7 +53,7 @@ To learn more about CCO Insights, see the informational videos on [YouTube][YouT
 ||||
 |:---:|:---:|:---:|
 |![Video0][IMG_Video0]|![Video1][IMG_Video1] |![Video2][IMG_Video2]|
-|[***Chapter 0* - Introduction**][Video0]|[***Chapter 1* - Setup Power BI Desktop**][Video1]|[**C*hapter 2* - Governance Dashboard**][Video2]
+|[***Chapter 0* - Introduction**][Video0]|[***Chapter 1* - Setup Power BI Desktop**][Video1]|[***Chapter 2* - Governance Dashboard**][Video2]
 ||||
 |![Video3][IMG_Video3]|![Video4][IMG_Video4]||
 |[***Chapter 3* - Infrastructure Dashboard**][Video3]|[***Chapter 4* - GitHub Dashboard**][Video4]||

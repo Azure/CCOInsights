@@ -44,7 +44,6 @@ The CCO Azure Governance Dashboard is aligned with the Microsoft Cloud Adoption 
 
 The CCO Azure Governance Dashboard Governance pulls the information from several APIs. You can read the public documentation if you need further information about the calls and methods available:
 <br><br>
-</div>
 
 | API Name| Dashboard API Version | Last API version | Using latest version|
 | --- | :---: | :---: |:---: |

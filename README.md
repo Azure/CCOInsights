@@ -14,17 +14,17 @@ The Continuous Cloud Optimization Insights (CCO Insights) project is a set of Po
 
 ## Get started
 
-* For introduction and guidance visit the [Wiki](https://github.com/azure/CCOInsights/wiki).
-* For detailed overview of capabilities, features and installation steps of the CCO Insights solution, watch these informational [videos](https://aka.ms/ccoinsights/videos).
-* For information on contributing, see [Contribution](<https://github.com/Azure/CCOInsights/wiki/Contribution%20guide>).
-* File an issue via [GitHub Issues](https://github.com/azure/CCOInsights/issues/new/choose).
-* Check all new features added in the [Release Notes](https://github.com/Azure/CCOInsights/wiki/Release%20Notes)
+* For introduction and guidance visit the [Wiki][Wiki].
+* For detailed overview of capabilities, features and installation steps of the CCO Insights solution, watch these informational [videos][Videos].
+* For information on contributing, see [Contribution][Contribution].
+* File an issue via [GitHub Issues][GithubIssues].
+* Check all new features added in the [Release Notes][ReleaseNotes].
 
 
->**NOTE**: If you're experiencing problems during the deployment of the dashboards, please check the [Troubleshooting Guide](./install/TroubleshootingGuide.md) and the [Github issues](https://github.com/Azure/CCOInsights/issues?q=is%3Aissue) before creating a new one.
+>**NOTE**: If you're experiencing problems during the deployment of the dashboards, please check the [Troubleshooting Guide][TroubleshootingGuide] and the [Github issues][GitHubIssues] before creating a new one.
 
 
-![OverviewImage](./install/images/OverviewImage.png)
+![OverviewImage][OverviewImage]
 
 ## Contributing
 
@@ -32,14 +32,30 @@ This project welcomes contributions and suggestions.  Most contributions require
 
 When you submit a pull request, a CLA bot will automatically determine whether you need to provide a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions provided by the bot. You will only need to do this once across all repos using our CLA.
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
-For specific guidelines on how to contribute to this repository please refer to the [Contribution guide](https://github.com/Azure/ResourceModules/wiki/Contribution%20guide) Wiki section.
+This project has adopted the [Microsoft Open Source Code of Conduct][MicrosoftOpenSourceCodeOfConduct].
+For more information see the [Code of Conduct FAQ][CodeOfConductFAQ] or contact [opencode@microsoft.com][opencode@microsoftcom] with any additional questions or comments.
 
 ## Trademarks
 
 This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
+[Microsoft's Trademark & Brand Guidelines][MicrosoftsTrademarkAndBrandGuidelines].
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
+
+<!-- Docs -->
+[MicrosoftOpenSourceCodeOfConduct]: <https://opensource.microsoft.com/codeofconduct/>
+[CodeOfConductFAQ]: <https://opensource.microsoft.com/codeofconduct/faq/>
+[opencode@microsoftcom]: <mailto:opencode@microsoft.com>
+[MicrosoftsTrademarkAndBrandGuidelines]: <https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general>
+
+<!-- Images -->
+[OverviewImage]: <./docs/wiki/media/OverviewImage.png>
+
+<!-- References -->
+[Wiki]: <https://github.com/azure/CCOInsights/wiki>
+[Videos]: <https://aka.ms/ccoinsights/videos>
+[Contribution]: <https://github.com/Azure/CCOInsights/wiki/Contribution%20guide>
+[GitHubIssues]: <https://github.com/azure/CCOInsights/issues/new/choose>
+[ReleaseNotes]: <https://github.com/Azure/CCOInsights/wiki/Release%20Notes>
+[TroubleshootingGuide]: <https://github.com/Azure/CCOInsights/wiki/Troubleshooting%20guide>
+[GithubIssues]: <https://github.com/Azure/CCOInsights/issues?q=is%3Aissue>

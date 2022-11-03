@@ -1,28 +1,11 @@
 ### _Navigation_
 
-- [Overview](#overview)
 - [Infrastructure requirements](#infrastructure-requirements)
-  - [Deployment](#deployment)
-    - [Pre-requisites](#pre-requisites)
-    - [Back-end Deployment](#back-end-deployment)
-- [Dashboard](#dashboard)
+- [Deployment](#deployment)
+  - [Pre-requisites](#pre-requisites)
+  - [Back-end Deployment](#back-end-deployment)
 
 ---
-
-<br>
-
-# Overview
-
-As part of the Continuous Cloud Optimization Insights solution, a dashboard is included to track the contributions made to a Azure DevOps repository. The objective is to monitor not only the cloud environment, but also all the resources used for its design, deployment and maintenance. This dashboard allows you to monitor different metrics such as:
-- Number of Projects and branches
-- Pull requests
-  - Average pull requests per day
-  - Comparison between number of open vs closed pull requests over the last months
-- Comparison between number of lines added vs deleted per month
-- Top contributors measured by changes in their pull requests.
-- Branches created over the last months
-
-An important note about this dashboard is that **this dashboard can be published in the PowerBI online service with auto refresh enabled**. The difference with the current versions of the other dashboards of CCO Insights is that, for this one, no dynamic queries are being done directly from the PowerBI file, meaning that it can be published and consumed directly from the [PowerBI online][PublishPowerBI] service.
 
 <br>
 
@@ -32,11 +15,11 @@ The CCO Azure DevOps Contributions dashboard requires an infrastructure being de
 
 ![ADO Dashboard Architecture][ADODashboardArchitecture]
 
-## Deployment
+# Deployment
 
 As part of this solution we offer you already the required [bicep][BicepOverview] template that will deploy and connect the architecture presented previously.
 
-### Pre-requisites
+## Pre-requisites
 
 In order to successfully user the deploy.bicep and workflow provided, you will need to have:
 - This repository forked in your own environment.
@@ -67,7 +50,7 @@ In order to successfully user the deploy.bicep and workflow provided, you will n
 
     > Note: The **organization** corresponds to the ADO organization from where the information needs to be retrieved.
 
-### Back-end Deployment
+## Back-end Deployment
 
 In the [infrastructure][infrastructure] folder you will find a `deploy.bicep` file which is the template that will be used to deploy the infrastructure. Please, go ahead and update the first two parameters (`name` and `staname`) with your unique values. **Name** will be used to compose the name of all resources except for the storage account, which will leverage the **staname**.
 
@@ -86,20 +69,8 @@ After successfully deploying the back-end go to the Azure portal and manually ru
 
 <br>
 
-# Dashboard
-
-With the previous back-end deployed, you can now download the [ADOContributions.pbit][AdoContributionsDashboard] and run it locally. You will be asked to enter:
-- The Storage Account name of the Storage Account you deployed.
-![Storage Account Name][StorageAccountName]
-- The Storage account access key.
-
-After that you will be able to monitor your contributions!
-
-![Ado Contributions][AdoContributions]
-
 
 <!-- Docs -->
-[PublishPowerBI]: <https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-upload-desktop-files>
 [BicepOverview]: <https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview?tabs=bicep>
 [GetAzure]: <https://azure.microsoft.com/en-us/free/search/?OCID=AID2200258_SEM_069a8abd963111ebbd21e8d33199249f:G:s&ef_id=069a8abd963111ebbd21e8d33199249f:G:s&msclkid=069a8abd963111ebbd21e8d33199249f>
 [CreateSubscription]: <https://docs.microsoft.com/en-us/azure/cost-management-billing/manage/create-subscription#:~:text=On%20the%20Customers%20page%2C%20select%20the%20customer.%20In,page%2C%20select%20%2B%20Add%20to%20create%20a%20subscription>
@@ -109,8 +80,6 @@ After that you will be able to monitor your contributions!
 [ADODashboardArchitecture]: <./media/github-dashboard-architecture.png>
 [DeployBackend]: <./media/ado-run-workflow.png>
 [StorageTables]: <./media/ado-storage-tables.png>
-[StorageAccountName]: <./media/ado-storage-account.png>
-[AdoContributions]: <./media/Ado-contributions-dashboard.png>
 
 <!-- References -->
 [local.settings.json]: <https://github.com/Azure/CCOInsights/blob/main/dashboards/ADODashboard-Contributors/src/local.settings.json>
@@ -119,4 +88,3 @@ After that you will be able to monitor your contributions!
 [src]: <https://github.com/Azure/CCOInsights/blob/main/dashboards/ADODashboard-Contributors/src>
 [ADODailySyncFolder]: <https://github.com/Azure/CCOInsights/blob/main/dashboards/ADODashboard-Contributors/src/ADOContributions/ADODailySync>
 [WorkflowsFolder]: <https://github.com/Azure/CCOInsights/tree/main/.github/workflows>
-[AdoContributionsDashboard]: <https://github.com/Azure/CCOInsights/blob/main/dashboards/ADODashboard-Contributors/ADOContributions%20v1.0.pbit>

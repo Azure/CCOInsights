@@ -192,4 +192,4 @@ The version 1.0 of the CCO GitHub Contributions Dashboard includes 1 report page
 <!-- References -->
 [Issue72]: <https://github.com/Azure/CCOInsights/issues/72>
 [Procedure]: <https://docs.microsoft.com/en-us/azure/lighthouse/how-to/onboard-customer>
-[SecurityRecommendations]: <./Security Recommendations.md>
+[SecurityRecommendations]: <https://github.com/Azure/CCOInsights/blob/main/docs/assets/Security Recommendations.md>

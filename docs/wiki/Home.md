@@ -25,10 +25,10 @@ The Continuous Cloud Optimization Insights (CCO Insights) project is a set of Po
 
 CCO Insights currently includes 4 different dashboards to discover information about your Azure, Azure DevOps and GitHub cloud platforms:
 
-- [**CCO Azure Infrastructure Dashboard**][CCOAzureInfrastructureDashboard]: Get insights about Azure advisor optimizations, Azure Security Center Alerts, Networking, Compute, RBAC, Idle resources and Subscriptions Quotas and Limits
-- [**CCO Azure Governance Dashboard**][CCOAzureGovernanceDashboard]: Get insights about Azure Governance aspects like Management Groups and Subscriptions hierarchy, resource tagging and naming standards, security controls, policies compliance, Regulatory Standards and Azure Blueprints
-- [**CCO GitHub Contributions Dashboard**][CCOGitHubContributionsDashboard]: Get insights about the contributions to your GitHub project.
-- [**CCO Azure DevOps Contributions Dashboard**][CCOAdoContributionsDashboard]: Get insights about the contributions to your Azure DevOps (ADO) project.
+- [**Azure Infrastructure Dashboard**][AzureInfrastructureDashboard]: Get insights about Azure advisor optimizations, Azure Security Center Alerts, Networking, Compute, RBAC, Idle resources and Subscriptions Quotas and Limits
+- [**Azure Governance Dashboard**][AzureGovernanceDashboard]: Get insights about Azure Governance aspects like Management Groups and Subscriptions hierarchy, resource tagging and naming standards, security controls, policies compliance, Regulatory Standards and Azure Blueprints
+- [**GitHub Contributions Dashboard**][GitHubContributionsDashboard]: Get insights about the contributions to your GitHub project.
+- [**Azure DevOps Contributions Dashboard**][AdoContributionsDashboard]: Get insights about the contributions to your Azure DevOps (ADO) project.
 
 This wiki includes a **Deployment Guide** for each dashboard (see the links above) that contains a detailed guidance on how to install and configure them, including the requirements, what REST APIs are in use, the resource providers that need to be enabled and what tabs are included as part of each dashboard by default. 
 
@@ -126,10 +126,10 @@ Any use of third-party trademarks or logos are subject to those third-party's po
 [IMG_Video4]: <https://img.youtube.com/vi/uYbcd3B4z4I/0.jpg>
 
 <!-- References -->
-[CCOAzureInfrastructureDashboard]: <./Deployment Guide - Infrastructure-Dashboard>
-[CCOAzureGovernanceDashboard]: <./Deployment Guide - Governance Dashboard>
-[CCOGitHubContributionsDashboard]: <./Deployment Guide - GitHub Dashboard>
-[CCOAdoContributionsDashboard]: <./Deployment Guide - ADO Dashboard>
+[AzureInfrastructureDashboard]: <./Infrastructure-Dashboard>
+[AzureGovernanceDashboard]: <./Governance Dashboard>
+[GitHubContributionsDashboard]: <./GitHub Dashboard>
+[AdoContributionsDashboard]: <./ADO Dashboard>
 [TroubleshootingGuide]: <./Troubleshooting%20Guide>
-[CustomConnector]: <./Deployment Guide - Governance Dashboard#installing-the-custom-connector>
+[CustomConnector]: <./Governance Dashboard%20-%20Deployment Guide#installing-the-custom-connector>
 [GraphicalElements]: <https://github.com/Azure/CCOInsights/tree/main/docs/assets/pictures>

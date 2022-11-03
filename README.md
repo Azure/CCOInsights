@@ -7,24 +7,33 @@
   - [Contributing](#contributing)
   - [Trademarks](#trademarks)
 
--------------------------------
+---
+
+<br>
+
 ## Description
 
 The Continuous Cloud Optimization Insights (CCO Insights) project is a set of Power BI Desktop Reports developed using Power Query M language and DAX that pulls information directly from different Azure REST APIs and enables monitoring, operation and infrastructure teams to quickly gain insights about their existing Azure Platform footprint and resources as well as code contribution characteristics on two major platforms - Azure DevOps and GitHub.
 
+<br>
+
 ## Get started
 
-* For introduction and guidance visit the [Wiki][Wiki].
+* For introduction and **detailed deployment guidance** visit the [Wiki][Wiki].
 * For detailed overview of capabilities, features and installation steps of the CCO Insights solution, watch these informational [videos][Videos].
 * For information on contributing, see [Contribution][Contribution].
 * File an issue via [GitHub Issues][GithubIssues].
 * Check all new features added in the [Release Notes][ReleaseNotes].
 
+<br>
 
 >**NOTE**: If you're experiencing problems during the deployment of the dashboards, please check the [Troubleshooting Guide][TroubleshootingGuide] and the [Github issues][GitHubIssues] before creating a new one.
 
+<br>
 
 ![OverviewImage][OverviewImage]
+
+<br>
 
 ## Contributing
 
@@ -34,6 +43,8 @@ When you submit a pull request, a CLA bot will automatically determine whether y
 
 This project has adopted the [Microsoft Open Source Code of Conduct][MicrosoftOpenSourceCodeOfConduct].
 For more information see the [Code of Conduct FAQ][CodeOfConductFAQ] or contact [opencode@microsoft.com][opencode@microsoftcom] with any additional questions or comments.
+
+<br>
 
 ## Trademarks
 

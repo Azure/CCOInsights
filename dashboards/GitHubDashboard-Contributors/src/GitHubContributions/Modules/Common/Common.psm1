@@ -458,19 +458,37 @@ Function Get-Releases {
     $header = @{authorization = "token $pat" }
 
     Write-Host "Fetching Releases..."
-    $releases = Invoke-RestMethod -Uri $tagsBaseUrl -Method Get -ContentType "application/json" -Headers $header
 
-    $dashboardReleases = @()
-    while ($releases.Count -gt 0) {
-        $releases | ForEach-Object {
-            $release = @{
-                name = $_.tag_name
-                date = $_.published_at
-
+    try {
+        
+        $releases = Invoke-RestMethod -Uri $tagsBaseUrl -Method Get -ContentType "application/json" -Headers $header
+        $dashboardReleases = @()
+        if ($releases.Count -gt 0) {
+            $releases | ForEach-Object {
+                $release = @{
+                    name = $_.tag_name
+                    date = $_.published_at
+    
+                }
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.name -property $release -UpdateExisting | Out-Null
+                $dashboardReleases += $release
             }
-            Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.name -property $release -UpdateExisting | Out-Null
-            $dashboardReleases += $release
+    
+            Write-Host "$($dashboardReleases.Count) github releases successfully loaded"
+        }
+        else {
+            Write-Host "There are no releases in the repository: $repository"
         }
     }
-    Write-Host "$($dashboardTags.Count) tags successfully loaded"
+    catch {
+        $StatusCode = $_.Exception.Response.StatusCode.value__
+        if ($StatusCode -eq "404") {
+            Write-Host "Releases not found in the Repository: $repository"
+            Write-Host $_.ErrorDetails.Message
+        }
+        else {
+            Write-Host "$($_.Exception.Message)"
+            Write-Host $_.ErrorDetails.Message
+        }
+    }  
 }

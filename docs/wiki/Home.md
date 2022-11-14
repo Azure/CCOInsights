@@ -30,7 +30,7 @@ CCO Insights currently includes 4 different dashboards to discover information a
 - [**GitHub Contributions Dashboard**][GitHubContributionsDashboard]: Get insights about the contributions to your GitHub project.
 - [**Azure DevOps Contributions Dashboard**][AdoContributionsDashboard]: Get insights about the contributions to your Azure DevOps (ADO) project.
 
-This wiki includes a **Deployment Guide** for each dashboard (see the links above) that contains a detailed guidance on how to install and configure them, including the requirements, what REST APIs are in use, the resource providers that need to be enabled and what tabs are included as part of each dashboard by default. 
+This wiki includes a **Deployment Guide** for each dashboard (see the links above) that contains a detailed guidance on how to install and configure them, including the requirements, what REST APIs are in use, the resource providers that need to be enabled and what tabs are included as part of each dashboard by default.
 
 The [**Troubleshooting Guide**][TroubleshootingGuide] chapter contains guidance on how to solve potential issues that you might encounter during the dashboards' deployment. Errors like Power BI regional settings, or Privacy levels will be documented in this guide.
 
@@ -41,8 +41,10 @@ The [**Troubleshooting Guide**][TroubleshootingGuide] chapter contains guidance 
 1. **queries folder**: Includes the M queries used in the Dashboard to pull data from Azure and Graph REST APIs. This content is for reference purposes to facilitate the Data Model comprehension and to enable contributors to expand the Dashboard capabilities.
 2. **docs/assets/pictures folder**: Contains all the images that the Dashboard will use when loading data from Azure. The content of this folder is dynamic and updated regularly. Make sure the computer running the Dashboard also has access to [this URL][GraphicalElements] via the internet.
 3. **dashboards folder**: This folder contains sub folders with different versions of the CCO Insights dashboards.
-    - ***CCODashboard-Infra folder*** has a more generic version of the Dashboard that includes information from Azure Advisor, Azure Security Center, Azure Networking REST APIs, Azure Compute REST APIs and Graph
+    - ***CCODashboard-Infra folder*** has a more generic version of the Dashboard that includes information from Azure Advisor, Azure Defender , Azure Networking REST APIs, Azure Compute and more REST and Graph APIs. For this dashboard is needed the installation of a [custom connector][CustomConnector].
     - ***CCODashboard-Governance folder*** has a dashboard aligned with the Microsoft Cloud Adoption Framework governance principles and will allow to get quick insights around Management Groups, Subscriptions, Blueprints, Polices, Naming Standards, Tagging and Regulatory Standards compliance. For this dashboard is needed the installation of a [custom connector][CustomConnector].
+    - [***GitHub Contributions Dashboard folder***][GitHubContributionsDashboard]: has a dashboard to get insights about the contributions to your GitHub project.
+    - [***Azure DevOps Contributions Dashboard folder***][AdoContributionsDashboard]: has a dashboard to get insights about the contributions to your Azure DevOps (ADO) project.
 
 <br>
 

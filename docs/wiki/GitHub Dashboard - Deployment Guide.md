@@ -11,7 +11,7 @@
 
 # Requirements
 
-This dashboard requires an infrastructure being deployed in Azure. The infrastructure consists of a Powershell Function App, an Application Insights for monitoring and a Storage Account where results from the GitHub REST API calls will be stored in different tables. The following diagram represents the infrastructure to be deployed.
+This dashboard requires an infrastructure being deployed in Azure. The infrastructure consists of a PowerShell Function App, an Application Insights for monitoring and a Storage Account where results from the GitHub REST API calls will be stored in different tables. The following diagram represents the infrastructure to be deployed.
 
 ![ADO Dashboard Architecture][GHDashboardArchitecture]
 

@@ -18,27 +18,33 @@ The CCO Azure Governance Dashboard is aligned with the Microsoft Cloud Adoption 
 The CCO Azure Governance Dashboard Governance pulls the information from several APIs. You can read the public documentation if you need further information about the calls and methods available:
 <br><br>
 
-| API Name| Dashboard API Version | Last API version | Using latest version|
-| --- | :---: | :---: |:---: |
-| [Resource Groups][ResourceGroups]  |2019-05-01 |2019-05-01|:heavy_check_mark:|
-| [Azure Resources][AzureResources]  |2019-05-01 |2019-05-01|:heavy_check_mark:|
-| [Azure Subscriptions][AzureSubscriptions]  |2020-01-01 |2020-01-01|:heavy_check_mark:|
-| [Azure Locations][AzureLocations]  |2019-05-01 |2019-05-01|:heavy_check_mark:|
-| [Azure Blueprints][AzureBlueprints]  |2018-11-01-preview |2018-11-01-preview|:heavy_check_mark:|
-| [Azure Policies][AzurePolicies]  |2019-09-01 |2019-09-01|:heavy_check_mark:|
-| [Azure Regulatory Compliances][AzureRegulatoryCompliances]  |2019-01-01-preview |2019-01-01-preview|:heavy_check_mark:|
-| [Azure Assessments][AzureAssessments]  |2020-01-01 |2020-01-01|:heavy_check_mark:|
-| [Azure Secure Scores][AzureSecureScores] |2020-01-01 |2020-01-01|:heavy_check_mark:|
-| [Azure Secure Scores Controls][AzureSecureScoresControls] |2020-01-01-preview |2020-01-01-preview|:heavy_check_mark:|
+| API Name| Dashboard API Version | Using latest version available when it was released|
+| --- | :---: | :---: |
+| [Resource Groups][ResourceGroups]  |2019-05-01 | :heavy_check_mark:|
+| [Azure Resources][AzureResources]  |2019-05-01 |:heavy_check_mark:|
+| [Azure Subscriptions][AzureSubscriptions]  |2020-01-01 |:heavy_check_mark:|
+| [Azure Locations][AzureLocations]  |2019-05-01 |:heavy_check_mark:|
+| [Azure Blueprints][AzureBlueprints]  |2018-11-01-preview |:heavy_check_mark:|
+| [Azure Policies][AzurePolicies]  |2019-09-01 |:heavy_check_mark:|
+| [Azure Regulatory Compliances][AzureRegulatoryCompliances]  |2019-01-01-preview |:heavy_check_mark:|
+| [Azure Assessments][AzureAssessments]  |2020-01-01 |:heavy_check_mark:|
+| [Azure Secure Scores][AzureSecureScores] |2020-01-01 |:heavy_check_mark:|
+| [Azure Secure Scores Controls][AzureSecureScoresControls] |2020-01-01-preview |:heavy_check_mark:|
 
 <br>
-API URLs by environment:
+
+<details>
+<summary>
+    API URLs by Azure environment:
+</summary>
+
 
 | API Name| API URL | Environment|
 |--- |--- |--- |
 | Management |https://management.azure.com/|Global|
 | Management |https://management.usgovcloudapi.net/|US Government|
 | Management |https://management.chinacloudapi.cn/|China|
+</details>
 
 <!-- Docs -->
 [ResourceGroups]: <https://learn.microsoft.com/en-us/rest/api/resources/resource-groups>

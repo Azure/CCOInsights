@@ -121,7 +121,7 @@ You can filter the information by:
 - Tags
 
 
-![azure Apps](../../install/images/AppServices.png)
+![azure Apps][AppServices]
 
 
 ## Role Based Access Control page
@@ -176,7 +176,7 @@ You can filter the information by:
 
 <details>
 <summary>
-     Expand the following section if you want to see the Azure Kubernetes Service Dashboard information (this dashboard is currently not maintained) :
+     Expand this section if you want to see the Azure Kubernetes Service Dashboard information (this dashboard is currently not maintained).
 </summary>
 
 ## Azure Kubernetes Service Dashboard Overview page
@@ -225,6 +225,7 @@ You can filter the information by:
 [AzureRbacSP]: <./media/RBACServicePrincipals.png>
 [UsageAndLimits]: <./media/UsageAndLimits.png>
 [IdleResources]: <./media/IdleResources.png>
+[AppServices]: <./media/AppServices.png>
 [Aks1]: <./media/aks.PNG>
 [Aks2]: <./media/aks2.png>
 

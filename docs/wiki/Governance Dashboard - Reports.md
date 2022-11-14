@@ -55,7 +55,7 @@ You can filter the information by:
 - Regulatory Standard Name
 - Secure Controls
 - Policy Category
-  
+
 ![regulatory compliance resources][RegulatoryComplianceResources]
 
 ## Azure Policies page
@@ -80,7 +80,7 @@ You can filter the information by:
 
 - Subscription with assigned blueprints
 - Blueprint Definition
-  
+
 ![governanceSubsBlueprints][GovernanceSubsBlueprints]
 
 

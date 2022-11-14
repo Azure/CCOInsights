@@ -17,39 +17,50 @@ The Continuous Cloud Optimization Azure Infrastructure Power BI Dashboard is a r
 
 The CCO Azure Infrastructure Dashboard pulls the information from several APIs. You can read the public documentation if you need further information about the calls and methods available:
 
-<br>
 
-| API Name| Dashboard API Version | Last API version | Using latest version|
-| --- | :---: | :---: |:---: |
-| [Azure Advisor][AzureAdvisor] | 2020-01-01|2020-01-01|:heavy_check_mark:|
-| [Azure Security Center Alerts][AzureSecurityCenterAlerts]  |2019-01-01 |2019-01-01|:heavy_check_mark:|
-| [Azure Kubernetes Service][AzureKubernetesService] | 2019-08-01|2019-08-01|:heavy_check_mark:|
-| [Azure Compute][AzureCompute] | 2019-03-01|2019-03-01|:heavy_check_mark:|
-| [Azure Disks][AzureDisks] | 2019-03-01|2019-03-01|:heavy_check_mark:|
-| [Azure Virtual Networks][AzureVirtualNetworks] | 2019-04-01|2019-04-01|:heavy_check_mark:|
-| [Azure Network Interfaces][AzureNetworkInterfaces] |2019-04-01 |2019-04-01|:heavy_check_mark:|
-| [Resource Groups][ResourceGroups]  |2019-05-01 |2019-05-01|:heavy_check_mark:|
-| [Azure Resources][AzureResources]  |2019-10-01 |2019-10-01|:heavy_check_mark:|
-| [Azure Subscriptions][AzureSubscriptions]  |2020-01-01 |2020-01-01|:heavy_check_mark:|
-| [Azure Locations][AzureLocations] |2019-05-01 |2019-05-01|:heavy_check_mark:|
-| [Azure Role Assignments][AzureRoleAssignments] |2015-07-01 |2015-07-01|:heavy_check_mark:|
-| [Azure Role Definitions][AzureRoleDefinitions] |2015-07-01 |2015-07-01|:heavy_check_mark:|
-| [Azure Container Registry][AzureContainerRegistry] | 2017-10-01|2017-10-01|:heavy_check_mark:|
-| <span style="color:#0088cc">Log Analytics Rest API </span> ([1][LogAnalyticsRestAPI1], [2][LogAnalyticsRestAPI2])  |v1 |v1|:heavy_check_mark:|
-| [Azure Active Directory Graph API][AzureActiveDirectoryGraphAPI] | 1.6|1.6 |:heavy_check_mark:|
 
 <br>
 
-API URLs by environment:
+| API Name| Dashboard API Version | Using latest version available when it was released|
+| --- | :---: |:---: |
+| [Azure Advisor][AzureAdvisor] | 2020-01-01|:heavy_check_mark:|
+| [Azure Security Center Alerts][AzureSecurityCenterAlerts]  |2019-01-01 |:heavy_check_mark:|
+| [Azure Kubernetes Service][AzureKubernetesService] | 2019-08-01|:heavy_check_mark:|
+| [Azure Compute][AzureCompute] | 2019-03-01|:heavy_check_mark:|
+| [Azure Disks][AzureDisks] | 2019-03-01|:heavy_check_mark:|
+| [Azure Virtual Networks][AzureVirtualNetworks] | 2019-04-01|:heavy_check_mark:|
+| [Azure Network Interfaces][AzureNetworkInterfaces] |2019-04-01 |:heavy_check_mark:|
+| [Resource Groups][ResourceGroups]  |2019-05-01 |:heavy_check_mark:|
+| [Azure Resources][AzureResources]  |2019-10-01 |:heavy_check_mark:|
+| [Azure Subscriptions][AzureSubscriptions]  |2020-01-01 |:heavy_check_mark:|
+| [Azure Locations][AzureLocations] |2019-05-01 |:heavy_check_mark:|
+| [Azure Role Assignments][AzureRoleAssignments] |2015-07-01 |:heavy_check_mark:|
+| [Azure Role Definitions][AzureRoleDefinitions] |2015-07-01 |:heavy_check_mark:|
+| [Azure Container Registry][AzureContainerRegistry] | 2017-10-01|:heavy_check_mark:|
+| <span style="color:#0088cc">Log Analytics Rest API </span> ([1][LogAnalyticsRestAPI1], [2][LogAnalyticsRestAPI2])  |v1 |:heavy_check_mark:|
+| [Azure Active Directory Graph API][AzureActiveDirectoryGraphAPI] | 1.6 |:heavy_check_mark:|
+
+<br>
+
+
+
+<details>
+<summary>
+    API URLs by Azure environment:
+</summary>
 
 | API Name| API URL | Environment|
-| --- | :---: | :---: | 
+| --- | :---: | :---: |
 | Management |https://management.azure.com/|Global|
 | Azure AD Graph |https://graph.windows.net/|Global|
 | Management |https://management.usgovcloudapi.net/|US Government|
 | Azure AD Graph |https://graph.microsoft.us/|US Government|
 | Management |https://management.chinacloudapi.cn/|China|
 | Azure AD Graph |https://graph.chinacloudapi.cn/|China|
+
+ </details>
+
+
 
 <!-- Docs -->
 [AzureAdvisor]: <https://learn.microsoft.com/en-us/rest/api/advisor/>

@@ -17,13 +17,13 @@
 <br>
 
 # Introduction
-During the continued development of CCO Insights, we have been able to identify and fix several bugs or product limitations and we would like to encourage you to read this document before starting to leverage the solution.
+During the continued development of CCO Insights, we have been able to identify and fix several bugs or product limitations and we would like to encourage you to read this document before starting to leverage the solution. However, before creating a new issues, please review the existing ones [here](https://github.com/Azure/CCOInsights/issues?q=is%3Aissue) to avoid wait perioids obtaining response
 
 
 # List of known issues or limitations
 
 We will keep updating this list of known issues as soon as we get more feedback from the community.
-   
+
 ## Which Power BI Desktop version I should use? (Microsoft Store or Web Download)
 
 Based on our experience we highly recommend to use the Power BI Desktop version from the Microsoft Store to get automatic updates. [This explains][PowerBIDesktop] the main difference between both options. <br>
@@ -37,7 +37,7 @@ It might happen then when you run the Dashboard using different regional setting
 
 ## Graph REST API credentials error
 
-During the first use of the CCO Insights templates you should be prompted to enter the credentials for both the Azure Management REST API and the GRAPH REST API. You might get the error message from below if you incorrectly enter your credentials. Also, in some cases, during the first run, Power BI will not ask for credentials because they are already cached by a previous use of another Power BI Dashboard accessing the same APIs. 
+During the first use of the CCO Insights templates you should be prompted to enter the credentials for both the Azure Management REST API and the GRAPH REST API. You might get the error message from below if you incorrectly enter your credentials. Also, in some cases, during the first run, Power BI will not ask for credentials because they are already cached by a previous use of another Power BI Dashboard accessing the same APIs.
 
 ![WrongTenantNameError][WrongTenantNameError]
 

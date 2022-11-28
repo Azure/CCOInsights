@@ -2,9 +2,10 @@
 
 - [Requirements](#requirements)
 - [Resource Providers requirements](#resource-providers-requirements)
+- [Installing the custom connector](#installing-the-custom-connector)
 - [Azure Advisor Recommendations](#azure-advisor-recommendations)
   - [Generating Azure Advisor recommendations manually](#generating-azure-advisor-recommendations-manually)
-- [Azure Security Center Recommendations](#azure-security-center-recommendations)
+- [Azure Defender Recommendations](#azure-defender-recommendations)
 - [Setting up the Azure Infrastructure Dashboard](#setting-up-the-azure-infrastructure-dashboard)
   - [Template download](#template-download)
   - [Environment selection](#environment-selection)
@@ -14,7 +15,6 @@
     - [Refresh the dashboard](#refresh-the-dashboard)
     - [Credentials for management.azure.com REST API request:](#credentials-for-managementazurecom-rest-api-request)
     - [Credentials for graph.windows.net API](#credentials-for-graphwindowsnet-api)
-    - [Credentials for api.loganalytics.io API](#credentials-for-apiloganalyticsio-api)
     - [Enter Access Web content credentials](#enter-access-web-content-credentials)
 
 ---
@@ -27,13 +27,13 @@
     -	Windows 10 version **14393.0** or **higher**.
     -	Internet access from the computer running Microsoft Power BI desktop.
     - An Azure account on the desired tenant space with permissions on the subscriptions to read from the Azure Services described above.
-    - The subscriptions will need to use the Azure Security Center **Standard** plan if you want to detect and see the alerts in the Azure Security Center Alerts page of the CCO Azure Infrastructure Dashboard.
+    - The subscriptions will need to use the Azure Defender **paid** plan if you want to detect and see the alerts in the Azure Defender Alerts page of the CCO Azure Infrastructure Dashboard.
 
 Below you can find the list of providers and the actions that you will need to permit to allow to run the CCO Power BI Dashboard:
 
 | Resource Provider Name| Permissions |
 | --- | --- |
-|Azure Advisor| Microsoft.Advisor/generateRecommendations/action <br> 
+|Azure Advisor| Microsoft.Advisor/generateRecommendations/action <br>
 |*|*/Read|
 
 **IMPORTANT**: You must follow [this procedure][OnboardToLighthouse] to implement Azure delegated resource management to get data from subscriptions in other tenants.
@@ -42,7 +42,7 @@ Below you can find the list of providers and the actions that you will need to p
 
 # Resource Providers requirements
 
-Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** resource providers are registered across all the  subscriptions that you plan analyze using the Dashboard. 
+Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Advisor** and the **Microsoft.Security** resource providers are registered across all the  subscriptions that you plan analyze using the Dashboard.
 
 Registering these 2 Resource Providers has no cost or performance penalty on the subscription:
 
@@ -56,56 +56,54 @@ Registering these 2 Resource Providers has no cost or performance penalty on the
 
 <br>
 
+# Installing the custom connector
+
+The CCO Azure Infrastructure Dashboard requires to install the Power BI Custom Connector located in the same folder as the CCO Infrastructure Dashboard: ([CCoDashboardAzureConnector.mez][CCoDashboardAzureConnector]). This Custom Connector allows us to leverage information from Azure Management REST APIs that requires POST methods and errors control
+
+To install the custom connector you must copy the file [CCoDashboardAzureConnector.mez][CCoDashboardAzureConnector] from the **ccodashboard/dashboards/CCODashboard-Infrastructure/** folder to the folder that Power BI creates by default in the Documents folder in your PC. If this folder doesn't exist, you can create a new one with this name.
+
+The path should be **C:\Users\\%username%\Documents\Power BI Desktop\Custom Connectors** or if you are using OneDrive to backup the documents folder this path would not work for you and you should manually go to your documents folder and create the folder structure there.
+
+![CustomConnectorFolder][CustomConnectorFolder]
+
+Then go to Power BI Options and under Global category in the Security section, select **(Not Recommended) Allow any extension to load without validation or warning** and click **OK**.
+
+![CustomConnectorSecurity][CustomConnectorSecurity]
+
+
 # Azure Advisor Recommendations
 
 Azure Advisor is a personalized cloud consultant that helps you follow best practices to optimize your Azure deployments. It analyzes your resource configuration and usage telemetry. It then recommends solutions to help improve the performance, security, and high availability of your resources while looking for opportunities to reduce your overall Azure spend.
 
 The Continuous Optimization Power BI Dashboard will directly pull data from Azure Advisor REST APIs to aggregate all the information across the Azure account subscriptions. This requires generating the recommendations before the first time we load the template else the Dashboard will be empty or will fail because it was unable to download any data.
 
-To do so, you need to generate the recommendations for the first time manually from the Azure Portal, or programmatically using the script [GenerateAllSubscriptionsAdvisorRecommendations.ps1][GenerateAllSubscriptionsAdvisorRecommendations.ps1]
 
 ## Generating Azure Advisor recommendations manually
 
-Open the Azure Portal with your Azure Account https://portal.azure.com 
+Open the Azure Portal with your Azure Account https://portal.azure.com
 
 1. Click on **Advisor**.
 2.	Expand the subscriptions drop-down menu.
 3.	Select the subscription you want to update or generate the recommendations for the first time.
 4.	Wait until the recommendations for the selected subscriptions has been loaded.
-5.	Repeat these steps for each subscription you want to generate Azure Advisor recommendations.
+5.	Repeat these steps for each subscription you want to manually generate Azure Advisor recommendations.
 
 ![AdvisorRecommendations][AdvisorRecommendations]
 
 <br>
 
-# Azure Security Center Recommendations
+# Azure Defender Recommendations
 
-Azure Security Center provides unified security management and advanced threat protection for workloads running in Azure, on-premises, and in other clouds. It delivers visibility and control over hybrid cloud workloads, active defense that reduces your exposure to threats, and intelligent detection to help you keep pace with rapidly evolving cyber-attacks.
+Microsoft Defender for Cloud is a Cloud Security Posture Management (CSPM) and Cloud Workload Protection Platform (CWPP) for all of your Azure, on-premises, and multicloud (Amazon AWS and Google GCP) resources. Defender for Cloud fills three vital needs as you manage the security of your resources and workloads in the cloud and on-premises.
 
-You can find more information at the official Azure Security Center site [here][SecurityCenterIntro].
+You can find more information at the official Azure Defender site [here][SecurityCenterIntro].
 
-Azure Security Center is offered in two tiers:
-
-- Free
-- Standard
-  
-The Standard tier is offered [free for the first 60 days][FreeForTheFirst60Days].
-
-The subscriptions will need to use the **Standard** tier if you want to detect and see the alerts in the Azure Security Center Alerts page of the dashboard.
-
-The following picture shows the steps to configure Azure Security Center plan for Azure Subscriptions
-
-1.	Click on **Security Center**.
-2.	Click on **Click on top to learn more**.
-3.	Click on **Select the subscription you want to configure**.
-4.	Click on **Free** or **Standard** plan and the click **Save**.
-
-![SecurityCenterStandardRecommendations][SecurityCenterStandardRecommendations]
+The subscriptions will need to use the **paid** tier if you want to detect and see the alerts in the Azure Defender Alerts page of the dashboard.
 
 <br>
 
 # Setting up the Azure Infrastructure Dashboard
-  
+
 ## Template download
 
 Download and open the `.pbit` file from  [CCODashboard-Infra][CCODashboardInfra] folder.
@@ -130,7 +128,7 @@ Before start loading data you need to select which type of environment you're us
 
 By default, the template doesn’t have any Azure Account credentials preloaded. Hence, the first step to start showing subscriptions data is to sign-in with the right user credentials.
 
-**IMPORTANT NOTE**: Power BI Desktop caches the credentials after the first logon. It is important to clear the credentials from Power BI desktop if you plan to switch between Azure GLobal and any other region like US Government or China. The same concept applies if you plan to switch between tenants. Otherwise, the staged credentials will be used again for the different Azure environments and the authentication or data load process will fail.
+**IMPORTANT NOTE**: Power BI Desktop caches the credentials after the first logon. It is important to clear the credentials from Power BI desktop if you plan to switch between Azure Global and any other region like US Government or China. The same concept applies if you plan to switch between tenants. Otherwise, the staged credentials will be used again for the different Azure environments and the authentication or data load process will fail.
 
 ### Clean Credentials on the Data Source
 
@@ -147,7 +145,7 @@ In some cases, old credentials are cached by previous logins using Power BI Desk
 If the permissions and credentials are properly flushed it should ask you for credentials for each REST API and you will have to set the Privacy Levels for each of them.
 
 - Click on **Refresh**.
-  
+
 ![credentials3][Credentials3]
 
 ### Credentials for management.azure.com REST API request:
@@ -167,26 +165,19 @@ If the permissions and credentials are properly flushed it should ask you for cr
 
 ![credentials5][Credentials5]
 
-### Credentials for api.loganalytics.io API
-
-- Click on **Organizational Account**.
-- Click on **Sign in**.
-- Click on **Connect**.
-
-![loganalytics][LogAnalytics]
 
 ### Enter Access Web content credentials
 
 - Make sure that you select **Organization account** type.
 - Click on **Sign in**.
-  
+
 ![credentials7][Credentials7]
 
 <br>
 
 <!-- Docs -->
 [OnboardToLighthouse]: <https://learn.microsoft.com/en-us/azure/lighthouse/how-to/onboard-customer>
-[SecurityCenterIntro]: <https://learn.microsoft.com/en-us/azure/security-center/security-center-intro>
+[SecurityCenterIntro]: <https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-cloud-introduction>
 [FreeForTheFirst60Days]: <https://azure.microsoft.com/en-us/pricing/details/security-center/>
 [UsGovernment]: <https://learn.microsoft.com/en-us/azure/azure-government/documentation-government-developer-guide>
 [China]: <https://learn.microsoft.com/en-us/azure/china/resources-developer-guide>

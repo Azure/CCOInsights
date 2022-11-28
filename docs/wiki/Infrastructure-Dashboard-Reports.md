@@ -1,12 +1,13 @@
 ### _Navigation_
 
-- [Azure Infrastucture Dashboard - Report Pages](#azure-infrastucture-dashboard---report-pages)
+- [Azure Infrastructure Dashboard - Report Pages](#azure-infrastructure-dashboard---report-pages)
   - [CCO Azure Infrastructure Dashboard overview page](#cco-azure-infrastructure-dashboard-overview-page)
   - [Azure Advisor Recommendations page](#azure-advisor-recommendations-page)
-  - [Azure Security Center Alerts page](#azure-security-center-alerts-page)
+  - [Azure Defender Alerts page](#azure-defender-alerts-page)
   - [Azure Compute Overview page](#azure-compute-overview-page)
   - [Azure VNETs and Subnets Recommendations page](#azure-vnets-and-subnets-recommendations-page)
   - [Azure Network Security Groups page](#azure-network-security-groups-page)
+  - [Azure App Services page](#azure-app-services-page)
   - [Role Based Access Control page](#role-based-access-control-page)
   - [Service Principal Role Based Access Control page](#service-principal-role-based-access-control-page)
   - [IaaS Usage and Limits page](#iaas-usage-and-limits-page)
@@ -18,11 +19,11 @@
 
 <br>
 
-# Azure Infrastucture Dashboard - Report Pages
+# Azure Infrastructure Dashboard - Report Pages
 
 ## CCO Azure Infrastructure Dashboard overview page
 
-In this page, you will be able to identify the top 5 of recommendations that Azure Advisor has identified, the top 10 most attacked resources and the number of subscription owners. You can also locate all the deployed resources in a map.
+In this page, you will be able to identify the top 10 of recommendations that Azure Advisor has identified, the top 10 most attacked resources and the number of subscription owners. You can also locate all the deployed resources in a map.
 It’s important to mention that this tab just gives you a quick view. All the recommendations will be available with more details in the following tabs
 
 You can filter the information by:
@@ -49,9 +50,11 @@ If you navigate to a impacted resource you will see a quick description, potenti
 
 ![advisor][Advisor]
 
-## Azure Security Center Alerts page
 
-The third tab is used to show the Azure Security Center Advanced Threat Analytics Alerts from all the subscriptions a given Azure account has access to. Is important to remark that subscriptions will need to use the Standard plan if you want to detect and see the alerts in the Power BI Dashboard.
+## Azure Defender Alerts page
+
+The third tab is used to show the Azure Defender Advanced Threat Analytics Alerts from all the subscriptions a given Azure account has access to. Is important to remark that subscriptions will need to use the Standard plan if you want to detect and see the alerts in the Power BI Dashboard.
+
 
 You can filter the information by:
 
@@ -71,13 +74,13 @@ You can filter the information by:
 - Tenant
 - Subscription
 - Resource Group
-- Vm extension
+- VM extension
 
 ![azure compute][IMG_AzureCompute]
 
 ## Azure VNETs and Subnets Recommendations page
 
-In this tab, you will be able to identify VNETs with only one subnet, if there are any VNET peering and if some of the subnets is exhausting its IP Pool. 
+In this tab, you will be able to identify VNETs with only one subnet, if there are any VNET peering and if some of the subnets is exhausting its IP Pool.
 
 You can filter the information by:
 
@@ -87,7 +90,7 @@ You can filter the information by:
 - VNET
 - Subnet
 - Networking Interface
-  
+
 ![azure networking][AzureNetworking]
 
 **IMPORTANT**: It is important to mention that although a VNET with only one subnet might not be an issue, it might be a good lead to investigate if that is the best network segmentation for the applications running on it.
@@ -104,8 +107,22 @@ You can filter the information by:
 - VNET
 - Subnet
 - NSG assignment
-  
+
+
 ![azure NSGs][AzureNSGs]
+## Azure App Services page
+
+In this tab, you will be able to identify all the Application Services. On each one, you can check all the identities types, SKU and inbound and outbound IPs
+
+You can filter the information by:
+
+- Tenant
+- Subscription
+- Tags
+
+
+![azure Apps][AppServices]
+
 
 ## Role Based Access Control page
 
@@ -135,7 +152,7 @@ You can filter the information by:
 
 ## IaaS Usage and Limits page
 
-This tab allows to identify the usage of any Compute, Storage and Networking Azure resource and validate the limits for each region and subscription. 
+This tab allows to identify the usage of any Compute, Storage and Networking Azure resource and validate the limits for each region and subscription.
 
 You can filter the information by:
 
@@ -155,6 +172,12 @@ You can filter the information by:
 - Subscription
 
 ![azure Idle][IdleResources]
+
+
+<details>
+<summary>
+     Expand this section if you want to see the Azure Kubernetes Service Dashboard information (this dashboard is currently not maintained).
+</summary>
 
 ## Azure Kubernetes Service Dashboard Overview page
 
@@ -184,6 +207,11 @@ You can filter the information by:
 
 ![aks][Aks2]
 
+ </details>
+
+
+
+
 <!-- Docs -->
 
 <!-- Images -->
@@ -197,6 +225,7 @@ You can filter the information by:
 [AzureRbacSP]: <./media/RBACServicePrincipals.png>
 [UsageAndLimits]: <./media/UsageAndLimits.png>
 [IdleResources]: <./media/IdleResources.png>
+[AppServices]: <./media/AppServices.png>
 [Aks1]: <./media/aks.PNG>
 [Aks2]: <./media/aks2.png>
 

@@ -29,7 +29,7 @@
 
 # Resource Providers requirements
 
-Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Security** resource provider is registered across all the  subscriptions that you plan analyze using the Dashboard. 
+Although some of the Resource Providers might be enabled by default, you need to make sure that at least the **Microsoft.Security** resource provider is registered across all the  subscriptions that you plan analyze using the Dashboard.
 
 Registering this Resource Provider has no cost or performance penalty on the subscription:
 
@@ -46,7 +46,7 @@ The CCO Azure Governance Dashboard requires to install the Power BI Custom Conne
 
 To install the custom connector you must copy the file [CCoDashboardAzureConnector.mez][CCoDashboardAzureConnector] from the **ccodashboard/dashboards/CCODashboard-Governance/** folder to the folder that Power BI creates by default in the Documents folder in your PC. If this folder doesn't exist, you can create a new one with this name.
 
-The path should be **C:\Users\\%username%\Documents\Power BI Desktop\Custom Connectors** or if you are using OneDrive to backup the documents folder this path would not work for you and you should manually go to your documents folder and create the folder structure there. 
+The path should be **C:\Users\\%username%\Documents\Power BI Desktop\Custom Connectors** or if you are using OneDrive to backup the documents folder this path would not work for you and you should manually go to your documents folder and create the folder structure there.
 
 ![CustomConnectorFolder][CustomConnectorFolder]
 
@@ -97,7 +97,7 @@ In some cases, old credentials are cached by previous logins using Power BI Desk
 If the permissions and credentials are properly flushed it should ask you for credentials for each REST API and you will have to set the Privacy Levels for each of them.
 
 - Click on **Refresh**.
-  
+
 ![refreshgovernance][RefreshGovernance]
 
 ### Credentials for management.azure.com REST API request

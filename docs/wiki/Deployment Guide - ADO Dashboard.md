@@ -28,7 +28,7 @@ An important note about this dashboard is that **this dashboard can be published
 
 # Infrastructure requirements
 
-The CCO Azure DevOps Contributions dashboard requires an infrastructure being deployed in Azure. The infrastructure consists of a Powershell Function App, an Application Insights for monitoring and a Storage Account where results from the Azure DevOps REST API calls will be stored in different tables. The following diagram represents the infrastructure to be deployed.
+The CCO Azure DevOps Contributions dashboard requires an infrastructure being deployed in Azure. The infrastructure consists of a PowerShell Function App, an Application Insights for monitoring and a Storage Account where results from the Azure DevOps REST API calls will be stored in different tables. The following diagram represents the infrastructure to be deployed.
 
 ![ADO Dashboard Architecture][ADODashboardArchitecture]
 
@@ -44,7 +44,7 @@ In order to successfully user the deploy.bicep and workflow provided, you will n
 - A [resource group][ResourceGroup] already created.
 - A service principal with Owner permissions in your subscription. You will need owner permissions because as part of the architecture you will be creating a Managed Identity that will require a role assignment to save the retrieved data in the Storage Account. You can create your service principal with Contributor rights by running the following commands:
     ```sh
-    az ad sp create-for-rbac --name "<<service-principal-name>>" --role "Contributor" --scopes /subscriptions/<<subscriptionId>> --output "json" 
+    az ad sp create-for-rbac --name "<<service-principal-name>>" --role "Contributor" --scopes /subscriptions/<<subscriptionId>> --output "json"
     ```
 - A secret in your GitHub repository with the name `AZURE_CREDENTIALS`. You can user the output from the previous command to generate this secret. The format of the secret should be:
     ```json

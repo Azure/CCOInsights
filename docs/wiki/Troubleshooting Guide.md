@@ -17,7 +17,7 @@
 <br>
 
 # Introduction
-During the continued development of CCO Insights, we have been able to identify and fix several bugs or product limitations and we would like to encourage you to read this document before starting to leverage the solution. However, before creating a new issues, please review the existing ones [here](https://github.com/Azure/CCOInsights/issues?q=is%3Aissue) to avoid wait periods obtaining response
+During the continued development of CCO Insights, we have been able to identify and fix several bugs or product limitations and we would like to encourage you to read this document before starting to leverage the solution. Before creating a new issue, please review the existing ones [here](https://github.com/Azure/CCOInsights/issues?q=is%3Aissue) to avoid wait periods obtaining response.
 
 
 # List of known issues or limitations

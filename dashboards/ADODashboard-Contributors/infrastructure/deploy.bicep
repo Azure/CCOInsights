@@ -1,7 +1,7 @@
 @description('Base name to be used in all resources')
 param name string = 'cco-ado-contributions'
 
-@description('Name of the sotrage account')
+@description('Name of the storage account')
 param staname string = 'ccoadocontsta'
 
 @description('Location where resources should be deployed')

@@ -55,6 +55,7 @@ In order to successfully user the deploy.bicep and workflow provided, you will n
     | Graph | Read |
     | Identity | Read |
     | Project and Team | Read |
+    | Wiki | Read & Write |
 
 - In the [local.settings.json](./src/local.settings.json) file, update the values for the `organization`, `resourceGroup` and `storageAccount` with the names you want to configure in your environment. Also, make sure that these names match the values in the [deploy.bicep](./infrastructure/deploy.bicep) file for the same resources.
 

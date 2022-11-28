@@ -12,4 +12,12 @@ $repositories | ForEach-Object {
     Get-Commits -projectName $_.projectName -repositoryId $_.id
     Get-Branches -projectName $_.projectName -repositoryId $_.id
 }
+$wikis = Get-Wikis -projectNames $projectNames
 
+# Clear existing WikiStats Azure Storage Table
+Remove-WikiStatsTable
+
+# Get wiki stats
+$wikis | ForEach-Object {
+    Get-WikiStats -projectName $_.projectName -projectId $_.projectId -wikiId $_.wikiId
+}

@@ -8,7 +8,7 @@ Function Get-Project {
     $ctx = $storageAccount.Context
     $partitionKey = "Project"
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
-    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
 
     Write-Host "Fetching projects..."
     $projectsBaseUrl = "https://dev.azure.com/$($organization)/_apis/projects?api-version=6.0"
@@ -51,7 +51,7 @@ Function Get-Repository {
     $ctx = $storageAccount.Context
     $partitionKey = "Repository"
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
-    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
 
     Write-Host "Fetching repositories..."
     $dashboardRepositories = @()
@@ -107,7 +107,7 @@ Function Get-OpenPullRequests {
     $ctx = $storageAccount.Context
     $partitionKey = "OpenPullRequests"
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
-    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
 
     Write-Host "Fetching open pull requests for project $($projectName) and repository $($repositoryId)..."
     $openPullRequestsBaseUrl = "https://dev.azure.com/$($organization)/$($projectName)/_apis/git/repositories/$($repositoryId)/pullrequests?api-version=7.1-preview.1"
@@ -181,7 +181,7 @@ Function Get-ClosedPullRequests {
     $ctx = $storageAccount.Context
     $partitionKey = "ClosedPullRequests"
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
-    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
 
     Write-Host "Fetching closed pull requests..."
     $closedPullRequestsBaseUrl = "https://dev.azure.com/$($organization)/$($projectName)/_apis/git/repositories/$($repositoryId)/pullrequests?searchCriteria.status=completed&api-version=7.1-preview.1"
@@ -255,7 +255,7 @@ Function Get-Commits {
     $ctx = $storageAccount.Context
     $partitionKey = "Commits"
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
-    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
 
     Write-Host "Fetching commits for project $($projectName) and repository $($repositoryId)..."
     $commitsBaseUrl = "https://dev.azure.com/$($organization)/$($projectName)/_apis/git/repositories/$($repositoryId)/commits?api-version=6.0"
@@ -308,7 +308,7 @@ Function Get-Branches {
     $ctx = $storageAccount.Context
     $partitionKey = "Branches"
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
-    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
 
     Write-Host "Fetching branches for project $($projectName) and repository $($repositoryId)..."
     $branchesBaseUrl = "https://dev.azure.com/$($organization)/$($projectName)/_apis/git/repositories/$($repositoryId)/refs?api-version=6.0"
@@ -333,4 +333,263 @@ Function Get-Branches {
         }
     }
     Write-Host "$($dashboardBranches.Count) commits successfully loaded"
+}
+
+Function Get-Wikis {
+    [CmdletBinding()]
+    param (
+        [Parameter()]
+        [array]$projectNames
+    )
+    
+    $organization = $env:organization
+    $pat = $env:pat
+
+    #Create table
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+    $ctx = $storageAccount.Context
+    $partitionKey = "Wikis"
+    New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
+
+    Write-Host "Fetching wikis..."
+    $dashboardWikis = @()
+    foreach ($projectName in $projectNames) {
+
+        $wikisBaseUrl = ('https://dev.azure.com/{0}/{1}/_apis/wiki/wikis?api-version=6.0-preview.1' -f $Organization, $projectName)
+        $encodedToken = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes((":{0}" -f $pat)))
+        $header = @{authorization = "Basic $encodedToken" }
+
+        $wikis = Invoke-RestMethod -Uri $wikisBaseUrl -Method Get -ContentType "application/json" -Headers $header
+        $wikis.value | ForEach-Object {
+            if (![String]::IsNullOrEmpty($_.id)) {
+                $wikisTable = @{
+                    id          = $_.id
+                    name        = $_.name
+                    projectName = $projectName
+                    projectId   = $_.projectid
+                }
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.id -property $wikisTable -UpdateExisting | Out-Null
+                $dashboardWikis += $wikisTable
+            }
+        }
+    }
+    Write-Host "$($dashboardWikis.Count) wikis successfully loaded"
+    $output = @()
+    $dashboardWikis | ForEach-Object {
+        $output += @{
+            projectName = $_.projectName
+            projectId   = $_.projectid
+            wikiId      = $_.id         
+        }
+    }
+    return $output
+}
+
+Function Remove-WikiStatsTable {
+
+    Write-output "Clearing existing WikiStats Azure Storage Table"
+    
+    #Remove WikiStats table
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+
+    $ctx = $storageAccount.Context
+    $partitionKey = "WikiStats"
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable    
+    Get-AzTableRow -table $table | Remove-AzTableRow -table $table | Out-Null
+}
+
+Function Get-WikiStats {
+    [CmdletBinding()]
+    param (
+        [Parameter()]
+        [string]$projectName,
+        [Parameter()]
+        [string]$projectId,
+        [Parameter()]
+        [string]$wikiId
+    )
+    
+    $organization = $env:organization
+    $pat = $env:pat
+
+    #Create table
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+    $ctx = $storageAccount.Context
+    $partitionKey = "WikiStats"
+    New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
+
+    Write-Host "Fetching wiki statistics for project $($projectName) and wikiId $($wikiId)..."
+    $dashboardWikiStats = @()
+    $wikiStatsBaseUrl = ('https://dev.azure.com/{0}/{1}/_apis/wiki/wikis/{2}/pagesbatch?api-version=7.1-preview.1' -f $Organization, $projectName, $wikiId)
+    $encodedToken = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes((":{0}" -f $pat)))
+    $header = @{authorization = "Basic $encodedToken" }
+
+    $TotalResult = @()
+    $body = @{
+        "pageViewsForDays" = 30
+    } | ConvertTo-Json
+
+    $params = @{
+        'Uri'         = $wikiStatsBaseUrl
+        'Headers'     = $header
+        'Method'      = 'POST'
+        'Body'        = $body
+        'ContentType' = 'application/json; charset=utf-8'
+    }
+
+    $Result = Invoke-WebRequest @params
+    $TotalResult += $Result.Content
+
+    While ($Result.Headers.'X-MS-ContinuationToken') {
+        $body = @{
+            "pageViewsForDays"  = 30
+            "continuationToken" = $($Result.Headers.'X-MS-ContinuationToken')
+        } | ConvertTo-Json
+
+        $params = @{
+            'Uri'         = $wikiStatsBaseUrl
+            'Headers'     = $Header
+            'Method'      = 'POST'
+            'Body'        = $body
+            'ContentType' = 'application/json; charset=utf-8'
+        }
+
+        $Result = Invoke-WebRequest @params
+        $TotalResult += $Result.Content
+    }
+
+    ($TotalResult | ConvertFrom-Json).value | ForEach-Object {
+        if (![String]::IsNullOrEmpty($_.id)) {
+            # Emulate gitItempath creation. Otherwise, each individual wiki page needs to be fetched (which slows down the process)
+            $regex = [regex]'[\-:*?+"]'
+            $_.path = $regex.replace($_.path, { "%$('{0:X2}' -f [int]$args[0].value[0])" })
+            $gitItemPath = $_.path.Replace(' ', '-').Replace('%2B', '+') + '.md'
+            $id = $_.id
+
+            Try {
+                # Get Wiki Page Owner via REST API
+                $body = @{
+                    "includeUserImageUrl" = $false
+                    "itemPath"            = $gitItemPath
+                    "includePushData"     = $true
+                } | ConvertTo-Json
+    
+                $params = @{
+                    'Uri'         = ('https://dev.azure.com/{0}/{1}/_apis/git/repositories/{2}/CommitsBatch?$top=1&api-version=6.0' -f $Organization, $projectName, $wikiId)
+                    'Headers'     = $Header
+                    'Method'      = 'POST'
+                    'Body'        = $body
+                    'ContentType' = 'application/json; charset=utf-8'
+                }
+                $response = Invoke-RestMethod @params -errorAction Stop
+                $CommitterName = $response.value.committer.name
+            }
+            Catch {
+                # If the commit for the wiki page cannot be found, try a different method.
+                $Uri = ('https://dev.azure.com/{0}/{1}/_apis/wiki/wikis/{2}/pages/{3}?api-version=7.1-preview.1' -f $Organization, $projectName, $WikiId, $id)
+
+                $Header = @{
+                    'Authorization' = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($PAT)")) 
+                }
+
+                $params = @{
+                    'Uri'         = $Uri
+                    'Headers'     = $Header
+                    'Method'      = 'GET'
+                    'ContentType' = 'application/json; charset=utf-8'
+                }
+    
+                $Result = Invoke-RestMethod @params
+                $gitItemPath = $result.gitItemPath
+
+                # Get Wiki Page Owner via REST API
+                $body = @{
+                    "includeUserImageUrl" = $false
+                    "itemPath"            = $gitItemPath
+                    "includePushData"     = $true
+                } | ConvertTo-Json
+    
+                $params = @{
+                    'Uri'         = ('https://dev.azure.com/{0}/{1}/_apis/git/repositories/{2}/CommitsBatch?$top=1&api-version=6.0' -f $Organization, $projectName, $wikiId)
+                    'Headers'     = $Header
+                    'Method'      = 'POST'
+                    'Body'        = $body
+                    'ContentType' = 'application/json; charset=utf-8'
+                }
+                $response = Invoke-RestMethod @params -errorAction Stop
+                $CommitterName = $response.value.committer.name
+            }            
+
+            $wikiStatsTable = @{
+                wikiId           = $wikiId
+                id               = $_.id
+                path             = $_.path
+                gitItemPath      = $gitItemPath
+                projectName      = $projectName
+                projectId        = $projectId
+                visits           = [int]($_.viewStats | measure-object -Property count -Sum).sum
+                owner            = $CommitterName
+                pageViewsForDays = 30
+            }
+            Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $(new-guid).guid -property $wikiStatsTable | Out-Null
+            $dashboardWikiStats += $wikiStatsTable
+        }        
+    }
+    Write-Host "$($dashboardWikiStats.Count) wikistats successfully loaded"
+    $output = @()
+    $dashboardWikiStats | ForEach-Object {
+        $output += @{
+            projectName = $_.projectName
+            projectId   = $_.projectid
+            wikiId      = $_.wikiId
+            id          = $_.id         
+        }
+    }
+    return $output
+}
+Function Get-WikiPage {
+    [CmdletBinding()]
+    param (
+        [Parameter()]
+        [string]$projectName,
+        [Parameter()]
+        [string]$projectId,
+        [Parameter()]
+        [string]$wikiId,
+        [Parameter()]
+        [string]$Id
+    )
+
+    $organization = $env:organization
+    $pat = $env:pat
+
+    #Create table
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+    $ctx = $storageAccount.Context
+    $partitionKey = "WikiPages"
+    New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
+    $table = (Get-AzStorageTable -Name $partitionKey -Context $ctx).CloudTable
+
+    Write-Host "Fetching wiki page with id: $id..."
+    $dashboardWikiPages = @()
+
+    $wikiPagesBaseUrl = ('https://dev.azure.com/{0}/{1}/_apis/wiki/wikis/{2}/pages/{3}?api-version=7.1-preview.1' -f $organization, $projectName, $wikiId, $id)
+    $encodedToken = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes((":{0}" -f $pat)))
+    $header = @{authorization = "Basic $encodedToken" }
+
+    $wikiPage = Invoke-RestMethod -Uri $wikiPagesBaseUrl -Method Get -ContentType "application/json" -Headers $header
+
+    if (![String]::IsNullOrEmpty($wikiPage.id)) {
+        $wikiPageTable = @{
+            path        = $wikiPage.path
+            id          = $wikiPage.id
+            gitItemPath = $wikiPage.gitItemPath
+            projectName = $projectName
+            projectId   = $projectid
+        }
+        Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey ('{0}-{1}' -f $wikiId, $($wikiPage.id)) -property $wikiPageTable -UpdateExisting | Out-Null
+        $dashboardWikiPages += $wikiPageTable
+    }    
 }

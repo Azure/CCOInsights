@@ -81,7 +81,7 @@ You can filter the information by:
 - Subscription with assigned blueprints
 - Blueprint Definition
 
-![governanceSubsBlueprints][GovernanceSubsBlueprints]
+
 
 
 <!-- Docs -->

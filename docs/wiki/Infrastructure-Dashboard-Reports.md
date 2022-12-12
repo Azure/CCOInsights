@@ -23,7 +23,7 @@
 
 ## CCO Azure Infrastructure Dashboard overview page
 
-In this page, you will be able to identify the top 10 of recommendations that Azure Advisor has identified, the top 10 most attacked resources and the number of subscription owners. You can also locate all the deployed resources in a map.
+In this page, you will be able to identify the top 10 recommendations that Azure Advisor has identified, the top 10 most attacked resources and the number of subscription owners. You can also locate all the deployed resources in a map.
 It’s important to mention that this tab just gives you a quick view. All the recommendations will be available with more details in the following tabs
 
 You can filter the information by:
@@ -36,7 +36,7 @@ You can filter the information by:
 
 ## Azure Advisor Recommendations page
 
-In this page of the report, you will be able to identify the total amount of recommendations that Azure Advisor has identified, to what resources each recommendations apply and to what subscription as well.
+In this page of the report, you will be able to view the total amount of recommendations that Azure Advisor has identified and to what resources and subscriptions each recommendation applies to.
 
 You can filter the information by:
 
@@ -46,14 +46,14 @@ You can filter the information by:
 
 It will also give a high-level overview of what subscriptions require more attention and has more recommendations to snooze or implement.
 
-If you navigate to a impacted resource you will see a quick description, potential solution and in some cases a link to a website where you can find all the steps to solve the problem.
+If you navigate to an impacted resource you will see a quick description, potential solution and in some cases a link to a website where you can find all the steps to solve the problem.
 
 ![advisor][Advisor]
 
 
 ## Azure Defender Alerts page
 
-The third tab is used to show the Azure Defender Advanced Threat Analytics Alerts from all the subscriptions a given Azure account has access to. Is important to remark that subscriptions will need to use the Standard plan if you want to detect and see the alerts in the Power BI Dashboard.
+The third tab is used to show the Azure Defender Advanced Threat Analytics Alerts from all the subscriptions a given Azure account has access to. It is important to note that subscriptions will need to use the Standard plan if you want to detect and see the alerts in the Power BI Dashboard.
 
 
 You can filter the information by:
@@ -97,7 +97,7 @@ You can filter the information by:
 
 ## Azure Network Security Groups page
 
-In this tab, you will be able to identify all the NSGs assigned to a VM or Subnet. On each one, you can check all the rules that are being applied
+In this tab, you will be able to identify all the NSGs assigned to a VM or Subnet. On each one, you can check all the rules that are being applied.
 
 You can filter the information by:
 
@@ -139,7 +139,7 @@ You can filter the information by:
 
 ## Service Principal Role Based Access Control page
 
-This tab is used to show Azure Services Principals RBAC permissions from all the subscriptions a given Azure account has access to. You will be able to identify the roles applied to all Azure resources and if the subscriptions have custom roles.
+This tab is used to show Azure Service Principals RBAC permissions from all the subscriptions a given Azure account has access to. You will be able to identify the roles applied to all Azure resources and if the subscriptions have custom roles.
 
 You can filter the information by:
 
@@ -152,7 +152,7 @@ You can filter the information by:
 
 ## IaaS Usage and Limits page
 
-This tab allows to identify the usage of any Compute, Storage and Networking Azure resource and validate the limits for each region and subscription.
+This tab allows you to identify the usage of any Compute, Storage and Networking Azure resource and validate the limits for each region and subscription.
 
 You can filter the information by:
 
@@ -164,7 +164,7 @@ You can filter the information by:
 
 ## IaaS Idle Resources Dashboard page
 
-This tab is lists all the Public IPs, Network Interfaces and Disks that are disconnected, idle or unattached.
+This tab lists all the Public IPs, Network Interfaces and Disks that are disconnected, idle or unattached.
 
 You can filter the information by:
 

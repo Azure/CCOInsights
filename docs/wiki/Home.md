@@ -19,7 +19,7 @@
 
 # Overview
 
-The Continuous Cloud Optimization Insights (CCO Insights) project is a set of Power BI Desktop Reports developed using Power Query M language and DAX, that pulls information directly from different Azure REST APIs and enables monitoring, operation and infrastructure teams to quickly gain insights about their existing Azure Platform footprint and resources as well as code contribution characteristics on two major platforms - Azure DevOps and GitHub.
+The Continuous Cloud Optimization Insights (CCO Insights) project is a set of Power BI Desktop Reports that enables monitoring, operation and infrastructure teams to quickly gain insights about their existing Azure Platform footprint, resources and code contribution characteristics on Azure DevOps and GitHub. CCO Insights is developed using Power Query M language and DAX that pulls information directly from different Azure REST API.
 
 ![OverviewImage](./media/OverviewImage.png)
 
@@ -41,8 +41,8 @@ The [**Troubleshooting Guide**][TroubleshootingGuide] chapter contains guidance 
 1. **queries folder**: Includes the M queries used in the Dashboard to pull data from Azure and Graph REST APIs. This content is for reference purposes to facilitate the Data Model comprehension and to enable contributors to expand the Dashboard capabilities.
 2. **docs/assets/pictures folder**: Contains all the images that the Dashboard will use when loading data from Azure. The content of this folder is dynamic and updated regularly. Make sure the computer running the Dashboard also has access to [this URL][GraphicalElements] via the internet.
 3. **dashboards folder**: This folder contains sub folders with different versions of the CCO Insights dashboards.
-    - ***CCODashboard-Infra folder*** has a more generic version of the Dashboard that includes information from Azure Advisor, Azure Defender , Azure Networking REST APIs, Azure Compute and more REST and Graph APIs. For this dashboard is needed the installation of a [custom connector][CustomConnector].
-    - ***CCODashboard-Governance folder*** has a dashboard aligned with the Microsoft Cloud Adoption Framework governance principles and will allow to get quick insights around Management Groups, Subscriptions, Blueprints, Polices, Naming Standards, Tagging and Regulatory Standards compliance. For this dashboard is needed the installation of a [custom connector][CustomConnector].
+    - ***CCODashboard-Infra folder*** has a more generic version of the Dashboard that includes information from Azure Advisor, Azure Defender , Azure Networking REST APIs, Azure Compute and more REST and Graph APIs. This dashboard requires the installation of a [custom connector][CustomConnector].
+    - ***CCODashboard-Governance folder*** has a dashboard aligned with the Microsoft Cloud Adoption Framework governance principles and will allow to get quick insights around Management Groups, Subscriptions, Blueprints, Polices, Naming Standards, Tagging and Regulatory Standards compliance. This dashboard requires the installation of a [custom connector][CustomConnector].
     - [***GitHub Contributions Dashboard folder***][GitHubContributionsDashboard]: has a dashboard to get insights about the contributions to your GitHub project.
     - [***Azure DevOps Contributions Dashboard folder***][AdoContributionsDashboard]: has a dashboard to get insights about the contributions to your Azure DevOps (ADO) project.
 

@@ -13,7 +13,7 @@
 
 ## Description
 
-The Continuous Cloud Optimization Insights (CCO Insights) project is a set of Power BI Desktop Reports developed using Power Query M language and DAX that pulls information directly from different Azure REST APIs and enables monitoring, operation and infrastructure teams to quickly gain insights about their existing Azure Platform footprint and resources as well as code contribution characteristics on two major platforms - Azure DevOps and GitHub.
+The Continuous Cloud Optimization Insights (CCO Insights) project is a set of Power BI Desktop Reports that enables monitoring, operation and infrastructure teams to quickly gain insights about their existing Azure Platform footprint, resources and code contribution characteristics on Azure DevOps and GitHub. CCO Insights is developed using Power Query M language and DAX that pulls information directly from different Azure REST API.
 
 <br>
 

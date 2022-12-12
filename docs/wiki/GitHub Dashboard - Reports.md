@@ -9,7 +9,7 @@
 # Dashboard
 
 With the previous backend deployed, you can now download the [GitHubContributions.pbit][GitHubContributionsDashboard] file and open it locally. You will be asked to enter:
-- The Storage Account name of the Storage Account you deployed.
+- The name of the storage account you deployed .
 ![Storage Account Name][StorageAccountName]
 - The Storage account access key.
 

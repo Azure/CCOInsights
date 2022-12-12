@@ -16,8 +16,7 @@
 
 ## Management Groups and Subscriptions Hierarchy Overview page
 
-In this page, you will be able to identify easily the hierarchy within your environment with the view of the Management Groups and Subscriptions.
-It's important to mention that this page just gives you a quick view.
+In this page, you will be able to easily get a hierarchal view of your Management Groups and Subscriptions within your environment. It's important to mention that this page just gives you a quick view.
 
 ![overview][Overview]
 
@@ -60,7 +59,7 @@ You can filter the information by:
 
 ## Azure Policies page
 
-In this page of the report, you will be able to identify the total amount of policies that are you applying in your environment. It will also give a high-level overview of which policies has less compliance level and which resources require more attention.
+In this page of the report, you will be able to identify the total amount of policies that you are applying in your environment. It will also give a high-level overview of which policies have less compliance level and which resources require more attention.
 
 You can filter the information by:
 
@@ -74,7 +73,7 @@ If you navigate to a impacted resource you will see a quick description of the a
 
 ## Azure Blueprints page
 
-In this page of the report, you will be able to identify the total amount of blueprints that are you applying in your environment. It will also show which are the artifacts within the blueprints.
+In this page of the report, you will be able to identify the total amount of blueprints that you are applying in your environment. It will also show which are the artifacts within the blueprints.
 
 You can filter the information by:
 

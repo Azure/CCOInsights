@@ -19,7 +19,7 @@
 
 # Requirements
 
-- The CCO Azure Governance Dashboard is a Power BI Template that requires to download and install the Microsoft Power BI Desktop Edition from the Microsoft Store. Below you can find the minimum requirements to run the Dashboard
+- The CCO Azure Governance Dashboard is a Power BI Template that requires you to download and install the Microsoft Power BI Desktop Edition from the Microsoft Store. Below you can find the minimum requirements to run the Dashboard:
   - Windows 10 version **14393.0** or **higher**.
   - Internet access from the computer running Microsoft Power BI desktop.
   - An Azure account on the desired tenant space with permissions on the subscriptions to read from the Azure Services described above.

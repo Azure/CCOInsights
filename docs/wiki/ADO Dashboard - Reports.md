@@ -13,7 +13,7 @@ With the previous back-end deployed, you can now download the [ADOContributions.
 
 ![Storage Account Name][StorageAccountName]
 
-- The Storage account access key.
+- The Storage account [access key][StorageAccountAccessKey].
 
 After that you will be able to monitor your contributions!
 
@@ -28,3 +28,4 @@ After that you will be able to monitor your contributions!
 
 <!-- References -->
 [AdoContributionsDashboard]: <https://github.com/Azure/CCOInsights/blob/main/dashboards/ADODashboard-Contributors/ADOContributions%20v1.0.pbit>
+[StorageAccountAccessKey]: <https://learn.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage?tabs=azure-portal>

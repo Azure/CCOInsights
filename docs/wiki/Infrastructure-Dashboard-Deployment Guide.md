@@ -23,7 +23,7 @@
 
 # Requirements
 
-- The CCO Azure Infrastructure Dashboard is a Power BI Template that requires you to download and install the Microsoft Power BI Desktop Edition from the Microsoft Store. Below you can find the minimum requirements to run the Dashboard
+- The CCO Azure Infrastructure Dashboard is a Power BI Template that requires you to download and install the Microsoft [Power BI Desktop][PowerBIDownload] Edition from the Microsoft Store. Below you can find the minimum requirements to run the Dashboard
     -	Windows 10 version **14393.0** or **higher**.
     -	Internet access from the computer running Microsoft Power BI desktop.
     - An Azure account on the desired tenant space with permissions on the subscriptions to read from the Azure Services described above.
@@ -58,7 +58,7 @@ Registering these 2 Resource Providers has no cost or performance penalty on the
 
 # Installing the custom connector
 
-The CCO Azure Infrastructure Dashboard requires you to install the Power BI Custom Connector located in the same folder as the CCO Infrastructure Dashboard: ([CCoDashboardAzureConnector.mez][CCoDashboardAzureConnector]). This Custom Connector allows us to leverage information from Azure Management REST APIs that requires POST methods and errors control
+The CCO Azure Infrastructure Dashboard requires you to install the Power BI Custom Connector located in the same folder as the CCO Infrastructure Dashboard: ([CCoDashboardAzureConnector.mez][CCoDashboardAzureConnector]). This Custom Connector allows us to leverage information from Azure Management REST APIs that requires POST methods and errors control.
 
 To install the custom connector you must copy the file [CCoDashboardAzureConnector.mez][CCoDashboardAzureConnector] from the **ccodashboard/dashboards/CCODashboard-Infrastructure/** folder to the folder that Power BI creates by default in the Documents folder in your PC. If this folder doesn't exist, you can create a new one with this name.
 
@@ -200,3 +200,4 @@ If the permissions and credentials are properly flushed it should ask you for cr
 <!-- References -->
 [GenerateAllSubscriptionsAdvisorRecommendations.ps1]: <https://github.com/Azure/CCOInsights/blob/main/install/scripts/GenerateAllSubsAdvisorRecommendations.ps1>
 [CCODashboardInfra]: <https://github.com/Azure/CCOInsights/tree/master/dashboards/CCODashboard-Infra>
+[PowerBIDownload]: <https://aka.ms/pbidesktopstore>

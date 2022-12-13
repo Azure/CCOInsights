@@ -17,7 +17,7 @@ The CCO Insights Azure DevOps Contributions dashboard requires infrastructure be
 
 # Deployment
 
-Here is the link to the required[bicep][BicepOverview] template that will deploy and connect the architecture presented previously.
+Here is the link to the required [bicep][BicepOverview] template that will deploy and connect the architecture presented previously.
 
 ## Pre-requisites
 

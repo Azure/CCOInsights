@@ -5,7 +5,7 @@
 - [Installing the custom connector](#installing-the-custom-connector)
 - [Azure Advisor Recommendations](#azure-advisor-recommendations)
   - [Generating Azure Advisor recommendations manually](#generating-azure-advisor-recommendations-manually)
-- [Azure Defender Recommendations](#azure-defender-recommendations)
+- [Recommendations from Microsoft Defender for Azure](#recommendations-from-microsoft-defender-for-azure)
 - [Setting up the Azure Infrastructure Dashboard](#setting-up-the-azure-infrastructure-dashboard)
   - [Template download](#template-download)
   - [Environment selection](#environment-selection)
@@ -15,7 +15,7 @@
     - [Refresh the dashboard](#refresh-the-dashboard)
     - [Credentials for management.azure.com REST API request:](#credentials-for-managementazurecom-rest-api-request)
     - [Credentials for graph.windows.net API](#credentials-for-graphwindowsnet-api)
-    - [Enter Access Web content credentials](#enter-access-web-content-credentials)
+    - [Enter Organizational credentials](#enter-organizational-credentials)
 
 ---
 
@@ -58,7 +58,7 @@ Registering these 2 Resource Providers has no cost or performance penalty on the
 
 # Installing the custom connector
 
-The CCO Azure Infrastructure Dashboard requires you to install the Power BI Custom Connector located in the same folder as the CCO Infrastructure Dashboard: ([CCoDashboardAzureConnector.mez][CCoDashboardAzureConnector]). This Custom Connector allows us to leverage information from Azure Management REST APIs that requires POST methods and errors control.
+The CCO Azure Infrastructure Dashboard requires you to install the Power BI Custom Connector located in the same folder as the CCO Infrastructure Dashboard: ([CCoDashboardAzureConnector.mez][CCoDashboardAzureConnector]). This Custom Connector allows us to leverage information from Azure Management REST APIs that require POST methods and error handling.
 
 To install the custom connector you must copy the file [CCoDashboardAzureConnector.mez][CCoDashboardAzureConnector] from the **ccodashboard/dashboards/CCODashboard-Infrastructure/** folder to the folder that Power BI creates by default in the Documents folder in your PC. If this folder doesn't exist, you can create a new one with this name.
 
@@ -92,13 +92,13 @@ Open the Azure Portal with your Azure Account https://portal.azure.com
 
 <br>
 
-# Azure Defender Recommendations
+# Recommendations from Microsoft Defender for Azure
 
-Microsoft Defender for Cloud is a Cloud Security Posture Management (CSPM) and Cloud Workload Protection Platform (CWPP) for all of your Azure, on-premises, and multicloud (Amazon AWS and Google GCP) resources. Defender for Cloud fills three vital needs as you manage the security of your resources and workloads in the cloud and on-premises.
+Microsoft Defender for Cloud is a Cloud Security Posture Management (CSPM) and Cloud Workload Protection Platform (CWPP) for all of your Azure, on-premises, and multi-cloud (Amazon AWS and Google GCP) resources. Defender for Cloud fills the vital needs as you manage the security of your resources and workloads in the cloud and on-premises.
 
-You can find more information at the official Azure Defender site [here][SecurityCenterIntro].
+You can find more information at the official Microsoft Defender for Azure [site][SecurityCenterIntro].
 
-The subscriptions will need to use the **paid** tier if you want to detect and see the alerts in the Azure Defender Alerts page of the dashboard.
+The subscriptions will need to use the **paid** tier if you want to detect and see the alerts in the Microsoft Defender for Azure Alerts page of the dashboard.
 
 <br>
 
@@ -166,7 +166,7 @@ If the permissions and credentials are properly flushed it should ask you for cr
 ![credentials5][Credentials5]
 
 
-### Enter Access Web content credentials
+### Enter Organizational credentials
 
 - Make sure that you select **Organization account** type.
 - Click on **Sign in**.
@@ -196,8 +196,11 @@ If the permissions and credentials are properly flushed it should ask you for cr
 [Credentials5]: <./media/Credentials5.png>
 [LogAnalytics]: <./media/loganalyticsAPI.PNG>
 [Credentials7]: <./media/Credentials7.png>
+[CustomConnectorFolder]: <./media/customconnectorfolder.PNG>
+[CustomConnectorSecurity]: <./media/customconnectorsecurity.PNG>
 
 <!-- References -->
 [GenerateAllSubscriptionsAdvisorRecommendations.ps1]: <https://github.com/Azure/CCOInsights/blob/main/install/scripts/GenerateAllSubsAdvisorRecommendations.ps1>
 [CCODashboardInfra]: <https://github.com/Azure/CCOInsights/tree/master/dashboards/CCODashboard-Infra>
 [PowerBIDownload]: <https://aka.ms/pbidesktopstore>
+[CCoDashboardAzureConnector]: <https://github.com/Azure/CCOInsights/tree/master/dashboards/CCODashboard-Governance/CcoDashboardAzureConnector.mez>

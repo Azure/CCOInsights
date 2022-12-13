@@ -19,7 +19,7 @@ This dashboard requires infrastructure being deployed in Azure. The infrastructu
 
 # Setup
 
-Here is the link to the required [bicep][BicepOverview] template that will deploy and connect the architecture presented previously.
+[Here][GitHubDashboardBicepTemplate] is the link to the required [bicep][BicepOverview] template that will deploy and connect the architecture presented previously.
 
 ## Prerequisites
 
@@ -64,9 +64,19 @@ Finally, navigate to the root folder of the repository where you will find the [
 Now you are ready to deploy your backend in your environment:
 ![deploy-backend][DeployBackend]
 
-After successfully deploying the backend go to the Azure portal and manually run the `InitializeTables` endpoint. Make sure you see the tables in your Storage Account before moving forward.
+After successfully deploying the backend go to the Azure portal and manually run the `InitializeTables` endpoint. 
 
-![storage-tables][StorageTables]
+On the Azure portal, go to the Storage account and under the Tables section in the Storage browser, verify that the following tables are present:
+- Repository
+- Forks
+- Clones
+- OpenPullRequests
+- ClosedPullRequests
+- Stargazers
+- Contributors
+- Traffic
+- Issues
+- Releases
 
 <br>
 
@@ -89,3 +99,4 @@ After successfully deploying the backend go to the Azure portal and manually run
 [src]: <https://github.com/Azure/CCOInsights/blob/main/dashboards/GitHubDashboard-Contributors/src>
 [GitHubDailySyncfolder]: <https://github.com/Azure/CCOInsights/blob/main/dashboards/GitHubDashboard-Contributors/src/GitHubContributions/GitHubDailySync>
 [WorkflowsFolder]: <https://github.com/Azure/CCOInsights/tree/main/.github/workflows>
+[GitHubDashboardBicepTemplate]: <https://github.com/Azure/CCOInsights/blob/main/dashboards/GitHubDashboard-Contributors/infrastructure/deploy.bicep>

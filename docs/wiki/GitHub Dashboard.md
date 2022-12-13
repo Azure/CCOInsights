@@ -15,9 +15,11 @@ As part of the Continuous Cloud Optimization Insights solution, a dashboard is i
   - Number of open pull requests
   - Average pull requests per day
   - Pull requests' lifecycle (in days)
-  - Comparison between number of open vs closed pull requests over the last months
+  - Comparison between number of open vs closed pull requests over the last months*
 - Comparison between number of lines added vs deleted per month
 - Top contributors measured by changes in their pull requests
+
+  > ***NOTE**: time span depends on when the active branches in scope were created.
 
 An important note is that the **the Github Dashboard can be published in the PowerBI online service with auto refresh enabled**. This differs from other dashboards of CCO Insights because for the Github Dashboard, dynamic queries are not being done directly from the PowerBI file, meaning that it can be published and consumed from the [PowerBI online][PublishPowerBI] service.
 

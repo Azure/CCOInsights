@@ -42,7 +42,7 @@ Registering this Resource Provider has no cost or performance penalty on the sub
 
 # Installing the custom connector
 
-The CCO Azure Governance Dashboard requires to install the Power BI Custom Connector located in the same folder as the CCO Governance Dashboard: ([CCoDashboardAzureConnector.mez][CCoDashboardAzureConnector]). This Custom Connector allows us to leverage information from Azure Management REST APIs that requires POST methods and errors control
+The CCO Azure Governance Dashboard requires to install the Power BI Custom Connector located in the same folder as the CCO Governance Dashboard: ([CCoDashboardAzureConnector.mez][CCoDashboardAzureConnector]). This Custom Connector allows us to leverage information from Azure Management REST APIs that require POST methods and error handling.
 
 To install the custom connector you must copy the file [CCoDashboardAzureConnector.mez][CCoDashboardAzureConnector] from the **ccodashboard/dashboards/CCODashboard-Governance/** folder to the folder that Power BI creates by default in the Documents folder in your PC. If this folder doesn't exist, you can create a new one with this name.
 

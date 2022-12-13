@@ -4,7 +4,7 @@
   - [Management Groups and Subscriptions Hierarchy Overview page](#management-groups-and-subscriptions-hierarchy-overview-page)
   - [Tags and naming standards page](#tags-and-naming-standards-page)
   - [Azure Regulatory Standards Forecast](#azure-regulatory-standards-forecast)
-  - [Azure Resources Security & Compliance page](#azure-resources-security--compliance-page)
+  - [Azure Resources Security \& Compliance page](#azure-resources-security--compliance-page)
   - [Azure Policies page](#azure-policies-page)
   - [Azure Blueprints page](#azure-blueprints-page)
 
@@ -80,7 +80,7 @@ You can filter the information by:
 - Subscription with assigned blueprints
 - Blueprint Definition
 
-
+![GovernanceSubsBlueprints][GovernanceSubsBlueprints]
 
 
 <!-- Docs -->

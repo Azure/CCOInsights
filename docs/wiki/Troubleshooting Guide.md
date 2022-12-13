@@ -11,6 +11,7 @@
   - [Log Analytics REST API timeout (CCO AKS dashboard add-on only)](#log-analytics-rest-api-timeout-cco-aks-dashboard-add-on-only)
   - [Data Model Relationships missing](#data-model-relationships-missing)
   - [Errors regarding missing `column1` on refresh](#errors-regarding-missing-column1-on-refresh)
+  - [Custom connector not recognized](#custom-connector-not-recognized)
 
 ---
 
@@ -103,6 +104,19 @@ Infrastructure:
 
 Try using a native user account to the AAD tenant you are connecting to instead of a guest user account.
 
+## Custom connector not recognized
+
+To make sure the custom connector is configured correctly, please check the following security settings in Power BI Desktop.
+
+Under the File menu, click on the "Options and Settings" button, then chose Options. In the dialog, click on Security and select "Allow any extension to load without validation of warning".
+
+![PowerBISecurityConfiguration][PowerBISecurityConfiguration]
+
+Under the Home menu, click on "Get Data", then chose the "More..." option. Select Azure from the list on the left to filter the options.
+
+![PowerBIDataConnectors][PowerBIDataConnectors]
+
+Once this configuration is in place, you can use the solution to get data.
 
 <!-- Docs -->
 [PowerBIDesktop]: <https://learn.microsoft.com/en-us/power-bi/fundamentals/desktop-get-the-desktop>
@@ -119,5 +133,7 @@ Try using a native user account to the AAD tenant you are connecting to instead 
 [WrongPrivacyLevelConfig]: <./media/WrongPrivacyLevelConfig.png>
 [Credentials5]: <./media/Credentials5.png>
 [LocaleOptionsPowerBI]: <./media/locale_options_powerBI.PNG>
+[PowerBISecurityConfiguration]: <./media/PowerBI-SecurityConfiguration.png>
+[PowerBIDataConnectors]: <./media/PowerBI-DataConnectors.png>
 
 <!-- References -->

@@ -24,7 +24,7 @@
 ## CCO Azure Infrastructure Dashboard overview page
 
 In this page, you will be able to identify the top 10 recommendations that Azure Advisor has identified, the top 10 most attacked resources and the number of subscription owners. You can also locate all the deployed resources in a map.
-It’s important to mention that this tab just gives you a quick view. All the recommendations will be available with more details in the following tabs
+It’s important to mention that this tab just gives you a quick view. All the recommendations will be available with more details in the following tabs.
 
 You can filter the information by:
 
@@ -67,7 +67,17 @@ You can filter the information by:
 
 ## Azure Compute Overview page
 
-In this tab, you will be able to identify the number of VMs, the Operating System, the SKU, the Availability Set name, the location, the VM Size, the VNET and subnet each VM is connected, the private IP address and if the VM has any extension installed.
+In this tab, you will be able to identify the 
+- number of VMs, 
+- the Operating System, 
+- the SKU, 
+- the Availability Set name, 
+- the location, 
+- the VM Size, 
+- the VNET 
+- and subnet each VM is connected, 
+- the private IP address 
+- and if the VM has any extension installed.
 
 You can filter the information by:
 
@@ -194,7 +204,16 @@ You can filter the information by:
 
 ## Azure Kubernetes Service page
 
-In this page, you will be able to identify the number of AKS Clusters, Nodes, Pods, Containers, Container images, Service principals and Azure Container Instances . All the information related to these resources will be shown (IPs, pods in use, status, network, image repositories, RBAC roles …).
+In this page, you will be able to identify the 
+- number of AKS Clusters, 
+- Nodes, 
+- Pods, 
+- Containers, 
+- Container images, 
+- Service principals 
+- and Azure Container Instances . 
+ 
+All the information related to these resources will be shown (IPs, pods in use, status, network, image repositories, RBAC roles …).
 
 You can filter the information by:
 

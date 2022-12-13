@@ -17,7 +17,7 @@ The CCO Insights Azure DevOps Contributions dashboard requires infrastructure be
 
 # Deployment
 
-Here is the link to the required [bicep][BicepOverview] template that will deploy and connect the architecture presented previously.
+[Here][ADODashboardBicepTemplate] is the link to the required [bicep][BicepOverview] template that will deploy and connect the architecture presented previously.
 
 ## Pre-requisites
 
@@ -88,3 +88,4 @@ After successfully deploying the back-end go to the Azure portal and manually ru
 [src]: <https://github.com/Azure/CCOInsights/blob/main/dashboards/ADODashboard-Contributors/src>
 [ADODailySyncFolder]: <https://github.com/Azure/CCOInsights/blob/main/dashboards/ADODashboard-Contributors/src/ADOContributions/ADODailySync>
 [WorkflowsFolder]: <https://github.com/Azure/CCOInsights/tree/main/.github/workflows>
+[ADODashboardBicepTemplate]: <https://github.com/Azure/CCOInsights/blob/main/dashboards/ADODashboard-Contributors/infrastructure/deploy.bicep>

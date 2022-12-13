@@ -21,7 +21,7 @@
 
 The Continuous Cloud Optimization Insights (CCO Insights) project is a set of Power BI Desktop Reports that enables monitoring, operation and infrastructure teams to quickly gain insights about their existing Azure Platform footprint, resources and code contribution characteristics on Azure DevOps and GitHub. CCO Insights is developed using Power Query M language and DAX that pulls information directly from different Azure REST API.
 
-![OverviewImage](./media/OverviewImage.png)
+![OverviewImage][OverviewImage]
 
 CCO Insights currently includes 4 different dashboards to discover information about your Azure, Azure DevOps and GitHub cloud platforms:
 
@@ -38,13 +38,13 @@ The [**Troubleshooting Guide**][TroubleshootingGuide] chapter contains guidance 
 
 # List of assets
 
-1. **queries folder**: Includes the M queries used in the Dashboard to pull data from Azure and Graph REST APIs. This content is for reference purposes to facilitate the Data Model comprehension and to enable contributors to expand the Dashboard capabilities.
-2. **docs/assets/pictures folder**: Contains all the images that the Dashboard will use when loading data from Azure. The content of this folder is dynamic and updated regularly. Make sure the computer running the Dashboard also has access to [this URL][GraphicalElements] via the internet.
-3. **dashboards folder**: This folder contains sub folders with different versions of the CCO Insights dashboards.
-    - ***CCODashboard-Infra folder*** has a more generic version of the Dashboard that includes information from Azure Advisor, Azure Defender , Azure Networking REST APIs, Azure Compute and more REST and Graph APIs. This dashboard requires the installation of a [custom connector][CustomConnector].
-    - ***CCODashboard-Governance folder*** has a dashboard aligned with the Microsoft Cloud Adoption Framework governance principles and will allow to get quick insights around Management Groups, Subscriptions, Blueprints, Polices, Naming Standards, Tagging and Regulatory Standards compliance. This dashboard requires the installation of a [custom connector][CustomConnector].
-    - [***GitHub Contributions Dashboard folder***][GitHubContributionsDashboard]: has a dashboard to get insights about the contributions to your GitHub project.
-    - [***Azure DevOps Contributions Dashboard folder***][AdoContributionsDashboard]: has a dashboard to get insights about the contributions to your Azure DevOps (ADO) project.
+1. **[queries folder][QueriesFolder]**: Includes the M queries used in the Dashboard to pull data from Azure and Graph REST APIs. This content is for reference purposes to facilitate the Data Model comprehension and to enable contributors to expand the Dashboard capabilities.
+2. **[docs/assets/pictures folder][GraphicalElementsFolder]**: Contains all the images that the Dashboard will use when loading data from Azure. The content of this folder is dynamic and updated regularly. Make sure the computer running the Dashboard also has access to [this URL][GraphicalElementsFolder] via the internet.
+3. **[dashboards folder][DashboardsFolder]**: This folder contains sub folders with different versions of the CCO Insights dashboards.
+    - ***[CCODashboard-Infra folder][InfraDashboardFolder]*** has a more generic version of the Dashboard that includes information from Azure Advisor, Azure Defender , Azure Networking REST APIs, Azure Compute and more REST and Graph APIs. This dashboard requires the installation of a [custom connector][CustomConnector].
+    - ***[CCODashboard-Governance folder][GovDashboardFolder]*** has a dashboard aligned with the Microsoft Cloud Adoption Framework governance principles and will allow to get quick insights around Management Groups, Subscriptions, Blueprints, Polices, Naming Standards, Tagging and Regulatory Standards compliance. This dashboard requires the installation of a [custom connector][CustomConnector].
+    - [***GitHub Contributions Dashboard folder***][GitHubDashboardFolder]: has a dashboard to get insights about the contributions to your GitHub project.
+    - [***Azure DevOps Contributions Dashboard folder***][ADODashboardFolder]: has a dashboard to get insights about the contributions to your Azure DevOps (ADO) project.
 
 <br>
 
@@ -115,6 +115,7 @@ Any use of third-party trademarks or logos are subject to those third-party's po
 [MicrosoftsTrademarkAndBrandGuidelines]: <https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general>
 
 <!-- Images -->
+[OverviewImage]: <./media/OverviewImage.png>
 [YouTubeVideos]: <https://aka.ms/ccoinsights/videos>
 [Video0]: <https://www.youtube.com/watch?v=9l9ME_WXxJk>
 [Video1]: <https://www.youtube.com/watch?v=z5pez0kl8_s>
@@ -130,8 +131,14 @@ Any use of third-party trademarks or logos are subject to those third-party's po
 <!-- References -->
 [AzureInfrastructureDashboard]: <./Infrastructure-Dashboard>
 [AzureGovernanceDashboard]: <./Governance Dashboard>
-[GitHubContributionsDashboard]: <./GitHub Dashboard>
+[GitHubContributionsDashboard]: </GitHub Dashboard>
 [AdoContributionsDashboard]: <./ADO Dashboard>
 [TroubleshootingGuide]: <./Troubleshooting%20Guide>
 [CustomConnector]: <./Governance Dashboard%20-%20Deployment Guide#installing-the-custom-connector>
-[GraphicalElements]: <https://github.com/Azure/CCOInsights/tree/main/docs/assets/pictures>
+[GraphicalElementsFolder]: <https://github.com/Azure/CCOInsights/tree/main/docs/assets/pictures>
+[QueriesFolder]: <https://github.com/Azure/CCOInsights/tree/main/queries>
+[DashboardsFolder]: <https://github.com/Azure/CCOInsights/tree/main/dashboards>
+[InfraDashboardFolder]: <https://github.com/Azure/CCOInsights/tree/main/dashboards/CCODashboard-Infra>
+[GovDashboardFolder]: <https://github.com/Azure/CCOInsights/tree/main/dashboards/>
+[GitHubDashboardFolder]: <https://github.com/Azure/CCOInsights/tree/main/dashboards/GitHub%20Dashboard>
+[ADODashboardFolder]: <https://github.com/Azure/CCOInsights/tree/main/dashboards/ADO%20Dashboard>

@@ -8,15 +8,15 @@ If issues are encountered when using technologies leveraged by this solution, us
 
 If your issue involves a Resource deployment in Azure, please provide corelation IDs where possible when contacting support to be able to investigate the issue effectively and in a timely fashion. For instructions on how to get deployments and correlation ID, please follow this link [here](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-history?tabs=azure-portal#get-deployments-and-correlation-id).
 
-Following list of issues are within the scope of Microsoft support:
+The following list of issues are within the scope of Microsoft support:
 
 - Issues with Power BI or other components of the Microsoft Power Platform 
 - Issues with the Microsoft Azure cloud platform
 - Underlying Resource or Resource Provider issues when deploying components of the CCO Insights solution (e.g., Storage Accounts, Function Apps, Log Analytics Workspace, etc.) for any deployment failure
 
-Any issues that are deemed outside of the above list by Microsoft support and/or requires bugfix in the Power BI files or code in the repo, Microsoft support will redirect user to file the issue on GitHub.
+Any issues that are deemed outside of the above list by Microsoft support and/or requires bugfix in the Power BI files or code in the repo, Microsoft support will redirect the user to file the issue on GitHub.
 
-Project maintainers and community aim to get issues resolved in timely fashion as per community support policy of this repo.
+Project maintainers and community aim to get issues resolved in a timely fashion as per community support policy of this repo.
 
 ## Community Support Policy
 

@@ -1,0 +1,60 @@
+# NOTE:
+# This pipeline requires a secret 'PLATFORM_REPO_UPDATE_PAT' set up in the GitHub secrets.
+# The secret's value should be a PAT token with the permissions to push to the repository's main branch.
+
+name: '.Platform: Sync Docs/Wiki'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/wiki/**'
+
+env:
+  wiki_source_repo: '${{ github.repository }}'
+  wiki_source_repo_dir: '${{ github.repository }}/docs/wiki'
+  wiki_target_repo: '${{ github.repository }}.wiki'
+  github_commit_message: 'Wiki Sync from docs/wiki'
+  pipelinePrincipalGitUserName: 'CCOInsightsPipelinePrincipal'
+  pipelinePrincipalGitUserEmail: 'CCOInsights@noreply.microsoft.com'
+
+jobs:
+  sync-wiki:
+    name: Sync docs/wiki to Wiki
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Repo
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.wiki_source_repo }}
+          path: ${{ env.wiki_source_repo }}
+          token: '${{ secrets.PLATFORM_REPO_UPDATE_PAT }}' # Sets general GIT credentials up
+
+      - name: Checkout Wiki Repo
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.wiki_target_repo }}
+          path: ${{ env.wiki_target_repo }}
+          token: '${{ secrets.PLATFORM_REPO_UPDATE_PAT }}' # Sets general GIT credentials up
+
+      - name: Configure Local Git
+        run: |
+          git config --global user.name '${{ env.pipelinePrincipalGitUserName }}'
+          git config --global user.email '${{ env.pipelinePrincipalGitUserEmail }}'
+        working-directory: ${{ env.GITHUB_WORKSPACE }}
+
+      - name: Sync docs/wiki Into Wiki Repo
+        shell: pwsh
+        run: |
+          rsync -avzr --delete --exclude='.git/' "${{ env.wiki_source_repo_dir }}/" "${{ env.wiki_target_repo }}"
+        working-directory: ${{ env.GITHUB_WORKSPACE }}
+
+      - name: Stage & Push Files Into Wiki Repo
+        shell: pwsh
+        run: |
+          git add .
+          git commit -m "$github_commit_message [$GITHUB_ACTOR/${GITHUB_SHA::8}]"
+          git push
+        working-directory: ${{ env.wiki_target_repo }}

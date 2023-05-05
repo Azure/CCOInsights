@@ -3,8 +3,8 @@
     "Values": {
         "owner": "Azure",
         "repository": "CCOInsights",
-        "resourceGroup": "GithubccotestRG",
-        "storageAccount": "ccoghcontsta",
+        "resourceGroup": "CCOInsights-GH",
+        "storageAccount": "globalazureccoghstg",
         "pat": "<<PAT>>"
     }
 }

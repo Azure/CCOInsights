@@ -14,3 +14,4 @@ Get-Contributors -users $users
 Get-Traffic
 Get-Issues
 Get-Releases
+Get-Secrets

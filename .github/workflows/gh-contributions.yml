@@ -9,6 +9,10 @@ on:
         required: true
         default: ""
 
+permissions:
+   id-token: write
+   contents: read
+
 jobs:
   deploy_dashboard:
     runs-on: ubuntu-latest
@@ -21,7 +25,9 @@ jobs:
       - name: Login via Az module
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: ${{ secrets.AZURE_AD_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_AD_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           enable-AzPSSession: true
       - name: "Deploy infrastructure"
         id: rg

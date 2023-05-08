@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   deploy_dashboard:
-    runs-on: ubuntu-latest
+    runs-on: windows-2022
     name: "Dashboard Backend"
     steps:
       - name: "Checkout"
@@ -60,4 +60,4 @@ jobs:
               Dashboard          = 'GitHub'
           }
           # Invoke Function
-          ${{ github.workspace }}/tools/scripts/deploy-function.ps1 @DeployFunctionInputs -Verbose
+          ./tools/scripts/deploy-function.ps1 @DeployFunctionInputs -Verbose

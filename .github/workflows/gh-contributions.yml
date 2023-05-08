@@ -39,13 +39,14 @@ jobs:
           }
           ./tools/scripts/Convert-TokenInFile.ps1 @ConvertTokenListFunctionInput -Verbose
       - name: "Deploy code"
-        shell: pwsh
-        run: |
+        uses: azure/powershell@v1
+        with:
+         azPSVersion: "latest"
+         inlineScript: |
           # Initialize parameters
           Install-Module -Name Az.Functions -Force
           $functionApp = Get-AzFunctionApp -ResourceGroupName '${{ github.event.inputs.resourceGroupName }}'
           $functionAppName = $functionApp[0].Name
-          az account set -s "${{ secrets.ARM_SUBSCRIPTION_ID }}"
           $DeployFunctionInputs = @{
               ResourceGroup      = '${{ github.event.inputs.resourceGroupName }}'
               FunctionAppName    = $functionAppName

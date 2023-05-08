@@ -17,4 +17,5 @@ Get-Releases
 Get-Secrets
 Get-CodeScanningAlerts
 Get-CodeScanningAnalysis
+Get-DependabotAlerts
 Get-SecretScanningAlerts

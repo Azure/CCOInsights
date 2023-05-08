@@ -595,6 +595,59 @@ Function Get-CodeScanningAlerts {
     }
 }
 
+Function Get-DependabotAlerts {
+    $owner = $env:owner
+    $repository = $env:repository
+    $pat = $env:pat
+
+    #Create table
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+    $ctx = $storageAccount.Context
+    $partitionKey = "DependabotAlerts"
+    New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
+    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+
+    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/dependabot/alerts"
+    $header = @{authorization = "token $pat" }
+
+    Write-Host "Fetching alerts..."
+
+    try {
+
+        $alerts = Invoke-RestMethod -Uri $tagsBaseUrl -Method Get -ContentType "application/json" -Headers $header
+        $dashboardalerts = @()
+        if ($alerts.Count -gt 0) {
+            $alerts | ForEach-Object {
+                $alert = @{
+                    created_at               = $_.created_at
+                    updated_at               = $_.updated_at
+                    state                    = $_.state
+                    type                     = $_.secret_type_display_name
+                    push_protection_bypassed = $_.push_protection_bypassed
+                }
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.name -property $alert -UpdateExisting | Out-Null
+                $dashboardalerts += $alert
+            }
+
+            Write-Host "$($dashboardalerts.Count) github dependabot alerts successfully loaded"
+        }
+        else {
+            Write-Host "There are no dependabot alerts in the repository: $repository"
+        }
+    }
+    catch {
+        $StatusCode = $_.Exception.Response.StatusCode.value__
+        if ($StatusCode -eq "404") {
+            Write-Host "Dependabot alerts not found in the Repository: $repository"
+            Write-Host $_.ErrorDetails.Message
+        }
+        else {
+            Write-Host "$($_.Exception.Message)"
+            Write-Host $_.ErrorDetails.Message
+        }
+    }
+}
+
 Function Get-SecretScanningAlerts {
     $owner = $env:owner
     $repository = $env:repository

@@ -19,10 +19,9 @@ jobs:
         with:
           fetch-depth: 0
       - name: Azure Login
-        uses: Azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          enable-AzPSSession: true
+        run: |
+          az login --service-principal -u "${{ secrets.AZURE_AD_CLIENT_ID }}" -p "${{ secrets.AZURE_AD_CLIENT_SECRET }}" --tenant "${{ secrets.AZURE_AD_TENANT_ID }}"
+          az account set -s "${{ secrets.ARM_SUBSCRIPTION_ID }}"
       - name: "Deploy infrastructure"
         id: rg
         uses: azure/arm-deploy@v1

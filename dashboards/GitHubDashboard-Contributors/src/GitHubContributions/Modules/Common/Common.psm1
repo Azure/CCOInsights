@@ -162,7 +162,7 @@ Function Get-OpenPullRequests {
         [Parameter(Mandatory = $false)]
         [Switch]$DailyRefresh
     )
-    
+
     $owner = $env:owner
     $repository = $env:repository
     $pat = $env:pat
@@ -220,7 +220,7 @@ Function Get-ClosedPullRequests {
         [Parameter(Mandatory = $false)]
         [Switch]$DailyRefresh
     )
-    
+
     $owner = $env:owner
     $repository = $env:repository
     $pat = $env:pat
@@ -330,7 +330,7 @@ Function Get-Contributors {
     $header = @{authorization = "token $pat" }
     $count = 0
     $users | ForEach-Object {
-        
+
         $count += 1
         $usersUrl = "https://api.github.com/users/$_"
         $userData = Invoke-RestMethod -Uri $usersUrl -Method Get -ContentType "application/json" -Headers $header
@@ -460,7 +460,7 @@ Function Get-Releases {
     Write-Host "Fetching Releases..."
 
     try {
-        
+
         $releases = Invoke-RestMethod -Uri $tagsBaseUrl -Method Get -ContentType "application/json" -Headers $header
         $dashboardReleases = @()
         if ($releases.Count -gt 0) {
@@ -468,12 +468,12 @@ Function Get-Releases {
                 $release = @{
                     name = $_.tag_name
                     date = $_.published_at
-    
+
                 }
                 Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.name -property $release -UpdateExisting | Out-Null
                 $dashboardReleases += $release
             }
-    
+
             Write-Host "$($dashboardReleases.Count) github releases successfully loaded"
         }
         else {
@@ -490,5 +490,56 @@ Function Get-Releases {
             Write-Host "$($_.Exception.Message)"
             Write-Host $_.ErrorDetails.Message
         }
-    }  
+    }
 }
+
+Function Get-Secrets {
+    $owner = $env:owner
+    $repository = $env:repository
+    $pat = $env:pat
+
+    #Create table
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+    $ctx = $storageAccount.Context
+    $partitionKey = "secrets"
+    New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
+    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+
+    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/dependabot/secrets"
+    $header = @{authorization = "token $pat" }
+
+    Write-Host "Fetching secrets..."
+
+    try {
+
+        $secrets = Invoke-RestMethod -Uri $tagsBaseUrl -Method Get -ContentType "application/json" -Headers $header
+        $dashboardsecrets = @()
+        if ($secrets.Count -gt 0) {
+            $secrets | ForEach-Object {
+                $secret = @{
+                    name = $_.name
+                }
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.name -property $secret -UpdateExisting | Out-Null
+                $dashboardsecrets += $secret
+            }
+
+            Write-Host "$($dashboardsecrets.Count) github secrets successfully loaded"
+        }
+        else {
+            Write-Host "There are no secrets in the repository: $repository"
+        }
+    }
+    catch {
+        $StatusCode = $_.Exception.Response.StatusCode.value__
+        if ($StatusCode -eq "404") {
+            Write-Host "secrets not found in the Repository: $repository"
+            Write-Host $_.ErrorDetails.Message
+        }
+        else {
+            Write-Host "$($_.Exception.Message)"
+            Write-Host $_.ErrorDetails.Message
+        }
+    }
+}
+
+

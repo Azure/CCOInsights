@@ -14,3 +14,4 @@ Get-Stargazers
 Get-Traffic
 Get-Issues -DailyRefresh
 Get-Releases
+Get-Secrets

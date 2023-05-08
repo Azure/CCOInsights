@@ -15,3 +15,6 @@ Get-Traffic
 Get-Issues
 Get-Releases
 Get-Secrets
+Get-CodeScanningAlerts
+Get-CodeScanningAnalysis
+Get-SecretScanningAlerts

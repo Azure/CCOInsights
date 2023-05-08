@@ -1,10 +1,10 @@
 {
-    "IsEncrypted": false,
-    "Values": {
-        "owner": "Azure",
-        "repository": "CCOInsights",
-        "resourceGroup": "CCOInsights-GH",
-        "storageAccount": "globalazureccoghstg",
-        "pat": "<<PAT>>"
-    }
+  "IsEncrypted": false,
+  "Values": {
+    "owner": "joselcaguilar",
+    "repository": "code-scanning-javascript-demo",
+    "resourceGroup": "CCOInsights-GH",
+    "storageAccount": "globalazureccoghstg",
+    "pat": "<<PAT>>"
+  }
 }

@@ -60,4 +60,4 @@ jobs:
               Dashboard          = 'GitHub'
           }
           # Invoke Function
-          ./tools/scripts/deploy-function.ps1 @DeployFunctionInputs -Verbose
+          ${{ github.workspace }}/tools/scripts/deploy-function.ps1 @DeployFunctionInputs -Verbose

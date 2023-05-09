@@ -623,12 +623,12 @@ Function Get-DependabotAlerts {
                 $alert = @{
                     published_at          = $_.published_at
                     state                 = $_.state
-                    dependency            = $_.vulnerabilities[0].package.name
-                    vulnerable_version    = $_.vulnerabilities[0].vulnerable_version_range
-                    first_patched_version = $_.vulnerabilities[0].first_patched_version.identifier
+                    dependency            = $_.dependency.package.name
+                    vulnerable_version    = $_.security_vulnerability.vulnerable_version_range
+                    first_patched_version = $_.security_vulnerability.first_patched_version.identifier
                     cve                   = $_.security_advisory.cve_id
-                    severity              = $_.security_advisory.severity
-                    cvss_score            = $_.cvss.score
+                    severity              = $_.security_vulnerability.severity
+                    cvss_score            = $_.security_advisory.cvss.score
                 }
                 Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.name -property $alert -UpdateExisting | Out-Null
                 $dashboardalerts += $alert

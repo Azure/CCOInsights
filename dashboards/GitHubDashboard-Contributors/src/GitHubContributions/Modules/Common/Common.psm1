@@ -574,7 +574,8 @@ Function Get-CodeScanningAlerts {
                     tool           = $_.tool.name
                     version_tool   = $_.tool.version
                 }
-                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.rule.id -property $alert -UpdateExisting | Out-Null
+                $rowKey = ($_.rule.id).Replace("/", "-")
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $rowKey -property $alert -UpdateExisting | Out-Null
                 $dashboardalerts += $alert
             }
 

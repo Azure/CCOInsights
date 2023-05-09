@@ -559,7 +559,7 @@ Function Get-CodeScanningAlerts {
     $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/code-scanning/alerts"
     $header = @{authorization = "token $pat" }
 
-    Write-Host "Fetching alerts..."
+    Write-Host "Fetching code scanning alerts..."
 
     try {
 
@@ -612,7 +612,7 @@ Function Get-DependabotAlerts {
     $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/dependabot/alerts"
     $header = @{authorization = "token $pat" }
 
-    Write-Host "Fetching alerts..."
+    Write-Host "Fetching dependabot alerts..."
 
     try {
 
@@ -621,7 +621,7 @@ Function Get-DependabotAlerts {
         if ($alerts.Count -gt 0) {
             $alerts | ForEach-Object {
                 $alert = @{
-                    published_at          = $_.published_at
+                    created_at            = $_.created_at
                     state                 = $_.state
                     dependency            = $_.dependency.package.name
                     vulnerable_version    = $_.security_vulnerability.vulnerable_version_range
@@ -668,7 +668,7 @@ Function Get-SecretScanningAlerts {
     $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/secret-scanning/alerts"
     $header = @{authorization = "token $pat" }
 
-    Write-Host "Fetching alerts..."
+    Write-Host "Fetching secret scanning alerts..."
 
     try {
 
@@ -721,7 +721,7 @@ Function Get-CodeScanningAnalysis {
     $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/code-scanning/analyses"
     $header = @{authorization = "token $pat" }
 
-    Write-Host "Fetching analysis..."
+    Write-Host "Fetching code scanning analysis..."
 
     try {
 

@@ -505,7 +505,7 @@ Function Get-Secrets {
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
     $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
 
-    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/actions/secrets"
+    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/actions/secrets?per_page=100"
     $header = @{authorization = "token $pat" }
 
     Write-Host "Fetching secrets..."
@@ -556,7 +556,7 @@ Function Get-CodeScanningAlerts {
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
     $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
 
-    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/code-scanning/alerts"
+    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/code-scanning/alerts?per_page=100"
     $header = @{authorization = "token $pat" }
 
     Write-Host "Fetching code scanning alerts..."
@@ -610,7 +610,7 @@ Function Get-DependabotAlerts {
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
     $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
 
-    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/dependabot/alerts"
+    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/dependabot/alerts?per_page=100"
     $header = @{authorization = "token $pat" }
 
     Write-Host "Fetching dependabot alerts..."
@@ -666,7 +666,7 @@ Function Get-SecretScanningAlerts {
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
     $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
 
-    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/secret-scanning/alerts"
+    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/secret-scanning/alerts?per_page=100"
     $header = @{authorization = "token $pat" }
 
     Write-Host "Fetching secret scanning alerts..."
@@ -719,7 +719,7 @@ Function Get-CodeScanningAnalysis {
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
     $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
 
-    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/code-scanning/analyses"
+    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/code-scanning/analyses?per_page=100"
     $header = @{authorization = "token $pat" }
 
     Write-Host "Fetching code scanning analysis..."

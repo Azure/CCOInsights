@@ -517,7 +517,9 @@ Function Get-Secrets {
         if ($secrets.Count -gt 0) {
             $secrets | ForEach-Object {
                 $secret = @{
-                    name = $_.name
+                    name       = $_.name
+                    created_at = $_.created_at
+                    updated_at = $_.updated_at
                 }
                 Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.name -property $secret -UpdateExisting | Out-Null
                 $dashboardsecrets += $secret

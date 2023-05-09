@@ -574,7 +574,7 @@ Function Get-CodeScanningAlerts {
                     tool           = $_.tool.name
                     version_tool   = $_.tool.version
                 }
-                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.name -property $alert -UpdateExisting | Out-Null
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.rule.id -property $alert -UpdateExisting | Out-Null
                 $dashboardalerts += $alert
             }
 
@@ -630,7 +630,7 @@ Function Get-DependabotAlerts {
                     severity              = $_.security_vulnerability.severity
                     cvss_score            = $_.security_advisory.cvss.score
                 }
-                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.name -property $alert -UpdateExisting | Out-Null
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.security_advisory.cve_id -property $alert -UpdateExisting | Out-Null
                 $dashboardalerts += $alert
             }
 
@@ -683,7 +683,7 @@ Function Get-SecretScanningAlerts {
                     type                     = $_.secret_type_display_name
                     push_protection_bypassed = $_.push_protection_bypassed
                 }
-                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.name -property $alert -UpdateExisting | Out-Null
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.secret -property $alert -UpdateExisting | Out-Null
                 $dashboardalerts += $alert
             }
 
@@ -735,7 +735,7 @@ Function Get-CodeScanningAnalysis {
                     results_count = $_.results_count
                     rules_count   = $_.rules_count
                 }
-                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.name -property $a -UpdateExisting | Out-Null
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.id -property $a -UpdateExisting | Out-Null
                 $dashboardanalysis += $a
             }
 

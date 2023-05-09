@@ -512,7 +512,7 @@ Function Get-Secrets {
 
     try {
 
-        $secrets = Invoke-RestMethod -Uri $tagsBaseUrl -Method Get -ContentType "application/json" -Headers $header
+        $secrets = (Invoke-RestMethod -Uri $tagsBaseUrl -Method Get -ContentType "application/json" -Headers $header).secrets
         $dashboardsecrets = @()
         if ($secrets.Count -gt 0) {
             $secrets | ForEach-Object {
@@ -619,11 +619,14 @@ Function Get-DependabotAlerts {
         if ($alerts.Count -gt 0) {
             $alerts | ForEach-Object {
                 $alert = @{
-                    created_at               = $_.created_at
-                    updated_at               = $_.updated_at
-                    state                    = $_.state
-                    type                     = $_.secret_type_display_name
-                    push_protection_bypassed = $_.push_protection_bypassed
+                    published_at          = $_.published_at
+                    state                 = $_.state
+                    dependency            = $_.vulnerabilities[0].package.name
+                    vulnerable_version    = $_.vulnerabilities[0].vulnerable_version_range
+                    first_patched_version = $_.vulnerabilities[0].first_patched_version.identifier
+                    cve                   = $_.security_advisory.cve_id
+                    severity              = $_.security_advisory.severity
+                    cvss_score            = $_.cvss.score
                 }
                 Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.name -property $alert -UpdateExisting | Out-Null
                 $dashboardalerts += $alert
@@ -713,7 +716,7 @@ Function Get-CodeScanningAnalysis {
     New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
     $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
 
-    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/code-scanning/analysis"
+    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/code-scanning/analyses"
     $header = @{authorization = "token $pat" }
 
     Write-Host "Fetching analysis..."

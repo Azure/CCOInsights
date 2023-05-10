@@ -10,8 +10,8 @@ on:
         default: ""
 
 permissions:
-   id-token: write
-   contents: read
+  id-token: write
+  contents: read
 
 jobs:
   deploy_dashboard:
@@ -48,16 +48,15 @@ jobs:
       - name: "Deploy code"
         uses: azure/powershell@v1
         with:
-         azPSVersion: "latest"
-         inlineScript: |
-          # Initialize parameters
-          #Install-Module -Name Az.Functions -Force
-          $functionApp = Get-AzFunctionApp -ResourceGroupName '${{ github.event.inputs.resourceGroupName }}'
-          $functionAppName = $functionApp[0].Name
-          $DeployFunctionInputs = @{
-              ResourceGroup      = '${{ github.event.inputs.resourceGroupName }}'
-              FunctionAppName    = $functionAppName
-              Dashboard          = 'GitHub'
-          }
-          # Invoke Function
-          ./tools/scripts/deploy-function.ps1 @DeployFunctionInputs -Verbose
+          azPSVersion: "latest"
+          inlineScript: |
+            # Initialize parameters
+            $functionApp = Get-AzFunctionApp -ResourceGroupName '${{ github.event.inputs.resourceGroupName }}'
+            $functionAppName = $functionApp[0].Name
+            $DeployFunctionInputs = @{
+                ResourceGroup      = '${{ github.event.inputs.resourceGroupName }}'
+                FunctionAppName    = $functionAppName
+                Dashboard          = 'GitHub'
+            }
+            # Invoke Function
+            ./tools/scripts/deploy-function.ps1 @DeployFunctionInputs -Verbose

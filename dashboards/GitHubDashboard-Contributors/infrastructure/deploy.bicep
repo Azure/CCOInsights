@@ -2,7 +2,7 @@
 param name string = 'cco-github'
 
 @description('Name of the sotrage account')
-param staname string = 'globalazureccoghstg'
+param staname string = 'ccogithubsta'
 
 @description('Location where resources should be deployed')
 param location string = resourceGroup().location

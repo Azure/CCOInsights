@@ -1,0 +1,18 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "TenantId": "${AZURE_TENANT_ID}",
+    "AZURE_CLIENT_ID": "${AZURE_CLIENT_ID}",
+    "ClientId": "${AZURE_CLIENT_ID}",
+    "ClientSecret": "${AZURE_CLIENT_SECRET}",
+    "DataLakeAccountName": "${DataLakeAccountName}",
+    "Features__InfrastructureDashboard": ${FEATUREINFRA},
+    "Features__GovernanceDashboard": ${FEATUREGOV},
+    "Government": "Public",
+    "Environment": "Local",
+    "ExternalTenantId": "${EXTERNAL_TENANT_ID}",
+    "ExternalClientId": "${EXTERNAL_CLIENT_ID}",
+    "ExternalClientSecret": "${EXTERNAL_CLIENT_SECRET}"
+  }
+}

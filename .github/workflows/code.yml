@@ -1,0 +1,170 @@
+name: "Integration Workflow"
+
+concurrency:
+  group: ${{ github.ref }}-cicd
+  cancel-in-progress: true
+
+on:
+  workflow_call:
+    inputs:
+      resourceGroupName:
+        type: string
+        description: "Resource Group"
+        required: true
+      dataLakeName:
+        type: string
+        description: "DataLake Account Name"
+        required: true
+      feature_infradashboard: 
+        default: true
+        description: "Enables the Infrastructure Dashboard Feature"
+        required: true
+        type: boolean
+      feature_govdashboard: 
+        default: true
+        required: true
+        description: "Enables the Governance Dashboard Feature"
+        type: boolean
+      
+    secrets:
+      AZURE_CREDENTIALS:
+        description: "Azure Tenant ID"
+        required: true
+      # TODO: Trick to target to external tenant for testing, remove when no longer needed
+      EXTERNAL_TENANT_ID:
+        description: "External Tenant ID"
+        required: true
+      EXTERNAL_CLIENT_ID:
+        description: "External Client ID"
+        required: true
+      EXTERNAL_CLIENT_SECRET:
+        description: "External Client Secret"
+        required: true
+        
+  pull_request:
+    types: [opened, synchronize]
+    branches: ['master', 'main']
+    paths: 
+      - "src/**"
+      - "tests/**"
+      - ".github/workflows/cicd.yml"
+
+env:
+  publishFolder: "publish"
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    name: "Build solution and run tests"
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release
+
+      - name: Test
+        run: |
+          dotnet test --configuration Release --no-build -l "trx;LogFileName=TestResults.trx"
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action/composite@v2
+        if: always()
+        with:
+          trx_files: "tests/**/**/*.trx"
+          compare_to_earlier_commit: false
+
+      - name: Publish
+        if:  ${{ github.event_name != 'pull_request'}}
+        run: dotnet publish -c Release -o ${{ env.publishFolder }}
+      
+      - name: Save Logs on Artifacts
+        if:  ${{ github.event_name != 'pull_request'}}
+        uses: actions/upload-artifact@v3
+        with:
+          name: publish
+          path: |
+              ${{ env.publishFolder }}
+
+  deploy:
+    needs: build_and_test
+    runs-on: ubuntu-latest
+    name: "Deploy code"
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/master' ) || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Load Build from Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: publish
+          path: ${{ env.publishFolder }}
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true
+
+      - name: "Replace tokens in settings file"
+        shell: bash
+        env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+          feature_infradashboard: ${{ inputs.feature_infradashboard || 'true'}}
+          feature_govdashboard: ${{ inputs.feature_govdashboard || 'true'}}
+        run: |
+
+          export AZURE_TENANT_ID=$(echo $AZURE_CREDENTIALS | jq -r '.tenantId')
+          export AZURE_CLIENT_ID=$(echo $AZURE_CREDENTIALS | jq -r '.clientId')
+          export AZURE_CLIENT_SECRET=$(echo $AZURE_CREDENTIALS | jq -r '.clientSecret')
+          export DataLakeAccountName=${{ inputs.dataLakeName }}
+          export FEATUREINFRA=${{ inputs.feature_infradashboard }}
+          export FEATUREGOV=${{ inputs.feature_govdashboard }}
+          # TODO: Trick to target to external tenant for testing, remove when no longer needed
+          export EXTERNAL_TENANT_ID=${{ secrets.EXTERNAL_TENANT_ID }}
+          export EXTERNAL_CLIENT_ID=${{ secrets.EXTERNAL_CLIENT_ID }}
+          export EXTERNAL_CLIENT_SECRET=${{ secrets.EXTERNAL_CLIENT_SECRET }}
+
+          settingsFilePath='./src/CCOInsights.SubscriptionManager.Functions/local.settings.dev.json'
+          envsubst < $settingsFilePath > temp.json && mv temp.json $settingsFilePath
+
+      - name: "Deploy code"
+        uses: Azure/CLI@v1
+        env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+        with:
+          inlineScript: |
+            publishZip="publish.zip"
+            cd publish && zip -r ../publish.zip * && cd -
+
+            functionAppName=$(az functionapp list -g ${{ inputs.resourceGroupName }} --query '[0].name' -o tsv)
+            json=$(cat ./src/CCOInsights.SubscriptionManager.Functions/local.settings.dev.json)
+
+            values=$(echo "$json" | jq -r ".Values")
+            
+            for key in $(echo $values | jq -r "keys[]"); do
+                value=$(echo $values | jq -r ".$key")
+                az functionapp config appsettings set -n $functionAppName -g ${{ inputs.resourceGroupName }} --settings "$key=$value" -o none
+            done
+
+            az functionapp deployment source config-zip -g ${{ inputs.resourceGroupName }} -n $functionAppName --src "./$publishZip"

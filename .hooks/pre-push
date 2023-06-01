@@ -1,0 +1,11 @@
+#!/bin/bash
+
+srcFolder="src"
+testsFolder="tests"
+
+lastCommit=$(git rev-parse HEAD)
+
+if git diff-tree --name-only --no-commit-id $lastCommit | grep -q "^$srcFolder\|^$testsFolder"; then
+    dotnet build "./CCOInsights.SubscriptionManager.sln"
+    dotnet test 
+fi

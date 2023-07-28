@@ -1,8 +1,8 @@
 @description('Base name to be used in all resources')
 param name string = 'carml-github-contributions'
 
-@description('Name of the sotrage account')
-param staname string = 'carmlghcontsta'
+@description('Name of the storage account')
+param staname string = 'avmreportingsta'
 
 @description('Location where resources should be deployed')
 param location string = resourceGroup().location

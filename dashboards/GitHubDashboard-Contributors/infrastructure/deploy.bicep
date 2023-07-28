@@ -1,5 +1,5 @@
 @description('Base name to be used in all resources')
-param name string = 'carml-github-contributions'
+param name string = 'avm-reporting'
 
 @description('Name of the storage account')
 param staname string = 'avmreportingsta'

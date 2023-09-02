@@ -162,7 +162,7 @@ Function Get-OpenPullRequests {
         [Parameter(Mandatory = $false)]
         [Switch]$DailyRefresh
     )
-    
+
     $owner = $env:owner
     $repository = $env:repository
     $pat = $env:pat
@@ -220,7 +220,7 @@ Function Get-ClosedPullRequests {
         [Parameter(Mandatory = $false)]
         [Switch]$DailyRefresh
     )
-    
+
     $owner = $env:owner
     $repository = $env:repository
     $pat = $env:pat
@@ -330,7 +330,7 @@ Function Get-Contributors {
     $header = @{authorization = "token $pat" }
     $count = 0
     $users | ForEach-Object {
-        
+
         $count += 1
         $usersUrl = "https://api.github.com/users/$_"
         $userData = Invoke-RestMethod -Uri $usersUrl -Method Get -ContentType "application/json" -Headers $header
@@ -460,7 +460,7 @@ Function Get-Releases {
     Write-Host "Fetching Releases..."
 
     try {
-        
+
         $releases = Invoke-RestMethod -Uri $tagsBaseUrl -Method Get -ContentType "application/json" -Headers $header
         $dashboardReleases = @()
         if ($releases.Count -gt 0) {
@@ -468,12 +468,12 @@ Function Get-Releases {
                 $release = @{
                     name = $_.tag_name
                     date = $_.published_at
-    
+
                 }
                 Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.name -property $release -UpdateExisting | Out-Null
                 $dashboardReleases += $release
             }
-    
+
             Write-Host "$($dashboardReleases.Count) github releases successfully loaded"
         }
         else {
@@ -490,5 +490,271 @@ Function Get-Releases {
             Write-Host "$($_.Exception.Message)"
             Write-Host $_.ErrorDetails.Message
         }
-    }  
+    }
+}
+
+Function Get-Secrets {
+    $owner = $env:owner
+    $repository = $env:repository
+    $pat = $env:pat
+
+    #Create table
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+    $ctx = $storageAccount.Context
+    $partitionKey = "Secrets"
+    New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
+    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+
+    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/actions/secrets?per_page=100"
+    $header = @{authorization = "token $pat" }
+
+    Write-Host "Fetching secrets..."
+
+    try {
+
+        $secrets = (Invoke-RestMethod -Uri $tagsBaseUrl -Method Get -ContentType "application/json" -Headers $header).secrets
+        $dashboardsecrets = @()
+        if ($secrets.Count -gt 0) {
+            $secrets | ForEach-Object {
+                $secret = @{
+                    name       = $_.name
+                    created_at = $_.created_at
+                    updated_at = $_.updated_at
+                }
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.name -property $secret -UpdateExisting | Out-Null
+                $dashboardsecrets += $secret
+            }
+
+            Write-Host "$($dashboardsecrets.Count) github secrets successfully loaded"
+        }
+        else {
+            Write-Host "There are no secrets in the repository: $repository"
+        }
+    }
+    catch {
+        $StatusCode = $_.Exception.Response.StatusCode.value__
+        if ($StatusCode -eq "404") {
+            Write-Host "Secrets not found in the Repository: $repository"
+            Write-Host $_.ErrorDetails.Message
+        }
+        else {
+            Write-Host "$($_.Exception.Message)"
+            Write-Host $_.ErrorDetails.Message
+        }
+    }
+}
+
+Function Get-CodeScanningAlerts {
+    $owner = $env:owner
+    $repository = $env:repository
+    $pat = $env:pat
+
+    #Create table
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+    $ctx = $storageAccount.Context
+    $partitionKey = "CodeScanningAlerts"
+    New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
+    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+
+    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/code-scanning/alerts?per_page=100"
+    $header = @{authorization = "token $pat" }
+
+    Write-Host "Fetching code scanning alerts..."
+
+    try {
+
+        $alerts = Invoke-RestMethod -Uri $tagsBaseUrl -Method Get -ContentType "application/json" -Headers $header
+        $dashboardalerts = @()
+        if ($alerts.Count -gt 0) {
+            $alerts | ForEach-Object {
+                $alert = @{
+                    state          = $_.state
+                    name           = $_.rule.name
+                    security_level = $_.rule.security_severity_level
+                    tool           = $_.tool.name
+                    version_tool   = $_.tool.version
+                }
+                $rowKey = ($_.rule.id).Replace("/", "-")
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $rowKey -property $alert -UpdateExisting | Out-Null
+                $dashboardalerts += $alert
+            }
+
+            Write-Host "$($dashboardalerts.Count) github code scanning alerts successfully loaded"
+        }
+        else {
+            Write-Host "There are no code scanning alerts in the repository: $repository"
+        }
+    }
+    catch {
+        $StatusCode = $_.Exception.Response.StatusCode.value__
+        if ($StatusCode -eq "404") {
+            Write-Host "Code Scanning alerts not found in the Repository: $repository"
+            Write-Host $_.ErrorDetails.Message
+        }
+        else {
+            Write-Host "$($_.Exception.Message)"
+            Write-Host $_.ErrorDetails.Message
+        }
+    }
+}
+
+Function Get-DependabotAlerts {
+    $owner = $env:owner
+    $repository = $env:repository
+    $pat = $env:pat
+
+    #Create table
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+    $ctx = $storageAccount.Context
+    $partitionKey = "DependabotAlerts"
+    New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
+    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+
+    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/dependabot/alerts?per_page=100"
+    $header = @{authorization = "token $pat" }
+
+    Write-Host "Fetching dependabot alerts..."
+
+    try {
+
+        $alerts = Invoke-RestMethod -Uri $tagsBaseUrl -Method Get -ContentType "application/json" -Headers $header
+        $dashboardalerts = @()
+        if ($alerts.Count -gt 0) {
+            $alerts | ForEach-Object {
+                $alert = @{
+                    created_at            = $_.created_at
+                    state                 = $_.state
+                    dependency            = $_.dependency.package.name
+                    vulnerable_version    = $_.security_vulnerability.vulnerable_version_range
+                    first_patched_version = $_.security_vulnerability.first_patched_version.identifier
+                    cve                   = $_.security_advisory.cve_id
+                    severity              = $_.security_vulnerability.severity
+                    cvss_score            = $_.security_advisory.cvss.score
+                }
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.security_advisory.cve_id -property $alert -UpdateExisting | Out-Null
+                $dashboardalerts += $alert
+            }
+
+            Write-Host "$($dashboardalerts.Count) github dependabot alerts successfully loaded"
+        }
+        else {
+            Write-Host "There are no dependabot alerts in the repository: $repository"
+        }
+    }
+    catch {
+        $StatusCode = $_.Exception.Response.StatusCode.value__
+        if ($StatusCode -eq "404") {
+            Write-Host "Dependabot alerts not found in the Repository: $repository"
+            Write-Host $_.ErrorDetails.Message
+        }
+        else {
+            Write-Host "$($_.Exception.Message)"
+            Write-Host $_.ErrorDetails.Message
+        }
+    }
+}
+
+Function Get-SecretScanningAlerts {
+    $owner = $env:owner
+    $repository = $env:repository
+    $pat = $env:pat
+
+    #Create table
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+    $ctx = $storageAccount.Context
+    $partitionKey = "SecretScanningAlerts"
+    New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
+    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+
+    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/secret-scanning/alerts?per_page=100"
+    $header = @{authorization = "token $pat" }
+
+    Write-Host "Fetching secret scanning alerts..."
+
+    try {
+
+        $alerts = Invoke-RestMethod -Uri $tagsBaseUrl -Method Get -ContentType "application/json" -Headers $header
+        $dashboardalerts = @()
+        if ($alerts.Count -gt 0) {
+            $alerts | ForEach-Object {
+                $alert = @{
+                    created_at               = $_.created_at
+                    updated_at               = $_.updated_at
+                    state                    = $_.state
+                    type                     = $_.secret_type_display_name
+                    push_protection_bypassed = $_.push_protection_bypassed
+                }
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.secret -property $alert -UpdateExisting | Out-Null
+                $dashboardalerts += $alert
+            }
+
+            Write-Host "$($dashboardalerts.Count) github secret scanning alerts successfully loaded"
+        }
+        else {
+            Write-Host "There are no secret scanning alerts in the repository: $repository"
+        }
+    }
+    catch {
+        $StatusCode = $_.Exception.Response.StatusCode.value__
+        if ($StatusCode -eq "404") {
+            Write-Host "Secret Scanning alerts not found in the Repository: $repository"
+            Write-Host $_.ErrorDetails.Message
+        }
+        else {
+            Write-Host "$($_.Exception.Message)"
+            Write-Host $_.ErrorDetails.Message
+        }
+    }
+}
+
+Function Get-CodeScanningAnalysis {
+    $owner = $env:owner
+    $repository = $env:repository
+    $pat = $env:pat
+
+    #Create table
+    $storageAccount = Get-AzStorageAccount -Name $env:storageAccount -ResourceGroupName $env:resourceGroup
+    $ctx = $storageAccount.Context
+    $partitionKey = "CodeScanningAnalysis"
+    New-AzStorageTable -Name $partitionKey -Context $ctx -ErrorAction SilentlyContinue | Out-Null
+    $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
+
+    $tagsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/code-scanning/analyses?per_page=100"
+    $header = @{authorization = "token $pat" }
+
+    Write-Host "Fetching code scanning analysis..."
+
+    try {
+
+        $analysis = Invoke-RestMethod -Uri $tagsBaseUrl -Method Get -ContentType "application/json" -Headers $header
+        $dashboardanalysis = @()
+        if ($analysis.Count -gt 0) {
+            $analysis | ForEach-Object {
+                $a = @{
+                    category      = $_.category
+                    created_at    = $_.created_at
+                    results_count = $_.results_count
+                    rules_count   = $_.rules_count
+                }
+                Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.id -property $a -UpdateExisting | Out-Null
+                $dashboardanalysis += $a
+            }
+
+            Write-Host "$($dashboardanalysis.Count) github code scanning analysis successfully loaded"
+        }
+        else {
+            Write-Host "There are no code scanning analysis in the repository: $repository"
+        }
+    }
+    catch {
+        $StatusCode = $_.Exception.Response.StatusCode.value__
+        if ($StatusCode -eq "404") {
+            Write-Host "Code Scanning analysis not found in the Repository: $repository"
+            Write-Host $_.ErrorDetails.Message
+        }
+        else {
+            Write-Host "$($_.Exception.Message)"
+            Write-Host $_.ErrorDetails.Message
+        }
+    }
 }

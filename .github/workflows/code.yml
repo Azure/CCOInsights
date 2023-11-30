@@ -148,6 +148,11 @@ jobs:
           settingsFilePath='./src/CCOInsights.SubscriptionManager.Functions/local.settings.dev.json'
           envsubst < $settingsFilePath > temp.json && mv temp.json $settingsFilePath
 
+      - name: "Zip publish folder"
+        run: |
+          publishZip="publish.zip"
+          cd publish && zip -r ../publish.zip * && cd -
+
       - name: "Deploy code"
         uses: Azure/CLI@v1
         env:
@@ -155,7 +160,6 @@ jobs:
         with:
           inlineScript: |
             publishZip="publish.zip"
-            cd publish && zip -r ../publish.zip * && cd -
 
             functionAppName=$(az functionapp list -g ${{ inputs.resourceGroupName }} --query '[0].name' -o tsv)
             json=$(cat ./src/CCOInsights.SubscriptionManager.Functions/local.settings.dev.json)

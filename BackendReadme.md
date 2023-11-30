@@ -121,7 +121,7 @@ To add a new function, you can execute the tool add.
   ./tools/add.sh <entity_name>
 ```
 
-![add_script](imgs/add_script.png)
+![add_script](.imgs/add_script.png)
 
 It will prompt you to ask which dashboard is and the provider url. After that, you will have a new folder with the 3 files needed (Function, Entity, Response).
 

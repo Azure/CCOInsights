@@ -55,9 +55,10 @@ namespace CCOInsights.SubscriptionManager.Functions
             }
             else
             {
-                var credential = new ChainedTokenCredential(
-                new ManagedIdentityCredential(Environment.GetEnvironmentVariable("AZURE_CLIENT_ID")),
-                new DefaultAzureCredential());
+                //var credential = new ChainedTokenCredential(
+                //new ManagedIdentityCredential(Environment.GetEnvironmentVariable("AZURE_CLIENT_ID")),
+                //new EnvironmentCredential());
+                var credential = new DefaultAzureCredential();
 
                 var governmentUrl = government switch
                 {

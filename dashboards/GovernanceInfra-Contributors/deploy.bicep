@@ -169,7 +169,7 @@ resource contributorRoleDefinition 'Microsoft.Authorization/roleDefinitions@2018
 }
 
 resource sa 'Microsoft.Storage/storageAccounts@2022-09-01' existing = {
-  name: dlsname
+  name: dataLakeStorage.name
 }
 
 resource roleAssignment1 'Microsoft.Authorization/roleAssignments@2020-10-01-preview' = {

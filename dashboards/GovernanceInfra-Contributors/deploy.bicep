@@ -98,7 +98,7 @@ module dataLakeStorage '../../CARML/modules/Microsoft.Storage/storageAccounts/de
   name: !empty(dlsname) ? toLower(dlsname) : toLower('${name}ccodls')
   params: {
     location: location
-    name: dlsname
+    name: !empty(dlsname) ? toLower(dlsname) : toLower('${name}ccodls')
     enableHierarchicalNamespace: true
     storageAccountSku: 'Standard_LRS' //default is GRS check
     allowBlobPublicAccess: true // recommended to be false, false is the deafulat, check this with Jordi
@@ -112,7 +112,7 @@ module dataLakeStorage '../../CARML/modules/Microsoft.Storage/storageAccounts/de
 }
 
 module storageAccountContainers '../../CARML/modules/Microsoft.Storage/storageAccounts/blobServices/deploy.bicep' = {
-  name: '${dlsname}-cco-containers'
+  name: '${dataLakeStorage.name}-cco-containers'
   params: {
     storageAccountName: dataLakeStorage.name
 

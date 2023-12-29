@@ -27,6 +27,8 @@ on:
       AZURE_CREDENTIALS:
         required: true
     outputs:
+      resourceGroupName:
+        value: ${{ jobs.deploy_dashboard.outputs.resourceGroupName }}
       dataLakeStorageName:
         value: ${{ jobs.deploy_dashboard.outputs.dataLakeStorageName}}
 
@@ -35,6 +37,7 @@ jobs:
     runs-on: windows-latest
     name: "Dashboard Backend"
     outputs:
+      resourceGroupName: ${{ steps.rg.outputs.resourceGroupName }}
       dataLakeStorageName: ${{ steps.set-output.outputs.dataLakeStorageName }}
     steps:
       - name: "Checkout"

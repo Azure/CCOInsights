@@ -77,7 +77,9 @@ jobs:
       - name: "Set output"
         id: set-output
         run: |
-          dlsName=$(az deployment group show --resource-group ${{ steps.rg.outputs.resourceGroupName }} --name ${{ steps.rg.outputs.resourceGroupName }} --query 'properties.outputs.dataLakeStorageName.value' -o tsv)
+          # Fetching the output from Azure deployment using PowerShell
+          $dlsName = az deployment group show --resource-group myResourceGroup --name deploymentName --query 'properties.outputs.myOutput.value' -o tsv
+
           echo "DataLakeStorageName: $dlsName"
           echo "::set-output name=dataLakeStorageName::$dlsName"
 

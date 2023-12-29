@@ -38,6 +38,12 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           enable-AzPSSession: true
 
+      - name: Azure CLI
+        uses: azure/CLI@v1.0.0
+        with:
+          inlineScript: |
+            az group create -n ${{ inputs.resourceGroupName }} -l westeurope
+
       - name: "Deploy infrastructure"
         id: deploy
         uses: azure/arm-deploy@v1

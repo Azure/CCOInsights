@@ -10,7 +10,7 @@
     "Features__InfrastructureDashboard": ${FEATUREINFRA},
     "Features__GovernanceDashboard": ${FEATUREGOV},
     "Government": "Public",
-    "Environment": "Test",
+    "Environment": "Local",
     "ExternalTenantId": "${EXTERNAL_TENANT_ID}",
     "ExternalClientId": "${EXTERNAL_CLIENT_ID}",
     "ExternalClientSecret": "${EXTERNAL_CLIENT_SECRET}"

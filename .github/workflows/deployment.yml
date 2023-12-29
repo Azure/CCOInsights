@@ -17,16 +17,21 @@ on:
         required: true
         description: "Enables the Governance Dashboard Feature"
         type: boolean
+      location:
+        type: string
+        description: "Location where infrastructure will be deployed/updated"
+        required: true
       resourceGroupName:
         type: string
         description: "Resource Group where infrastructure will be deployed/updated"
-        required: true
+        required: false
         default: ""
       dataLakeName:
         type: string
         description: "DataLake Name"
-        required: true
+        required: false
         default: "" 
+
 
   push:
     branches: [master, main]
@@ -88,6 +93,7 @@ jobs:
     uses: ./.github/workflows/infrastructure.yml 
     with:
       deployBaseName: ${{ inputs.deployBaseName || github.repository_owner }}
+      location: ${{ inputs.location || 'westeurope' }}
       resourceGroupName: ${{ inputs.resourceGroupName || 'Test-anna' }} 
       dataLakeName: ${{ inputs.dataLakeName || 'ccoinsightsdls' }}
     secrets: 

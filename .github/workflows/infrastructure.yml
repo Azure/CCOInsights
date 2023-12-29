@@ -11,21 +11,31 @@ on:
       resourceGroupName:
         type: string
         description: "Resource Group where infrastructure will be deployed/updated"
-        required: true
+        required: false
         default: ""
       dataLakeName:
         type: string
         description: "DataLake Name"
+        required: false
+        default: ""
+      location:
+        type: string
+        description: "Location where infrastructure will be deployed/updated"
         required: true
         default: ""
     secrets:
       AZURE_CREDENTIALS:
         required: true
+    outputs:
+      dataLakeStorageName:
+        value: ${{ jobs.deploy_dashboard.outputs.dataLakeStorageName}}
 
 jobs:
   deploy_dashboard:
     runs-on: windows-latest
     name: "Dashboard Backend"
+    outputs:
+      dataLakeStorageName: ${{ steps.set-output.outputs.dataLakeStorageName }}
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
@@ -39,13 +49,9 @@ jobs:
           enable-AzPSSession: true
 
       - name: Azure CLI
-        # uses: azure/CLI@v1.0.0
-        # with:
-        #   inlineScript: |
-        #     az group create -n ${{ inputs.resourceGroupName }} -l westeurope
         shell: pwsh
         run: |
-          az group create -n ${{ inputs.resourceGroupName }} -l westeurope
+          az group create -n ${{ inputs.resourceGroupName }} -l ${{ inputs.location }}
 
       - name: "Deploy infrastructure"
         id: deploy
@@ -54,9 +60,16 @@ jobs:
           deploymentName: ${{ inputs.resourceGroupName }}
           resourceGroupName: ${{ inputs.resourceGroupName }}
           template: ./dashboards/GovernanceInfra-Contributors/deploy.bicep
-          parameters: name=${{inputs.deployBaseName}} dlsname=${{ inputs.dataLakeName }}
+          parameters: name=${{inputs.deployBaseName}} dlsname=${{ inputs.dataLakeName || '' }}
           failOnStderr: false # Remove when warnings are fixed
       
+      - name: "Set output"
+        id: set-output
+        run: |
+          dlsName=$(az deployment group show --resource-group ${{ inputs.resourceGroupName }} --name ${{ inputs.resourceGroupName }} --query 'properties.outputs.dataLakeStorageName.value' -o tsv)
+          echo "DataLakeStorageName: $dlsName"
+          echo "::set-output name=dataLakeStorageName::$dlsName"
+
       - name: "Grant permissions spn"
         shell: pwsh
         if: success() || failure()

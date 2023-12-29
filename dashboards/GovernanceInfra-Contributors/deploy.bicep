@@ -95,7 +95,7 @@ module appInsights '../../CARML/modules/Microsoft.Insights/components/deploy.bic
 //storage account (done)
 // services ???
 module dataLakeStorage '../../CARML/modules/Microsoft.Storage/storageAccounts/deploy.bicep' = {
-  name: dlsname
+  name: !empty(dlsname) ? toLower(dlsname) : toLower('${name}ccodls')
   params: {
     location: location
     name: dlsname
@@ -181,3 +181,5 @@ resource roleAssignment1 'Microsoft.Authorization/roleAssignments@2020-10-01-pre
     roleDefinitionId: contributorRoleDefinition.id
   }
 }
+
+output dataLakeStorageName string = dataLakeStorage.name

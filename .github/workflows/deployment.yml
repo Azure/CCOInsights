@@ -49,42 +49,43 @@ env:
 
 jobs:
   check_changes:
-      runs-on: ubuntu-latest
-      name: "Check changes"
-      steps:
-        - name: "Checkout"
-          uses: actions/checkout@v3
-          with:
-            fetch-depth: 0
+    runs-on: ubuntu-latest
+    name: "Check changes"
+    if:  github.event_name != 'workflow_dispatch'
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-        - id: check-infra
-          name: "Check if infrastructure has changed"
-          run: |
-            if git diff --quiet HEAD^ HEAD -- Dashboards/GovernanceInfra-Contributors/deploy.bicep; then 
-              echo "infraModified=false" >> $GITHUB_OUTPUT
-            else 
-              echo "infraModified=true" >> $GITHUB_OUTPUT
-            fi
+      - id: check-infra
+        name: "Check if infrastructure has changed"
+        run: |
+          if git diff --quiet HEAD^ HEAD -- Dashboards/GovernanceInfra-Contributors/deploy.bicep; then 
+            echo "infraModified=false" >> $GITHUB_OUTPUT
+          else 
+            echo "infraModified=true" >> $GITHUB_OUTPUT
+          fi
 
-        - id: check-code
-          name: "Check if code has changed"
-          run: |
-            if git diff --quiet HEAD^ HEAD -- src/ tests/; then
-              echo "codeModified=false" >> $GITHUB_OUTPUT
-            else
-              echo "codeModified=true" >> $GITHUB_OUTPUT
-            fi 
+      - id: check-code
+        name: "Check if code has changed"
+        run: |
+          if git diff --quiet HEAD^ HEAD -- src/ tests/; then
+            echo "codeModified=false" >> $GITHUB_OUTPUT
+          else
+            echo "codeModified=true" >> $GITHUB_OUTPUT
+          fi 
 
-        - id: results
-          name: "Print results" 
-          run: |
-            echo "Infra modified: ${{ steps.check-infra.outputs.infraModified }}"
-            echo "Code modified: ${{ steps.check-code.outputs.codeModified }}"
-            echo "RGName: ${{ env.resourceGroupName }}"
-      
-      outputs: 
-          infraModified: ${{ steps.check-infra.outputs.infraModified }} 
-          codeModified: ${{ steps.check-code.outputs.codeModified }}
+      - id: results
+        name: "Print results" 
+        run: |
+          echo "Infra modified: ${{ steps.check-infra.outputs.infraModified }}"
+          echo "Code modified: ${{ steps.check-code.outputs.codeModified }}"
+          echo "RGName: ${{ env.resourceGroupName }}"
+    
+    outputs: 
+        infraModified: ${{ steps.check-infra.outputs.infraModified }} 
+        codeModified: ${{ steps.check-code.outputs.codeModified }}
 
   deploy_infra:  
     name: Deploy infrastructure

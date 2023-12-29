@@ -52,11 +52,15 @@ jobs:
         shell: pwsh
         id: rg
         run: |
-          if (-not [string]::IsNullOrEmpty(${{ inputs.resourceGroupName }})) {
-            $rgName = "rg-${{ inputs.resourceGroupName }}-cco"
+          $resourceGroupName = "${{ inputs.resourceGroupName }}"
+          $deployBaseName = "${{ inputs.deployBaseName }}"
+          
+          if ([string]::IsNullOrEmpty($resourceGroupName)) {
+            $rgName = "rg-$deployBaseName-cco"
           } else {
-            $rgName = "${{ inputs.resourceGroupName }}"
+            $rgName = $resourceGroupName
           }
+          
           az group create -n $rgName -l ${{ inputs.location }}
           echo "::set-output name=resourceGroupName::$rgName"
 

@@ -93,9 +93,9 @@ jobs:
     uses: ./.github/workflows/infrastructure.yml 
     with:
       deployBaseName: ${{ inputs.deployBaseName || github.repository_owner }}
-      location: ${{ inputs.location || 'westeurope' }}
-      resourceGroupName: ${{ inputs.resourceGroupName || 'Test-anna' }} 
-      dataLakeName: ${{ inputs.dataLakeName || 'ccoinsightsdls' }}
+      location: ${{ inputs.location }}
+      resourceGroupName: ${{ inputs.resourceGroupName }} 
+      dataLakeName: ${{ inputs.dataLakeName }}
     secrets: 
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
        
@@ -105,8 +105,8 @@ jobs:
     if: (needs.check_changes.outputs.codeModified == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
     uses: ./.github/workflows/code.yml 
     with: 
-      resourceGroupName:  ${{ inputs.resourceGroupName || 'Test-anna' }}
-      dataLakeName:  ${{ inputs.dataLakeName || 'ccoinsightsdls' }}
+      resourceGroupName:  ${{ inputs.resourceGroupName  }}
+      dataLakeName:  ${{ needs.deploy_infra.outputs.dataLakeStorageName }}
       feature_govdashboard: ${{ inputs.feature_govdashboard || true }}
       feature_infradashboard: ${{ inputs.feature_infradashboard || false }}
     secrets:

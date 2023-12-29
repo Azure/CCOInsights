@@ -39,10 +39,13 @@ jobs:
           enable-AzPSSession: true
 
       - name: Azure CLI
-        uses: azure/CLI@v1.0.0
-        with:
-          inlineScript: |
-            az group create -n ${{ inputs.resourceGroupName }} -l westeurope
+        # uses: azure/CLI@v1.0.0
+        # with:
+        #   inlineScript: |
+        #     az group create -n ${{ inputs.resourceGroupName }} -l westeurope
+        shell: pwsh
+        run: |
+          az group create -n ${{ inputs.resourceGroupName }} -l westeurope
 
       - name: "Deploy infrastructure"
         id: deploy

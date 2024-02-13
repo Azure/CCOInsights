@@ -7,15 +7,18 @@ param dlsname string = ''
 @description('Location where resources should be deployed')
 param location string = resourceGroup().location
 
+@description('Unique string to ensure resource uniqueness')
+param uniqueString string = 'u731'
+
 //scope tests
 // @description('Location where resources should be deployed')
 // param targetScope string = 'resourceGroup'
 
 // app service plan (done)
 module appServicePlan '../../CARML/modules/Microsoft.Web/serverfarms/deploy.bicep' = {
-  name: '${name}-cco-sp'
+  name: toLower(substring('${name}-cco-sp-${uniqueString}', 0, 24))
   params: {
-    name: '${name}-cco-sp'
+    name: toLower(substring('${name}-cco-sp-${uniqueString}', 0, 24))
     location: location
     sku: {
       name: 's1'
@@ -25,20 +28,20 @@ module appServicePlan '../../CARML/modules/Microsoft.Web/serverfarms/deploy.bice
 }
 
 module storage '../../CARML/modules/Microsoft.Storage/storageAccounts/deploy.bicep' = {
-  name: toLower(substring('${name}ccost${uniqueString(resourceGroup().id)}', 0, 24))
+  name: toLower(substring('${name}ccost${uniqueString}', 0, 24))
   params: {
-    name: toLower(substring('${name}ccost${uniqueString(resourceGroup().id)}', 0, 24))
+    name: toLower(substring('${name}ccost${uniqueString}', 0, 24))
     location: location
     storageAccountSku: 'Standard_LRS'
   }
 }
 
 module appService '../../CARML/modules/Microsoft.Web/sites/deploy.bicep' = {
-  name: '${name}-cco-fa'
+  name: toLower(substring('${name}-cco-fa-${uniqueString}', 0, 24))
   params: {
     location: location
     kind: 'functionapp'
-    name: '${name}-cco-fa'
+    name: toLower(substring('${name}-cco-fa-${uniqueString}', 0, 24))
     serverFarmResourceId: appServicePlan.outputs.resourceId
     systemAssignedIdentity: true
     clientAffinityEnabled: false //default vault is true

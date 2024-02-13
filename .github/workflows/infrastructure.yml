@@ -84,7 +84,7 @@ jobs:
           $dlsName = az deployment group show --resource-group ${{ steps.rg.outputs.resourceGroupName }} --name ${{ steps.rg.outputs.resourceGroupName }} --query 'properties.outputs.dataLakeStorageName.value' -o tsv
 
           echo "DataLakeStorageName: $dlsName"
-          echo "::set-output name=dataLakeStorageName::$dlsName"
+          echo "dataLakeStorageName=$dlsName" >> $GITHUB_OUTPUT
 
       - name: "Grant permissions spn"
         shell: pwsh

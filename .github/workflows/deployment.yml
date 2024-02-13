@@ -97,7 +97,8 @@ jobs:
       resourceGroupName: ${{ inputs.resourceGroupName }} 
       dataLakeName: ${{ inputs.dataLakeName }}
     secrets: 
-      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS_SHARED }}
+      # AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
        
   deploy_code:
     name: Deploy code
@@ -110,7 +111,8 @@ jobs:
       feature_govdashboard: ${{ inputs.feature_govdashboard || true }}
       feature_infradashboard: ${{ inputs.feature_infradashboard || false }}
     secrets:
-      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS_SHARED }}
+      # AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
       # TODO: Trick to target to external tenant for testing, remove when no longer needed
       EXTERNAL_TENANT_ID: ${{ secrets.EXTERNAL_TENANT_ID }}
       EXTERNAL_CLIENT_ID: ${{ secrets.EXTERNAL_CLIENT_ID }}

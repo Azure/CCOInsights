@@ -65,7 +65,7 @@ jobs:
           }
           
           az group create -n $rgName -l ${{ inputs.location }}
-          echo "::set-output name=resourceGroupName::$rgName"
+          echo "resourceGroupName=$rgName" >> $GITHUB_ENV
 
       - name: "Deploy infrastructure"
         id: deploy

@@ -7,18 +7,15 @@ param dlsname string = ''
 @description('Location where resources should be deployed')
 param location string = resourceGroup().location
 
-@description('Unique string to ensure resource uniqueness')
-param uniqueString string = 'u731'
-
 //scope tests
 // @description('Location where resources should be deployed')
 // param targetScope string = 'resourceGroup'
 
 // app service plan (done)
 module appServicePlan '../../CARML/modules/Microsoft.Web/serverfarms/deploy.bicep' = {
-  name: toLower(substring('${name}-cco-sp-${uniqueString}', 1, 24))
+  name: '${name}-cco-sp'
   params: {
-    name: toLower(substring('${name}-cco-sp-${uniqueString}', 1, 24))
+    name: '${name}-cco-sp'
     location: location
     sku: {
       name: 's1'
@@ -28,20 +25,20 @@ module appServicePlan '../../CARML/modules/Microsoft.Web/serverfarms/deploy.bice
 }
 
 module storage '../../CARML/modules/Microsoft.Storage/storageAccounts/deploy.bicep' = {
-  name: toLower(substring('${name}ccost${uniqueString}', 1, 24))
+  name: toLower('${name}ccost')
   params: {
-    name: toLower(substring('${name}ccost${uniqueString}', 1, 24))
+    name: toLower('${name}ccost')
     location: location
     storageAccountSku: 'Standard_LRS'
   }
 }
 
 module appService '../../CARML/modules/Microsoft.Web/sites/deploy.bicep' = {
-  name: toLower(substring('${name}-cco-fa-${uniqueString}', 1, 24))
+  name: '${name}-cco-fa'
   params: {
     location: location
     kind: 'functionapp'
-    name: toLower(substring('${name}-cco-fa-${uniqueString}', 1, 24))
+    name: '${name}-cco-fa'
     serverFarmResourceId: appServicePlan.outputs.resourceId
     systemAssignedIdentity: true
     clientAffinityEnabled: false //default vault is true
@@ -75,10 +72,10 @@ module appServiceSettings '../../CARML/modules/Microsoft.Web/sites/config-appset
 }
 //log analytics workspace (done)
 module logAnalyticsWorkspace '../../CARML/modules/Microsoft.OperationalInsights/workspaces/deploy.bicep' = {
-  name: toLower(substring('${name}-cco-la-${uniqueString}', 1, 24))
+  name: '${name}-cco-la'
   params: {
     location: location
-    name: toLower(substring('${name}-cco-la-${uniqueString}', 1, 24))
+    name: '${name}-cco-la'
     dataRetention: 120
     useResourcePermissions: true
   }
@@ -86,10 +83,10 @@ module logAnalyticsWorkspace '../../CARML/modules/Microsoft.OperationalInsights/
 
 //app insights(done)
 module appInsights '../../CARML/modules/Microsoft.Insights/components/deploy.bicep' = {
-  name: toLower(substring('${name}-cco-ai-${uniqueString}', 1, 24))
+  name: '${name}-cco-ai'
   params: {
     location: location
-    name: toLower(substring('${name}-cco-ai-${uniqueString}', 1, 24))
+    name: '${name}-cco-ai'
     kind: 'web'
     workspaceResourceId: logAnalyticsWorkspace.outputs.resourceId
   }
@@ -98,10 +95,10 @@ module appInsights '../../CARML/modules/Microsoft.Insights/components/deploy.bic
 //storage account (done)
 // services ???
 module dataLakeStorage '../../CARML/modules/Microsoft.Storage/storageAccounts/deploy.bicep' = {
-  name: !empty(dlsname) ? toLower(dlsname) : toLower(substring('${name}ccodls${uniqueString}', 1, 24))
+  name: !empty(dlsname) ? toLower(dlsname) : toLower('${name}ccodls')
   params: {
     location: location
-    name: !empty(dlsname) ? toLower(dlsname) : toLower(substring('${name}ccodls${uniqueString}', 1, 24))
+    name: !empty(dlsname) ? toLower(dlsname) : toLower('${name}ccodls')
     enableHierarchicalNamespace: true
     storageAccountSku: 'Standard_LRS' //default is GRS check
     allowBlobPublicAccess: true // recommended to be false, false is the deafulat, check this with Jordi
@@ -115,7 +112,7 @@ module dataLakeStorage '../../CARML/modules/Microsoft.Storage/storageAccounts/de
 }
 
 module storageAccountContainers '../../CARML/modules/Microsoft.Storage/storageAccounts/blobServices/deploy.bicep' = {
-  name: toLower(substring('${dataLakeStorage.name}-cco-containers-${uniqueString}', 1, 24))
+  name: '${dataLakeStorage.name}-cco-containers'
   params: {
     storageAccountName: dataLakeStorage.name
 

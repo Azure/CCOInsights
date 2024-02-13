@@ -31,6 +31,11 @@ on:
         description: "DataLake Name"
         required: false
         default: "" 
+      deployBaseName:
+        type: string
+        description: "Base name for deployment"
+        required: false
+        default: ""
 
 
   push:

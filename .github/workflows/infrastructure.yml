@@ -65,12 +65,7 @@ jobs:
           }
           
           az group create -n $rgName -l ${{ inputs.location }}
-          echo "Resource Group $rgName created"
-          echo "resourceGroupName=$rgName" >> $GITHUB_OUTPUT
-
-      - name: Test
-        run: |
-          echo "rg: ${{ steps.rg.outputs.resourceGroupName }}"
+          echo "::set-output name=resourceGroupName::$rgName"
 
       - name: "Deploy infrastructure"
         id: deploy
@@ -89,7 +84,7 @@ jobs:
           $dlsName = az deployment group show --resource-group ${{ steps.rg.outputs.resourceGroupName }} --name ${{ steps.rg.outputs.resourceGroupName }} --query 'properties.outputs.dataLakeStorageName.value' -o tsv
 
           echo "DataLakeStorageName: $dlsName"
-          echo "dataLakeStorageName=$dlsName" >> $GITHUB_OUTPUT
+          echo "::set-output name=dataLakeStorageName::$dlsName"
 
       - name: "Grant permissions spn"
         shell: pwsh

@@ -25,7 +25,7 @@ module appServicePlan '../../CARML/modules/Microsoft.Web/serverfarms/deploy.bice
 }
 
 module storage '../../CARML/modules/Microsoft.Storage/storageAccounts/deploy.bicep' = {
-  name: toLower('${name}ccost')
+  name: toLower(substring('${name}ccost${uniqueString(resourceGroup().id)}', 0, 24))
   params: {
     name: toLower('${name}ccost')
     location: location

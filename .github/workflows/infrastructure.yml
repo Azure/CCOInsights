@@ -72,9 +72,8 @@ jobs:
         id: deploy
         uses: azure/arm-deploy@v1
         with:
-          scope: "Resource Group"
           deploymentName: ${{ steps.rg.outputs.resourceGroupName }}
-          resourceGroupName: ${{ steps.rg.outputs.resourceGroupName }}
+          resourceGroupName: '${{ steps.rg.outputs.resourceGroupName }}'
           template: ./dashboards/GovernanceInfra-Contributors/deploy.bicep
           parameters: name=${{inputs.deployBaseName}} dlsname=${{ inputs.dataLakeName || '' }}
           failOnStderr: false # Remove when warnings are fixed

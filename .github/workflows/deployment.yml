@@ -1,5 +1,7 @@
 name: "Deployment Workflow"
 
+run-name: "Deployment: ${{ inputs.deployBaseName || github.repository_owner }} in ${{ inputs.location }} for ${{ inputs.resourceGroupName }}"
+
 concurrency:
   group: ${{ github.ref }}-deployment
   cancel-in-progress: true
@@ -24,7 +26,7 @@ on:
       resourceGroupName:
         type: string
         description: "Resource Group where infrastructure will be deployed/updated"
-        required: false
+        required: true
         default: ""
       dataLakeName:
         type: string
@@ -50,7 +52,6 @@ on:
 
 env:
   publishFolder: "publish"
-  resourceGroupName: "Test-anna"
 
 jobs:
   check_changes:
@@ -85,7 +86,7 @@ jobs:
         run: |
           echo "Infra modified: ${{ steps.check-infra.outputs.infraModified }}"
           echo "Code modified: ${{ steps.check-code.outputs.codeModified }}"
-          echo "RGName: ${{ env.resourceGroupName }}"
+          echo "RGName: ${{ inputs.resourceGroupName }}"
     
     outputs: 
         infraModified: ${{ steps.check-infra.outputs.infraModified }} 

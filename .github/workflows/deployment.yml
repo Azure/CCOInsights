@@ -1,6 +1,6 @@
 name: "Deployment Workflow"
 
-run-name: "Deployment: ${{ inputs.deployBaseName || github.repository_owner }} in ${{ inputs.location }} for ${{ inputs.resourceGroupName }}"
+run-name: "Deployment: ${{ inputs.deployBaseName || github.repository_owner }} in ${{ inputs.location }} in ${{ inputs.resourceGroupName }}"
 
 concurrency:
   group: ${{ github.ref }}-deployment

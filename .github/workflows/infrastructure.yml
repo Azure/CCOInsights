@@ -68,12 +68,16 @@ jobs:
           echo "Resource Group $rgName created"
           echo "resourceGroupName=$rgName" >> $GITHUB_OUTPUT
 
+      - name: Test
+        run: |
+          echo "rg: ${{ steps.rg.outputs.resourceGroupName }}"
+
       - name: "Deploy infrastructure"
         id: deploy
         uses: azure/arm-deploy@v1
         with:
           deploymentName: ${{ steps.rg.outputs.resourceGroupName }}
-          resourceGroupName: '${{ steps.rg.outputs.resourceGroupName }}'
+          resourceGroupName: ${{ steps.rg.outputs.resourceGroupName }}
           template: ./dashboards/GovernanceInfra-Contributors/deploy.bicep
           parameters: name=${{inputs.deployBaseName}} dlsname=${{ inputs.dataLakeName || '' }}
           failOnStderr: false # Remove when warnings are fixed

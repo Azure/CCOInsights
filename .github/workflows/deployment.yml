@@ -114,8 +114,10 @@ jobs:
     if: always()
     uses: ./.github/workflows/code.yml 
     with: 
-      resourceGroupName:  ${{ needs.deploy_infra.outputs.resourceGroupName }}
-      dataLakeName:  ${{ needs.deploy_infra.outputs.dataLakeStorageName }}
+      # TODO: Uncomment. resourceGroupName:  ${{ needs.deploy_infra.outputs.resourceGroupName }}
+      resourceGroupName:  'rg-ccoinsights-v2'
+      # TODO: Uncomment. dataLakeName:  ${{ needs.deploy_infra.outputs.dataLakeStorageName }}
+      dataLakeName:  'ccoinsightsv2'
       feature_govdashboard: ${{ inputs.feature_govdashboard || true }}
       feature_infradashboard: ${{ inputs.feature_infradashboard || false }}
     secrets:

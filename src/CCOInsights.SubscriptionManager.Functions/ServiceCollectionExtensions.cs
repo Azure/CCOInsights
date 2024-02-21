@@ -57,7 +57,7 @@ namespace CCOInsights.SubscriptionManager.Functions
             }
             else
             {
-                dataLakeServiceClient = new DataLakeServiceClient(new Uri($"https://{Environment.GetEnvironmentVariable("DataLakeAccountName")}.dfs.core.windows.net"), new ManagedIdentityCredential(Environment.GetEnvironmentVariable("AZURE_CLIENT_ID")));
+                dataLakeServiceClient = new DataLakeServiceClient(new Uri($"https://{Environment.GetEnvironmentVariable("DataLakeAccountName")}.dfs.core.windows.net"), new ManagedIdentityCredential());
             }
 
             services.AddSingleton(dataLakeServiceClient);

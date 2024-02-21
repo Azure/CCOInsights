@@ -95,7 +95,8 @@ jobs:
   deploy_infra:  
     name: Deploy infrastructure
     needs: check_changes
-    # if: (needs.check_changes.outputs.infraModified == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+    # TODO: Change for this line if: (needs.check_changes.outputs.infraModified == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+    if: (needs.check_changes.outputs.infraModified == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master') 
     uses: ./.github/workflows/infrastructure.yml 
     with:
       deployBaseName: ${{ inputs.deployBaseName || github.repository_owner }}

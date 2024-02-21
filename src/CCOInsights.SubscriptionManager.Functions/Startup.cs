@@ -53,33 +53,36 @@ namespace CCOInsights.SubscriptionManager.Functions
                     Environment.GetEnvironmentVariable("ExternalClientId"),
                     Environment.GetEnvironmentVariable("ExternalClientSecret")));
             }
-            else
-            {
-                var credential = new ChainedTokenCredential(
-                new ManagedIdentityCredential(Environment.GetEnvironmentVariable("AZURE_CLIENT_ID")),
-                new EnvironmentCredential());
+            return new GraphServiceClient(new ClientSecretCredential(Environment.GetEnvironmentVariable("ExternalTenantId"),
+                    Environment.GetEnvironmentVariable("ExternalClientId"),
+                    Environment.GetEnvironmentVariable("ExternalClientSecret")));
+            // else
+            // {
+            //     var credential = new ChainedTokenCredential(
+            //     new ManagedIdentityCredential(Environment.GetEnvironmentVariable("AZURE_CLIENT_ID")),
+            //     new EnvironmentCredential());
 
-                var governmentUrl = government switch
-                {
-                    "Public" => "graph.microsoft.com",
-                    "US" => "graph.microsoft.us",
-                    _ => throw new ArgumentOutOfRangeException()
-                };
+            //     var governmentUrl = government switch
+            //     {
+            //         "Public" => "graph.microsoft.com",
+            //         "US" => "graph.microsoft.us",
+            //         _ => throw new ArgumentOutOfRangeException()
+            //     };
 
-                var token = credential.GetToken(
-                    new TokenRequestContext(
-                        new[] { $"https://{governmentUrl}/.default" }));
+            //     var token = credential.GetToken(
+            //         new TokenRequestContext(
+            //             new[] { $"https://{governmentUrl}/.default" }));
 
-                return new GraphServiceClient(
-                    new DelegateAuthenticationProvider(requestMessage =>
-                    {
-                        requestMessage
-                        .Headers
-                        .Authorization = new AuthenticationHeaderValue("bearer", token.Token);
+            //     return new GraphServiceClient(
+            //         new DelegateAuthenticationProvider(requestMessage =>
+            //         {
+            //             requestMessage
+            //             .Headers
+            //             .Authorization = new AuthenticationHeaderValue("bearer", token.Token);
 
-                        return Task.CompletedTask;
-                    }));
-            }
+            //             return Task.CompletedTask;
+            //         }));
+            // }
         }
 
         private Microsoft.Azure.Management.Fluent.Azure.IAuthenticated BuildAuthenticatedResourceManager()

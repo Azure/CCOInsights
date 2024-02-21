@@ -110,7 +110,8 @@ jobs:
   deploy_code:
     name: Deploy code
     needs: [check_changes, deploy_infra] 
-    if: (needs.check_changes.outputs.codeModified == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+    # TODO: Check deploys code without infra if: (needs.check_changes.outputs.codeModified == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+    if: always()
     uses: ./.github/workflows/code.yml 
     with: 
       resourceGroupName:  ${{ needs.deploy_infra.outputs.resourceGroupName }}

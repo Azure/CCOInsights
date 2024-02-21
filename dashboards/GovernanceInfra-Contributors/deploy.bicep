@@ -54,7 +54,7 @@ module appService '../../CARML/modules/Microsoft.Web/sites/deploy.bicep' = {
         allowedOrigins: [
           'https://portal.azure.com'
         ]
-        supportCredentials: false // Set to true if you want to support user credentials in CORS requests
+        supportCredentials: false
       }
     }
     httpsOnly: true //by default

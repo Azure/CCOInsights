@@ -59,7 +59,7 @@ jobs:
     name: "Check changes"
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -95,9 +95,7 @@ jobs:
   deploy_infra:  
     name: Deploy infrastructure
     needs: check_changes
-    # TODO: Change for this line 
     if: (needs.check_changes.outputs.infraModified == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
-    # if: (needs.check_changes.outputs.infraModified == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master') 
     uses: ./.github/workflows/infrastructure.yml 
     with:
       deployBaseName: ${{ inputs.deployBaseName || github.repository_owner }}
@@ -106,28 +104,20 @@ jobs:
       dataLakeName: ${{ inputs.dataLakeName }}
     secrets: 
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS_SHARED }}
-      # AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
        
   deploy_code:
     name: Deploy code
     needs: [check_changes, deploy_infra] 
-    # TODO: Check deploys code without infra 
     if: (needs.check_changes.outputs.codeModified == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
-    # if: always()
     uses: ./.github/workflows/code.yml 
     with: 
-      # TODO: Uncomment. 
       resourceGroupName:  ${{ needs.deploy_infra.outputs.resourceGroupName }}
-      # resourceGroupName:  'rg-drdccoinsights-v2'
-      # TODO: Uncomment.
       dataLakeName:  ${{ needs.deploy_infra.outputs.dataLakeStorageName }}
-      # dataLakeName:  'drdccoinsightsv2'
       feature_govdashboard: ${{ inputs.feature_govdashboard || true }}
       feature_infradashboard: ${{ inputs.feature_infradashboard || false }}
     secrets:
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS_SHARED }}
-      # AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
       # TODO: Trick to target to external tenant for testing, remove when no longer needed
-      EXTERNAL_TENANT_ID: ${{ secrets.EXTERNAL_TENANT_ID }}
-      EXTERNAL_CLIENT_ID: ${{ secrets.EXTERNAL_CLIENT_ID }}
-      EXTERNAL_CLIENT_SECRET: ${{ secrets.EXTERNAL_CLIENT_SECRET }}
+      # EXTERNAL_TENANT_ID: ${{ secrets.EXTERNAL_TENANT_ID }}
+      # EXTERNAL_CLIENT_ID: ${{ secrets.EXTERNAL_CLIENT_ID }}
+      # EXTERNAL_CLIENT_SECRET: ${{ secrets.EXTERNAL_CLIENT_SECRET }}

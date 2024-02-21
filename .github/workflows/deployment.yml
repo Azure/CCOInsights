@@ -92,27 +92,30 @@ jobs:
         infraModified: ${{ steps.check-infra.outputs.infraModified }} 
         codeModified: ${{ steps.check-code.outputs.codeModified }}
 
-  deploy_infra:  
-    name: Deploy infrastructure
-    needs: check_changes
-    if: (needs.check_changes.outputs.infraModified == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
-    uses: ./.github/workflows/infrastructure.yml 
-    with:
-      deployBaseName: ${{ inputs.deployBaseName || github.repository_owner }}
-      location: ${{ inputs.location }}
-      resourceGroupName: ${{ inputs.resourceGroupName }} 
-      dataLakeName: ${{ inputs.dataLakeName }}
-    secrets: 
-      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS_SHARED }}
+  # deploy_infra:  
+  #   name: Deploy infrastructure
+  #   needs: check_changes
+  #   if: (needs.check_changes.outputs.infraModified == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+  #   uses: ./.github/workflows/infrastructure.yml 
+  #   with:
+  #     deployBaseName: ${{ inputs.deployBaseName || github.repository_owner }}
+  #     location: ${{ inputs.location }}
+  #     resourceGroupName: ${{ inputs.resourceGroupName }} 
+  #     dataLakeName: ${{ inputs.dataLakeName }}
+  #   secrets: 
+  #     AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS_SHARED }}
        
   deploy_code:
     name: Deploy code
-    needs: [check_changes, deploy_infra] 
-    if: (needs.check_changes.outputs.codeModified == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+    # needs: [check_changes, deploy_infra] 
+    needs: [check_changes] 
+    # if: (needs.check_changes.outputs.codeModified == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
     uses: ./.github/workflows/code.yml 
     with: 
-      resourceGroupName:  ${{ needs.deploy_infra.outputs.resourceGroupName }}
-      dataLakeName:  ${{ needs.deploy_infra.outputs.dataLakeStorageName }}
+      resourceGroupName:  'rg-drdccoinsights-v2'
+      # resourceGroupName:  ${{ needs.deploy_infra.outputs.resourceGroupName }}
+      dataLakeName:  'drdccoinsightsv2'
+      # dataLakeName:  ${{ needs.deploy_infra.outputs.dataLakeStorageName }}
       feature_govdashboard: ${{ inputs.feature_govdashboard || true }}
       feature_infradashboard: ${{ inputs.feature_infradashboard || false }}
     secrets:

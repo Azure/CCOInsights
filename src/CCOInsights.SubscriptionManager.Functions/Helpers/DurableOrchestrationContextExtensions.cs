@@ -15,7 +15,7 @@ namespace CCOInsights.SubscriptionManager.Helpers
                     await context.CallActivityAsync(functionName, null);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 enabledFunctions.Disable(functionName);
                 //await context.CallActivityAsync("CleanUpFunction", null);

@@ -50,6 +50,12 @@ module appService '../../CARML/modules/Microsoft.Web/sites/deploy.bicep' = {
       functionAppScaleLimit: 200
       minimumElasticInstanceCount: 1
       netFrameworkVersion: 'v4.0'
+      cors: {
+        allowedOrigins: [
+          'https://portal.azure.com'
+        ]
+        supportCredentials: false // Set to true if you want to support user credentials in CORS requests
+      }
     }
     httpsOnly: true //by default
     storageAccountRequired: false //default value is false (not required)

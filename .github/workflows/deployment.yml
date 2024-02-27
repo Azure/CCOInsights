@@ -1,5 +1,7 @@
 name: "Deployment Workflow"
 
+run-name: "Deployment: ${{ inputs.deployBaseName || github.repository_owner }} in ${{ inputs.location }} in ${{ inputs.resourceGroupName }}"
+
 concurrency:
   group: ${{ github.ref }}-deployment
   cancel-in-progress: true
@@ -24,13 +26,18 @@ on:
       resourceGroupName:
         type: string
         description: "Resource Group where infrastructure will be deployed/updated"
-        required: false
+        required: true
         default: ""
       dataLakeName:
         type: string
         description: "DataLake Name"
         required: false
         default: "" 
+      deployBaseName:
+        type: string
+        description: "Base name for deployment"
+        required: false
+        default: ""
 
 
   push:
@@ -45,7 +52,6 @@ on:
 
 env:
   publishFolder: "publish"
-  resourceGroupName: "Test-anna"
 
 jobs:
   check_changes:
@@ -53,7 +59,7 @@ jobs:
     name: "Check changes"
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -80,7 +86,7 @@ jobs:
         run: |
           echo "Infra modified: ${{ steps.check-infra.outputs.infraModified }}"
           echo "Code modified: ${{ steps.check-code.outputs.codeModified }}"
-          echo "RGName: ${{ env.resourceGroupName }}"
+          echo "RGName: ${{ inputs.resourceGroupName }}"
     
     outputs: 
         infraModified: ${{ steps.check-infra.outputs.infraModified }} 
@@ -112,6 +118,6 @@ jobs:
     secrets:
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
       # TODO: Trick to target to external tenant for testing, remove when no longer needed
-      EXTERNAL_TENANT_ID: ${{ secrets.EXTERNAL_TENANT_ID }}
-      EXTERNAL_CLIENT_ID: ${{ secrets.EXTERNAL_CLIENT_ID }}
-      EXTERNAL_CLIENT_SECRET: ${{ secrets.EXTERNAL_CLIENT_SECRET }}
+      # EXTERNAL_TENANT_ID: ${{ secrets.EXTERNAL_TENANT_ID }}
+      # EXTERNAL_CLIENT_ID: ${{ secrets.EXTERNAL_CLIENT_ID }}
+      # EXTERNAL_CLIENT_SECRET: ${{ secrets.EXTERNAL_CLIENT_SECRET }}

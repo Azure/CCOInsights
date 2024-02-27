@@ -33,13 +33,13 @@ on:
       # TODO: Trick to target to external tenant for testing, remove when no longer needed
       EXTERNAL_TENANT_ID:
         description: "External Tenant ID"
-        required: true
+        required: false
       EXTERNAL_CLIENT_ID:
         description: "External Client ID"
-        required: true
+        required: false
       EXTERNAL_CLIENT_SECRET:
         description: "External Client Secret"
-        required: true
+        required: false
         
   pull_request:
     types: [opened, synchronize]
@@ -70,7 +70,7 @@ jobs:
             ${{ runner.os }}-nuget
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 6.0.x
 

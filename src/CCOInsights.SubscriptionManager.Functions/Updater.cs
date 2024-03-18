@@ -34,23 +34,27 @@ public abstract class Updater<TResponse, TEntity> : IUpdater
     {
         var processed = 0;
         var models = await _provider.GetAsync(subscription?.SubscriptionId, cancellationToken);
-        await models.AsyncParallelForEach(async model =>
-        {
-            try
-            {
-                if (ShouldIngest(model))
-                {
-                    var azureEntity = Map(executionId, subscription, model);
-                    await _storage.UpdateItemAsync(azureEntity.Id, azureEntity, cancellationToken);
-                    _logger.LogInformation($"Resource {model.Id} processed successfully. Subscription {subscription?.DisplayName} with id {subscription?.SubscriptionId} ");
-                    processed++;
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Unexpected error processing resource {model.Id}: {ex.Message}.");
-            }
-        }, MAX_DEGREE_PARALLELISM);
+
+        //await models.AsyncParallelForEach(async model =>
+        //{
+        //    try
+        //    {
+        //        if (ShouldIngest(model))
+        //        {
+        //            var azureEntity = Map(executionId, subscription, model);
+        //            await _storage.UpdateItemAsync(azureEntity.Id, azureEntity, cancellationToken);
+        //            _logger.LogInformation($"Resource {model.Id} processed successfully. Subscription {subscription?.DisplayName} with id {subscription?.SubscriptionId} ");
+        //            processed++;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, $"Unexpected error processing resource {model.Id}: {ex.Message}.");
+        //    }
+        //}, MAX_DEGREE_PARALLELISM);
+
+        var entities = models.Select(model => Map(executionId, subscription, model)).ToList();
+        await _storage.UpdateItemAsync($"{subscription?.SubscriptionId}-{DateTime.UtcNow}", entities, cancellationToken);
 
         _logger.LogInformation($"{typeof(TEntity).Name}: Subscription {subscription?.DisplayName} with id {subscription?.SubscriptionId} processed {processed}/{models.Count()} resources successfully.");
     }

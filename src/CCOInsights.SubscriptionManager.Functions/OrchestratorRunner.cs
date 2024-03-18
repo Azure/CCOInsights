@@ -55,8 +55,6 @@ namespace CCOInsights.SubscriptionManager.Functions.Functions
         [FunctionName(nameof(OrchestratorRunner))]
         public async Task Execute([OrchestrationTrigger] IDurableOrchestrationContext context, System.Threading.CancellationToken cancellationToken = default)
         {
-
-
             var tasks = new List<Task>();
             if (string.IsNullOrWhiteSpace(_singleFunctionExecution))
             {

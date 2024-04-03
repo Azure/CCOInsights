@@ -1,5 +1,4 @@
-﻿using CCOInsights.SubscriptionManager.Functions.Operations.BlueprintAssignments;
-using CCOInsights.SubscriptionManager.Functions.Operations.Disks;
+﻿using CCOInsights.SubscriptionManager.Functions.Operations.Disks;
 
 namespace CCOInsights.SubscriptionManager.UnitTests;
 
@@ -27,6 +26,6 @@ public class DisksUpdaterTests
         await _updater.UpdateAsync(Guid.Empty.ToString(), subscriptionTest, CancellationToken.None);
 
         _providerMock.Verify(x => x.GetAsync(It.Is<string>(x => x == subscriptionTest.SubscriptionId), CancellationToken.None));
-        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.Is<List<Disks>>(x => x.Any(item => item.SubscriptionId == subscriptionTest.SubscriptionId && item.TenantId == subscriptionTest.Inner.TenantId)), It.IsAny<CancellationToken>()), Times.Once);
+        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), $"{nameof(Disks).ToLower()}", It.Is<List<Disks>>(x => x.Any(item => item.SubscriptionId == subscriptionTest.SubscriptionId && item.TenantId == subscriptionTest.Inner.TenantId)), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

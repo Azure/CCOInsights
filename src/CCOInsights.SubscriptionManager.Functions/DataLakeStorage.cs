@@ -27,8 +27,7 @@ public class DataLakeStorage : IStorage
         try
         {
             id = $"{id}.json";
-            var fileSystem =
-                _dataLakeServiceClient.GetFileSystemClient(containerName);
+            var fileSystem = _dataLakeServiceClient.GetFileSystemClient(containerName);
             //await fileSystem.CreateIfNotExistsAsync(new DataLakeFileSystemCreateOptions { PublicAccessType = PublicAccessType.FileSystem },
             //    cancellationToken: cancellationToken);
 

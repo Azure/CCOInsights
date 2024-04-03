@@ -1,5 +1,4 @@
-﻿using CCOInsights.SubscriptionManager.Functions.Operations.BlueprintAssignments;
-using CCOInsights.SubscriptionManager.Functions.Operations.DefenderSecureScoreControlDefinition;
+﻿using CCOInsights.SubscriptionManager.Functions.Operations.DefenderSecureScoreControlDefinition;
 
 namespace CCOInsights.SubscriptionManager.UnitTests;
 
@@ -28,6 +27,6 @@ public class DefenderSecureScoreControlDefinitionUpdaterTests
         await _updater.UpdateAsync(Guid.Empty.ToString(), subscriptionTest, CancellationToken.None);
 
         _providerMock.Verify(x => x.GetAsync(It.Is<string>(x => x == subscriptionTest.SubscriptionId), CancellationToken.None));
-        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<List<DefenderSecureScoreControlDefinition>>(), It.IsAny<CancellationToken>()), Times.Once);
+        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), $"{nameof(DefenderSecureScoreControlDefinition).ToLower()}s", It.IsAny<List<DefenderSecureScoreControlDefinition>>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

@@ -33,7 +33,7 @@ public class RoleAssignmentUpdater : IRoleAssignmentUpdater
             entities.AddRange(users.Select(user => RoleAssignment.From(subscription.Inner.TenantId, subscription.SubscriptionId, executionId, roleAssignment, user)));
         }
         if (!entities.Any()) return;
-        await _storage.UpdateItemAsync($"{subscription?.SubscriptionId}-{DateTime.UtcNow:yyyyMMdd}", $"{entities.FirstOrDefault().GetType().Name.ToLower()}s", entities, cancellationToken);
+        await _storage.UpdateItemAsync($"{subscription?.SubscriptionId}-{DateTime.UtcNow:yyyyMMdd}", DataLakeContainerProvider.GetContainer(entities.FirstOrDefault().GetType()), entities, cancellationToken);
 
         _logger.LogInformation("{Entity}: Subscription {SubscriptionName} with id {SubscriptionId} processed {Count} resources successfully.",
             nameof(RoleAssignment),

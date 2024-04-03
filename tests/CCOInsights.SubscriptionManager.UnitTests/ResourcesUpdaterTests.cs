@@ -1,5 +1,4 @@
-﻿using CCOInsights.SubscriptionManager.Functions.Operations.BlueprintAssignments;
-using CCOInsights.SubscriptionManager.Functions.Operations.GenericResource;
+﻿using CCOInsights.SubscriptionManager.Functions.Operations.GenericResource;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Microsoft.Azure.Management.ResourceManager.Fluent.GenericResource.Update;
@@ -32,7 +31,7 @@ public class ResourcesUpdaterTests
         await _updater.UpdateAsync(Guid.Empty.ToString(), subscriptionTest, CancellationToken.None);
 
         _providerMock.Verify(x => x.GetAsync(It.Is<string>(x => x == subscriptionTest.SubscriptionId), CancellationToken.None));
-        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.Is<List<GenericResource>>(x => x.Any(item => item.SubscriptionId == subscriptionTest.SubscriptionId && item.TenantId == subscriptionTest.Inner.TenantId)), It.IsAny<CancellationToken>()), Times.Once);
+        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), $"{nameof(GenericResource).ToLower()}s", It.Is<List<GenericResource>>(x => x.Any(item => item.SubscriptionId == subscriptionTest.SubscriptionId && item.TenantId == subscriptionTest.Inner.TenantId)), It.IsAny<CancellationToken>()), Times.Once);
     }
 }
 

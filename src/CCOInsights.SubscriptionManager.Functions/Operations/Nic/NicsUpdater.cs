@@ -16,5 +16,5 @@ public class NicsUpdater : Updater<NicResponse, Nic>, INicsUpdater
 
 
     protected override bool ShouldIngest(NicResponse response) =>
-        response.NicProperties.VirtualMachine.NetworkSecurityGroupId != null;
+        response.NicProperties?.VirtualMachine?.NetworkSecurityGroupId != null;
 };

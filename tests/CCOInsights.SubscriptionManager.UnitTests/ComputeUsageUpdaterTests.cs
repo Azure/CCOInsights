@@ -26,6 +26,6 @@ public class ComputeUsageUpdaterTests
         await _updater.UpdateAsync(Guid.Empty.ToString(), subscriptionTest, CancellationToken.None);
 
         _providerMock.Verify(x => x.GetAsync(It.Is<string>(x => x == subscriptionTest.SubscriptionId), CancellationToken.None));
-        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.Is<List<ComputeUsage>>(x => x.Any(item => item.SubscriptionId == subscriptionTest.SubscriptionId && item.TenantId == subscriptionTest.Inner.TenantId)), It.IsAny<CancellationToken>()), Times.Once);
+        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), $"{nameof(ComputeUsage).ToLower()}s", It.Is<List<ComputeUsage>>(x => x.Any(item => item.SubscriptionId == subscriptionTest.SubscriptionId && item.TenantId == subscriptionTest.Inner.TenantId)), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CCOInsights.SubscriptionManager.Functions.Operations.AdvisorScore;
+using DurableTask.Core.Common;
 
 namespace CCOInsights.SubscriptionManager.UnitTests;
 
@@ -26,6 +27,7 @@ public class AdvisorScoreUpdaterTests
         await _updater.UpdateAsync(Guid.Empty.ToString(), subscriptionTest, CancellationToken.None);
 
         _providerMock.Verify(x => x.GetAsync(It.Is<string>(x => x == subscriptionTest.SubscriptionId), CancellationToken.None));
-        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.Is<List<AdvisorScore>>(x => x.Any(item => item.SubscriptionId == subscriptionTest.SubscriptionId && item.TenantId == subscriptionTest.Inner.TenantId)), It.IsAny<CancellationToken>()), Times.Once);
+        //entities.FirstOrDefault().GetType().Name.ToLower()
+        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), $"{nameof(AdvisorScore).ToLower()}s", It.Is<List<AdvisorScore>>(x => x.Any(item => item.SubscriptionId == subscriptionTest.SubscriptionId && item.TenantId == subscriptionTest.Inner.TenantId)), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

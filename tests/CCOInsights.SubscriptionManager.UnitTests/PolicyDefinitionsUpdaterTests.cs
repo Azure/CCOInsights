@@ -1,5 +1,4 @@
-﻿using CCOInsights.SubscriptionManager.Functions.Operations.BlueprintAssignments;
-using CCOInsights.SubscriptionManager.Functions.Operations.PolicyDefinitions;
+﻿using CCOInsights.SubscriptionManager.Functions.Operations.PolicyDefinitions;
 
 namespace CCOInsights.SubscriptionManager.UnitTests;
 
@@ -28,7 +27,7 @@ public class PolicyDefinitionsUpdaterTests
 
         _providerMock.Verify(x => x.GetAsync(It.Is<string>(x => x == subscriptionTest.SubscriptionId), CancellationToken.None));
         _storageMock.Verify(
-            x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(),
+            x => x.UpdateItemAsync(It.IsAny<string>(), $"{nameof(PolicyDefinitions).ToLower()}",
                 It.Is<List<PolicyDefinitions>>(x => x.Any(item =>
                     item.SubscriptionId == subscriptionTest.SubscriptionId &&
                     item.TenantId == subscriptionTest.Inner.TenantId)), It.IsAny<CancellationToken>()), Times.Once);

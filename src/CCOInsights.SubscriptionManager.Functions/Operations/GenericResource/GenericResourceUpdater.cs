@@ -26,7 +26,7 @@ public class GenericResourceUpdater : IResourcesUpdater
 
         var entities = models.Select(model => GenericResource.From(subscription.Inner.TenantId, subscription.SubscriptionId, model.GenericResource, model.Inner)).ToList();
         if (!entities.Any()) return;
-        await _storage.UpdateItemAsync($"{subscription?.SubscriptionId}-{DateTime.UtcNow:yyyyMMdd}", $"{entities.FirstOrDefault().GetType().Name.ToLower()}s", entities, cancellationToken);
+        await _storage.UpdateItemAsync($"{subscription?.SubscriptionId}-{DateTime.UtcNow:yyyyMMdd}", DataLakeContainerProvider.GetContainer(entities.FirstOrDefault().GetType()), entities, cancellationToken);
 
         _logger.LogInformation("{Entity}: Subscription {SubscriptionName} with id {SubscriptionId} processed {Count} resources successfully.",
             nameof(GenericResource),

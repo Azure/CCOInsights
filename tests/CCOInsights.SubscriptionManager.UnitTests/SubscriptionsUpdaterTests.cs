@@ -1,5 +1,4 @@
-﻿using CCOInsights.SubscriptionManager.Functions.Operations.BlueprintAssignments;
-using CCOInsights.SubscriptionManager.Functions.Operations.Subscriptions;
+﻿using CCOInsights.SubscriptionManager.Functions.Operations.Subscriptions;
 
 namespace CCOInsights.SubscriptionManager.UnitTests;
 
@@ -27,6 +26,6 @@ public class SubscriptionsUpdaterTests
         await _updater.UpdateAsync(Guid.Empty.ToString(), subscriptionTest, CancellationToken.None);
 
         _providerMock.Verify(x => x.GetAsync(It.Is<string>(x => x == subscriptionTest.SubscriptionId), CancellationToken.None));
-        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<List<Subscriptions>>(), It.IsAny<CancellationToken>()), Times.Once);
+        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), $"{nameof(Subscriptions).ToLower()}", It.IsAny<List<Subscriptions>>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

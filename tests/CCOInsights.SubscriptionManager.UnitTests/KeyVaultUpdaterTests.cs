@@ -1,6 +1,4 @@
-﻿using CCOInsights.SubscriptionManager.Functions.Operations.BlueprintAssignments;
-using CCOInsights.SubscriptionManager.Functions.Operations.KeyVault;
-using CCOInsights.SubscriptionManager.Functions.Operations.Nic;
+﻿using CCOInsights.SubscriptionManager.Functions.Operations.KeyVault;
 
 namespace CCOInsights.SubscriptionManager.UnitTests;
 
@@ -28,7 +26,7 @@ public class KeyVaultUpdaterTests
         await _updater.UpdateAsync(Guid.Empty.ToString(), subscriptionTest, CancellationToken.None);
 
         _providerMock.Verify(x => x.GetAsync(It.Is<string>(x => x == subscriptionTest.SubscriptionId), CancellationToken.None));
-        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.Is<List<KeyVault>>(x => x.Any(item => item.SubscriptionId == subscriptionTest.SubscriptionId && item.TenantId == subscriptionTest.Inner.TenantId)), It.IsAny<CancellationToken>()), Times.Once);
+        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), $"{nameof(KeyVault).ToLower()}s", It.Is<List<KeyVault>>(x => x.Any(item => item.SubscriptionId == subscriptionTest.SubscriptionId && item.TenantId == subscriptionTest.Inner.TenantId)), It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -41,6 +39,6 @@ public class KeyVaultUpdaterTests
         await _updater.UpdateAsync(Guid.Empty.ToString(), subscriptionTest, CancellationToken.None);
 
         _providerMock.Verify(x => x.GetAsync(It.Is<string>(x => x == subscriptionTest.SubscriptionId), CancellationToken.None));
-        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<List<KeyVault>>(), It.IsAny<CancellationToken>()), Times.Never);
+        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), $"{nameof(KeyVault).ToLower()}s", It.IsAny<List<KeyVault>>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 }

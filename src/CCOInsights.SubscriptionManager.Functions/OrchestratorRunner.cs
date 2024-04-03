@@ -40,16 +40,13 @@ public class OrchestratorRunner
 
     }
 
-
     [FunctionName("OrchestratorScheduleStart")]
-    public async Task Schedule([TimerTrigger("0 0 0 * * *", RunOnStartup = true)] TimerInfo earlyTimer, [DurableClient] IDurableOrchestrationClient starter, System.Threading.CancellationToken cancellationToken = default)
+    public async Task Schedule([TimerTrigger("0 0 3 * * *", RunOnStartup = false)] TimerInfo earlyTimer, [DurableClient] IDurableOrchestrationClient starter, System.Threading.CancellationToken cancellationToken = default)
     {
         await starter.PurgeInstanceHistoryAsync(DateTime.MinValue, DateTime.UtcNow, new List<OrchestrationStatus>() { OrchestrationStatus.Failed, OrchestrationStatus.Pending, OrchestrationStatus.Suspended, OrchestrationStatus.Canceled });
         var instanceId = await starter.StartNewAsync("OrchestratorRunner");
         _logger.LogInformation($"Started orchestration with ID = '{instanceId}'.");
     }
-
-
 
     [FunctionName(nameof(OrchestratorRunner))]
     public async Task Execute([OrchestrationTrigger] IDurableOrchestrationContext context, System.Threading.CancellationToken cancellationToken = default)

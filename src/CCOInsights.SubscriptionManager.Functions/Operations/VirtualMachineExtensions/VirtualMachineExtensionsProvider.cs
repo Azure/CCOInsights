@@ -36,7 +36,10 @@ public class VirtualMachineExtensionsProvider : IVirtualMachineExtensionProvider
 
             var response = await GetModelAsync(httpClient, $"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/virtualMachines/{vm.Name}/extensions?api-version=2022-08-01", cancellationToken);
 
-            result.AddRange(response.Value);
+            if (response is { Value: not null })
+            {
+                result.AddRange(response.Value);
+            }
 
             while (!string.IsNullOrEmpty(response.NextLink))
             {

@@ -34,12 +34,18 @@ public abstract class Provider<T> : IProvider<T> where T : IAzureResponse
 
         var response = await GetModelAsync(httpClient, $"{httpClient.BaseAddress}{subscriptionId}{Path}", cancellationToken);
 
-        result.AddRange(response.Value);
-
+        if (response is { Value: not null })
+        {
+            result.AddRange(response.Value);
+        }
+        
         while (!string.IsNullOrEmpty(response.NextLink))
         {
             response = await GetModelAsync(httpClient, response.NextLink, cancellationToken);
-            result.AddRange(response.Value);
+            if (response is { Value: not null })
+            {
+                result.AddRange(response.Value);
+            }
         }
 
         return result;

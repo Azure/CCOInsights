@@ -142,7 +142,7 @@ module storageAccountContainers '../../CARML/modules/Microsoft.Storage/storageAc
       { name: 'groupss', publicAccess: 'Container' }
       { name: 'keyvaults', publicAccess: 'Container' }
       { name: 'locations', publicAccess: 'Container' }
-      { name: 'networksecuritygroupss', publicAccess: 'Container' }
+      { name: 'networksecuritygroups', publicAccess: 'Container' }
       { name: 'networkusagess', publicAccess: 'Container' }
       { name: 'nics', publicAccess: 'Container' }
       { name: 'policydefinitionss', publicAccess: 'Container' }

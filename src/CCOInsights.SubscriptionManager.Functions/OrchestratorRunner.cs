@@ -41,11 +41,11 @@ public class OrchestratorRunner
     }
 
     [FunctionName("OrchestratorScheduleStart")]
-    public async Task Schedule([TimerTrigger("0 0 3 * * *", RunOnStartup = false)] TimerInfo earlyTimer, [DurableClient] IDurableOrchestrationClient starter, System.Threading.CancellationToken cancellationToken = default)
+    public async Task Schedule([TimerTrigger("0 0 3 * * *", RunOnStartup = true)] TimerInfo earlyTimer, [DurableClient] IDurableOrchestrationClient starter, System.Threading.CancellationToken cancellationToken = default)
     {
-        await starter.PurgeInstanceHistoryAsync(DateTime.MinValue, DateTime.UtcNow, new List<OrchestrationStatus>() { OrchestrationStatus.Failed, OrchestrationStatus.Pending, OrchestrationStatus.Suspended, OrchestrationStatus.Canceled });
+        await starter.PurgeInstanceHistoryAsync(DateTime.MinValue, DateTime.UtcNow, new List<OrchestrationStatus> { OrchestrationStatus.Failed, OrchestrationStatus.Pending, OrchestrationStatus.Suspended, OrchestrationStatus.Canceled });
         var instanceId = await starter.StartNewAsync("OrchestratorRunner");
-        _logger.LogInformation($"Started orchestration with ID = '{instanceId}'.");
+        _logger.LogInformation("Started orchestration with ID = '{instanceId}'.", instanceId);
     }
 
     [FunctionName(nameof(OrchestratorRunner))]
@@ -56,14 +56,14 @@ public class OrchestratorRunner
         {
             if (_features.GovernanceDashboard)
             {
-                _logger.LogInformation($"Registering Functions in GovernanceDashboard Feature");
+                _logger.LogInformation("Registering Functions in GovernanceDashboard Feature");
                 foreach (var function in _governanceFunctions)
                     tasks.Add(context.CallActivityAsyncWithPolicies(function.OperationName, _enabledOperations));
             }
             if (_features.InfrastructureDashboard)
             {
 
-                _logger.LogInformation($"Registering Functions in InfrastructureDashboard Feature");
+                _logger.LogInformation("Registering Functions in InfrastructureDashboard Feature");
                 foreach (var function in _infrastructureFunctions)
                     tasks.Add(context.CallActivityAsyncWithPolicies(function.OperationName, _enabledOperations));
             }

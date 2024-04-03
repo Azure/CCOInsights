@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using CCOInsights.SubscriptionManager.Functions;
-using CCOInsights.SubscriptionManager.Functions.Operations.ComputeUsage;
-using Microsoft.Extensions.Logging;
-using Moq;
-using Xunit;
+﻿using CCOInsights.SubscriptionManager.Functions.Operations.ComputeUsage;
 
 namespace CCOInsights.SubscriptionManager.UnitTests;
 
@@ -14,15 +6,14 @@ public class ComputeUsageUpdaterTests
 {
     private readonly IComputeUsageUpdater _updater;
     private readonly Mock<IStorage> _storageMock;
-    private readonly Mock<ILogger<ComputeUsageUpdater>> _loggerMock;
     private readonly Mock<IComputeUsageProvider> _providerMock;
 
     public ComputeUsageUpdaterTests()
     {
         _storageMock = new Mock<IStorage>();
-        _loggerMock = new Mock<ILogger<ComputeUsageUpdater>>();
+        Mock<ILogger<ComputeUsageUpdater>> loggerMock = new();
         _providerMock = new Mock<IComputeUsageProvider>();
-        _updater = new ComputeUsageUpdater(_storageMock.Object, _loggerMock.Object, _providerMock.Object);
+        _updater = new ComputeUsageUpdater(_storageMock.Object, loggerMock.Object, _providerMock.Object);
     }
 
     [Fact]
@@ -35,6 +26,6 @@ public class ComputeUsageUpdaterTests
         await _updater.UpdateAsync(Guid.Empty.ToString(), subscriptionTest, CancellationToken.None);
 
         _providerMock.Verify(x => x.GetAsync(It.Is<string>(x => x == subscriptionTest.SubscriptionId), CancellationToken.None));
-        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<ComputeUsage>(), It.IsAny<CancellationToken>()), Times.Once);
+        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.Is<List<ComputeUsage>>(x => x.Any(item => item.SubscriptionId == subscriptionTest.SubscriptionId && item.TenantId == subscriptionTest.Inner.TenantId)), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

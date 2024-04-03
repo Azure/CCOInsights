@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using CCOInsights.SubscriptionManager.Functions;
+﻿using CCOInsights.SubscriptionManager.Functions.Operations.BlueprintAssignments;
 using CCOInsights.SubscriptionManager.Functions.Operations.DefenderSecureScoreControlDefinition;
-using Microsoft.Extensions.Logging;
-using Moq;
-using Xunit;
 
 namespace CCOInsights.SubscriptionManager.UnitTests;
 
@@ -26,7 +19,7 @@ public class DefenderSecureScoreControlDefinitionUpdaterTests
     }
 
     [Fact]
-    public async Task DefenderSecureScoreControlDefinitionUpdater_UpdateAsync_ShouldUpdate_IfValid()
+    public async Task UpdateAsync_ShouldUpdate_IfValid()
     {
         var response = new DefenderSecureScoreControlDefinitionResponse { Id = "Id" };
         _providerMock.Setup(x => x.GetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(new List<DefenderSecureScoreControlDefinitionResponse> { response });
@@ -35,6 +28,6 @@ public class DefenderSecureScoreControlDefinitionUpdaterTests
         await _updater.UpdateAsync(Guid.Empty.ToString(), subscriptionTest, CancellationToken.None);
 
         _providerMock.Verify(x => x.GetAsync(It.Is<string>(x => x == subscriptionTest.SubscriptionId), CancellationToken.None));
-        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DefenderSecureScoreControlDefinition>(), It.IsAny<CancellationToken>()), Times.Once);
+        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<List<DefenderSecureScoreControlDefinition>>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

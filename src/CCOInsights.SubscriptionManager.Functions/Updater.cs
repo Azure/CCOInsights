@@ -31,7 +31,7 @@ public abstract class Updater<TResponse, TEntity> : IUpdater
     {
         var models = await _provider.GetAsync(subscription?.SubscriptionId, cancellationToken);
 
-        var entities = models.Select(model => Map(executionId, subscription, model)).ToList();
+        var entities = models.Where(ShouldIngest).Select(model => Map(executionId, subscription, model)).ToList();
         if (!entities.Any()) return;
         await _storage.UpdateItemAsync($"{subscription?.SubscriptionId}-{DateTime.UtcNow:yyyyMMdd}", $"{entities.FirstOrDefault().GetType().Name.ToLower()}s", entities, cancellationToken);
 

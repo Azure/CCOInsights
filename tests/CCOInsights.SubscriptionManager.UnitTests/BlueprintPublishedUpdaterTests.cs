@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using CCOInsights.SubscriptionManager.Functions;
-using CCOInsights.SubscriptionManager.Functions.Operations.BlueprintPublished;
-using Microsoft.Extensions.Logging;
-using Moq;
-using Xunit;
+﻿using CCOInsights.SubscriptionManager.Functions.Operations.BlueprintPublished;
 
 namespace CCOInsights.SubscriptionManager.UnitTests;
 
@@ -26,7 +18,7 @@ public class BlueprintPublishedUpdaterTests
     }
 
     [Fact]
-    public async Task BlueprintPublishedUpdater_UpdateAsync_ShouldUpdate_IfValid()
+    public async Task UpdateAsync_ShouldUpdate_IfValid()
     {
         var response = new BlueprintPublishedResponse { Id = "Id" };
         _providerMock.Setup(x => x.GetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(new List<BlueprintPublishedResponse> { response });
@@ -35,6 +27,6 @@ public class BlueprintPublishedUpdaterTests
         await _updater.UpdateAsync(Guid.Empty.ToString(), subscriptionTest, CancellationToken.None);
 
         _providerMock.Verify(x => x.GetAsync(It.Is<string>(x => x == subscriptionTest.SubscriptionId), CancellationToken.None));
-        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.Is<BlueprintPublished>(x => x.SubscriptionId == subscriptionTest.SubscriptionId && x.TenantId == subscriptionTest.Inner.TenantId), It.IsAny<CancellationToken>()), Times.Once);
+        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.Is<List<BlueprintPublished>>(x => x.Any(item => item.SubscriptionId == subscriptionTest.SubscriptionId && item.TenantId == subscriptionTest.Inner.TenantId)), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

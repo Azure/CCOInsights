@@ -36,6 +36,7 @@ public class OrchestratorRunner
         _enabledOperations = enabledOperations;
         _enabledOperations.EnableRange(_infrastructureFunctions.Select(x => x.OperationName));
         _enabledOperations.EnableRange(_governanceFunctions.Select(x => x.OperationName));
+        _enabledOperations.EnableRange(_commonFunctions.Select(x => x.OperationName));
         if (!string.IsNullOrEmpty(_singleFunctionExecution)) _enabledOperations.Enable(_singleFunctionExecution);
 
     }

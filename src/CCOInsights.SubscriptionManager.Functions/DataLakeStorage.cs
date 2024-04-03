@@ -34,13 +34,13 @@ public class DataLakeStorage : IStorage
 
             var response = fileSystem.GetFileClient(id);
             var stream = BinaryData.FromObjectAsJson(item).ToStream();
-            //await response.DeleteIfExistsAsync(cancellationToken: cancellationToken); //Esto marca como borrado, pero no borra, será borrado más tarde cuando pasen unos minutos y el garbage collector del datalake quiera
+            //await response.DeleteIfExistsAsync(cancellationToken: cancellationToken);
 
-            await response.UploadAsync(stream, new DataLakeFileUploadOptions{HttpHeaders = new PathHttpHeaders{ContentType = "application/json"}}, cancellationToken); //Por eso esto da fallos a veces, por que esta en transicion
+            await response.UploadAsync(stream, new DataLakeFileUploadOptions{HttpHeaders = new PathHttpHeaders{ContentType = "application/json"}}, cancellationToken);
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Error processing {typeof(T).Name} with id: {id}. Exception: {ex.ToString()}");
+            _logger.LogError($"Error processing {typeof(T).Name} with id: {id}. Exception: {ex}");
             throw;
         }
     }

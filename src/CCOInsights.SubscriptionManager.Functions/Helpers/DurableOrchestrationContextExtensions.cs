@@ -2,27 +2,24 @@
 using CCOInsights.SubscriptionManager.Functions.Helpers;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 
-namespace CCOInsights.SubscriptionManager.Helpers
+namespace CCOInsights.SubscriptionManager.Helpers;
+
+public static class DurableOrchestrationContextExtensions
 {
-    public static class DurableOrchestrationContextExtensions
+    public static async Task CallActivityAsyncWithPolicies(this IDurableOrchestrationContext context, string functionName, EnabledFunctions enabledFunctions)
     {
-        public static async Task CallActivityAsyncWithPolicies(this IDurableOrchestrationContext context, string functionName, EnabledFunctions enabledFunctions)
+        try
         {
-            try
+            if (enabledFunctions.isEnabled(functionName))
             {
-                if (enabledFunctions.isEnabled(functionName))
-                {
-                    await context.CallActivityAsync(functionName, null);
-                }
+                await context.CallActivityAsync(functionName, null);
             }
-            catch (Exception)
-            {
-                enabledFunctions.Disable(functionName);
-                //await context.CallActivityAsync("CleanUpFunction", null);
-            }
-
         }
+        catch (Exception)
+        {
+            enabledFunctions.Disable(functionName);
+            //await context.CallActivityAsync("CleanUpFunction", null);
+        }
+
     }
-
 }
-

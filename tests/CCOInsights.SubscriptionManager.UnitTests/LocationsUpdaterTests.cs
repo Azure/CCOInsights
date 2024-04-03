@@ -8,34 +8,33 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
-namespace CCOInsights.SubscriptionManager.UnitTests
+namespace CCOInsights.SubscriptionManager.UnitTests;
+
+public class LocationsUpdaterTests
 {
-    public class LocationsUpdaterTests
+    private readonly ILocationUpdater _updater;
+    private readonly Mock<IStorage> _storageMock;
+    private readonly Mock<ILogger<LocationUpdater>> _loggerMock;
+    private readonly Mock<ILocationProvider> _providerMock;
+
+    public LocationsUpdaterTests()
     {
-        private readonly ILocationUpdater _updater;
-        private readonly Mock<IStorage> _storageMock;
-        private readonly Mock<ILogger<LocationUpdater>> _loggerMock;
-        private readonly Mock<ILocationProvider> _providerMock;
+        _storageMock = new Mock<IStorage>();
+        _loggerMock = new Mock<ILogger<LocationUpdater>>();
+        _providerMock = new Mock<ILocationProvider>();
+        _updater = new LocationUpdater(_storageMock.Object, _loggerMock.Object, _providerMock.Object);
+    }
 
-        public LocationsUpdaterTests()
-        {
-            _storageMock = new Mock<IStorage>();
-            _loggerMock = new Mock<ILogger<LocationUpdater>>();
-            _providerMock = new Mock<ILocationProvider>();
-            _updater = new LocationUpdater(_storageMock.Object, _loggerMock.Object, _providerMock.Object);
-        }
+    [Fact]
+    public async Task LocationUpdater_UpdateAsync_ShouldUpdate_IfValid()
+    {
+        var response = new LocationResponse { Id = "Id" };
+        _providerMock.Setup(x => x.GetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(new List<LocationResponse> { response });
 
-        [Fact]
-        public async Task LocationUpdater_UpdateAsync_ShouldUpdate_IfValid()
-        {
-            var response = new LocationResponse { Id = "Id" };
-            _providerMock.Setup(x => x.GetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(new List<LocationResponse> { response });
+        var subscriptionTest = new TestSubscription();
+        await _updater.UpdateAsync(Guid.Empty.ToString(), subscriptionTest, CancellationToken.None);
 
-            var subscriptionTest = new TestSubscription();
-            await _updater.UpdateAsync(Guid.Empty.ToString(), subscriptionTest, CancellationToken.None);
-
-            _providerMock.Verify(x => x.GetAsync(It.Is<string>(x => x == subscriptionTest.SubscriptionId), CancellationToken.None));
-            _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.Is<Location>(x => x.SubscriptionId == subscriptionTest.SubscriptionId && x.TenantId == subscriptionTest.Inner.TenantId), It.IsAny<CancellationToken>()), Times.Once);
-        }
+        _providerMock.Verify(x => x.GetAsync(It.Is<string>(x => x == subscriptionTest.SubscriptionId), CancellationToken.None));
+        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.Is<Location>(x => x.SubscriptionId == subscriptionTest.SubscriptionId && x.TenantId == subscriptionTest.Inner.TenantId), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

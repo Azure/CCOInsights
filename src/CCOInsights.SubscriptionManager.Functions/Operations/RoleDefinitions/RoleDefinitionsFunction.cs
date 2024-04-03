@@ -4,27 +4,25 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using static Microsoft.Azure.Management.Fluent.Azure;
 
-namespace CCOInsights.SubscriptionManager.Functions.Operations.RoleDefinitions
+namespace CCOInsights.SubscriptionManager.Functions.Operations.RoleDefinitions;
+
+[OperationDescriptor(DashboardType.Infrastructure, nameof(RoleDefinitionsFunction))]
+public class RoleDefinitionsFunction : IOperation
 {
+    private readonly IAuthenticated _authenticatedResourceManager;
+    private readonly IRoleDefinitionsUpdater _updater;
 
-    [OperationDescriptor(DashboardType.Infrastructure, nameof(RoleDefinitionsFunction))]
-    public class RoleDefinitionsFunction : IOperation
+    public RoleDefinitionsFunction(IAuthenticated authenticatedResourceManager, IRoleDefinitionsUpdater updater)
     {
-        private readonly IAuthenticated _authenticatedResourceManager;
-        private readonly IRoleDefinitionsUpdater _updater;
+        _authenticatedResourceManager = authenticatedResourceManager;
+        _updater = updater;
+    }
 
-        public RoleDefinitionsFunction(IAuthenticated authenticatedResourceManager, IRoleDefinitionsUpdater updater)
-        {
-            _authenticatedResourceManager = authenticatedResourceManager;
-            _updater = updater;
-        }
-
-        [FunctionName(nameof(RoleDefinitionsFunction))]
-        public async Task Execute([ActivityTrigger] IDurableActivityContext context, System.Threading.CancellationToken cancellationToken = default)
-        {
-            var subscriptions = await _authenticatedResourceManager.Subscriptions.ListAsync(cancellationToken: cancellationToken);
-            await subscriptions.AsyncParallelForEach(async subscription =>
-                await _updater.UpdateAsync(context.InstanceId, subscription, cancellationToken), 1);
-        }
+    [FunctionName(nameof(RoleDefinitionsFunction))]
+    public async Task Execute([ActivityTrigger] IDurableActivityContext context, System.Threading.CancellationToken cancellationToken = default)
+    {
+        var subscriptions = await _authenticatedResourceManager.Subscriptions.ListAsync(cancellationToken: cancellationToken);
+        await subscriptions.AsyncParallelForEach(async subscription =>
+            await _updater.UpdateAsync(context.InstanceId, subscription, cancellationToken), 1);
     }
 }

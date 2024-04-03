@@ -8,34 +8,33 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
-namespace CCOInsights.SubscriptionManager.UnitTests
+namespace CCOInsights.SubscriptionManager.UnitTests;
+
+public class BlueprintPublishedUpdaterTests
 {
-    public class BlueprintPublishedUpdaterTests
+    private readonly IBlueprintPublishedUpdater _updater;
+    private readonly Mock<IStorage> _storageMock;
+    private readonly Mock<ILogger<BlueprintPublishedUpdater>> _loggerMock;
+    private readonly Mock<IBlueprintPublishedProvider> _providerMock;
+
+    public BlueprintPublishedUpdaterTests()
     {
-        private readonly IBlueprintPublishedUpdater _updater;
-        private readonly Mock<IStorage> _storageMock;
-        private readonly Mock<ILogger<BlueprintPublishedUpdater>> _loggerMock;
-        private readonly Mock<IBlueprintPublishedProvider> _providerMock;
+        _storageMock = new Mock<IStorage>();
+        _loggerMock = new Mock<ILogger<BlueprintPublishedUpdater>>();
+        _providerMock = new Mock<IBlueprintPublishedProvider>();
+        _updater = new BlueprintPublishedUpdater(_storageMock.Object, _loggerMock.Object, _providerMock.Object);
+    }
 
-        public BlueprintPublishedUpdaterTests()
-        {
-            _storageMock = new Mock<IStorage>();
-            _loggerMock = new Mock<ILogger<BlueprintPublishedUpdater>>();
-            _providerMock = new Mock<IBlueprintPublishedProvider>();
-            _updater = new BlueprintPublishedUpdater(_storageMock.Object, _loggerMock.Object, _providerMock.Object);
-        }
+    [Fact]
+    public async Task BlueprintPublishedUpdater_UpdateAsync_ShouldUpdate_IfValid()
+    {
+        var response = new BlueprintPublishedResponse { Id = "Id" };
+        _providerMock.Setup(x => x.GetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(new List<BlueprintPublishedResponse> { response });
 
-        [Fact]
-        public async Task BlueprintPublishedUpdater_UpdateAsync_ShouldUpdate_IfValid()
-        {
-            var response = new BlueprintPublishedResponse { Id = "Id" };
-            _providerMock.Setup(x => x.GetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(new List<BlueprintPublishedResponse> { response });
+        var subscriptionTest = new TestSubscription();
+        await _updater.UpdateAsync(Guid.Empty.ToString(), subscriptionTest, CancellationToken.None);
 
-            var subscriptionTest = new TestSubscription();
-            await _updater.UpdateAsync(Guid.Empty.ToString(), subscriptionTest, CancellationToken.None);
-
-            _providerMock.Verify(x => x.GetAsync(It.Is<string>(x => x == subscriptionTest.SubscriptionId), CancellationToken.None));
-            _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.Is<BlueprintPublished>(x => x.SubscriptionId == subscriptionTest.SubscriptionId && x.TenantId == subscriptionTest.Inner.TenantId), It.IsAny<CancellationToken>()), Times.Once);
-        }
+        _providerMock.Verify(x => x.GetAsync(It.Is<string>(x => x == subscriptionTest.SubscriptionId), CancellationToken.None));
+        _storageMock.Verify(x => x.UpdateItemAsync(It.IsAny<string>(), It.IsAny<string>(), It.Is<BlueprintPublished>(x => x.SubscriptionId == subscriptionTest.SubscriptionId && x.TenantId == subscriptionTest.Inner.TenantId), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

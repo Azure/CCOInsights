@@ -28,12 +28,9 @@ public class DataLakeStorage : IStorage
         {
             id = $"{id}.json";
             var fileSystem = _dataLakeServiceClient.GetFileSystemClient(containerName);
-            //await fileSystem.CreateIfNotExistsAsync(new DataLakeFileSystemCreateOptions { PublicAccessType = PublicAccessType.FileSystem },
-            //    cancellationToken: cancellationToken);
 
             var response = fileSystem.GetFileClient(id);
             var stream = BinaryData.FromObjectAsJson(item).ToStream();
-            //await response.DeleteIfExistsAsync(cancellationToken: cancellationToken);
 
             await response.UploadAsync(stream, new DataLakeFileUploadOptions{HttpHeaders = new PathHttpHeaders{ContentType = "application/json"}}, cancellationToken);
         }

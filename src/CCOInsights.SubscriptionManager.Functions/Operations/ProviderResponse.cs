@@ -1,13 +1,12 @@
 ﻿using Newtonsoft.Json;
 
-namespace CCOInsights.SubscriptionManager.Functions.Operations
-{
-    public class ProviderResponse<T>
-    {
-        [JsonProperty("value")]
-        public T[] Value { get; set; }
+namespace CCOInsights.SubscriptionManager.Functions.Operations;
 
-        [JsonProperty("nextLink")]
-        public string NextLink { get; set; }
-    }
+public class ProviderResponse<T>
+{
+    [JsonProperty("value")]
+    public T[] Value { get; set; }
+
+    [JsonProperty("nextLink")]
+    public string NextLink { get; set; }
 }

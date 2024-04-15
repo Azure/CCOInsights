@@ -7,49 +7,47 @@ using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Newtonsoft.Json;
 using static Microsoft.Azure.Management.Fluent.Azure;
 
-namespace CCOInsights.SubscriptionManager.Functions.Operations.NetworkUsages
+namespace CCOInsights.SubscriptionManager.Functions.Operations.NetworkUsages;
+
+public interface INetworkUsagesProvider : IProvider<NetworkUsagesResponse> { }
+public class NetworkUsagesProvider : INetworkUsagesProvider
 {
+    private readonly IAuthenticated _authenticated;
+    private readonly RestClient _restClient;
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ILocationProvider _locationProvider;
 
-    public interface INetworkUsagesProvider : IProvider<NetworkUsagesResponse> { }
-    public class NetworkUsagesProvider : INetworkUsagesProvider
+    public NetworkUsagesProvider(IAuthenticated authenticated, RestClient restClient, IHttpClientFactory httpClientFactory, ILocationProvider locationProvider)
     {
-        private readonly IAuthenticated _authenticated;
-        private readonly RestClient _restClient;
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly ILocationProvider _locationProvider;
+        _authenticated = authenticated;
+        _restClient = restClient;
+        _httpClientFactory = httpClientFactory;
+        _locationProvider = locationProvider;
+    }
 
-        public NetworkUsagesProvider(IAuthenticated authenticated, RestClient restClient, IHttpClientFactory httpClientFactory, ILocationProvider locationProvider)
+    public async Task<IEnumerable<NetworkUsagesResponse>> GetAsync(string subscriptionId, CancellationToken cancellationToken = default)
+    {
+        var httpClient = _httpClientFactory.CreateClient("client");
+        var locations = await _locationProvider.GetAsync(subscriptionId, cancellationToken);
+        var listOfNetworkUsages = new List<NetworkUsagesResponse>();
+        foreach (var location in locations)
         {
-            _authenticated = authenticated;
-            _restClient = restClient;
-            _httpClientFactory = httpClientFactory;
-            _locationProvider = locationProvider;
+            var response = await GetModelAsync(httpClient, $"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{location.Name}/usages?api-version=2022-05-01", cancellationToken);
+            if (response.value != null)
+                listOfNetworkUsages.AddRange(response.value);
         }
 
-        public async Task<IEnumerable<NetworkUsagesResponse>> GetAsync(string subscriptionId, CancellationToken cancellationToken = default)
-        {
-            var httpClient = _httpClientFactory.CreateClient("client");
-            var locations = await _locationProvider.GetAsync(subscriptionId, cancellationToken);
-            var listOfNetworkUsages = new List<NetworkUsagesResponse>();
-            foreach (var location in locations)
-            {
-                var response = await GetModelAsync(httpClient, $"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{location.Name}/usages?api-version=2022-05-01", cancellationToken);
-                if (response.value != null)
-                    listOfNetworkUsages.AddRange(response.value);
-            }
+        return listOfNetworkUsages;
+    }
 
-            return listOfNetworkUsages;
-        }
+    private async Task<NetworkUsagesResponseList> GetModelAsync(HttpClient client, string url, CancellationToken cancellationToken = default)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, url);
 
-        private async Task<NetworkUsagesResponseList> GetModelAsync(HttpClient client, string url, CancellationToken cancellationToken = default)
-        {
-            var request = new HttpRequestMessage(HttpMethod.Get, url);
+        await _restClient.Credentials.ProcessHttpRequestAsync(request, cancellationToken);
+        var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+        var content = await response.Content.ReadAsStringAsync(cancellationToken);
 
-            await _restClient.Credentials.ProcessHttpRequestAsync(request, cancellationToken);
-            var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-            var content = await response.Content.ReadAsStringAsync(cancellationToken);
-
-            return JsonConvert.DeserializeObject<NetworkUsagesResponseList>(content);
-        }
+        return JsonConvert.DeserializeObject<NetworkUsagesResponseList>(content);
     }
 }

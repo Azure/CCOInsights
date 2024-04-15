@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CCOInsights.SubscriptionManager.Functions.Operations;
-using CCOInsights.SubscriptionManager.Helpers;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Extensions.Logging;
 
@@ -17,8 +16,6 @@ public abstract class Updater<TResponse, TEntity> : IUpdater
     where TResponse : IAzureResponse
     where TEntity : BaseEntity<TResponse>
 {
-    private const int MAX_DEGREE_PARALLELISM = 10;
-
     private readonly IStorage _storage;
     private readonly ILogger _logger;
     private readonly IProvider<TResponse> _provider;
@@ -32,27 +29,17 @@ public abstract class Updater<TResponse, TEntity> : IUpdater
 
     public async Task UpdateAsync(string executionId, ISubscription subscription, CancellationToken cancellationToken = default)
     {
-        var processed = 0;
         var models = await _provider.GetAsync(subscription?.SubscriptionId, cancellationToken);
-        await models.AsyncParallelForEach(async model =>
-        {
-            try
-            {
-                if (ShouldIngest(model))
-                {
-                    var azureEntity = Map(executionId, subscription, model);
-                    await _storage.UpdateItemAsync(azureEntity.Id, azureEntity, cancellationToken);
-                    _logger.LogInformation($"Resource {model.Id} processed successfully. Subscription {subscription?.DisplayName} with id {subscription?.SubscriptionId} ");
-                    processed++;
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Unexpected error processing resource {model.Id}: {ex.Message}.");
-            }
-        }, MAX_DEGREE_PARALLELISM);
 
-        _logger.LogInformation($"{typeof(TEntity).Name}: Subscription {subscription?.DisplayName} with id {subscription?.SubscriptionId} processed {processed}/{models.Count()} resources successfully.");
+        var entities = models.Where(ShouldIngest).Select(model => Map(executionId, subscription, model)).ToList();
+        if (!entities.Any()) return;
+        await _storage.UpdateItemAsync($"{subscription?.SubscriptionId}-{DateTime.UtcNow:yyyyMMdd}", DataLakeContainerProvider.GetContainer(entities.FirstOrDefault().GetType()), entities, cancellationToken);
+
+        _logger.LogInformation("{Entity}: Subscription {SubscriptionName} with id {SubscriptionId} processed {Count} resources successfully.", 
+            typeof(TEntity).Name, 
+            subscription?.DisplayName,
+            subscription?.SubscriptionId,
+            entities.Count);
     }
 
     protected abstract TEntity Map(string executionId, ISubscription subscription, TResponse response);

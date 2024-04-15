@@ -4,26 +4,25 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using static Microsoft.Azure.Management.Fluent.Azure;
 
-namespace CCOInsights.SubscriptionManager.Functions.Operations.DefenderAssessmentsMetadata
+namespace CCOInsights.SubscriptionManager.Functions.Operations.DefenderAssessmentsMetadata;
+
+[OperationDescriptor(DashboardType.Governance, nameof(DefenderAssessmentMetadataFunction))]
+public class DefenderAssessmentMetadataFunction : IOperation
 {
-    [OperationDescriptor(DashboardType.Governance, nameof(DefenderAssessmentMetadataFunction))]
-    public class DefenderAssessmentMetadataFunction : IOperation
+    private readonly IAuthenticated _authenticatedResourceManager;
+    private readonly IDefenderAssessmentsMetadataUpdater _updater;
+
+    public DefenderAssessmentMetadataFunction(IAuthenticated authenticatedResourceManager, IDefenderAssessmentsMetadataUpdater updater)
     {
-        private readonly IAuthenticated _authenticatedResourceManager;
-        private readonly IDefenderAssessmentsMetadataUpdater _updater;
+        _authenticatedResourceManager = authenticatedResourceManager;
+        _updater = updater;
+    }
 
-        public DefenderAssessmentMetadataFunction(IAuthenticated authenticatedResourceManager, IDefenderAssessmentsMetadataUpdater updater)
-        {
-            _authenticatedResourceManager = authenticatedResourceManager;
-            _updater = updater;
-        }
-
-        [FunctionName(nameof(DefenderAssessmentMetadataFunction))]
-        public async Task Execute([ActivityTrigger] IDurableActivityContext context, System.Threading.CancellationToken cancellationToken = default)
-        {
-            var subscriptions = await _authenticatedResourceManager.Subscriptions.ListAsync(cancellationToken: cancellationToken);
-            await subscriptions.AsyncParallelForEach(async subscription =>
-                await _updater.UpdateAsync(context.InstanceId, subscription, cancellationToken), 1);
-        }
+    [FunctionName(nameof(DefenderAssessmentMetadataFunction))]
+    public async Task Execute([ActivityTrigger] IDurableActivityContext context, System.Threading.CancellationToken cancellationToken = default)
+    {
+        var subscriptions = await _authenticatedResourceManager.Subscriptions.ListAsync(cancellationToken: cancellationToken);
+        await subscriptions.AsyncParallelForEach(async subscription =>
+            await _updater.UpdateAsync(context.InstanceId, subscription, cancellationToken), 1);
     }
 }

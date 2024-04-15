@@ -1,14 +1,13 @@
-﻿namespace CCOInsights.SubscriptionManager.Functions.Operations
-{
-    using System;
+﻿namespace CCOInsights.SubscriptionManager.Functions.Operations;
 
-    [AttributeUsage(AttributeTargets.Class)]
-    public class GeneratedProviderAttribute : System.Attribute
+using System;
+
+[AttributeUsage(AttributeTargets.Class)]
+public class GeneratedProviderAttribute : System.Attribute
+{
+    private string path;
+    public GeneratedProviderAttribute(string path)
     {
-        private string path;
-        public GeneratedProviderAttribute(string path)
-        {
-            this.path = path;
-        }
+        this.path = path;
     }
 }

@@ -1,11 +1,10 @@
 ﻿using Microsoft.Graph;
 using Riok.Mapperly.Abstractions;
 
-namespace CCOInsights.SubscriptionManager.Functions.Operations.Groups
+namespace CCOInsights.SubscriptionManager.Functions.Operations.Groups;
+
+[Mapper]
+public partial class GroupsMapper
 {
-    [Mapper]
-    public partial class GroupsMapper
-    {
-        public partial GroupsResponse GroupToGroupsResponse(Group group);
-    }
+    public partial GroupsResponse GroupToGroupsResponse(Group group);
 }

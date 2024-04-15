@@ -125,10 +125,10 @@ module storageAccountContainers '../../CARML/modules/Microsoft.Storage/storageAc
     containers: [
       { name: 'advisorrecommendations', publicAccess: 'Container' }
       { name: 'advisorscores', publicAccess: 'Container' }
-      { name: 'appserviceplanss', publicAccess: 'Container' }
+      { name: 'appserviceplans', publicAccess: 'Container' }
       { name: 'blueprints', publicAccess: 'Container' }
-      { name: 'blueprintartifactss', publicAccess: 'Container' }
-      { name: 'blueprintassignmentss', publicAccess: 'Container' }
+      { name: 'blueprintartifacts', publicAccess: 'Container' }
+      { name: 'blueprintassignments', publicAccess: 'Container' }
       { name: 'blueprintpublisheds', publicAccess: 'Container' }
       { name: 'computeusages', publicAccess: 'Container' }
       { name: 'defenderalerts', publicAccess: 'Container' }
@@ -136,35 +136,35 @@ module storageAccountContainers '../../CARML/modules/Microsoft.Storage/storageAc
       { name: 'defenderassessmentsmetadatas', publicAccess: 'Container' }
       { name: 'defendersecurescorecontrols', publicAccess: 'Container' }
       { name: 'defendersecurescorecontroldefinitions', publicAccess: 'Container' }
-      { name: 'diskss', publicAccess: 'Container' }
-      { name: 'entitys', publicAccess: 'Container' }
+      { name: 'disks', publicAccess: 'Container' }
+      { name: 'entities', publicAccess: 'Container' }
       { name: 'genericresources', publicAccess: 'Container' }
-      { name: 'groupss', publicAccess: 'Container' }
+      { name: 'groups', publicAccess: 'Container' }
       { name: 'keyvaults', publicAccess: 'Container' }
       { name: 'locations', publicAccess: 'Container' }
-      { name: 'networksecuritygroupss', publicAccess: 'Container' }
-      { name: 'networkusagess', publicAccess: 'Container' }
+      { name: 'networksecuritygroups', publicAccess: 'Container' }
+      { name: 'networkusages', publicAccess: 'Container' }
       { name: 'nics', publicAccess: 'Container' }
-      { name: 'policydefinitionss', publicAccess: 'Container' }
-      { name: 'policysetdefinitionss', publicAccess: 'Container' }
+      { name: 'policydefinitions', publicAccess: 'Container' }
+      { name: 'policysetdefinitions', publicAccess: 'Container' }
       { name: 'policystates', publicAccess: 'Container' }
       { name: 'pricings', publicAccess: 'Container' }
-      { name: 'publicipss', publicAccess: 'Container' }
+      { name: 'publicips', publicAccess: 'Container' }
       { name: 'resourcegroups', publicAccess: 'Container' }
       { name: 'resources', publicAccess: 'Container' }
       { name: 'roleassignments', publicAccess: 'Container' }
-      { name: 'roledefinitionss', publicAccess: 'Container' }
+      { name: 'roledefinitions', publicAccess: 'Container' }
       { name: 'securitytasks', publicAccess: 'Container' }
       { name: 'serviceprincipals', publicAccess: 'Container' }
       { name: 'sites', publicAccess: 'Container' }
       { name: 'storageusages', publicAccess: 'Container' }
       { name: 'subassessments', publicAccess: 'Container' }
-      { name: 'subscriptionss', publicAccess: 'Container' }
-      { name: 'userss', publicAccess: 'Container' }
+      { name: 'subscriptions', publicAccess: 'Container' }
+      { name: 'users', publicAccess: 'Container' }
       { name: 'virtualmachines', publicAccess: 'Container' }
-      { name: 'virtualmachineextensionss', publicAccess: 'Container' }
+      { name: 'virtualmachineextensions', publicAccess: 'Container' }
       { name: 'virtualmachinepatchs', publicAccess: 'Container' }
-      { name: 'virtualnetworkss', publicAccess: 'Container' }
+      { name: 'virtualnetworks', publicAccess: 'Container' }
     ]
   }
 }

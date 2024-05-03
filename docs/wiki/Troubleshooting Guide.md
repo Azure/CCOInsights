@@ -122,8 +122,13 @@ Once this configuration is in place, you can use the solution to get data.
 ## "Invoked Custom Function" step error
 
 In scenarios where this error is displayed, validate the PowerBi configurations on "Security" and "Privacy":
-* Security: In the "Data Extensions" section, select the "(Not Recommended) Allow any extension to load without validation or warning"
-* Privacy: In the "Privacy Levels" section, select the "Always ignore Privacy Level settings"
+
+Under the File menu, click on the "Options and Settings" button, then chose Options. In the dialog, click on Security and select "Allow any extension to load without validation of warning".
+
+![PowerBISecurityConfigurationDataExtensions][PowerBISecurityConfiguration]
+
+Under the File menu, click on the "Options and Settings" button, then chose Options. In the dialog, click on Privacy and select the "Always ignore Privacy Level settings"
+
 
 ## Using CCO Insights with Azure subscriptions provided by Visual Studio benefits (MSDN)
 

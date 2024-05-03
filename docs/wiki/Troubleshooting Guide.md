@@ -129,6 +129,7 @@ Under the File menu, click on the "Options and Settings" button, then chose Opti
 
 Under the File menu, click on the "Options and Settings" button, then chose Options. In the dialog, click on Privacy and select the "Always ignore Privacy Level settings"
 
+![PowerBIPrivacyConfigurationLevels][PowerBIPrivacyConfiguration]
 
 ## Using CCO Insights with Azure subscriptions provided by Visual Studio benefits (MSDN)
 
@@ -151,5 +152,6 @@ In the Governance dashboard, there is an error that might occurr in the "All Sub
 [LocaleOptionsPowerBI]: <./media/locale_options_powerBI.PNG>
 [PowerBISecurityConfiguration]: <./media/PowerBI-SecurityConfiguration.png>
 [PowerBIDataConnectors]: <./media/PowerBI-DataConnectors.png>
+[PowerBIPrivacyConfiguration]: <./media/PowerBI-PrivacyConfigurationPrivacyLevels.png>
 
 <!-- References -->

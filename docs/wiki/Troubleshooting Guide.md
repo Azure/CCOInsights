@@ -12,7 +12,8 @@
   - [Data Model Relationships missing](#data-model-relationships-missing)
   - [Errors regarding missing `column1` on refresh](#errors-regarding-missing-column1-on-refresh)
   - [Custom connector not recognized](#custom-connector-not-recognized)
-
+  - ["Invoked Custom Function" step error](#invoked-custom-function-step-error)
+  - [Using CCO Insights with Azure subscriptions provided by Visual Studio benefits (MSDN)](#using-cco-insights-with-azure-subscriptions-provided-by-visual-studio-benefits-msdn)
 ---
 
 <br>
@@ -117,6 +118,16 @@ Under the Home menu, click on "Get Data", then chose the "More..." option. Selec
 ![PowerBIDataConnectors][PowerBIDataConnectors]
 
 Once this configuration is in place, you can use the solution to get data.
+
+## "Invoked Custom Function" step error
+
+In scenarios where this error is displayed, validate the PowerBi configurations on "Security" and "Privacy":
+* Security: In the "Data Extensions" section, select the "(Not Recommended) Allow any extension to load without validation or warning"
+* Privacy: In the "Privacy Levels" section, select the "Always ignore Privacy Level settings"
+
+## Using CCO Insights with Azure subscriptions provided by Visual Studio benefits (MSDN)
+
+In the Governance dashboard, there is an error that might occurr in the "All Subscription > Get Pages" in these type of Azure subscription. The same error does not happen for non-MSDN subscriptions.
 
 <!-- Docs -->
 [PowerBIDesktop]: <https://learn.microsoft.com/en-us/power-bi/fundamentals/desktop-get-the-desktop>

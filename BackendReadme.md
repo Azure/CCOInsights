@@ -2,34 +2,6 @@
 
 Azure Governance, Risk and Compliance Team
 
-## Deployment
-
-To deploy the solution, you need to create a service principal, change the subscriptionId with yours:
-
-``` ps1
-az ad sp create-for-rbac --name "ccoinsights" --role contributor `
-                            --scopes /subscriptions/{subscription-id} `
-                            --sdk-auth
-```
-
-The command should output a JSON object similar to this:
-
-``` json
-{
-   "clientId": "<GUID>",
-   "clientSecret": "<STRING>",
-   "subscriptionId": "<GUID>",
-   "tenantId": "<GUID>",
-   (...)
- }
-```
-
-Copy the output and [create a secret](https://github.com/Azure/actions-workflow-samples/blob/master/assets/create-secrets-for-GitHub-workflows.md#set-up-secrets-in-github-action-workflows) in GitHub with AZURE_CREDENTIALS name.
-
-For more information, check [Configure deployment credentials](https://github.com/Azure/login#configure-deployment-credentials)
-
-Also, copy the client secret and create a new secret with CLIENT_SECRET name (only the string).
-
 ## Solution Layout
 
 This solution is composed by 3 projects:

@@ -1,4 +1,4 @@
-# Deploying Backend Solution
+# Deployment
 
 This guide will walk you through the steps to deploy the backend solution in your subscription.
 
@@ -8,7 +8,6 @@ Before you begin, make sure you have the following:
 
 - Azure subscription
 - PowerShell installed
-- Service Principal credentials
 
 ## Steps
 
@@ -27,26 +26,9 @@ Before you begin, make sure you have the following:
      - **Resource Group Name (Required)**: The name of the resource group where the resources will be deployed. 
      - Data Lake Storage Account Name: The name of the Data Lake Storage account.
      - Base deployment name: The base name for the resources that will be deployed.
-
-
-
-
-6. Deploy the backend solution:
-
-    ```bash
-    # Add deployment steps here
-    ```
-
-    Replace `# Add deployment steps here` with the actual commands or steps required to deploy the backend solution.
-
-7. Verify the deployment:
-
-    ```bash
-    # Add verification steps here
-    ```
-
-    Replace `# Add verification steps here` with the actual commands or steps required to verify that the deployment was successful.
+6. Monitor the deployment progress in the Actions tab.
+7. Once the deployment is complete, navigate to the Azure portal to verify the resources.
 
 ## Conclusion
 
-Congratulations! You have successfully deployed the backend solution in your subscription. If you encounter any issues or have any questions, please refer to the documentation or reach out to the support team.
+You have successfully deployed the backend solution in your subscription. If you encounter any issues or have any questions, please refer to the documentation or reach out to the support team.

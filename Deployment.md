@@ -27,7 +27,8 @@ Before you begin, make sure you have the following:
      - Data Lake Storage Account Name: The name of the Data Lake Storage account.
      - Base deployment name: The base name for the resources that will be deployed.
 6. Monitor the deployment progress in the Actions tab.
-7. Once the deployment is complete, navigate to the Azure portal to verify the resources.
+7. Once the deployment is complete, execute the `deploy/grant-permissions.ps1` script to grant the necessary permissions to the Service Principal.
+8. The backend solution is now deployed and configured in your subscription. Reboot the Azure Function App to start the data collection process or wait to the next execution.
 
 ## Conclusion
 

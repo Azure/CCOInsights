@@ -14,13 +14,24 @@ Before you begin, make sure you have the following:
 
 1. Fork the repository:
 2. Navigate to the repository directory:
-3. Run the `create-spn.ps1` script to create a Service Principal.
+3. Run the `create-spn.ps1` script to create a Service Principal. It will retrieve the Service Principal credentials in a JSON format. Save the JSON output as you will need it later.
 4. Create a GitHub secret with the Service Principal credentials:
    - Go to https://github.com/{user}/CCOInsights/settings/secrets/actions.
    - Click on `New repository secret`.
    - Add `AZURE_CREDENTIALS` as the secret name.
    - Paste the Service Principal credentials as the secret value.
-5. Deploy the backend solution:
+5. Deploy the infrastructure and the code:
+   - Navigate to the `Actions` tab in the repository and select the `Deployment Workflow` (https://github.com/{user}/CCOInsights/actions/workflows/deployment.yml).
+   - Click on Run workflow and fill in the required parameters:
+     - **Location (Required)**: The Azure region where you want to deploy the resources.
+     - **Resource Group Name (Required)**: The name of the resource group where the resources will be deployed. 
+     - Data Lake Storage Account Name: The name of the Data Lake Storage account.
+     - Base deployment name: The base name for the resources that will be deployed.
+
+
+
+
+6. Deploy the backend solution:
 
     ```bash
     # Add deployment steps here
@@ -28,7 +39,7 @@ Before you begin, make sure you have the following:
 
     Replace `# Add deployment steps here` with the actual commands or steps required to deploy the backend solution.
 
-6. Verify the deployment:
+7. Verify the deployment:
 
     ```bash
     # Add verification steps here

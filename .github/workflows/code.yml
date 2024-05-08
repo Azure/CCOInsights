@@ -85,7 +85,7 @@ jobs:
           dotnet test --configuration Release --no-build -l "trx;LogFileName=TestResults.trx"
 
       - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action/composite@v2
+        uses: EnricoMi/publish-unit-test-result-action/linux@v2
         if: always()
         with:
           trx_files: "tests/**/**/*.trx"
@@ -170,5 +170,7 @@ jobs:
                 value=$(echo $values | jq -r ".$key")
                 az functionapp config appsettings set -n $functionAppName -g ${{ inputs.resourceGroupName }} --settings "$key=$value" -o none
             done
+
+            az functionapp config appsettings set -n $functionAppName -g ${{ inputs.resourceGroupName }} --settings "Environment=Prod" -o none
 
             az functionapp deployment source config-zip -g ${{ inputs.resourceGroupName }} -n $functionAppName --src "./$publishZip"

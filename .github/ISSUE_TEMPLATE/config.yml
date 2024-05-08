@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Troubleshooting guide
+    url: https://github.com/Azure/CCOInsights/wiki/Troubleshooting%20Guide
+    about: For insights on what issues might occurr during configuration and operation and how to solve them.
+  - name: Issues list
+    url: https://github.com/Azure/CCOInsights/issues
+    about: Where we keep track of all reporting issues and offered solutions.

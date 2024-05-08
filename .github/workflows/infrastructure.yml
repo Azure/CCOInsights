@@ -1,0 +1,121 @@
+name: "CCO Platform Deployment"
+
+on:
+  workflow_call:
+    inputs:
+      deployBaseName:
+        type: string
+        description: "Base name for the deployment"
+        required: true
+        default: ""
+      resourceGroupName:
+        type: string
+        description: "Resource Group where infrastructure will be deployed/updated"
+        required: false
+        default: ""
+      dataLakeName:
+        type: string
+        description: "DataLake Name"
+        required: false
+        default: ""
+      location:
+        type: string
+        description: "Location where infrastructure will be deployed/updated"
+        required: true
+        default: ""
+    secrets:
+      AZURE_CREDENTIALS:
+        required: true
+    outputs:
+      resourceGroupName:
+        value: ${{ jobs.deploy_dashboard.outputs.resourceGroupName }}
+      dataLakeStorageName:
+        value: ${{ jobs.deploy_dashboard.outputs.dataLakeStorageName}}
+
+jobs:
+  deploy_dashboard:
+    runs-on: windows-latest
+    name: "Dashboard Backend"
+    outputs:
+      resourceGroupName: ${{ steps.rg.outputs.resourceGroupName }}
+      dataLakeStorageName: ${{ steps.set-output.outputs.dataLakeStorageName }}
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true
+
+      - name: Create Resource Group
+        shell: pwsh
+        id: rg
+        run: |
+          $resourceGroupName = "${{ inputs.resourceGroupName }}"
+          $deployBaseName = "${{ inputs.deployBaseName }}"
+          
+          if ([string]::IsNullOrEmpty($resourceGroupName)) {
+            $rgName = "rg-$deployBaseName-cco"
+          } else {
+            $rgName = $resourceGroupName
+          }
+          
+          az group create -n $rgName -l ${{ inputs.location }}
+          echo "::set-output name=resourceGroupName::$rgName"
+
+      - name: "Deploy infrastructure"
+        id: deploy
+        uses: azure/arm-deploy@v1
+        with:
+          deploymentName: ${{ steps.rg.outputs.resourceGroupName }}
+          resourceGroupName: ${{ steps.rg.outputs.resourceGroupName }}
+          template: ./dashboards/GovernanceInfra-Contributors/deploy.bicep
+          parameters: name=${{inputs.deployBaseName}} dlsname=${{ inputs.dataLakeName || '' }}
+          failOnStderr: false # Remove when warnings are fixed
+      
+      - name: "Set output"
+        id: set-output
+        run: |
+          # Fetching the output from Azure deployment using PowerShell
+          $dlsName = az deployment group show --resource-group ${{ steps.rg.outputs.resourceGroupName }} --name ${{ steps.rg.outputs.resourceGroupName }} --query 'properties.outputs.dataLakeStorageName.value' -o tsv
+
+          echo "DataLakeStorageName: $dlsName"
+          echo "::set-output name=dataLakeStorageName::$dlsName"
+
+      - name: "Grant permissions spn"
+        shell: pwsh
+        if: success() || failure()
+        env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+        run: |
+          $azure_credentials = ConvertFrom-Json $env:azure_credentials
+          $client_id = $azure_credentials.client_id
+
+          Write-Host "Retrieving spnAppId"
+          $spnAppId = $azure_credentials.clientId
+          
+          Write-Host "Retrieving tenantId"
+          $tenantId= $azure_credentials.tenantId
+
+          Write-Host "Retrieving subscriptionId"
+          $subscriptionId= $azure_credentials.subscriptionId
+
+          echo "::add-mask::$spnAppId"
+          echo "::set-secret name=spnAppId::${spnAppId}"
+
+          echo "::add-mask::$tenantId"
+          echo "::set-secret name=tenantId::${tenantId}"
+
+          echo "::add-mask::$subscriptionId"
+          echo "::set-secret name=subscriptionId::${subscriptionId}"
+          
+          Write-Host "Adding Contributor to DataLake"
+          az role assignment create --assignee $spnAppId --role "Contributor" --scope "/subscriptions/$subscriptionId/resourceGroups/${{ steps.rg.outputs.resourceGroupName }}/providers/Microsoft.Storage/storageAccounts/${{ steps.set-output.outputs.dataLakeStorageName }}" | Out-Null
+          Write-Host "Adding Storage Blob Data Contributor to DataLake"
+          az role assignment create --assignee $spnAppId --role "Storage Blob Data Contributor" --scope "/subscriptions/$subscriptionId/resourceGroups/${{ steps.rg.outputs.resourceGroupName }}/providers/Microsoft.Storage/storageAccounts/${{ steps.set-output.outputs.dataLakeStorageName }}" | Out-Null
+          Write-Host "Adding Storage Queue Data Contributor to DataLake"
+          az role assignment create --assignee $spnAppId --role "Storage Queue Data Contributor" --scope "/subscriptions/$subscriptionId/resourceGroups/${{ steps.rg.outputs.resourceGroupName }}/providers/Microsoft.Storage/storageAccounts/${{ steps.set-output.outputs.dataLakeStorageName }}" | Out-Null

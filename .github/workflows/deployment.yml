@@ -1,0 +1,123 @@
+name: "Deployment Workflow"
+
+run-name: "Deployment: ${{ inputs.deployBaseName || github.repository_owner }} in ${{ inputs.location }} in ${{ inputs.resourceGroupName }}"
+
+concurrency:
+  group: ${{ github.ref }}-deployment
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch:
+    inputs:
+      feature_infradashboard: 
+        default: true
+        description: "Enables the Infrastructure Dashboard Feature"
+        required: true
+        type: boolean
+      feature_govdashboard: 
+        default: true
+        required: true
+        description: "Enables the Governance Dashboard Feature"
+        type: boolean
+      location:
+        type: string
+        description: "Location where infrastructure will be deployed/updated"
+        required: true
+      resourceGroupName:
+        type: string
+        description: "Resource Group where infrastructure will be deployed/updated"
+        required: true
+        default: ""
+      dataLakeName:
+        type: string
+        description: "DataLake Name"
+        required: false
+        default: "" 
+      deployBaseName:
+        type: string
+        description: "Base name for deployment"
+        required: false
+        default: ""
+
+
+  push:
+    branches: [master, main]
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "Dashboards/GovernanceInfra-Contributors/deploy.bicep"
+      - ".github/workflows/deployment.yml"
+      - ".github/workflows/code.yml"
+      - ".github/workflows/infrastructure.yml"
+
+env:
+  publishFolder: "publish"
+
+jobs:
+  check_changes:
+    runs-on: ubuntu-latest
+    name: "Check changes"
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - id: check-infra
+        name: "Check if infrastructure has changed"
+        run: |
+          if git diff --quiet HEAD^ HEAD -- Dashboards/GovernanceInfra-Contributors/deploy.bicep; then 
+            echo "infraModified=false" >> $GITHUB_OUTPUT
+          else 
+            echo "infraModified=true" >> $GITHUB_OUTPUT
+          fi
+
+      - id: check-code
+        name: "Check if code has changed"
+        run: |
+          if git diff --quiet HEAD^ HEAD -- src/ tests/; then
+            echo "codeModified=false" >> $GITHUB_OUTPUT
+          else
+            echo "codeModified=true" >> $GITHUB_OUTPUT
+          fi 
+
+      - id: results
+        name: "Print results" 
+        run: |
+          echo "Infra modified: ${{ steps.check-infra.outputs.infraModified }}"
+          echo "Code modified: ${{ steps.check-code.outputs.codeModified }}"
+          echo "RGName: ${{ inputs.resourceGroupName }}"
+    
+    outputs: 
+        infraModified: ${{ steps.check-infra.outputs.infraModified }} 
+        codeModified: ${{ steps.check-code.outputs.codeModified }}
+
+  deploy_infra:  
+    name: Deploy infrastructure
+    needs: check_changes
+    if: (needs.check_changes.outputs.infraModified == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+    uses: ./.github/workflows/infrastructure.yml 
+    with:
+      deployBaseName: ${{ inputs.deployBaseName || github.repository_owner }}
+      location: ${{ inputs.location }}
+      resourceGroupName: ${{ inputs.resourceGroupName }} 
+      dataLakeName: ${{ inputs.dataLakeName }}
+    secrets: 
+      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+       
+  deploy_code:
+    name: Deploy code
+    needs: [check_changes, deploy_infra] 
+    if: (needs.check_changes.outputs.codeModified == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+    uses: ./.github/workflows/code.yml 
+    with: 
+      resourceGroupName:  ${{ needs.deploy_infra.outputs.resourceGroupName }}
+      dataLakeName:  ${{ needs.deploy_infra.outputs.dataLakeStorageName }}
+      feature_govdashboard: ${{ inputs.feature_govdashboard || true }}
+      feature_infradashboard: ${{ inputs.feature_infradashboard || false }}
+    secrets:
+      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+      # TODO: Trick to target to external tenant for testing, remove when no longer needed
+      # EXTERNAL_TENANT_ID: ${{ secrets.EXTERNAL_TENANT_ID }}
+      # EXTERNAL_CLIENT_ID: ${{ secrets.EXTERNAL_CLIENT_ID }}
+      # EXTERNAL_CLIENT_SECRET: ${{ secrets.EXTERNAL_CLIENT_SECRET }}

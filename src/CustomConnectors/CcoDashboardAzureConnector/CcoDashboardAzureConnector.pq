@@ -7,7 +7,7 @@ redirect_uri_global = "https://de-users-preview.sqlazurelabs.com/account/reply/"
 // Oauth info from azure portal government
 client_id_gov = Text.FromBinary(Extension.Contents("client_id_govus"));
 // redirect_uri_gov = "https://portal.azure.us/signin/index/?feature.refreshtokenbinding=true&feature.usemsallogin=true";
-redirect_uri_gov = "https://de-users-preview.sqlazurelabs.com/account/reply/";
+redirect_uri_gov = "https://preview.powerbigov.us/views/oauthredirect.html";
 
 
 windowWidth = 800;
@@ -352,7 +352,7 @@ StartLoginUsGov=(resourceUrl, state, display)=>
             CallbackUri = redirect_uri_gov,
             WindowHeight = windowHeight,
             WindowWidth = windowWidth,
-            Context = null
+            Context = "us-government"
         ];
 
 // complete the login process

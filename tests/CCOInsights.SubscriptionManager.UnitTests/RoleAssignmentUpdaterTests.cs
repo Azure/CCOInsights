@@ -1,5 +1,6 @@
 ﻿using CCOInsights.SubscriptionManager.Functions.Operations.RoleAssignment;
-using Microsoft.Azure.WebJobs.Extensions.DurableTask;
+using Microsoft.DurableTask;
+
 
 namespace CCOInsights.SubscriptionManager.UnitTests;
 
@@ -17,7 +18,7 @@ public class RoleAssignmentUpdaterTests
 
         _roleAssignmentProviderMock = new Mock<IRoleAssignmentProvider>();
         _usersProviderMock = new Mock<IUsersProvider>();
-        var durableContextMock = new Mock<IDurableActivityContext>();
+        var durableContextMock = new Mock<TaskOrchestrationContext>();
         durableContextMock.SetupGet(prop => prop.InstanceId).Returns("FakeExecution");
         _updater = new RoleAssignmentUpdater(_roleAssignmentProviderMock.Object, _usersProviderMock.Object, _storageMock.Object, loggerMock.Object);
     }

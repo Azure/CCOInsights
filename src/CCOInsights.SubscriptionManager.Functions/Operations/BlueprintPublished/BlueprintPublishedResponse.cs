@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CCOInsights.SubscriptionManager.Functions.Operations.Blueprint;
+﻿using CCOInsights.SubscriptionManager.Functions.Operations.Blueprint;
 using Newtonsoft.Json;
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations.BlueprintPublished;

@@ -5,12 +5,9 @@ namespace CCOInsights.SubscriptionManager.Functions.Operations.Nic;
 
 public interface INicsUpdater : IUpdater { }
 
-public class NicsUpdater : Updater<NicResponse, Nic>, INicsUpdater
+public class NicsUpdater(IStorage storage, ILogger<NicsUpdater> logger, INicProvider provider)
+    : Updater<NicResponse, Nic>(storage, logger, provider), INicsUpdater
 {
-    public NicsUpdater(IStorage storage, ILogger<NicsUpdater> logger, INicProvider provider) : base(storage, logger, provider)
-    {
-    }
-
     protected override Nic Map(string executionId, ISubscription subscription, NicResponse response) =>
         Nic.From(subscription.Inner.TenantId, subscription.SubscriptionId, executionId, response);
 

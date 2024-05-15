@@ -1,28 +1,16 @@
-﻿using System.Threading.Tasks;
-using CCOInsights.SubscriptionManager.Helpers;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.DurableTask;
-using static Microsoft.Azure.Management.Fluent.Azure;
+﻿using static Microsoft.Azure.Management.Fluent.Azure;
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations.AppServicePlans;
 
 [OperationDescriptor(DashboardType.Infrastructure, nameof(AppServicePlansFunction))]
-public class AppServicePlansFunction : IOperation
+public class AppServicePlansFunction(IAuthenticated authenticatedResourceManager, IAppServicePlansUpdater updater)
+    : IOperation
 {
-    private readonly IAuthenticated _authenticatedResourceManager;
-    private readonly IAppServicePlansUpdater _updater;
-
-    public AppServicePlansFunction(IAuthenticated authenticatedResourceManager, IAppServicePlansUpdater updater)
+    [Function(nameof(AppServicePlansFunction))]
+    public async Task Execute([ActivityTrigger] string name, FunctionContext executionContext, CancellationToken cancellationToken = default)
     {
-        _authenticatedResourceManager = authenticatedResourceManager;
-        _updater = updater;
-    }
-
-    [FunctionName(nameof(AppServicePlansFunction))]
-    public async Task Execute([ActivityTrigger] IDurableActivityContext context, System.Threading.CancellationToken cancellationToken = default)
-    {
-        var subscriptions = await _authenticatedResourceManager.Subscriptions.ListAsync(cancellationToken: cancellationToken);
+        var subscriptions = await authenticatedResourceManager.Subscriptions.ListAsync(cancellationToken: cancellationToken);
         await subscriptions.AsyncParallelForEach(async subscription =>
-            await _updater.UpdateAsync(context.InstanceId, subscription, cancellationToken), 1);
+            await updater.UpdateAsync(executionContext.BindingContext.BindingData["instanceId"].ToString(), subscription, cancellationToken), 1);
     }
 }

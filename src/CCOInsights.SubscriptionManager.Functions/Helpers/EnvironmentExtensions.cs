@@ -1,4 +1,4 @@
-﻿namespace CCOInsights.SubscriptionManager.Helpers;
+﻿namespace CCOInsights.SubscriptionManager.Functions.Helpers;
 
 public static class EnvironmentExtensions
 {

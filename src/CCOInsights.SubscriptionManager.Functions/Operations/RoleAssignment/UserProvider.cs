@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Graph;
+﻿using Microsoft.Graph;
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations.RoleAssignment;
 
@@ -10,21 +6,14 @@ public interface IUsersProvider
 {
     Task<IEnumerable<UserResponse>> GetAsync(string principalId, CancellationToken cancellationToken = default);
 }
-public class UserProvider : IUsersProvider
+public class UserProvider(GraphServiceClient graphServiceClient) : IUsersProvider
 {
-    private readonly GraphServiceClient _graphServiceClient;
-
-    public UserProvider(GraphServiceClient graphServiceClient)
-    {
-        _graphServiceClient = graphServiceClient;
-    }
-
     public async Task<IEnumerable<UserResponse>> GetAsync(string principalId, CancellationToken cancellationToken = default)
     {
         var users = new List<UserResponse>();
         try
         {
-            var groupAndMembers = await _graphServiceClient.Groups[principalId].Request().Expand("members").GetAsync(cancellationToken);
+            var groupAndMembers = await graphServiceClient.Groups[principalId].Request().Expand("members").GetAsync(cancellationToken);
             var usersInGroup = groupAndMembers.Members.ToList();
             usersInGroup.ForEach(user =>
                 {
@@ -41,7 +30,7 @@ public class UserProvider : IUsersProvider
         }
         catch (Exception)
         {
-            var graphUser = await _graphServiceClient.Users[principalId].Request().GetAsync(cancellationToken);
+            var graphUser = await graphServiceClient.Users[principalId].Request().GetAsync(cancellationToken);
             var model = new UserResponse
             {
                 Name = graphUser.GivenName,

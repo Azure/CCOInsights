@@ -1,11 +1,9 @@
 ﻿namespace CCOInsights.SubscriptionManager.Functions.Operations.AdvisorRecommendations;
 
-public class AdvisorRecommendation : BaseEntity<AdvisorRecommendationResponse>
+public class AdvisorRecommendation(string id, string tenantId, string subscriptionId, string executionId,
+        AdvisorRecommendationResponse value)
+    : BaseEntity<AdvisorRecommendationResponse>(id, tenantId, subscriptionId, executionId, value)
 {
-    public AdvisorRecommendation(string id, string tenantId, string subscriptionId, string executionId, AdvisorRecommendationResponse value) : base(id, tenantId, subscriptionId, executionId, value)
-    {
-    }
-
     public static AdvisorRecommendation From(string tenantId, string subscriptionId, string executionId, AdvisorRecommendationResponse response)
     {
         var plainTextBytes = Encoding.UTF8.GetBytes(DateTime.UtcNow + response.Id);

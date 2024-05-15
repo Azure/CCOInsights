@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CCOInsights.SubscriptionManager.Functions.Operations.RoleDefinitions;
+﻿namespace CCOInsights.SubscriptionManager.Functions.Operations.RoleDefinitions;
 
 public class RoleDefinitionsPermission
 {

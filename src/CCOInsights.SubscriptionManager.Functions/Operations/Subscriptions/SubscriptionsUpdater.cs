@@ -4,12 +4,10 @@ using Microsoft.Extensions.Logging;
 namespace CCOInsights.SubscriptionManager.Functions.Operations.Subscriptions;
 
 public interface ISubscriptionsUpdater : IUpdater { }
-public class SubscriptionsUpdater : Updater<SubscriptionsResponse, Subscriptions>, ISubscriptionsUpdater
+public class SubscriptionsUpdater(IStorage storage, ILogger<SubscriptionsUpdater> logger,
+        ISubscriptionProvider provider)
+    : Updater<SubscriptionsResponse, Subscriptions>(storage, logger, provider), ISubscriptionsUpdater
 {
-    public SubscriptionsUpdater(IStorage storage, ILogger<SubscriptionsUpdater> logger, ISubscriptionProvider provider) : base(storage, logger, provider)
-    {
-    }
-
     protected override Subscriptions Map(string executionId, ISubscription subscription, SubscriptionsResponse response) =>
         Subscriptions.From(executionId, response);
 }

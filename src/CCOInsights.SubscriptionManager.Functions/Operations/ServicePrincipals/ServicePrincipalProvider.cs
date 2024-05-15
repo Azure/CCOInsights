@@ -1,24 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Graph;
+﻿using Microsoft.Graph;
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations.ServicePrincipals;
 
 public interface IServicePrincipalProvider : IProvider<ServicePrincipalResponse> { }
-public class ServicePrincipalProvider : IServicePrincipalProvider
+public class ServicePrincipalProvider(GraphServiceClient graphServiceClient) : IServicePrincipalProvider
 {
-    private readonly GraphServiceClient _graphServiceClient;
-
-    public ServicePrincipalProvider(GraphServiceClient graphServiceClient)
-    {
-        _graphServiceClient = graphServiceClient;
-    }
-
     public async Task<IEnumerable<ServicePrincipalResponse>> GetAsync(string subscriptionId, CancellationToken cancellationToken = default)
     {
-        var result = await _graphServiceClient.ServicePrincipals.Request().GetAsync(cancellationToken);
+        var result = await graphServiceClient.ServicePrincipals.Request().GetAsync(cancellationToken);
 
         var response = result.Select(Map).ToList();
 

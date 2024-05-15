@@ -1,30 +1,17 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using CCOInsights.SubscriptionManager.Helpers;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.DurableTask;
-using static Microsoft.Azure.Management.Fluent.Azure;
+﻿using static Microsoft.Azure.Management.Fluent.Azure;
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations.Sites;
 
 [OperationDescriptor(DashboardType.Infrastructure, nameof(SiteFunction))]
-public class SiteFunction : IOperation
+public class SiteFunction(IAuthenticated authenticatedResourceManager, ISiteUpdater updater)
+    : IOperation
 {
-    private readonly IAuthenticated _authenticatedResourceManager;
-    private readonly ISiteUpdater _updater;
-
-    public SiteFunction(IAuthenticated authenticatedResourceManager, ISiteUpdater updater)
+    [Function(nameof(SiteFunction))]
+    public async Task Execute([ActivityTrigger] string name, FunctionContext executionContext, CancellationToken cancellationToken = default)
     {
-        _authenticatedResourceManager = authenticatedResourceManager;
-        _updater = updater;
-    }
-
-    [FunctionName(nameof(SiteFunction))]
-    public async Task Execute([ActivityTrigger] IDurableActivityContext context, CancellationToken cancellationToken = default)
-    {
-        var subscriptions = await _authenticatedResourceManager.Subscriptions.ListAsync(cancellationToken: cancellationToken);
+        var subscriptions = await authenticatedResourceManager.Subscriptions.ListAsync(cancellationToken: cancellationToken);
         await subscriptions.AsyncParallelForEach(async subscription =>
-            await _updater.UpdateAsync(context.InstanceId, subscription, cancellationToken), 1);
+            await updater.UpdateAsync(executionContext.BindingContext.BindingData["instanceId"].ToString(), subscription, cancellationToken), 1);
     }
 
 }

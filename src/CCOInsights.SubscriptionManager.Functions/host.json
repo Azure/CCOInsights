@@ -17,10 +17,5 @@
     "logLevel": {
       "CCOInsights.SubscriptionManager": "Information"
     }
-  },
-  "retry": {
-    "maxRetryCount": 0,
-    "delayInterval": "00:00:10",
-    "strategy": "fixedDelay"
   }
 }

@@ -1,28 +1,16 @@
-﻿using System.Threading.Tasks;
-using CCOInsights.SubscriptionManager.Helpers;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.DurableTask;
-using static Microsoft.Azure.Management.Fluent.Azure;
+﻿using static Microsoft.Azure.Management.Fluent.Azure;
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations.Pricing;
 
 [OperationDescriptor(DashboardType.Governance, nameof(PricingFunction))]
-public class PricingFunction : IOperation
+public class PricingFunction(IAuthenticated authenticatedResourceManager, IPricingUpdater updater)
+    : IOperation
 {
-    private readonly IAuthenticated _authenticatedResourceManager;
-    private readonly IPricingUpdater _updater;
-
-    public PricingFunction(IAuthenticated authenticatedResourceManager, IPricingUpdater updater)
+    [Function(nameof(PricingFunction))]
+        public async Task Execute([ActivityTrigger] string name, FunctionContext executionContext, CancellationToken cancellationToken = default)
     {
-        _authenticatedResourceManager = authenticatedResourceManager;
-        _updater = updater;
-    }
-
-    [FunctionName(nameof(PricingFunction))]
-    public async Task Execute([ActivityTrigger] IDurableActivityContext context, System.Threading.CancellationToken cancellationToken = default)
-    {
-        var subscriptions = await _authenticatedResourceManager.Subscriptions.ListAsync(cancellationToken: cancellationToken);
+        var subscriptions = await authenticatedResourceManager.Subscriptions.ListAsync(cancellationToken: cancellationToken);
         await subscriptions.AsyncParallelForEach(async subscription =>
-            await _updater.UpdateAsync(context.InstanceId, subscription, cancellationToken), 1);
+            await updater.UpdateAsync(executionContext.BindingContext.BindingData["instanceId"].ToString(), subscription, cancellationToken), 1);
     }
 }

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-
-
-namespace CCOInsights.SubscriptionManager.Functions;
+﻿namespace CCOInsights.SubscriptionManager.Functions;
 
 public static class DataLakeContainerProvider
 {

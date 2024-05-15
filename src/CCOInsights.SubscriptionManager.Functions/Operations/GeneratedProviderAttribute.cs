@@ -3,11 +3,7 @@
 using System;
 
 [AttributeUsage(AttributeTargets.Class)]
-public class GeneratedProviderAttribute : System.Attribute
+public class GeneratedProviderAttribute(string path) : System.Attribute
 {
-    private string path;
-    public GeneratedProviderAttribute(string path)
-    {
-        this.path = path;
-    }
+    private string path = path;
 }

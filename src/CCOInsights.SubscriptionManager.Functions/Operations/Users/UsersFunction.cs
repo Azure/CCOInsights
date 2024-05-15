@@ -1,22 +1,11 @@
-﻿using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.DurableTask;
-
-namespace CCOInsights.SubscriptionManager.Functions.Operations.Users;
+﻿namespace CCOInsights.SubscriptionManager.Functions.Operations.Users;
 
 [OperationDescriptor(DashboardType.Infrastructure, nameof(UsersFunction))]
-public class UsersFunction : IOperation
+public class UsersFunction(IUsersUpdater updater) : IOperation
 {
-    private readonly IUsersUpdater _updater;
-
-    public UsersFunction(IUsersUpdater updater)
+    [Function(nameof(UsersFunction))]
+        public async Task Execute([ActivityTrigger] string name, FunctionContext executionContext, CancellationToken cancellationToken = default)
     {
-        _updater = updater;
-    }
-
-    [FunctionName(nameof(UsersFunction))]
-    public async Task Execute([ActivityTrigger] IDurableActivityContext context, System.Threading.CancellationToken cancellationToken = default)
-    {
-        await _updater.UpdateAsync(context.InstanceId, null, cancellationToken);
+        await updater.UpdateAsync(executionContext.BindingContext.BindingData["instanceId"].ToString(), null, cancellationToken);
     }
 }

@@ -1,22 +1,11 @@
-﻿using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.DurableTask;
-
-namespace CCOInsights.SubscriptionManager.Functions.Operations.Groups;
+﻿namespace CCOInsights.SubscriptionManager.Functions.Operations.Groups;
 
 [OperationDescriptor(DashboardType.Infrastructure, nameof(GroupsFunction))]
-public class GroupsFunction : IOperation
+public class GroupsFunction(IGroupsUpdater updater) : IOperation
 {
-    private readonly IGroupsUpdater _updater;
-
-    public GroupsFunction(IGroupsUpdater updater)
+    [Function(nameof(GroupsFunction))]
+        public async Task Execute([ActivityTrigger] string name, FunctionContext executionContext, CancellationToken cancellationToken = default)
     {
-        _updater = updater;
-    }
-
-    [FunctionName(nameof(GroupsFunction))]
-    public async Task Execute([ActivityTrigger] IDurableActivityContext context, System.Threading.CancellationToken cancellationToken = default)
-    {
-        await _updater.UpdateAsync(context.InstanceId, null, cancellationToken);
+        await updater.UpdateAsync(executionContext.BindingContext.BindingData["instanceId"].ToString(), null, cancellationToken);
     }
 }

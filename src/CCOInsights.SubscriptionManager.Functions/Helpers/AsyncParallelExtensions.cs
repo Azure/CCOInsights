@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
+﻿using System.Threading.Tasks.Dataflow;
 
-namespace CCOInsights.SubscriptionManager.Helpers;
+namespace CCOInsights.SubscriptionManager.Functions.Helpers;
 
 public static class AsyncParallelExtensions
 {

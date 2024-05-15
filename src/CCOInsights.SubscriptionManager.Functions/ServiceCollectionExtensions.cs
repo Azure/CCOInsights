@@ -2,12 +2,9 @@
 using Azure.Identity;
 using Azure.Storage;
 using Azure.Storage.Files.DataLake;
-using CCOInsights.SubscriptionManager.Functions;
-using CCOInsights.SubscriptionManager.Functions.Helpers;
 using CCOInsights.SubscriptionManager.Functions.Operations.Groups;
 using CCOInsights.SubscriptionManager.Functions.Operations.Users;
 using CCOInsights.SubscriptionManager.Functions.Operations.VirtualMachine;
-using CCOInsights.SubscriptionManager.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 using NetCore.AutoRegisterDi;
 using Polly;
@@ -70,7 +67,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddHttpClient(this IServiceCollection services, string government)
+    public static IServiceCollection AddCustomHttpClient(this IServiceCollection services, string government)
     {
         var governmentUrl = government switch
         {

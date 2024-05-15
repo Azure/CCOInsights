@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.DurableTask;
+
+
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations.Groups;
 
@@ -14,9 +14,9 @@ public class GroupsFunction : IOperation
         _updater = updater;
     }
 
-    [FunctionName(nameof(GroupsFunction))]
-    public async Task Execute([ActivityTrigger] IDurableActivityContext context, System.Threading.CancellationToken cancellationToken = default)
+    [Function(nameof(GroupsFunction))]
+        public async Task Execute([ActivityTrigger] string name, FunctionContext executionContext, CancellationToken cancellationToken = default)
     {
-        await _updater.UpdateAsync(context.InstanceId, null, cancellationToken);
+        await _updater.UpdateAsync(executionContext.InvocationId, null, cancellationToken);
     }
 }

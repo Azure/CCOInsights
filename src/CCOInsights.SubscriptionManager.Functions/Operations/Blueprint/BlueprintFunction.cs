@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-using CCOInsights.SubscriptionManager.Helpers;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.DurableTask;
+﻿using Microsoft.Azure.Functions.Worker;
 using static Microsoft.Azure.Management.Fluent.Azure;
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations.Blueprint;
@@ -19,11 +16,11 @@ public class BlueprintFunction : IOperation
 
     }
 
-    [FunctionName(nameof(BlueprintFunction))]
-    public async Task Execute([ActivityTrigger] IDurableActivityContext context, System.Threading.CancellationToken cancellationToken = default)
+    [Function(nameof(BlueprintFunction))]
+    public async Task Execute([ActivityTrigger] string name, FunctionContext executionContext, CancellationToken cancellationToken = default)
     {
         var subscriptions = await _authenticatedResourceManager.Subscriptions.ListAsync(cancellationToken: cancellationToken);
         await subscriptions.AsyncParallelForEach(async subscription =>
-            await _updater.UpdateAsync(context.InstanceId, subscription, cancellationToken), 1);
+            await _updater.UpdateAsync(executionContext.InvocationId, subscription, cancellationToken), 1);
     }
 }

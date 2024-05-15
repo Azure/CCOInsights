@@ -1,15 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs.Extensions.DurableTask;
+﻿using System.Reflection;
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations;
 
 public interface IOperation
 {
-    Task Execute([ActivityTrigger] IDurableActivityContext context, CancellationToken cancellationToken = default);
+    Task Execute([ActivityTrigger] string name, FunctionContext executionContext, CancellationToken cancellationToken = default);
 }
 
 public enum DashboardType

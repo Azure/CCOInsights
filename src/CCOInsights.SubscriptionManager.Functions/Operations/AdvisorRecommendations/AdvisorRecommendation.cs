@@ -1,4 +1,6 @@
-﻿namespace CCOInsights.SubscriptionManager.Functions.Operations.AdvisorRecommendations;
+﻿using System.Text;
+
+namespace CCOInsights.SubscriptionManager.Functions.Operations.AdvisorRecommendations;
 
 public class AdvisorRecommendation : BaseEntity<AdvisorRecommendationResponse>
 {

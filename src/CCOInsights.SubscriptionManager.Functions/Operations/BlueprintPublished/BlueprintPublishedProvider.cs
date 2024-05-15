@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CCOInsights.SubscriptionManager.Functions.Operations.Blueprint;
-using CCOInsights.SubscriptionManager.Helpers;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Newtonsoft.Json;
 

@@ -1,4 +1,4 @@
-﻿namespace CCOInsights.SubscriptionManager.Functions.Functions;
+﻿namespace CCOInsights.SubscriptionManager.Functions;
 
 public class Features
 {

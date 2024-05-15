@@ -5,7 +5,7 @@ using CCOInsights.SubscriptionManager.Functions.Operations;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Extensions.Logging;
-using Microsoft.Azure.WebJobs.Extensions.DurableTask;
+
 
 
 public interface I{{GeneratedClassName}}Provider : IProvider<{{GeneratedResponseName}}> { }

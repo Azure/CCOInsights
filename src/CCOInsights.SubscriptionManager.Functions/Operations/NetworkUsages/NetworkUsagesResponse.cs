@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CCOInsights.SubscriptionManager.Functions.Operations.NetworkUsages;
+﻿namespace CCOInsights.SubscriptionManager.Functions.Operations.NetworkUsages;
 
 public class NetworkUsagesName
 {

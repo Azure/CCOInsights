@@ -1,17 +1,10 @@
-﻿using System.Collections.Generic;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 
 namespace CCOInsights.SubscriptionManager.Functions.Helpers;
 
-public class EnabledFunctions
+public class EnabledFunctions(ILogger<EnabledFunctions> logger)
 {
     private readonly List<string> _enabledFunctions = new List<string>();
-    private ILogger<EnabledFunctions> _logger;
-
-    public EnabledFunctions(ILogger<EnabledFunctions> logger)
-    {
-        _logger = logger;
-    }
 
     public void Enable(string functionName)
     {
@@ -25,7 +18,7 @@ public class EnabledFunctions
 
     public void Disable(string functionName)
     {
-        _logger.LogInformation($"Disabling Function {functionName}, this will be enabled on next function reboot ");
+        logger.LogInformation($"Disabling Function {functionName}, this will be enabled on next function reboot ");
         _enabledFunctions.Remove(functionName);
     }
 

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CCOInsights.SubscriptionManager.Functions.Operations.Sites;
+﻿namespace CCOInsights.SubscriptionManager.Functions.Operations.Sites;
 
 [GeneratedProvider("/providers/Microsoft.Web/sites?api-version=2022-03-01")]
 public class SiteResponse : AzureResponse

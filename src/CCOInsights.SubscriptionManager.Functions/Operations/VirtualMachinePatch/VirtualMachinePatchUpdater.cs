@@ -5,12 +5,10 @@ namespace CCOInsights.SubscriptionManager.Functions.Operations.VirtualMachinePat
 
 public interface IVirtualMachinePatchUpdater : IUpdater { }
 
-public class VirtualMachinePatchUpdater : Updater<VirtualMachinePatchResponse, VirtualMachinePatch>, IVirtualMachinePatchUpdater
+public class VirtualMachinePatchUpdater(IStorage storage, ILogger<VirtualMachinePatchUpdater> logger,
+        IVirtualMachinePatchProvider provider)
+    : Updater<VirtualMachinePatchResponse, VirtualMachinePatch>(storage, logger, provider), IVirtualMachinePatchUpdater
 {
-    public VirtualMachinePatchUpdater(IStorage storage, ILogger<VirtualMachinePatchUpdater> logger, IVirtualMachinePatchProvider provider) : base(storage, logger, provider)
-    {
-    }
-
     protected override VirtualMachinePatch Map(string executionId, ISubscription subscription, VirtualMachinePatchResponse response) =>
         VirtualMachinePatch.From(subscription.Inner.TenantId, subscription.SubscriptionId, executionId, response);
 }

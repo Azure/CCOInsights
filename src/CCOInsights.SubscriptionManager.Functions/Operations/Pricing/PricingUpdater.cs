@@ -5,11 +5,8 @@ namespace CCOInsights.SubscriptionManager.Functions.Operations.Pricing;
 
 public interface IPricingUpdater : IUpdater { }
 
-public class PricingUpdater : Updater<PricingResponse, Pricing>, IPricingUpdater
+public class PricingUpdater(IStorage storage, ILogger<PricingUpdater> logger, IPricingProvider provider)
+    : Updater<PricingResponse, Pricing>(storage, logger, provider), IPricingUpdater
 {
-    public PricingUpdater(IStorage storage, ILogger<PricingUpdater> logger, IPricingProvider provider) : base(storage, logger, provider)
-    {
-    }
-
     protected override Pricing Map(string executionId, ISubscription subscription, PricingResponse response) => Pricing.From(subscription.Inner.TenantId, subscription.SubscriptionId, executionId, response);
 }

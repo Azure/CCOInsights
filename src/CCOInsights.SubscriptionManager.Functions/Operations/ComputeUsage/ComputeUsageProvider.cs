@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using CCOInsights.SubscriptionManager.Functions.Operations.Location;
+﻿using CCOInsights.SubscriptionManager.Functions.Operations.Location;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Newtonsoft.Json;
 
@@ -10,26 +6,17 @@ namespace CCOInsights.SubscriptionManager.Functions.Operations.ComputeUsage;
 
 public interface IComputeUsageProvider : IProvider<ComputeUsageResponse> { }
 
-public class ComputeUsageProvider : IComputeUsageProvider
+public class ComputeUsageProvider(RestClient restClient, IHttpClientFactory httpClientFactory,
+        ILocationProvider locationProvider)
+    : IComputeUsageProvider
 {
-    private readonly RestClient _restClient;
-    private readonly IHttpClientFactory _httpClientFactory;
-    private readonly ILocationProvider _locationProvider;
-
-    public ComputeUsageProvider(RestClient restClient, IHttpClientFactory httpClientFactory, ILocationProvider locationProvider)
-    {
-        _restClient = restClient;
-        _httpClientFactory = httpClientFactory;
-        _locationProvider = locationProvider;
-    }
-
     public async Task<IEnumerable<ComputeUsageResponse>> GetAsync(string subscriptionId, CancellationToken cancellationToken = default)
     {
-        var locations = await _locationProvider.GetAsync(subscriptionId, cancellationToken);
+        var locations = await locationProvider.GetAsync(subscriptionId, cancellationToken);
         var result = new List<ComputeUsageResponse>();
         foreach (var location in locations)
         {
-            var httpClient = _httpClientFactory.CreateClient("client");
+            var httpClient = httpClientFactory.CreateClient("client");
             var response = await GetModelAsync(httpClient, $"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location.Name}/usages?api-version=2022-11-01", cancellationToken);
             if (response.Value != null)
             {
@@ -53,7 +40,7 @@ public class ComputeUsageProvider : IComputeUsageProvider
     {
         var request = new HttpRequestMessage(HttpMethod.Get, url);
 
-        await _restClient.Credentials.ProcessHttpRequestAsync(request, cancellationToken);
+        await restClient.Credentials.ProcessHttpRequestAsync(request, cancellationToken);
         var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
         var content = await response.Content.ReadAsStringAsync(cancellationToken);
 

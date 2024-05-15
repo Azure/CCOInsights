@@ -37,27 +37,16 @@ public static class OperationScanner
 
 }
 
-public class OperationDescriptor
+public class OperationDescriptor(DashboardType dasboardAssigned, string operationName)
 {
-    public DashboardType DasboardAssigned { get; private set; }
-    public string OperationName { get; private set; }
-    public OperationDescriptor(DashboardType dasboardAssigned, string operationName)
-    {
-        this.OperationName = operationName;
-        this.DasboardAssigned = dasboardAssigned;
-    }
+    public DashboardType DasboardAssigned { get; private set; } = dasboardAssigned;
+    public string OperationName { get; private set; } = operationName;
 }
 
 [AttributeUsage(AttributeTargets.Class)]
-public class OperationDescriptorAttribute : System.Attribute
+public class OperationDescriptorAttribute(DashboardType dashboardtype, String operationName) : System.Attribute
 {
-    public OperationDescriptorAttribute(DashboardType dashboardtype, String operationName)
-    {
-        this.OperationName = operationName;
-        this.DashboardAssigned = dashboardtype;
-    }
+    public DashboardType DashboardAssigned { get; } = dashboardtype;
 
-    public DashboardType DashboardAssigned { get; }
-
-    public String OperationName { get; }
+    public String OperationName { get; } = operationName;
 }

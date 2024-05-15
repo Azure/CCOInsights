@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CCOInsights.SubscriptionManager.Functions.Operations.Disks;
+﻿namespace CCOInsights.SubscriptionManager.Functions.Operations.Disks;
 
 [GeneratedProvider("/providers/Microsoft.Compute/disks?api-version=2021-12-01")]
 public class DisksResponse : AzureResponse

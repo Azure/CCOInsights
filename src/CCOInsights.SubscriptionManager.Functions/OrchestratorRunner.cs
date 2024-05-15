@@ -1,5 +1,4 @@
 ﻿using CCOInsights.SubscriptionManager.Functions.Operations;
-using Microsoft.Azure.Functions.Worker;
 using Microsoft.DurableTask.Client;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -32,6 +31,7 @@ public class OrchestratorRunner
     }
 
     [Function("OrchestratorScheduleStart")]
+    [ExponentialBackoffRetry(3, "00:00:10", "00:10:00")]
     public async Task Schedule([TimerTrigger("0 0 3 * * *", RunOnStartup = true)] TimerInfo myTimer, [DurableClient] DurableTaskClient durableClient, FunctionContext executionContext)
     {
         var logger = executionContext.GetLogger(nameof(Schedule));

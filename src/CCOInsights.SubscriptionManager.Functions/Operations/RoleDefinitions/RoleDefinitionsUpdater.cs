@@ -4,12 +4,10 @@ using Microsoft.Extensions.Logging;
 namespace CCOInsights.SubscriptionManager.Functions.Operations.RoleDefinitions;
 
 public interface IRoleDefinitionsUpdater : IUpdater { }
-public class RoleDefinitionsUpdater : Updater<RoleDefinitionsResponse, RoleDefinitions>, IRoleDefinitionsUpdater
+public class RoleDefinitionsUpdater(IStorage storage, ILogger<RoleDefinitionsUpdater> logger,
+        IRoleDefinitionsProvider provider)
+    : Updater<RoleDefinitionsResponse, RoleDefinitions>(storage, logger, provider), IRoleDefinitionsUpdater
 {
-    public RoleDefinitionsUpdater(IStorage storage, ILogger<RoleDefinitionsUpdater> logger, IRoleDefinitionsProvider provider) : base(storage, logger, provider)
-    {
-    }
-
     protected override RoleDefinitions Map(string executionId, ISubscription subscription, RoleDefinitionsResponse response) =>
         RoleDefinitions.From(subscription.Inner.TenantId, subscription.SubscriptionId, executionId, response);
 

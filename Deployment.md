@@ -13,7 +13,7 @@ Before you begin, make sure you have the following:
 
 1. Fork the repository:
 2. Navigate to the repository directory:
-3. Run the `create-spn.ps1` script to create a Service Principal. It will retrieve the Service Principal credentials in a JSON format. Save the JSON output as you will need it later.
+3. Run the `deploy/create-spn.ps1` script to create a Service Principal. It will retrieve the Service Principal credentials in a JSON format. Save the JSON output as you will need it later.
 4. Create a GitHub secret with the Service Principal credentials:
    - Go to https://github.com/{user}/CCOInsights/settings/secrets/actions.
    - Click on `New repository secret`.

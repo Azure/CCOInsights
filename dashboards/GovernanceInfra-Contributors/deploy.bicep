@@ -6,6 +6,7 @@ param dlsname string = ''
 
 @description('Location where resources should be deployed')
 param location string = resourceGroup().location
+var version = 'CCOInsights v0.1'
 
 //scope tests
 // @description('Location where resources should be deployed')
@@ -22,7 +23,7 @@ module appServicePlan '../../CARML/modules/Microsoft.Web/serverfarms/deploy.bice
       capacity: 1
     }
     tags: {
-      version: 'CCOInsights v0.1'
+      version: version
     }
   }
 }
@@ -34,7 +35,7 @@ module storage '../../CARML/modules/Microsoft.Storage/storageAccounts/deploy.bic
     location: location
     storageAccountSku: 'Standard_LRS'
     tags: {
-      version: 'CCOInsights v0.1'
+      version: version
     }
   }
 }
@@ -66,7 +67,7 @@ module appService '../../CARML/modules/Microsoft.Web/sites/deploy.bicep' = {
     httpsOnly: true //by default
     storageAccountRequired: false //default value is false (not required)
     tags: {
-      version: 'CCOInsights v0.1'
+      version: version
     }
   }
 }
@@ -94,7 +95,7 @@ module logAnalyticsWorkspace '../../CARML/modules/Microsoft.OperationalInsights/
     dataRetention: 120
     useResourcePermissions: true
     tags: {
-      version: 'CCOInsights v0.1'
+      version: version
     }
   }
 }
@@ -108,7 +109,7 @@ module appInsights '../../CARML/modules/Microsoft.Insights/components/deploy.bic
     kind: 'web'
     workspaceResourceId: logAnalyticsWorkspace.outputs.resourceId
     tags: {
-      version: 'CCOInsights v0.1'
+      version: version
     }
   }
 }
@@ -130,7 +131,7 @@ module dataLakeStorage '../../CARML/modules/Microsoft.Storage/storageAccounts/de
       defaultAction: 'Allow'
     }
     tags: {
-      version: 'CCOInsights v0.1'
+      version: version
     }
   }
 }

@@ -18,7 +18,7 @@ Before you begin, make sure you have the following:
    - Go to https://github.com/{user}/CCOInsights/settings/secrets/actions.
    - Click on `New repository secret`.
    - Add `AZURE_CREDENTIALS` as the secret name.
-   - Paste the Service Principal credentials as the secret value.
+   - Paste the Service Principal credentials JSON as the secret value.
 5. Deploy the infrastructure and the code:
    - Navigate to the `Actions` tab in the repository and select the `Deployment Workflow` (https://github.com/{user}/CCOInsights/actions/workflows/deployment.yml).
    - Click on Run workflow and fill in the required parameters:

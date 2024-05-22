@@ -21,6 +21,9 @@ module appServicePlan '../../CARML/modules/Microsoft.Web/serverfarms/deploy.bice
       name: 'P0v3'
       capacity: 1
     }
+    tags: {
+      version: 'CCOInsights v0.1'
+    }
   }
 }
 
@@ -30,6 +33,9 @@ module storage '../../CARML/modules/Microsoft.Storage/storageAccounts/deploy.bic
     name: toLower('${name}ccost')
     location: location
     storageAccountSku: 'Standard_LRS'
+    tags: {
+      version: 'CCOInsights v0.1'
+    }
   }
 }
 
@@ -59,6 +65,9 @@ module appService '../../CARML/modules/Microsoft.Web/sites/deploy.bicep' = {
     }
     httpsOnly: true //by default
     storageAccountRequired: false //default value is false (not required)
+    tags: {
+      version: 'CCOInsights v0.1'
+    }
   }
 }
 //keyvault reference identity 
@@ -84,6 +93,9 @@ module logAnalyticsWorkspace '../../CARML/modules/Microsoft.OperationalInsights/
     name: '${name}-cco-la'
     dataRetention: 120
     useResourcePermissions: true
+    tags: {
+      version: 'CCOInsights v0.1'
+    }
   }
 }
 
@@ -95,6 +107,9 @@ module appInsights '../../CARML/modules/Microsoft.Insights/components/deploy.bic
     name: '${name}-cco-ai'
     kind: 'web'
     workspaceResourceId: logAnalyticsWorkspace.outputs.resourceId
+    tags: {
+      version: 'CCOInsights v0.1'
+    }
   }
 }
 
@@ -113,6 +128,9 @@ module dataLakeStorage '../../CARML/modules/Microsoft.Storage/storageAccounts/de
       virtualNetworkRules: []
       ipRules: []
       defaultAction: 'Allow'
+    }
+    tags: {
+      version: 'CCOInsights v0.1'
     }
   }
 }

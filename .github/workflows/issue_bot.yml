@@ -1,0 +1,40 @@
+---
+name: 🆘 Help wanted
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:    
+  run:
+    if: ${{ contains(github.event.issue.labels.*.name, 'bug_beta') }}
+    runs-on: ubuntu-latest
+    name: 🚀 Run 
+    outputs:
+      raw_body: ${{ steps.start.outputs.raw_body }}
+    steps: 
+      - name: 🚀 Start
+        shell: bash
+        id: start
+        run: |
+          echo "Running the workflow"
+          echo "Body: ${{ github.event.issue.body }}"
+          body_formatted=$(echo "${{ github.event.issue.body }}" | tr -d '\n')
+          echo "Formatted body: $body_formatted"
+          echo "raw_body=$body_formatted" >> $GITHUB_OUTPUT
+
+  execute:
+    needs: run
+    uses: IAExperiments/WikiChatbot/.github/workflows/reusable-workflow.yml@main
+    secrets: 
+      AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
+    with:
+      query: ${{ needs.run.outputs.raw_body }}
+      AZURE_OPENAI_API_ENDPOINT: ${{ vars.AZURE_OPENAI_API_ENDPOINT }}
+      AZURE_OPENAI_API_INSTANCE_NAME: ${{ vars.AZURE_OPENAI_API_INSTANCE_NAME }}
+      AZURE_OPENAI_API_VERSION: ${{ vars.AZURE_OPENAI_API_VERSION }}
+      AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME: ${{ vars.AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME }}
+      BASEIMAGEURL: ${{ vars.BASEIMAGEURL }}

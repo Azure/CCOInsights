@@ -1,0 +1,61 @@
+name: 🐞🧪 Bug Beta Report
+description: File a bug report with a bot response
+title: "[BUG BETA] "
+labels: [bug_beta]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: | 
+              Thanks for taking the time to fill out our bug report form! **Available sources of information regarding CCOInsights**:
+               * Deployment guide for [Infrastructure dashboard](https://github.com/Azure/CCOInsights/wiki/Infrastructure-Dashboard-Deployment%20Guide), [Governance dashboard](https://github.com/Azure/CCOInsights/wiki/Governance%20Dashboard%20-%20Deployment%20Guide), [GitHub dashboard](https://github.com/Azure/CCOInsights/wiki/GitHub%20Dashboard%20-%20Deployment%20Guide), [ADO dashboard](https://github.com/Azure/CCOInsights/wiki/ADO%20Dashboard%20-%20Deployment%20Guide) where you can find detailed instructions on how to deploy and configure them.
+               * [Troubleshooting guide](https://github.com/Azure/CCOInsights/wiki/Troubleshooting%20Guide) for insights on what issues might occurr during configuration and operation and how to solve them.
+               * The CCOInsights [YouTube channel](https://aka.ms/ccoinsights/videos) has a set of videos around configuring and troubleshooting PowerBi and the Infrastructure and Governance dashboards.
+               * The CCOInsights GitHub [Issues list](https://github.com/Azure/CCOInsights/issues) where we keep track of all reporting issues and offered solutions. 
+  - type: checkboxes
+    id: prerequirements
+    attributes:
+      label: Pre-requirements
+      description: "Before you submit your bug report, did you go through the available sources to understand if the issue your're reporting was already described and solved?" 
+      options:
+        - label: Reviewed the Deployment guide
+          required: true
+        - label: Reviewed the Troubleshooting guide
+          required: true
+        - label: Reviewed the YouTube channel
+          required: true
+        - label: Reviewed the GitHub Issues list
+          required: true
+  - type: dropdown
+    id: Dashboard
+    attributes:
+      label: What dashboard are you reporting an issue on?
+      options:
+        - Infrastructure
+        - Governance
+        - GitHub
+        - ADO
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: "Tell us what you think should have happened."
+      placeholder: "Explain what happened..."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: "Tell us how we can reproduce the issue."
+      placeholder: "1. Step one..."
+    validations:
+      required: true
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: "Add any other context about the problem here."
+      placeholder: "Additional details..."

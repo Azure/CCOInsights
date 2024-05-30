@@ -19,10 +19,12 @@ jobs:
       - name: 🚀 Start
         shell: bash
         id: start
+        env:
+          BODY: ${{ github.event.issue.body }}   
         run: |
           echo "Running the workflow"
-          echo "Body: ${{ github.event.issue.body }}"
-          body_formatted=$(echo "${{ github.event.issue.body }}" | tr -d '\n')
+          echo "Body: $BODY"
+          body_formatted=$(echo $BODY | tr -d '\n')
           echo "Formatted body: $body_formatted"
           echo "raw_body=$body_formatted" >> $GITHUB_OUTPUT
 

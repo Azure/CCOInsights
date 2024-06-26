@@ -9,6 +9,10 @@ on:
         required: true
         default: ""
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   deploy_dashboard:
     runs-on: windows-2022
@@ -18,10 +22,12 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Azure Login
-        uses: Azure/login@v1
+      - name: Login via Az module
+        uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: ${{ secrets.AZURE_AD_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_AD_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           enable-AzPSSession: true
       - name: "Deploy infrastructure"
         id: rg
@@ -40,16 +46,17 @@ jobs:
           }
           ./tools/scripts/Convert-TokenInFile.ps1 @ConvertTokenListFunctionInput -Verbose
       - name: "Deploy code"
-        shell: pwsh
-        run: |
-          # Initialize parameters
-          Install-Module -Name Az.Functions -Force
-          $functionApp = Get-AzFunctionApp -ResourceGroupName '${{ github.event.inputs.resourceGroupName }}'
-          $functionAppName = $functionApp[0].Name
-          $DeployFunctionInputs = @{
-              ResourceGroup      = '${{ github.event.inputs.resourceGroupName }}'
-              FunctionAppName    = $functionAppName
-              Dashboard          = 'GitHub'
-          }
-          # Invoke Function
-          ./tools/scripts/deploy-function.ps1 @DeployFunctionInputs -Verbose
+        uses: azure/powershell@v1
+        with:
+          azPSVersion: "latest"
+          inlineScript: |
+            # Initialize parameters
+            $functionApp = Get-AzFunctionApp -ResourceGroupName '${{ github.event.inputs.resourceGroupName }}'
+            $functionAppName = $functionApp[0].Name
+            $DeployFunctionInputs = @{
+                ResourceGroup      = '${{ github.event.inputs.resourceGroupName }}'
+                FunctionAppName    = $functionAppName
+                Dashboard          = 'GitHub'
+            }
+            # Invoke Function
+            ./tools/scripts/deploy-function.ps1 @DeployFunctionInputs -Verbose

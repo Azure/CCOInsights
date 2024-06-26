@@ -43,9 +43,9 @@ on:
   push:
     branches: [master, main]
     paths:
-      - "src/**"
-      - "tests/**"
-      - "Dashboards/GovernanceInfra-Contributors/deploy.bicep"
+      - "CCO-Dashboards/Dashboards/CCO-Backend/Solution/src/**"
+      - "CCO-Dashboards/Dashboards/CCO-Backend/Solution/tests/**"
+      - "CCO-Dashboards/Dashboards/CCO-Backend/Azure-infrastructure-templates/deploy.bicep"
       - ".github/workflows/deployment.yml"
       - ".github/workflows/code.yml"
       - ".github/workflows/infrastructure.yml"
@@ -66,7 +66,7 @@ jobs:
       - id: check-infra
         name: "Check if infrastructure has changed"
         run: |
-          if git diff --quiet HEAD^ HEAD -- Dashboards/GovernanceInfra-Contributors/deploy.bicep; then 
+          if git diff --quiet HEAD^ HEAD -- CCO-Dashboards/Dashboards/CCO-Backend/Azure-infrastructure-templates/deploy.bicep; then 
             echo "infraModified=false" >> $GITHUB_OUTPUT
           else 
             echo "infraModified=true" >> $GITHUB_OUTPUT
@@ -75,7 +75,7 @@ jobs:
       - id: check-code
         name: "Check if code has changed"
         run: |
-          if git diff --quiet HEAD^ HEAD -- src/ tests/; then
+          if git diff --quiet HEAD^ HEAD -- CCO-Dashboards/Dashboards/CCO-Backend/Solution/src/ CCO-Dashboards/Dashboards/CCO-Backend/Solution/tests/; then
             echo "codeModified=false" >> $GITHUB_OUTPUT
           else
             echo "codeModified=true" >> $GITHUB_OUTPUT

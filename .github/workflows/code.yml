@@ -45,8 +45,8 @@ on:
     types: [opened, synchronize]
     branches: ['master', 'main']
     paths: 
-      - "src/**"
-      - "tests/**"
+      - "CCO-Dashboards/Dashboards/CCO-Backend/Solution/src/**"
+      - "CCO-Dashboards/Dashboards/CCO-Backend/Solution/tests/**"
       - ".github/workflows/cicd.yml"
 
 env:
@@ -75,25 +75,25 @@ jobs:
           dotnet-version: 6.0.x
 
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore .\CCO-Dashboards\Dashboards\CCO-Backend\Solution\CCOInsights.SubscriptionManager.sln
 
       - name: Build
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release .\CCO-Dashboards\Dashboards\CCO-Backend\Solution\CCOInsights.SubscriptionManager.sln
 
       - name: Test
         run: |
-          dotnet test --configuration Release --no-build -l "trx;LogFileName=TestResults.trx"
+          dotnet test --configuration Release --no-build -l "trx;LogFileName=TestResults.trx" .\CCO-Dashboards\Dashboards\CCO-Backend\Solution\CCOInsights.SubscriptionManager.sln
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/linux@v2
         if: always()
         with:
-          trx_files: "tests/**/**/*.trx"
+          trx_files: "CCO-Dashboards/Dashboards/CCO-Backend/Solution/tests/**/**/*.trx"
           compare_to_earlier_commit: false
 
       - name: Publish
         if:  ${{ github.event_name != 'pull_request'}}
-        run: dotnet publish -c Release -o ${{ env.publishFolder }}
+        run: dotnet publish -c Release -o ${{ env.publishFolder }} .\CCO-Dashboards\Dashboards\CCO-Backend\Solution\CCOInsights.SubscriptionManager.sln
       
       - name: Save Logs on Artifacts
         if:  ${{ github.event_name != 'pull_request'}}
@@ -162,7 +162,7 @@ jobs:
             publishZip="publish.zip"
 
             functionAppName=$(az functionapp list -g ${{ inputs.resourceGroupName }} --query '[0].name' -o tsv)
-            json=$(cat ./src/CCOInsights.SubscriptionManager.Functions/local.settings.dev.json)
+            json=$(cat ./CCO-Dashboards/Dashboards/CCO-Backend/Solution/src/CCOInsights.SubscriptionManager.Functions/local.settings.dev.json)
 
             values=$(echo "$json" | jq -r ".Values")
             

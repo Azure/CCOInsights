@@ -13,7 +13,8 @@ var version = 'CCOInsights v0.1'
 // param targetScope string = 'resourceGroup'
 
 // app service plan (done)
-module appServicePlan '../../CARML/modules/Microsoft.Web/serverfarms/deploy.bicep' = {
+// module appServicePlan '../../../../CARML/modules/Microsoft.Web/serverfarms/deploy.bicep' = {
+module appServicePlan '../../../../CARML/modules/Microsoft.Web/serverfarms/deploy.bicep' = {
   name: '${name}-cco-sp'
   params: {
     name: '${name}-cco-sp'
@@ -28,7 +29,7 @@ module appServicePlan '../../CARML/modules/Microsoft.Web/serverfarms/deploy.bice
   }
 }
 
-module storage '../../CARML/modules/Microsoft.Storage/storageAccounts/deploy.bicep' = {
+module storage '../../../../CARML/modules/Microsoft.Storage/storageAccounts/deploy.bicep' = {
   name: toLower('${name}ccost')
   params: {
     name: toLower('${name}ccost')
@@ -40,7 +41,7 @@ module storage '../../CARML/modules/Microsoft.Storage/storageAccounts/deploy.bic
   }
 }
 
-module appService '../../CARML/modules/Microsoft.Web/sites/deploy.bicep' = {
+module appService '../../../../CARML/modules/Microsoft.Web/sites/deploy.bicep' = {
   name: '${name}-cco-fa'
   params: {
     location: location
@@ -73,7 +74,7 @@ module appService '../../CARML/modules/Microsoft.Web/sites/deploy.bicep' = {
 }
 //keyvault reference identity 
 
-module appServiceSettings '../../CARML/modules/Microsoft.Web/sites/config-appsettings/deploy.bicep' = {
+module appServiceSettings '../../../../CARML/modules/Microsoft.Web/sites/config-appsettings/deploy.bicep' = {
   name: 'appsettings'
   params: {
     appName: appService.name
@@ -87,7 +88,7 @@ module appServiceSettings '../../CARML/modules/Microsoft.Web/sites/config-appset
   }
 }
 //log analytics workspace (done)
-module logAnalyticsWorkspace '../../CARML/modules/Microsoft.OperationalInsights/workspaces/deploy.bicep' = {
+module logAnalyticsWorkspace '../../../../CARML/modules/Microsoft.OperationalInsights/workspaces/deploy.bicep' = {
   name: '${name}-cco-la'
   params: {
     location: location
@@ -101,7 +102,7 @@ module logAnalyticsWorkspace '../../CARML/modules/Microsoft.OperationalInsights/
 }
 
 //app insights(done)
-module appInsights '../../CARML/modules/Microsoft.Insights/components/deploy.bicep' = {
+module appInsights '../../../../CARML/modules/Microsoft.Insights/components/deploy.bicep' = {
   name: '${name}-cco-ai'
   params: {
     location: location
@@ -116,7 +117,7 @@ module appInsights '../../CARML/modules/Microsoft.Insights/components/deploy.bic
 
 //storage account (done)
 // services ???
-module dataLakeStorage '../../CARML/modules/Microsoft.Storage/storageAccounts/deploy.bicep' = {
+module dataLakeStorage '../../../../CARML/modules/Microsoft.Storage/storageAccounts/deploy.bicep' = {
   name: !empty(dlsname) ? toLower(dlsname) : toLower('${name}ccodls')
   params: {
     location: location
@@ -136,7 +137,7 @@ module dataLakeStorage '../../CARML/modules/Microsoft.Storage/storageAccounts/de
   }
 }
 
-module storageAccountContainers '../../CARML/modules/Microsoft.Storage/storageAccounts/blobServices/deploy.bicep' = {
+module storageAccountContainers '../../../../CARML/modules/Microsoft.Storage/storageAccounts/blobServices/deploy.bicep' = {
   name: '${dataLakeStorage.name}-cco-containers'
   params: {
     storageAccountName: dataLakeStorage.name

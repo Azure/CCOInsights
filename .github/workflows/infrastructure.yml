@@ -73,7 +73,7 @@ jobs:
         with:
           deploymentName: ${{ steps.rg.outputs.resourceGroupName }}
           resourceGroupName: ${{ steps.rg.outputs.resourceGroupName }}
-          template: ./dashboards/GovernanceInfra-Contributors/deploy.bicep
+          template: ./CCO-Dashboards/Dashboards/CCO-Backend/Azure-infrastructure-templates/deploy.bicep
           parameters: name=${{inputs.deployBaseName}} dlsname=${{ inputs.dataLakeName || '' }}
           failOnStderr: false # Remove when warnings are fixed
       

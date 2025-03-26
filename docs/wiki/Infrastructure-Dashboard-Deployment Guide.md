@@ -62,7 +62,12 @@ The CCO Azure Infrastructure Dashboard requires you to install the Power BI Cust
 
 To install the custom connector you must copy the file [CCoDashboardAzureConnector.mez][CCoDashboardAzureConnector] from the **ccodashboard/dashboards/CCODashboard-Infrastructure/** folder to the folder that Power BI creates by default in the Documents folder in your PC. If this folder doesn't exist, you can create a new one with this name.
 
-The path should be **C:\Users\\%username%\Documents\Power BI Desktop\Custom Connectors** or if you are using OneDrive to backup the documents folder this path would not work for you and you should manually go to your documents folder and create the folder structure there.
+The path should be
+  - `C:\Users\%username%\Documents\Power BI Desktop\Custom Connectors`
+
+    If you are using OneDrive to backup the documents folder above path would not work for you and you should manually go to your documents folder and create the folder structure there.
+
+  - `C:\Users\%username%\AppData\Local\Packages\Microsoft.MicrosoftPowerBIDesktop_8wekyb3d8bbwe\LocalCache\Local\Custom Connectors` if your are using Windows Store version (UWP) of Power BI Desktop.
 
 ![CustomConnectorFolder][CustomConnectorFolder]
 

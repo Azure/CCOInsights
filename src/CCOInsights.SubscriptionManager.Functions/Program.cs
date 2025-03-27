@@ -39,7 +39,27 @@ var host = new HostBuilder()
         });
 
         // Add logging
-        services.AddLogging(configure => configure.AddConsole());
+        services.AddLogging(configure =>
+        {
+            if (context.HostingEnvironment.IsDevelopment())
+            {
+                configure.AddConsole();
+            }
+        });
+    })
+    .ConfigureLogging((context, logging) =>
+    {
+        logging.ClearProviders();
+        logging.AddApplicationInsights();
+
+        if (context.HostingEnvironment.IsDevelopment())
+        {
+            logging.AddConsole();
+        }
+
+        logging.AddFilter("Microsoft", LogLevel.Warning)
+               .AddFilter("System", LogLevel.Warning)
+               .AddFilter("Default", LogLevel.Information);
     })
     .Build();
 

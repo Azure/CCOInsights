@@ -56,7 +56,7 @@ module appService '../../CARML/modules/Microsoft.Web/sites/deploy.bicep' = {
       http20Enabled: false
       functionAppScaleLimit: 200
       minimumElasticInstanceCount: 1
-      netFrameworkVersion: 'v4.0'
+      netFrameworkVersion: 'v8.0'
       cors: {
         allowedOrigins: [
           'https://portal.azure.com'

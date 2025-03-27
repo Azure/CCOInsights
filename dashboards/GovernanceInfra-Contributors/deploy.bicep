@@ -82,7 +82,8 @@ module appServiceSettings '../../CARML/modules/Microsoft.Web/sites/config-appset
     appInsightId: appInsights.outputs.resourceId
     appSettingsKeyValuePairs: {
       FUNCTIONS_EXTENSION_VERSION: '~4'
-      FUNCTIONS_WORKER_RUNTIME: 'dotnet'
+      FUNCTIONS_WORKER_RUNTIME: 'dotnet-isolated'
+      WEBSITE_USE_PLACEHOLDER_DOTNETISOLATED: 1
     }
   }
 }

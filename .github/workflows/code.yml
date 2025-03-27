@@ -58,11 +58,11 @@ jobs:
     name: "Build solution and run tests"
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
@@ -97,7 +97,7 @@ jobs:
       
       - name: Save Logs on Artifacts
         if:  ${{ github.event_name != 'pull_request'}}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: publish
           path: |
@@ -110,12 +110,12 @@ jobs:
     if: (github.event_name == 'push' && github.ref == 'refs/heads/master' ) || github.event_name == 'workflow_dispatch'
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Load Build from Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: publish
           path: ${{ env.publishFolder }}
@@ -154,7 +154,7 @@ jobs:
           cd publish && zip -r ../publish.zip . && cd -
 
       - name: "Deploy code"
-        uses: Azure/CLI@v1
+        uses: Azure/CLI@v2
         env:
           AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
         with:

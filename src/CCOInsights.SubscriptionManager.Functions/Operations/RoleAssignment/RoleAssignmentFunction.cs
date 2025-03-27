@@ -1,4 +1,5 @@
 ﻿using static Microsoft.Azure.Management.Fluent.Azure;
+using System.Text.Json.Nodes;
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations.RoleAssignment;
 
@@ -7,7 +8,7 @@ public class RoleAssignmentFunction(IAuthenticated authenticatedResourceManager,
     : IOperation
 {
     [Function(nameof(RoleAssignmentFunction))]
-        public async Task Execute([ActivityTrigger] string name, FunctionContext executionContext, CancellationToken cancellationToken = default)
+        public async Task Execute([ActivityTrigger] JsonObject input, FunctionContext executionContext, CancellationToken cancellationToken = default)
     {
         var subscriptions = await authenticatedResourceManager.Subscriptions.ListAsync(cancellationToken: cancellationToken);
         await subscriptions.AsyncParallelForEach(async subscription =>

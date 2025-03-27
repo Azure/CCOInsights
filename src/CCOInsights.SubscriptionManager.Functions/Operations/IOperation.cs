@@ -1,10 +1,11 @@
 ﻿using System.Reflection;
+using System.Text.Json.Nodes;
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations;
 
 public interface IOperation
 {
-    Task Execute([ActivityTrigger] string name, FunctionContext executionContext, CancellationToken cancellationToken = default);
+    Task Execute([ActivityTrigger] JsonObject input, FunctionContext executionContext, CancellationToken cancellationToken = default);
 }
 
 public enum DashboardType

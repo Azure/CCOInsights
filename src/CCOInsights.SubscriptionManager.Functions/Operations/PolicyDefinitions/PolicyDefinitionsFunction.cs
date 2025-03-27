@@ -7,7 +7,7 @@ public class PolicyDefinitionsFunction(IAuthenticated authenticatedResourceManag
     : IOperation
 {
     [Function(nameof(PolicyDefinitionsFunction))]
-        public async Task Execute([ActivityTrigger] string name, FunctionContext executionContext, CancellationToken cancellationToken = default)
+        public async Task Execute([ActivityTrigger] JsonObject input, FunctionContext executionContext, CancellationToken cancellationToken = default)
     {
         var subscriptions = await authenticatedResourceManager.Subscriptions.ListAsync(cancellationToken: cancellationToken);
         await subscriptions.AsyncParallelForEach(async subscription =>

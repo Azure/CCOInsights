@@ -1,4 +1,5 @@
-﻿using static Microsoft.Azure.Management.Fluent.Azure;
+﻿using System.Text.Json.Nodes;
+using static Microsoft.Azure.Management.Fluent.Azure;
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations.AdvisorScore;
 
@@ -7,7 +8,7 @@ public class AdvisorScoreFunction(IAuthenticated authenticatedResourceManager, I
     : IOperation
 {
     [Function(nameof(AdvisorScoreFunction))]
-    public async Task Execute([ActivityTrigger] string name, FunctionContext executionContext, CancellationToken cancellationToken = default)
+    public async Task Execute([ActivityTrigger] JsonObject input, FunctionContext executionContext, CancellationToken cancellationToken = default)
 
     {
         var subscriptions = await authenticatedResourceManager.Subscriptions.ListAsync(cancellationToken: cancellationToken);

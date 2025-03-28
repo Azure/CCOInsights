@@ -37,7 +37,7 @@ var host = new HostBuilder()
         {
             configuration.GetSection("Features").Bind(settings);
         });
-        services.AddLogging(services => services.AddApplicationInsights());
+        services.AddLogging(x => x.AddConsole());
     })
     .Build();
 

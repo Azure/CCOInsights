@@ -15,9 +15,6 @@
       }
     },
     "logLevel": {
-      "default": "Information",
-      "Host": "Information",
-      "Function": "Information",
       "CCOInsights.SubscriptionManager": "Information"
     }
   }

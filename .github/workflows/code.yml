@@ -134,7 +134,6 @@ jobs:
           feature_infradashboard: ${{ inputs.feature_infradashboard || 'true'}}
           feature_govdashboard: ${{ inputs.feature_govdashboard || 'true'}}
         run: |
-
           export AZURE_TENANT_ID=$(echo $AZURE_CREDENTIALS | jq -r '.tenantId')
           export AZURE_CLIENT_ID=$(echo $AZURE_CREDENTIALS | jq -r '.clientId')
           export AZURE_CLIENT_SECRET=$(echo $AZURE_CREDENTIALS | jq -r '.clientSecret')
@@ -142,9 +141,10 @@ jobs:
           export FEATUREINFRA=${{ inputs.feature_infradashboard }}
           export FEATUREGOV=${{ inputs.feature_govdashboard }}
           # TODO: Trick to target to external tenant for testing, remove when no longer needed
-          export EXTERNAL_TENANT_ID=${{ secrets.EXTERNAL_TENANT_ID }}
-          export EXTERNAL_CLIENT_ID=${{ secrets.EXTERNAL_CLIENT_ID }}
-          export EXTERNAL_CLIENT_SECRET=${{ secrets.EXTERNAL_CLIENT_SECRET }}
+          export EXTERNAL_TENANT_ID=$(echo $AZURE_CREDENTIALS | jq -r '.tenantId')
+          export EXTERNAL_CLIENT_ID=$(echo $AZURE_CREDENTIALS | jq -r '.clientId')
+          export EXTERNAL_CLIENT_SECRET=$(echo $AZURE_CREDENTIALS | jq -r '.clientSecret')
+          export Environment=Local
 
           settingsFilePath='./src/CCOInsights.SubscriptionManager.Functions/local.settings.dev.json'
           envsubst < $settingsFilePath > temp.json && mv temp.json $settingsFilePath

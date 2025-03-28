@@ -13,8 +13,10 @@ public class GenericResourceUpdater(IStorage storage, ILogger<GenericResourceUpd
         var models = await provider.GetAsync(subscription.SubscriptionId, cancellationToken);
 
         var entities = models.Select(model => GenericResource.From(subscription.Inner.TenantId, subscription.SubscriptionId, model.GenericResource, model.Inner)).ToList();
-        if (!entities.Any()) return;
-        await storage.UpdateItemAsync($"{subscription?.SubscriptionId}-{DateTime.UtcNow:yyyyMMdd}", DataLakeContainerProvider.GetContainer(entities.FirstOrDefault().GetType()), entities, cancellationToken);
+        if (entities.Any())
+        {
+            await storage.UpdateItemAsync($"{subscription?.SubscriptionId}-{DateTime.UtcNow:yyyyMMdd}", DataLakeContainerProvider.GetContainer(entities.FirstOrDefault().GetType()), entities, cancellationToken);
+        }
 
         logger.LogInformation("{Entity}: Subscription {SubscriptionName} with id {SubscriptionId} processed {Count} resources successfully.",
             nameof(GenericResource),

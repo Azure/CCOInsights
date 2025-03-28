@@ -19,9 +19,10 @@ public abstract class Updater<TResponse, TEntity>(IStorage storage, ILogger logg
         var models = await provider.GetAsync(subscription?.SubscriptionId, cancellationToken);
 
         var entities = models.Where(ShouldIngest).Select(model => Map(executionId, subscription, model)).ToList();
-        if (!entities.Any()) return;
-        await storage.UpdateItemAsync($"{subscription?.SubscriptionId}-{DateTime.UtcNow:yyyyMMdd}", DataLakeContainerProvider.GetContainer(entities.FirstOrDefault().GetType()), entities, cancellationToken);
-
+        if (entities.Any())
+        {
+            await storage.UpdateItemAsync($"{subscription?.SubscriptionId}-{DateTime.UtcNow:yyyyMMdd}", DataLakeContainerProvider.GetContainer(entities.FirstOrDefault().GetType()), entities, cancellationToken);
+        }
         logger.LogInformation("{Entity}: Subscription {SubscriptionName} with id {SubscriptionId} processed {Count} resources successfully.", 
             typeof(TEntity).Name, 
             subscription?.DisplayName,

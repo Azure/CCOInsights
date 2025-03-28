@@ -37,6 +37,9 @@ var host = new HostBuilder()
         {
             configuration.GetSection("Features").Bind(settings);
         });
+
+        // Add logging
+        services.AddLogging(configure => configure.AddConsole());
     })
     .Build();
 

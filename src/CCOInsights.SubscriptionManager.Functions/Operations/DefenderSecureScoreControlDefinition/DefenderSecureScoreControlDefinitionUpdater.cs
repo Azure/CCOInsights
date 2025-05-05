@@ -15,4 +15,6 @@ public class DefenderSecureScoreControlDefinitionUpdater(IStorage storage,
 
     protected override bool ShouldIngest(DefenderSecureScoreControlDefinitionResponse? response) =>
         response != null;
+
+    protected override bool IsIncremental() => false;
 }

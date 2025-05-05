@@ -8,4 +8,6 @@ public class LocationUpdater(IStorage storage, ILogger<LocationUpdater> logger, 
     : Updater<LocationResponse, Location>(storage, logger, provider), ILocationUpdater
 {
     protected override Location Map(string executionId, ISubscription subscription, LocationResponse response) => Location.From(subscription.Inner.TenantId, subscription.SubscriptionId, executionId, response);
+
+    protected override bool IsIncremental() => false;
 }

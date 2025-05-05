@@ -2,7 +2,6 @@
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations.DefenderAssessmentsMetadata;
 
-[GeneratedProvider("/providers/Microsoft.Security/assessmentMetadata?api-version=2020-01-01")]
 public class DefenderAssessmentsMetadataResponse : AzureResponse
 {
     [JsonProperty("properties")]

@@ -11,4 +11,6 @@ public class PolicySetDefinitionsUpdater(IStorage storage, ILogger<PolicySetDefi
 {
     protected override PolicySetDefinitions Map(string executionId, ISubscription subscription, PolicySetDefinitionsResponse response) =>
         PolicySetDefinitions.From(subscription.Inner.TenantId, subscription.SubscriptionId, executionId, response);
+
+    protected override bool IsIncremental() => false;
 }

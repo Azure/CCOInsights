@@ -10,4 +10,6 @@ public class PolicyDefinitionsUpdater(IStorage storage, ILogger<PolicyDefinition
 {
     protected override PolicyDefinitions Map(string executionId, ISubscription subscription, PolicyDefinitionResponse response) =>
         PolicyDefinitions.From(subscription.Inner.TenantId, subscription.SubscriptionId, executionId, response);
+
+    protected override bool IsIncremental() => false;
 }

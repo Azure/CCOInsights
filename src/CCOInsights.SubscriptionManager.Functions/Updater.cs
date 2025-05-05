@@ -21,7 +21,7 @@ public abstract class Updater<TResponse, TEntity>(IStorage storage, ILogger logg
         var entities = models.Where(ShouldIngest).Select(model => Map(executionId, subscription, model)).ToList();
         if (entities.Any())
         {
-            await storage.UpdateItemAsync($"{subscription?.SubscriptionId}-{DateTime.UtcNow:yyyyMMdd}", DataLakeContainerProvider.GetContainer(entities.FirstOrDefault().GetType()), entities, cancellationToken);
+            await storage.UpdateItemAsync($"{subscription?.SubscriptionId}{(IsIncremental() ? $"-{DateTime.UtcNow:yyyyMMdd}" : string.Empty)}", DataLakeContainerProvider.GetContainer(entities.FirstOrDefault().GetType()), entities, cancellationToken);
         }
         logger.LogInformation("{Entity}: Subscription {SubscriptionName} with id {SubscriptionId} processed {Count} resources successfully.", 
             typeof(TEntity).Name, 
@@ -33,4 +33,6 @@ public abstract class Updater<TResponse, TEntity>(IStorage storage, ILogger logg
     protected abstract TEntity Map(string executionId, ISubscription subscription, TResponse response);
 
     protected virtual bool ShouldIngest(TResponse response) => true;
+
+    protected virtual bool IsIncremental() => true;
 }

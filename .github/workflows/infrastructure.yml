@@ -1,4 +1,4 @@
-name: "CCO Platform Deployment"
+name: "CCO Insights Platform Deployment"
 
 on:
   workflow_call:
@@ -57,13 +57,13 @@ jobs:
         run: |
           $resourceGroupName = "${{ inputs.resourceGroupName }}"
           $deployBaseName = "${{ inputs.deployBaseName }}"
-          
+
           if ([string]::IsNullOrEmpty($resourceGroupName)) {
             $rgName = "rg-$deployBaseName-cco"
           } else {
             $rgName = $resourceGroupName
           }
-          
+
           az group create -n $rgName -l ${{ inputs.location }}
           echo "::set-output name=resourceGroupName::$rgName"
 
@@ -73,10 +73,10 @@ jobs:
         with:
           deploymentName: ${{ steps.rg.outputs.resourceGroupName }}
           resourceGroupName: ${{ steps.rg.outputs.resourceGroupName }}
-          template: ./dashboards/GovernanceInfra-Contributors/deploy.bicep
+          template: ./dashboards/GovernanceInfra-Contributors/main.bicep
           parameters: name=${{inputs.deployBaseName}} dlsname=${{ inputs.dataLakeName || '' }}
           failOnStderr: false # Remove when warnings are fixed
-      
+
       - name: "Set output"
         id: set-output
         run: |
@@ -97,7 +97,7 @@ jobs:
 
           Write-Host "Retrieving spnAppId"
           $spnAppId = $azure_credentials.clientId
-          
+
           Write-Host "Retrieving tenantId"
           $tenantId= $azure_credentials.tenantId
 
@@ -112,7 +112,7 @@ jobs:
 
           echo "::add-mask::$subscriptionId"
           echo "::set-secret name=subscriptionId::${subscriptionId}"
-          
+
           Write-Host "Adding Contributor to DataLake"
           az role assignment create --assignee $spnAppId --role "Contributor" --scope "/subscriptions/$subscriptionId/resourceGroups/${{ steps.rg.outputs.resourceGroupName }}/providers/Microsoft.Storage/storageAccounts/${{ steps.set-output.outputs.dataLakeStorageName }}" | Out-Null
           Write-Host "Adding Storage Blob Data Contributor to DataLake"

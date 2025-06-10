@@ -188,34 +188,58 @@ resource blobContainers 'Microsoft.Storage/storageAccounts/blobServices/containe
 }]
 
 // Role Definitions (existing resources)
-resource contributorRoleDefinition 'Microsoft.Authorization/roleDefinitions@2018-01-01-preview' existing = {
-  scope: subscription()
-  name: 'b24988ac-6180-42a0-ab88-20f7382dd24c'
-}
+// resource contributorRoleDefinition 'Microsoft.Authorization/roleDefinitions@2018-01-01-preview' existing = {
+//   scope: subscription()
+//   name: 'b24988ac-6180-42a0-ab88-20f7382dd24c'
+// }
 
-resource storageBlobDataContributorRoleDefinition 'Microsoft.Authorization/roleDefinitions@2018-01-01-preview' existing = {
-  scope: subscription()
-  name: 'ba92f5b4-2d11-453d-a403-e96b0029c9fe'
-}
+// resource storageBlobDataContributorRoleDefinition 'Microsoft.Authorization/roleDefinitions@2018-01-01-preview' existing = {
+//   scope: subscription()
+//   name: 'ba92f5b4-2d11-453d-a403-e96b0029c9fe'
+// }
 
 // Role Assignments
-resource roleAssignment1 'Microsoft.Authorization/roleAssignments@2020-10-01-preview' = {
-  name: guid(name, 'roleassignment')
-  scope: sa
-  properties: {
+// resource roleAssignment1 'Microsoft.Authorization/roleAssignments@2020-10-01-preview' = {
+//   name: guid(name, 'roleassignment')
+//   scope: sa
+//   properties: {
+//     principalId: appService.outputs.?systemAssignedMIPrincipalId
+//     principalType: 'ServicePrincipal'
+//     roleDefinitionId: contributorRoleDefinition.id
+//   }
+// }
+
+// resource roleAssignment2 'Microsoft.Authorization/roleAssignments@2020-10-01-preview' = {
+//   name: guid(resourceGroup().id, 'StorageBlobDataContributor')
+//   scope: sa
+//   properties: {
+//     principalId: appService.outputs.?systemAssignedMIPrincipalId
+//     principalType: 'ServicePrincipal'
+//     roleDefinitionId: storageBlobDataContributorRoleDefinition.id
+//   }
+// }
+
+module roleAssignment1 'br/public:avm/ptn/authorization/resource-role-assignment:0.1.2' = {
+  name: '${name}-storage-ra'
+  params: {
+    name: guid(name, 'Contributor')
     principalId: appService.outputs.?systemAssignedMIPrincipalId
+    roleName: 'Contributor'
+    roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c' // Contributor role
     principalType: 'ServicePrincipal'
-    roleDefinitionId: contributorRoleDefinition.id
+    resourceId: storage.outputs.resourceId
   }
 }
 
-resource roleAssignment2 'Microsoft.Authorization/roleAssignments@2020-10-01-preview' = {
-  name: guid(resourceGroup().id, 'StorageBlobDataContributor')
-  scope: sa
-  properties: {
+module roleAssignment2 'br/public:avm/ptn/authorization/resource-role-assignment:0.1.2' = {
+  name: '${name}-storage-ra'
+  params: {
+    name: guid(resourceGroup().id, 'StorageBlobDataContributor')
     principalId: appService.outputs.?systemAssignedMIPrincipalId
+    roleName: 'Contributor'
+    roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/ba92f5b4-2d11-453d-a403-e96b0029c9fe' // Storage Blob Data Contributor role
     principalType: 'ServicePrincipal'
-    roleDefinitionId: storageBlobDataContributorRoleDefinition.id
+    resourceId: storage.outputs.resourceId
   }
 }
 

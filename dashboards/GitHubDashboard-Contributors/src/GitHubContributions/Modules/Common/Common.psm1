@@ -162,7 +162,7 @@ Function Get-OpenPullRequests {
         [Parameter(Mandatory = $false)]
         [Switch]$DailyRefresh
     )
-    
+
     $owner = $env:owner
     $repository = $env:repository
     $pat = $env:pat
@@ -220,7 +220,7 @@ Function Get-ClosedPullRequests {
         [Parameter(Mandatory = $false)]
         [Switch]$DailyRefresh
     )
-    
+
     $owner = $env:owner
     $repository = $env:repository
     $pat = $env:pat
@@ -330,7 +330,6 @@ Function Get-Contributors {
     $header = @{authorization = "token $pat" }
     $count = 0
     $users | ForEach-Object {
-        
         $count += 1
         $usersUrl = "https://api.github.com/users/$_"
         $userData = Invoke-RestMethod -Uri $usersUrl -Method Get -ContentType "application/json" -Headers $header
@@ -382,7 +381,6 @@ Function Get-Traffic {
         Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $id -property $view -UpdateExisting | Out-Null
         $dashboardviews += $view
     }
-
     Write-Host "$($dashboardviews.Count) views successfully loaded"
 }
 
@@ -460,7 +458,7 @@ Function Get-Releases {
     Write-Host "Fetching Releases..."
 
     try {
-        
+
         $releases = Invoke-RestMethod -Uri $tagsBaseUrl -Method Get -ContentType "application/json" -Headers $header
         $dashboardReleases = @()
         if ($releases.Count -gt 0) {
@@ -468,12 +466,10 @@ Function Get-Releases {
                 $release = @{
                     name = $_.tag_name
                     date = $_.published_at
-    
                 }
                 Add-AzTableRow -table $table -partitionKey $partitionKey -rowKey $_.name -property $release -UpdateExisting | Out-Null
                 $dashboardReleases += $release
             }
-    
             Write-Host "$($dashboardReleases.Count) github releases successfully loaded"
         }
         else {
@@ -490,5 +486,5 @@ Function Get-Releases {
             Write-Host "$($_.Exception.Message)"
             Write-Host $_.ErrorDetails.Message
         }
-    }  
+    }
 }

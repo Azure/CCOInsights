@@ -1,4 +1,7 @@
-﻿using Microsoft.Graph;
+﻿using CCOInsights.SubscriptionManager.Functions.Operations.ServicePrincipals;
+using Microsoft.DurableTask.Protobuf;
+using Microsoft.Graph;
+using Microsoft.Graph.Models;
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations.Groups;
 
@@ -7,15 +10,15 @@ public class GroupsProvider(GraphServiceClient graphServiceClient, GroupsMapper 
 {
     public async Task<IEnumerable<GroupsResponse>> GetAsync(string subscriptionId, CancellationToken cancellationToken = default)
     {
-        var result = await graphServiceClient.Groups.Request().GetAsync(cancellationToken);
+        var result = await graphServiceClient.Groups.GetAsync(null, cancellationToken);
 
-        var response = result.Select(x => mapper.GroupToGroupsResponse(x)).ToList();
+        var responseList = new List<GroupsResponse>();
 
-        while (result.NextPageRequest != null)
-        {
-            result = await result.NextPageRequest.GetAsync(cancellationToken);
-            response.AddRange(result.Select(x => mapper.GroupToGroupsResponse(x)).ToList());
-        }
-        return response;
+        var pageIterator = PageIterator<Microsoft.Graph.Models.Group, GroupCollectionResponse>.CreatePageIterator(graphServiceClient, result, (Microsoft.Graph.Models.Group element) => { responseList.Add(mapper.GroupToGroupsResponse(element)); return true; });
+
+        await pageIterator.IterateAsync(cancellationToken);
+        return responseList;
+
+        
     }
 }

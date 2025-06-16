@@ -30,7 +30,7 @@ public class UserProvider(GraphServiceClient graphServiceClient) : IUsersProvide
         }
         catch (Exception)
         {
-            var graphUser = await graphServiceClient.Users[principalId].Request().GetAsync(cancellationToken);
+            var graphUser = await graphServiceClient.Users[principalId].GetAsync(null, cancellationToken);
             var model = new UserResponse
             {
                 Name = graphUser.GivenName,

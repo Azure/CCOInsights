@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Graph;
+using Microsoft.Kiota.Abstractions.Authentication;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWebApplication()
@@ -58,30 +59,8 @@ GraphServiceClient BuildGraphClient(string government)
     }
     else
     {
-        var credential = new ChainedTokenCredential(
-            new ManagedIdentityCredential(),
-            new EnvironmentCredential());
-
-        var governmentUrl = government switch
-        {
-            "Public" => "graph.microsoft.com",
-            "US" => "graph.microsoft.us",
-            _ => throw new ArgumentOutOfRangeException()
-        };
-
-        var token = credential.GetToken(
-            new TokenRequestContext(
-                new[] { $"https://{governmentUrl}/.default" }));
-
-        return new GraphServiceClient(
-            new DelegateAuthenticationProvider(requestMessage =>
-            {
-                requestMessage
-                    .Headers
-                    .Authorization = new AuthenticationHeaderValue("bearer", token.Token);
-
-                return Task.CompletedTask;
-            }));
+        var tokenprovider = new BaseBearerTokenAuthenticationProvider(new GraphTokenProvider(government));
+        return new GraphServiceClient(tokenprovider);
     }
 }
 

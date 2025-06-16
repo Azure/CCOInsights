@@ -1,4 +1,4 @@
-﻿using Microsoft.Graph;
+﻿using Microsoft.Graph.Models;
 using Riok.Mapperly.Abstractions;
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations.Groups;

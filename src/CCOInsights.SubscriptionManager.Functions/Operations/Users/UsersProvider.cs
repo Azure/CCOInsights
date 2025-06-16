@@ -1,4 +1,7 @@
-﻿using Microsoft.Graph;
+﻿using CCOInsights.SubscriptionManager.Functions.Operations.ServicePrincipals;
+using Microsoft.DurableTask.Protobuf;
+using Microsoft.Graph;
+using Microsoft.Graph.Models;
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations.Users;
 
@@ -7,20 +10,19 @@ public class UsersProvider(GraphServiceClient graphServiceClient, UsersMapper ma
 {
     public async Task<IEnumerable<UsersResponse>> GetAsync(string subscriptionId, CancellationToken cancellationToken = default)
     {
-        var result = await graphServiceClient.Users.Request().GetAsync(cancellationToken);
+        var resultResponse = await graphServiceClient.Users.GetAsync(null, cancellationToken);
 
-        var response = result.Select(x => mapper.UserToUsersResponse(x)).ToList();
+        var responseList = new List<UsersResponse>();
 
-        while (result.NextPageRequest != null)
-        {
-            result = await result.NextPageRequest.GetAsync(cancellationToken);
-            response.AddRange(result.Select(x => mapper.UserToUsersResponse(x)).ToList());
-        }
-        return response;
+        var pageIterator = PageIterator<User, UserCollectionResponse>.CreatePageIterator(graphServiceClient, resultResponse, (Microsoft.Graph.Models.User element) => { responseList.Add(mapper.UserToUsersResponse(element)); return true; });
+
+        await pageIterator.IterateAsync(cancellationToken);
+
+        return responseList;
     }
 
 
-    private UsersResponse Map(Microsoft.Graph.User user)
+    private UsersResponse Map(Microsoft.Graph.Models.User user)
     {
         return (UsersResponse)user;
     }

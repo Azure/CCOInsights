@@ -1,4 +1,5 @@
 ﻿using Microsoft.Graph;
+using Microsoft.Graph.Models;
 
 namespace CCOInsights.SubscriptionManager.Functions.Operations.ServicePrincipals;
 
@@ -7,20 +8,18 @@ public class ServicePrincipalProvider(GraphServiceClient graphServiceClient) : I
 {
     public async Task<IEnumerable<ServicePrincipalResponse>> GetAsync(string subscriptionId, CancellationToken cancellationToken = default)
     {
-        var result = await graphServiceClient.ServicePrincipals.Request().GetAsync(cancellationToken);
+        var resultResponse = await graphServiceClient.ServicePrincipals.GetAsync(null, cancellationToken);
 
-        var response = result.Select(Map).ToList();
+        var responseList = new List<ServicePrincipalResponse>();
 
-        while (result.NextPageRequest != null)
-        {
-            result = await result.NextPageRequest.GetAsync(cancellationToken);
-            response.AddRange(result.Select(Map).ToList());
-        }
-        return response;
+        var pageIterator = PageIterator<Microsoft.Graph.Models.ServicePrincipal, ServicePrincipalCollectionResponse>.CreatePageIterator(graphServiceClient, resultResponse, (Microsoft.Graph.Models.ServicePrincipal element) => { responseList.Add(Map(element)); return true; });
+
+        await pageIterator.IterateAsync(cancellationToken);
+        return responseList;
     }
 
 
-    private ServicePrincipalResponse Map(Microsoft.Graph.ServicePrincipal servicePrincipal)
+    private ServicePrincipalResponse Map(Microsoft.Graph.Models.ServicePrincipal servicePrincipal)
     {
         return new ServicePrincipalResponse
         {
@@ -58,35 +57,20 @@ public class ServicePrincipalProvider(GraphServiceClient graphServiceClient) : I
             TokenEncryptionKeyId = servicePrincipal.TokenEncryptionKeyId,
             VerifiedPublisher = servicePrincipal.VerifiedPublisher,
             AppRoleAssignedTo = servicePrincipal.AppRoleAssignedTo,
-            AppRoleAssignedToNextLink = servicePrincipal.AppRoleAssignedToNextLink,
             AppRoleAssignments = servicePrincipal.AppRoleAssignments,
-            AppRoleAssignmentsNextLink = servicePrincipal.AppRoleAssignmentsNextLink,
             ClaimsMappingPolicies = servicePrincipal.ClaimsMappingPolicies,
-            ClaimsMappingPoliciesNextLink = servicePrincipal.ClaimsMappingPoliciesNextLink,
             CreatedObjects = servicePrincipal.CreatedObjects,
-            CreatedObjectsNextLink = servicePrincipal.CreatedObjectsNextLink,
             DelegatedPermissionClassifications = servicePrincipal.DelegatedPermissionClassifications,
-            DelegatedPermissionClassificationsNextLink = servicePrincipal.DelegatedPermissionClassificationsNextLink,
             Endpoints = servicePrincipal.Endpoints,
-            EndpointsNextLink = servicePrincipal.EndpointsNextLink,
             FederatedIdentityCredentials = servicePrincipal.FederatedIdentityCredentials,
-            FederatedIdentityCredentialsNextLink = servicePrincipal.FederatedIdentityCredentialsNextLink,
             HomeRealmDiscoveryPolicies = servicePrincipal.HomeRealmDiscoveryPolicies,
-            HomeRealmDiscoveryPoliciesNextLink = servicePrincipal.HomeRealmDiscoveryPoliciesNextLink,
             MemberOf = servicePrincipal.MemberOf,
-            MemberOfNextLink = servicePrincipal.MemberOfNextLink,
             Oauth2PermissionGrants = servicePrincipal.Oauth2PermissionGrants,
-            Oauth2PermissionGrantsNextLink = servicePrincipal.Oauth2PermissionGrantsNextLink,
             OwnedObjects = servicePrincipal.OwnedObjects,
-            OwnedObjectsNextLink = servicePrincipal.OwnedObjectsNextLink,
             Owners = servicePrincipal.Owners,
-            OwnersNextLink = servicePrincipal.OwnersNextLink,
             TokenIssuancePolicies = servicePrincipal.TokenIssuancePolicies,
-            TokenIssuancePoliciesNextLink = servicePrincipal.TokenIssuancePoliciesNextLink,
             TokenLifetimePolicies = servicePrincipal.TokenLifetimePolicies,
-            TokenLifetimePoliciesNextLink = servicePrincipal.TokenLifetimePoliciesNextLink,
-            TransitiveMemberOf = servicePrincipal.TransitiveMemberOf,
-            TransitiveMemberOfNextLink = servicePrincipal.TransitiveMemberOfNextLink
+            TransitiveMemberOf = servicePrincipal.TransitiveMemberOf
         };
     }
 }

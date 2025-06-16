@@ -14,7 +14,7 @@
     <PackageReference Include="Riok.Mapperly" Version="4.2.1" />
     <PackageReference Include="Azure.Storage.Files.DataLake" Version="12.22.0" />
     <PackageReference Include="NetCore.AutoRegisterDi" Version="2.2.1" />
-    <PackageReference Include="Microsoft.Graph" Version="4.45.0" />
+    <PackageReference Include="Microsoft.Graph" Version="5.81.0" />
 
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="2.0.0" />

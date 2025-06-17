@@ -1,0 +1,11 @@
+@ghmetrics_HostAddress = http://localhost:5103
+
+GET {{ghmetrics_HostAddress}}/ghapi/
+Accept: application/json
+
+###
+
+GET {{ghmetrics_HostAddress}}/ghapi/metrics
+Accept: application/json
+
+###

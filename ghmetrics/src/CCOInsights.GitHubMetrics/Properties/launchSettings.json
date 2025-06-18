@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CCOInsights.GitHubMetrics": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36202.13 d17.14
+VisualStudioVersion = 17.14.36202.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ghmetrics", "ghmetrics.csproj", "{D4C1DF86-EE2B-4FFF-9B33-E6E6AC8D2276}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCOInsights.GitHubMetrics", "src\CCOInsights.GitHubMetrics\CCOInsights.GitHubMetrics.csproj", "{7DB2138A-3FC0-46BF-B421-9AE97DF28925}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ghmetrics", "src\ghmetrics\ghmetrics.csproj", "{05FA21B0-3DA8-E9BF-CDC9-BD0FF24B7AC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D4C1DF86-EE2B-4FFF-9B33-E6E6AC8D2276}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4C1DF86-EE2B-4FFF-9B33-E6E6AC8D2276}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4C1DF86-EE2B-4FFF-9B33-E6E6AC8D2276}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4C1DF86-EE2B-4FFF-9B33-E6E6AC8D2276}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DB2138A-3FC0-46BF-B421-9AE97DF28925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DB2138A-3FC0-46BF-B421-9AE97DF28925}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DB2138A-3FC0-46BF-B421-9AE97DF28925}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DB2138A-3FC0-46BF-B421-9AE97DF28925}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05FA21B0-3DA8-E9BF-CDC9-BD0FF24B7AC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05FA21B0-3DA8-E9BF-CDC9-BD0FF24B7AC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05FA21B0-3DA8-E9BF-CDC9-BD0FF24B7AC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05FA21B0-3DA8-E9BF-CDC9-BD0FF24B7AC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

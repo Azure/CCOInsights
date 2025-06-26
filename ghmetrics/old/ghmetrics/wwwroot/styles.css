@@ -1,0 +1,678 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.dashboard-container {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Header Styles */
+.dashboard-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.github-icon {
+    background: #24292e;
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-left h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #24292e;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.date-range-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.date-range-selector label {
+    font-weight: 500;
+    color: #666;
+}
+
+.date-range-selector select {
+    padding: 8px 12px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.date-range-selector select:focus {
+    outline: none;
+    border-color: #0366d6;
+}
+
+.edit-mode-btn {
+    background: #6f42c1;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+.edit-mode-btn:hover {
+    background: #5a2d91;
+}
+
+.edit-mode-btn.active {
+    background: #dc3545;
+}
+
+.edit-mode-btn.active:hover {
+    background: #c82333;
+}
+
+.refresh-btn {
+    background: #0366d6;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+.refresh-btn:hover {
+    background: #0250a3;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card.watchers {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.stat-card.stars {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.stat-card.forks {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+}
+
+.stat-label {
+    font-size: 16px;
+    font-weight: 500;
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* Repository Info Section */
+.repo-info-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.repo-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.metric-item {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    text-align: center;
+    transition: background 0.2s;
+    min-height: 70px;
+    justify-content: center;
+}
+
+.metric-item:hover {
+    background: #e9ecef;
+}
+
+.metric-label {
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.metric-value {
+    color: #24292e;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* Charts Grid */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.chart-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    min-height: 300px;
+    position: relative;
+}
+
+.chart-container h3 {
+    margin-bottom: 15px;
+    color: #24292e;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.chart-container canvas {
+    max-height: 280px !important;
+    width: 100% !important;
+    height: auto !important;
+}
+
+.gauge-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 180px;
+    width: 100%;
+}
+
+.gauge-container canvas {
+    max-height: 180px !important;
+    max-width: 180px !important;
+}
+
+.gauge-value {
+    position: absolute;
+    font-size: 20px;
+    font-weight: 700;
+    color: #24292e;
+    z-index: 10;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    color: white;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-overlay p {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Error Message */
+.error-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    z-index: 1001;
+    max-width: 400px;
+    width: 90%;
+}
+
+.error-content h3 {
+    color: #d73a49;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.error-content p {
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.error-content button {
+    background: #0366d6;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.error-content button:hover {
+    background: #0250a3;
+}
+
+/* Widget Controls and Edit Mode */
+.widget-controls {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: none;
+    gap: 5px;
+    z-index: 20;
+}
+
+.widget-controls button {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.2s;
+}
+
+.widget-controls button:hover {
+    background: white;
+    color: #333;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.resize-handle {
+    cursor: nw-resize !important;
+}
+
+.move-handle {
+    cursor: move !important;
+}
+
+/* Edit Mode Styles */
+body.edit-mode .widget-controls {
+    display: flex;
+}
+
+body.edit-mode .chart-container.draggable {
+    border: 2px dashed #6f42c1;
+    position: relative;
+}
+
+body.edit-mode .chart-container.draggable:hover {
+    border-color: #5a2d91;
+    transform: none;
+    box-shadow: 0 0 0 4px rgba(111, 66, 193, 0.1);
+}
+
+body.edit-mode .chart-container.dragging {
+    opacity: 0.7;
+    transform: rotate(2deg);
+    z-index: 1000;
+    border-color: #dc3545;
+}
+
+/* Sortable placeholder */
+.sortable-placeholder {
+    background: rgba(111, 66, 193, 0.1);
+    border: 2px dashed #6f42c1;
+    border-radius: 16px;
+    min-height: 300px;
+    margin: 10px;
+}
+
+/* Resize handles for widgets */
+.chart-container.resizable {
+    resize: both;
+    overflow: auto;
+    min-width: 250px;
+    min-height: 200px;
+}
+
+body.edit-mode .chart-container.resizable::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(-45deg, transparent 30%, #6f42c1 30%, #6f42c1 70%, transparent 70%);
+    cursor: nw-resize;
+    z-index: 10;
+}
+
+/* Grid layout adjustments for edit mode */
+body.edit-mode .charts-grid {
+    gap: 15px;
+}
+
+body.edit-mode .chart-container {
+    transition: none;
+}
+
+/* Disable chart interactions in edit mode */
+body.edit-mode canvas {
+    pointer-events: none;
+}
+
+/* Edit mode notification */
+.edit-mode-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #6f42c1;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1001;
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Size adjustment controls */
+.size-controls {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    display: none;
+    gap: 5px;
+    z-index: 20;
+}
+
+body.edit-mode .size-controls {
+    display: flex;
+}
+
+.size-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 28px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #666;
+    font-size: 10px;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.size-btn:hover {
+    background: white;
+    color: #333;
+}
+
+.size-btn.active {
+    background: #6f42c1;
+    color: white;
+    border-color: #6f42c1;
+}
+
+/* Widget Size Classes */
+.widget-small {
+    grid-column: span 1;
+    min-height: 200px;
+}
+
+.widget-normal {
+    grid-column: span 1;
+    min-height: 300px;
+}
+
+.widget-large {
+    grid-column: span 2;
+    min-height: 350px;
+}
+
+.widget-small canvas {
+    max-height: 180px !important;
+}
+
+.widget-normal canvas {
+    max-height: 250px !important;
+}
+
+.widget-large canvas {
+    max-height: 300px !important;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .charts-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    
+    .widget-large {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 15px;
+    }
+    
+    .dashboard-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .header-left h1 {
+        font-size: 24px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .repo-metrics {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+      .charts-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .chart-container {
+        padding: 15px;
+        min-height: 250px;
+    }
+    
+    .chart-container canvas {
+        max-height: 200px !important;
+    }
+    
+    .gauge-container {
+        height: 150px;
+    }
+    
+    .gauge-container canvas {
+        max-height: 150px !important;
+        max-width: 150px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-container {
+        padding: 10px;
+    }
+    
+    .stat-value {
+        font-size: 32px;
+    }
+    
+    .metric-value {
+        font-size: 18px;
+    }
+    
+    .chart-container {
+        padding: 12px;
+        min-height: 220px;
+    }
+    
+    .chart-container h3 {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    
+    .gauge-container {
+        height: 120px;
+    }
+    
+    .gauge-container canvas {
+        max-height: 120px !important;
+        max-width: 120px !important;
+    }
+    
+    .gauge-value {
+        font-size: 16px;
+    }
+}

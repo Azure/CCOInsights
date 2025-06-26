@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Metrics Dashboard</title>    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/index.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <div class="github-icon">
+                    <svg width="32" height="32" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                </div>
+                <h1>GitHub Metrics Dashboard</h1>
+            </div>
+            <div class="header-right">                <div class="date-range-selector">
+                    <label for="dateRange">Period:</label>
+                    <select id="dateRange">
+                        <option value="1month">Last Month</option>
+                        <option value="3months">Last 3 Months</option>
+                        <option value="6months" selected>Last 6 Months</option>
+                        <option value="1year">Last Year</option>
+                    </select>
+                </div>
+                <div class="header-buttons">
+                    <button id="editModeBtn" class="edit-mode-btn">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708L10.5 8.207l-3-3L12.146.146zM11.207 9.5L9 7.293L3.854 12.438a.5.5 0 0 0-.126.307l-.5 4a.5.5 0 0 0 .553.592l4-.5a.5.5 0 0 0 .307-.126L11.207 9.5z"/>
+                        </svg>
+                        Edit Layout
+                    </button>
+                    <button id="refreshBtn" class="refresh-btn">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 3a5 5 0 104.546 2.914.5.5 0 00-.908-.417A4 4 0 118 4V3z"/>
+                            <path d="M8 4.466V.534a.25.25 0 01.41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 018 4.466z"/>
+                        </svg>
+                        Refresh
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Top Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card watchers">
+                <div class="stat-label">Watchers</div>
+                <div class="stat-value" id="watchersCount">-</div>
+            </div>
+            <div class="stat-card stars">
+                <div class="stat-label">Stars</div>
+                <div class="stat-value" id="starsCount">-</div>
+            </div>
+            <div class="stat-card forks">
+                <div class="stat-label">Forks</div>
+                <div class="stat-value" id="forksCount">-</div>
+            </div>
+        </div>
+
+        <!-- Repository Info Section -->
+        <div class="repo-info-section">
+            <div class="repo-metrics">
+                <div class="metric-item">
+                    <span class="metric-label">Open Pull Requests</span>
+                    <span class="metric-value" id="openPRs">-</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Average PR per Day</span>
+                    <span class="metric-value" id="avgPRPerDay">-</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">PR Lifecycle (days)</span>
+                    <span class="metric-value" id="prLifecycle">-</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Clones</span>
+                    <span class="metric-value" id="clones">-</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Unique Views</span>
+                    <span class="metric-value" id="uniqueViews">-</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Open Issues</span>
+                    <span class="metric-value" id="openIssues">-</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Total Issues</span>
+                    <span class="metric-value" id="totalIssues">-</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Contributors</span>
+                    <span class="metric-value" id="contributors">-</span>
+                </div>
+            </div>
+        </div>        <!-- Charts Section -->
+        <div class="charts-grid" id="chartsGrid">
+            <!-- PR and Issues Closed Rate -->            <div class="chart-container draggable" data-widget-id="pr-closed-rate">
+                <div class="widget-controls">
+                    <button class="move-handle" title="Move">
+                        <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="size-controls">
+                    <button class="size-btn" data-size="small" title="Small">S</button>
+                    <button class="size-btn active" data-size="normal" title="Normal">M</button>
+                    <button class="size-btn" data-size="large" title="Large">L</button>
+                </div>
+                <h3>PR Closed Rate</h3>
+                <div class="gauge-container">
+                    <canvas id="prClosedRateChart"></canvas>
+                    <div class="gauge-value" id="prClosedRateValue">0%</div>
+                </div>
+            </div>            <div class="chart-container draggable" data-widget-id="issues-closed-rate">
+                <div class="widget-controls">
+                    <button class="move-handle" title="Move">
+                        <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="size-controls">
+                    <button class="size-btn" data-size="small" title="Small">S</button>
+                    <button class="size-btn active" data-size="normal" title="Normal">M</button>
+                    <button class="size-btn" data-size="large" title="Large">L</button>
+                </div>
+                <h3>Issues Closed Rate</h3>
+                <div class="gauge-container">
+                    <canvas id="issuesClosedRateChart"></canvas>
+                    <div class="gauge-value" id="issuesClosedRateValue">0%</div>
+                </div>
+            </div>            <!-- PR Activity Chart -->
+            <div class="chart-container draggable" data-widget-id="pr-activity">
+                <div class="widget-controls">
+                    <button class="move-handle" title="Move">
+                        <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z"/>
+                        </svg>
+                    </button>
+                </div>                <div class="size-controls">
+                    <button class="size-btn" data-size="small" title="Small">S</button>
+                    <button class="size-btn" data-size="normal" title="Normal">M</button>
+                    <button class="size-btn" data-size="large" title="Large">L</button>
+                </div>
+                <h3 id="prActivityTitle">Opened vs Closed PRs</h3>
+                <canvas id="prActivityChart"></canvas>
+            </div><!-- Contributors Pie Chart -->
+            <div class="chart-container draggable" data-widget-id="contributors">
+                <div class="widget-controls">
+                    <button class="move-handle" title="Move">
+                        <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="size-controls">
+                    <button class="size-btn" data-size="small" title="Small">S</button>
+                    <button class="size-btn active" data-size="normal" title="Normal">M</button>
+                    <button class="size-btn" data-size="large" title="Large">L</button>
+                </div>
+                <h3>Top PR Contributors</h3>
+                <canvas id="contributorsChart"></canvas>
+            </div>            <!-- Issues Activity Chart -->
+            <div class="chart-container draggable" data-widget-id="issues-activity">
+                <div class="widget-controls">
+                    <button class="move-handle" title="Move">
+                        <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="size-controls">
+                    <button class="size-btn" data-size="small" title="Small">S</button>
+                    <button class="size-btn active" data-size="normal" title="Normal">M</button>
+                    <button class="size-btn" data-size="large" title="Large">L</button>
+                </div>
+                <h3 id="issuesActivityTitle">Opened vs Closed Issues</h3>
+                <canvas id="issuesActivityChart"></canvas>
+            </div>            <!-- Forks vs Clones -->
+            <div class="chart-container draggable" data-widget-id="forks-clones">
+                <div class="widget-controls">
+                    <button class="move-handle" title="Move">
+                        <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z"/>
+                        </svg>
+                    </button>
+                </div>                <div class="size-controls">
+                    <button class="size-btn" data-size="small" title="Small">S</button>
+                    <button class="size-btn" data-size="normal" title="Normal">M</button>
+                    <button class="size-btn" data-size="large" title="Large">L</button>
+                </div>
+                <h3 id="forksVsClonesTitle">Forks vs Clones</h3>
+                <canvas id="forksVsClonesChart"></canvas>
+            </div><!-- Additions/Deletions -->
+            <div class="chart-container draggable" data-widget-id="additions-deletions">
+                <div class="widget-controls">
+                    <button class="move-handle" title="Move">
+                        <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="size-controls">
+                    <button class="size-btn" data-size="small" title="Small">S</button>
+                    <button class="size-btn active" data-size="normal" title="Normal">M</button>
+                    <button class="size-btn" data-size="large" title="Large">L</button>
+                </div>
+                <h3>Additions/Deletions</h3>
+                <canvas id="additionsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay">
+            <div class="loading-spinner"></div>
+            <p>Loading GitHub metrics...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="error-message" style="display: none;">
+            <div class="error-content">
+                <h3>Unable to load metrics</h3>
+                <p>Please ensure the API server is running on http://localhost:5103</p>
+                <button onclick="location.reload()">Retry</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

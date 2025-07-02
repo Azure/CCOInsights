@@ -70,6 +70,8 @@ public record IssueInfo
     public string? CreatedAt { get; init; }
     public string? UpdatedAt { get; init; }
     public string? ClosedAt { get; set; }
+    public string? Assignee { get; init; }
+    public string? Milestone { get; init; }
 }
 
 public record ReleaseInfo

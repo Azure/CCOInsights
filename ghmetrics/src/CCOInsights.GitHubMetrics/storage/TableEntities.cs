@@ -4,19 +4,23 @@ using Azure.Data.Tables;
 
 namespace CCOInsights.GithubMetrics.exports
 {
-    public class GhDataTableEntity : ITableEntity
+    public class RepositoryEntity : ITableEntity
     {
         public string PartitionKey { get; set; } = default!;
         public string RowKey { get; set; } = default!;
         public DateTimeOffset? Timestamp { get; set; }
         public ETag ETag { get; set; }
-
-        public string? RepoName { get; set; }
+        public string Id { get; set; }
+        public string? FullName { get; set; }
+        public string? Name { get; set; }
         public string? Owner { get; set; }
-        public int? ForksCount { get; set; }
-        public int? StarsCount { get; set; }
-        public int? ClonesCount { get; set; }
-        public int? ViewsCount { get; set; }
+        public int? OpenIssues { get; set; }
+        public int? Forks { get; set; }
+        public int? Stargazers { get; set; }
+        public int? Watchers { get; set; }
+        public int? Clones { get; set; }
+        public int? Views { get; set; }
+        public string? CreatedAt { get; set; }
     }
 
     // Fork entity
@@ -42,15 +46,17 @@ namespace CCOInsights.GithubMetrics.exports
     {
         public string PartitionKey { get; set; } = default!;
         public string RowKey { get; set; } = default!;
+        public string Id { get; set; } 
         public string? Title { get; set; }
         public string? User { get; set; }
         public string? State { get; set; }
-        public string? CreatedAt { get; set; }
         public int Additions { get; set; }
         public int Deletions { get; set; }
         public int ChangedFiles { get; set; }
-        public string? ClosedAt { get; set; }
-        public string? MergedAt { get; set; }
+        public string CreatedDate { get; set; }
+        public int Number { get; set; }
+        public string ClosedDate { get; set; }
+        public string? MergedDate { get; set; }
         public DateTimeOffset? Timestamp { get; set; }
         public ETag ETag { get; set; }
     }
@@ -72,6 +78,8 @@ namespace CCOInsights.GithubMetrics.exports
     {
         public string PartitionKey { get; set; } = "Contributors";
         public string RowKey { get; set; } = default!;
+        public string? Login { get; set; }
+        public string Id { get; set; }
         public string? AvatarUrl { get; set; }
         public DateTimeOffset? Timestamp { get; set; }
         public ETag ETag { get; set; }
@@ -82,6 +90,10 @@ namespace CCOInsights.GithubMetrics.exports
     {
         public string PartitionKey { get; set; } = "Issues";
         public string RowKey { get; set; } = default!;
+        public string Assignee { get; set; }
+        public string? Id { get; set; }
+        public string? Number { get; set; }
+        public string? Milestone { get; set; }
         public string? Title { get; set; }
         public string? User { get; set; }
         public string? State { get; set; }

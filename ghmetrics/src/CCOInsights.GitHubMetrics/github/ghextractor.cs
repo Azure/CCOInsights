@@ -137,13 +137,13 @@ public class GhExtractor
         }
 
         // Issues (excluding PRs)
-        var issues = await GetJsonArrayAsync(_httpClient, $"https://api.github.com/repos/{_owner}/{_owner}/issues?state=all");
+        var issues = await GetJsonArrayAsync(_httpClient, $"https://api.github.com/repos/{_owner}/{_repo}/issues?state=all");
         if (issues != null)
         {
             foreach (var issue in issues)
             {
-                if (!issue.TryGetProperty("pull_request", out _))
-                {
+                //if (!issue.TryGetProperty("pull_request", out _))
+                //{
                     var issueInfo = new IssueInfo
                     {
                         Id = issue.GetProperty("id").GetInt64(),
@@ -152,14 +152,15 @@ public class GhExtractor
                         User = issue.GetProperty("user").GetProperty("login").GetString(),
                         State = issue.GetProperty("state").GetString(),
                         CreatedAt = issue.GetProperty("created_at").GetString(),
-                        UpdatedAt = issue.GetProperty("updated_at").GetString()
+                        UpdatedAt = issue.GetProperty("updated_at").GetString(),
+                        Assignee = issue.GetProperty("assignee").GetString() ?? string.Empty,
                     };
                     if (issue.TryGetProperty("closed_at", out var closedAt) && closedAt.ValueKind != JsonValueKind.Null)
                     {
                         issueInfo.ClosedAt = closedAt.GetString();
                     }
                     result.Issues.Add(issueInfo);
-                }
+                //}
             }
         }
 

@@ -15,25 +15,30 @@ namespace CCOInsights.GithubMetrics.exports
         public async Task UploadGhDataAsync(
             GHExtractionResult data)
         {
-            var tableClient = _tableServiceClient.GetTableClient("REPODATA");
+            var tableClient = _tableServiceClient.GetTableClient("Repository");
             await tableClient.CreateIfNotExistsAsync();
-            var repoEntity = new GhDataTableEntity
+            var repoEntity = new RepositoryEntity
             {
                 PartitionKey= "RepositoryInfo",
                 RowKey = data.RepositoryInfo.Id.ToString(),
-                RepoName = data.RepositoryInfo.Name,
+                Id = data.RepositoryInfo.Id.ToString(),
+                Name = data.RepositoryInfo.Name,
+                FullName = data.RepositoryInfo.FullName,
                 Owner = data.RepositoryInfo.Owner,
-                ForksCount = data.RepositoryInfo.ForksCount,
-                StarsCount = data.RepositoryInfo.StarsCount,
-                ClonesCount = data.ClonesCount,
-                ViewsCount = data.ViewsCount,
+                OpenIssues = data.RepositoryInfo.OpenIssuesCount,
+                Forks = data.RepositoryInfo.ForksCount,
+                Stargazers = data.RepositoryInfo.StarsCount,
+                Watchers = data.RepositoryInfo.WatchersCount,
+                Clones = data.ClonesCount,
+                Views = data.ViewsCount,
+                CreatedAt = data.RepositoryInfo.CreatedAt,
             };
 
             await tableClient.UpsertEntityAsync(repoEntity);
             
 
             // Open Pull Requests
-            tableClient = _tableServiceClient.GetTableClient("OPENPRS");
+            tableClient = _tableServiceClient.GetTableClient("OpenPRs");
             await tableClient.CreateIfNotExistsAsync();
             foreach (var pr in data.OpenPullRequests)
             {
@@ -42,7 +47,7 @@ namespace CCOInsights.GithubMetrics.exports
             }
 
             // Closed Pull Requests
-            tableClient = _tableServiceClient.GetTableClient("CLOSEDPRS");
+            tableClient = _tableServiceClient.GetTableClient("ClosedPRs");
             await tableClient.CreateIfNotExistsAsync();
             foreach (var pr in data.ClosedPullRequests)
             {
@@ -51,7 +56,7 @@ namespace CCOInsights.GithubMetrics.exports
             }
 
             // Stargazers
-            tableClient = _tableServiceClient.GetTableClient("STARGAZERS");
+            tableClient = _tableServiceClient.GetTableClient("Stargazers");
             await tableClient.CreateIfNotExistsAsync();
             foreach (var star in data.Stargazers)
             {
@@ -66,45 +71,51 @@ namespace CCOInsights.GithubMetrics.exports
             }
 
             // Contributors
-            tableClient = _tableServiceClient.GetTableClient("CONTRIBUTORS");
+            tableClient = _tableServiceClient.GetTableClient("Contributors");
             await tableClient.CreateIfNotExistsAsync();
             foreach (var contr in data.Contributors)
             {
                 var contrEntity = new ContributorEntity
                 {
                     RowKey = contr.Id.ToString(),
+                    Login = contr.Login,
+                    Id = contr.Id.ToString(),
                     AvatarUrl = contr.AvatarUrl
                 };
                 await tableClient.UpsertEntityAsync(contrEntity);
             }
 
             // Issues
-            tableClient = _tableServiceClient.GetTableClient("ISSUES");
+            tableClient = _tableServiceClient.GetTableClient("Issues");
             await tableClient.CreateIfNotExistsAsync();
             foreach (var issue in data.Issues)
             {
                 var issueEntity = new IssueEntity
                 {
                     RowKey = issue.Id.ToString(),
+                    Id = issue.Id.ToString(),
+                    PartitionKey = "Issues",
+                    Assignee = issue.Assignee,
                     Title = issue.Title,
                     User = issue.User,
                     State = issue.State,
                     CreatedAt = issue.CreatedAt,
                     UpdatedAt = issue.UpdatedAt,
-                    ClosedAt = issue.ClosedAt
+                    ClosedAt = issue.ClosedAt,
+                    Milestone = issue.Milestone
                 };
                 await tableClient.UpsertEntityAsync(issueEntity);
             }
 
             // Releases
-            tableClient = _tableServiceClient.GetTableClient("RELEASES");
+            tableClient = _tableServiceClient.GetTableClient("Releases");
             await tableClient.CreateIfNotExistsAsync();
             foreach (var release in data.Releases)
             {
                 var releaseEntity = new ReleaseEntity
                 {
                     RowKey = Guid.NewGuid().ToString(),
-                    PublishedAt = release.PublishedAt
+                    PublishedAt = release.PublishedAt,
                 };
                 await tableClient.UpsertEntityAsync(releaseEntity);
             }
@@ -115,16 +126,18 @@ namespace CCOInsights.GithubMetrics.exports
             return new PullRequestEntity
             {
                 PartitionKey = partitionKey,
+                Id = pr.Id.ToString(),
+                Number = pr.Number,
                 RowKey = pr.Id.ToString(),
                 Title = pr.Title,
                 User = pr.User,
                 State = pr.State,
-                CreatedAt = pr.CreatedAt,
+                CreatedDate = pr.CreatedAt,
                 Additions = pr.Additions,
                 Deletions = pr.Deletions,
                 ChangedFiles = pr.ChangedFiles,
-                ClosedAt = pr.ClosedAt,
-                MergedAt = pr.MergedAt
+                ClosedDate = pr.ClosedAt,
+                MergedDate = pr.MergedAt
             };
         }
     }

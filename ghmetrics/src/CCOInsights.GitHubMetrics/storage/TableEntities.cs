@@ -28,18 +28,42 @@ namespace CCOInsights.GithubMetrics.exports
     {
         public string PartitionKey { get; set; } = "Forks";
         public string RowKey { get; set; } = default!;
+        public string Id { get; set; } = default!;
+        public string FullName { get; set; } = default!;
+        public string Owner { get; set; }
+        public string CreatedAt { get; set; } = default!;
         public DateTimeOffset? Timestamp { get; set; }
         public ETag ETag { get; set; }
     }
 
-    // Secondary fork entity
-    public class SecondaryForkEntity : ITableEntity
+    // Clone entity
+    public class CloneEntity : ITableEntity
     {
-        public string PartitionKey { get; set; } = "SecondaryForks";
+        public string PartitionKey { get; set; } = "Clones";
         public string RowKey { get; set; } = default!;
+        public string Id { get; set; } = default!;
+        public string Date { get; set; } = default!;
+        public int Count { get; set; } = default!;
+        public int Uniques { get; set; } = default!;
+
         public DateTimeOffset? Timestamp { get; set; }
         public ETag ETag { get; set; }
     }
+
+
+    // View entity
+    public class ViewEntity : ITableEntity
+    {
+        public string PartitionKey { get; set; } = "Views";
+        public string RowKey { get; set; } = default!;
+        public string Id { get; set; } = default!;
+        public string Date { get; set; } = default!;
+        public int Count { get; set; } = default!;
+        public int Uniques { get; set; } = default!;
+        public DateTimeOffset? Timestamp { get; set; }
+        public ETag ETag { get; set; }
+    }
+
 
     // Pull request entity
     public class PullRequestEntity : ITableEntity

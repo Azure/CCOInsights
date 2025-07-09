@@ -29,8 +29,6 @@ namespace CCOInsights.GithubMetrics.exports
                 Forks = data.RepositoryInfo.ForksCount,
                 Stargazers = data.RepositoryInfo.StarsCount,
                 Watchers = data.RepositoryInfo.WatchersCount,
-                Clones = data.ClonesCount,
-                Views = data.ViewsCount,
                 CreatedAt = data.RepositoryInfo.CreatedAt,
             };
 
@@ -69,6 +67,53 @@ namespace CCOInsights.GithubMetrics.exports
                 };
                 await tableClient.UpsertEntityAsync(starEntity);
             }
+            //Forks
+            tableClient = _tableServiceClient.GetTableClient("Forks");
+            await tableClient.CreateIfNotExistsAsync();
+            foreach (var fork in data.Forks)
+            {
+                var forkEntity = new ForkEntity
+                {
+                    RowKey = fork.Id.ToString(),
+                    FullName = fork.FullName,
+                    Owner = fork.Owner,
+                    CreatedAt = fork.CreatedAt,
+                    Id = fork.Id.ToString(),
+                };
+                await tableClient.UpsertEntityAsync(forkEntity);
+            }
+            //Clones
+            tableClient = _tableServiceClient.GetTableClient("Clones");
+            await tableClient.CreateIfNotExistsAsync();
+            foreach (var clone in data.Clones)
+            {
+                var cloneEntity = new CloneEntity
+                {
+                    RowKey = Guid.NewGuid().ToString(),
+                    Id = clone.Id,
+                    Date = clone.Date,
+                    Count = clone.Count ?? 0,
+                    Uniques = clone.Uniques ?? 0
+                };
+                await tableClient.UpsertEntityAsync(cloneEntity);
+            }
+
+            //Clones
+            tableClient = _tableServiceClient.GetTableClient("Views");
+            await tableClient.CreateIfNotExistsAsync();
+            foreach (var view in data.Views)
+            {
+                var viewEntity = new ViewEntity
+                {
+                    RowKey = Guid.NewGuid().ToString(),
+                    Id = view.Id,
+                    Date = view.Date,
+                    Count = view.Count ?? 0,
+                    Uniques = view.Uniques ?? 0
+                };
+                await tableClient.UpsertEntityAsync(viewEntity);
+            }
+
 
             // Contributors
             tableClient = _tableServiceClient.GetTableClient("Contributors");
@@ -95,7 +140,7 @@ namespace CCOInsights.GithubMetrics.exports
                     RowKey = issue.Id.ToString(),
                     Id = issue.Id.ToString(),
                     PartitionKey = "Issues",
-                    Assignee = issue.Assignee,
+                    Assignee = issue.Assignee ?? string.Empty,
                     Title = issue.Title,
                     User = issue.User,
                     State = issue.State,

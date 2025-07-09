@@ -3,10 +3,9 @@
 public record GHExtractionResult
 {
     public RepoInfo? RepositoryInfo { get; set; }
-    public List<string> Forks { get; } = new();
-    public List<string> SecondaryForks { get; } = new();
-    public int? ClonesCount { get; set; }
-    public int? ViewsCount { get; set; }
+    public List<ForksInfo> Forks { get; } = new();
+    public List<ClonesInfo> Clones { get; set; } = new();
+    public List<ViewsInfo> Views { get; set; } = new();
     public List<PullRequestDetails> OpenPullRequests { get; } = new();
     public List<PullRequestDetails> ClosedPullRequests { get; } = new();
     public List<StargazerInfo> Stargazers { get; } = new();
@@ -44,6 +43,22 @@ public record PullRequestDetails
     public string? ClosedAt { get; set; }
 }
 
+public record ViewsInfo
+{
+    public string Id { get; init; }
+    public string Date { get; init; }
+    public int? Count { get; init; }
+    public int? Uniques { get; init; }
+}
+
+public record ClonesInfo
+{
+    public string Id { get; init; }
+    public string Date { get; init; }
+    public int? Count { get; init; }
+    public int? Uniques { get; init; }
+}
+
 public record StargazerInfo
 {
     public string? Login { get; init; }
@@ -72,6 +87,14 @@ public record IssueInfo
     public string? ClosedAt { get; set; }
     public string? Assignee { get; init; }
     public string? Milestone { get; init; }
+}
+
+public record ForksInfo
+{
+    public string FullName { get; init; }
+    public long Id { get; init; }
+    public string Owner { get; init; }
+    public string CreatedAt { get; init; }
 }
 
 public record ReleaseInfo

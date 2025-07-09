@@ -53,35 +53,69 @@ public class GhExtractor
         {
             foreach (var fork in forksArray)
             {
-                var forkFullName = fork.GetProperty("full_name").GetString();
-                result.Forks.Add(forkFullName);
+                var forkInfo = new ForksInfo
+                {
+                    Id = fork.GetProperty("id").GetInt32(),
+                    FullName = fork.GetProperty("full_name").GetString(),
+                    Owner = fork.GetProperty("owner").GetProperty("login").GetString(),
+                    CreatedAt = fork.GetProperty("created_at").GetString()
+                };
+                result.Forks.Add(forkInfo);
 
-                var subForks = await GetJsonArrayAsync(_httpClient, $"https://api.github.com/repos/{forkFullName}/forks");
+                var subForks = await GetJsonArrayAsync(_httpClient, $"https://api.github.com/repos/{forkInfo.FullName}/forks");
                 if (subForks != null && subForks.Any())
                 {
                     foreach (var sf in subForks)
                     {
-                        var subForkUrl = sf.GetProperty("html_url").GetString();
-                        result.SecondaryForks.Add(subForkUrl);
+                        var subFork = new ForksInfo
+                        {
+                            Id = fork.GetProperty("id").GetInt32(),
+                            FullName = fork.GetProperty("full_name").GetString(),
+                            Owner = fork.GetProperty("owner").GetProperty("login").GetString(),
+                            CreatedAt = fork.GetProperty("created_at").GetString()
+                        };
+                        result.Forks.Add(subFork);
                     }
                 }
             }
         }
 
         // Traffic clones
-        var clones = await GetJsonAsync(_httpClient, $"https://api.github.com/repos/{_owner}/{_repo}/traffic/clones");
-        if (clones != null)
-        {
-            result.ClonesCount = clones.Value.GetProperty("count").GetInt32();
+        var clones = await GetJsonAsync(_httpClient, $"https://api.github.com/repos/{_owner}/{_repo}/traffic/clones?per_page=100");
+        if (clones != null) { 
+
+            var clonesArray = clones.Value.GetProperty("clones").EnumerateArray().ToArray();
+            foreach (var clone in clonesArray)
+            {
+                var cloneInfo = new ClonesInfo
+                {
+                    Id = clone.GetProperty("timestamp").GetString()?.Split(' ')[0].Replace("/", ""),
+                    Date = clone.GetProperty("timestamp").GetString(),
+                    Uniques = clone.GetProperty("uniques").GetInt32(),
+                    Count = clone.GetProperty("count").GetInt32()
+                };
+                result.Clones.Add(cloneInfo);
+            }
         }
 
         // Traffic views
-        var views = await GetJsonAsync(_httpClient, $"https://api.github.com/repos/{_owner}/{_repo}/traffic/views");
+        var views = await GetJsonAsync(_httpClient, $"https://api.github.com/repos/{_owner}/{_repo}/traffic/views?per_page=100");
         if (views != null)
         {
-            result.ViewsCount = views.Value.GetProperty("count").GetInt32();
+            var viewsArray = views.Value.GetProperty("views").EnumerateArray().ToArray();
+            foreach (var view in viewsArray)
+            {
+                var viewsInfo = new ViewsInfo
+                {
+                    Id = view.GetProperty("timestamp").GetString()?.Split(' ')[0].Replace("/", ""),
+                    Date = view.GetProperty("timestamp").GetString(),
+                    Uniques = view.GetProperty("uniques").GetInt32(),
+                    Count = view.GetProperty("count").GetInt32()
+                };
+                result.Views.Add(viewsInfo);
+            }
         }
-
+        
         // Pull Requests (open)
         var openPrs = await GetJsonArrayAsync(_httpClient, $"https://api.github.com/repos/{_owner}/{_repo}/pulls?state=open");
         if (openPrs != null)
@@ -153,7 +187,9 @@ public class GhExtractor
                         State = issue.GetProperty("state").GetString(),
                         CreatedAt = issue.GetProperty("created_at").GetString(),
                         UpdatedAt = issue.GetProperty("updated_at").GetString(),
-                        Assignee = issue.GetProperty("assignee").GetString() ?? string.Empty,
+                        Assignee = issue.GetProperty("assignee").ValueKind != JsonValueKind.Null
+                        ? issue.GetProperty("assignee").GetProperty("login").GetString() ?? string.Empty
+                        : string.Empty,
                     };
                     if (issue.TryGetProperty("closed_at", out var closedAt) && closedAt.ValueKind != JsonValueKind.Null)
                     {

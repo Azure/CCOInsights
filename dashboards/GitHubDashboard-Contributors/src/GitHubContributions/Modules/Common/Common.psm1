@@ -175,7 +175,7 @@ Function Get-OpenPullRequests {
     $table = (Get-AzStorageTable –Name $partitionKey –Context $ctx).CloudTable
 
     Write-Host "Fetching open pull requests..."
-    $openPullRequestsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/pulls?state=all&per_page=100"
+    $openPullRequestsBaseUrl = "https://api.github.com/repos/$($owner)/$($repository)/pulls?state=open&per_page=100"
     $header = @{authorization = "token $pat" }
     $page = 1
 

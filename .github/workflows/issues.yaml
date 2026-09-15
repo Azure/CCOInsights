@@ -20,7 +20,7 @@ jobs:
 
       - name: 'Create PBI in ADO'
         id: ado
-        uses: azure/CLI@v1
+        uses: azure/CLI@4db43908b9df2e7ac93c8275a8f9a448c59338dd # v1.0.9
         with:
           azcliversion: 2.30.0
           inlineScript: |
